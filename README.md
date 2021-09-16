@@ -46,7 +46,7 @@
     * 컬럼의 접두어는 외부 테이블의 경우에만 사용하되, 줄여쓰지 않습니다.
     ```
     ex) table : board
-    
+    bno (X) -> no (O)
     board_no (X) -> no (O)
     mem_no (X) -> member_no (O)
     ```
