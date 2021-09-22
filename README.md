@@ -50,17 +50,3 @@
     board_no (X) -> no (O)
     mem_no (X) -> member_no (O)
     ```
-* 상대경로, 절대경로 규칙
-  * href, link등 상대경로 설정 시 './'를 사용하지 않습니다.
-  * Spring Annotation을 사용할 때도 마찬가지입니다.
-  ```java
-  @GetMapping("./write.do") X -> @GetMapping("write.do") O
-  ```
-* Spring Annotation 규칙
-  * 기본적으로 @Controller, @Service, @Resource의 name을 설정하지 않습니다.
-    * 스프링 프레임워크가 자동 생성해주는 name을 사용합니다.
-    * 클래스명이 카멜 케이스로 변환되어 자동 생성됩니다.
-    ```java
-    ex) TestService -> testService
-    ```
-    
