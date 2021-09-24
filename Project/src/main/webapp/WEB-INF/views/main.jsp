@@ -19,11 +19,11 @@
 		</tr>
 		<c:forEach items="${list	}" var="l">
 			<tr>
-				<td>${l.sb_nno	}</td>
-				<td>${l.sb_title	}</td>
-				<td>${l.sb_date	}</td>
-				<td>${l.sb_count	}</td>
-				<td>${l.sm_name	}(${l.sm_id	})</td>
+				<td>${l.no	}</td>
+				<td>${l.title	}</td>
+				<td>${l.content	}</td>
+				<td>${l.date	}</td>
+				<td>${l.count	}</td>
 			</tr>
 		</c:forEach>
 	</table>

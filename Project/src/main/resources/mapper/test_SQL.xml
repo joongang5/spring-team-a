@@ -4,6 +4,6 @@
 
 <mapper namespace="test">
 	<select id="boardList" resultType="HashMap">
-		SELECT * FROM sbboardview
+		SELECT * FROM board
 	</select>
 </mapper>
