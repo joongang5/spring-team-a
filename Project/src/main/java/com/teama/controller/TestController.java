@@ -16,7 +16,7 @@ import com.teama.service.TestService;
 @Controller
 public class TestController {
 
-	@Resource
+	@Resource(name="testService")
 	private TestService testService;
 	
 	@GetMapping("main.do")
