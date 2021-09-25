@@ -11,18 +11,18 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.teama.common.CommandMap;
-import com.teama.service.TestService;
+import com.teama.service.IndexService;
 
 @Controller
-public class TestController {
+public class IndexController {
 
-	@Resource(name="testService")
-	private TestService testService;
+	@Resource(name="indexService")
+	private IndexService indexService;
 	
-	@GetMapping("main.do")
+	@GetMapping("index.do")
 	public ModelAndView main() throws Exception {
-		ModelAndView mv = new ModelAndView("main");
-		List<Map<String, Object>> list = testService.boardList();
+		ModelAndView mv = new ModelAndView("index");
+		List<Map<String, Object>> list = indexService.boardList();
 		mv.addObject("list", list);
 		return mv;
 	}

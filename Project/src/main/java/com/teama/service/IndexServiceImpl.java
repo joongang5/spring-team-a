@@ -8,8 +8,8 @@ import org.springframework.stereotype.Service;
 
 import com.teama.dao.TestDAO;
 
-@Service("testService")
-public class TestServiceImpl implements TestService {
+@Service("indexService")
+public class IndexServiceImpl implements IndexService {
 	
 	@Autowired
 	private TestDAO testDAO;
