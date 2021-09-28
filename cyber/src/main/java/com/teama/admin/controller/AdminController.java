@@ -22,8 +22,8 @@ public class AdminController {
 	@Resource(name="adminService")
 	private AdminService adminService;
 	
-	@GetMapping("book.do")
-	public ModelAndView book() {
+	@GetMapping("newBook.do")
+	public ModelAndView manageNewBook() {
 		ModelAndView mv = new ModelAndView("admin/admin");
 		
 		List<Map<String, Object>> list = adminService.bookList();
@@ -32,6 +32,13 @@ public class AdminController {
 		return mv;
 	}
 
+	@GetMapping("storageBook.do")
+	public ModelAndView manageStorageBook() {
+		ModelAndView mv = new ModelAndView("admin/storageBook");
+		
+		return mv;
+	}
+	
 	@GetMapping("member.do")
 	public ModelAndView member() {
 		ModelAndView mv = new ModelAndView("admin/member");
@@ -43,7 +50,7 @@ public class AdminController {
 	}
 
 	@PostMapping("registBestBook.do")
-	public ModelAndView bookBest() {
+	public ModelAndView registBestBook() {
 		ModelAndView mv = new ModelAndView("admin/admin");
 		
 		List<Map<String, Object>> list = adminService.bookList();

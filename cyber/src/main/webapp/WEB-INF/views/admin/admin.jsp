@@ -17,17 +17,7 @@
 <body>
 	<div id="wrap">
 		<header>
-			<ul>
-				<li>
-					<a href="/cyber/index.do">홈으로</a>
-				</li>
-				<li>
-					<a href="/cyber/admin/book.do">도서</a>
-				</li>
-				<li>
-					<a href="/cyber/admin/member.do">회원</a>
-				</li>
-			</ul>
+			<c:import url="/WEB-INF/views/admin/component/headerInner.jsp" />
 		</header>
 		<main>
 			<form name="bookInfo" method="post">
@@ -66,7 +56,7 @@
 			<table>
 				<tr>
 					<th>번호</th>
-					<td>표체</td>
+					<td>표제</td>
 					<td>권차</td>
 					<td>총서명</td>
 					<td>총서편차</td>

@@ -17,17 +17,7 @@
 <body>
 	<div id="wrap">
 		<header>
-			<ul>
-				<li>
-					<a href="/cyber/index.do">홈으로</a>
-				</li>
-				<li>
-					<a href="/cyber/admin/book.do">도서</a>
-				</li>
-				<li>
-					<a href="/cyber/admin/member.do">회원</a>
-				</li>
-			</ul>
+			<c:import url="/WEB-INF/views/admin/component/headerInner.jsp" />
 		</header>
 		<main>
 			<h3>회원 목록</h3>
