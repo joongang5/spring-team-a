@@ -33,32 +33,21 @@ public class AdminServiceImpl implements AdminService {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public Map<String, Object> searchBookByTitle(String title) {
+	public Map<String, Object> searchBook(SearchType searchType, String searchValue) {
+		if (searchValue.isEmpty())
+			return null;
+		
 		Map<String, Object> map = null;
 		
 		try {
 			HashMap<String, Object> searchInfo = new HashMap<String, Object>();
-			searchInfo.put("title", title);
-			JSONObject searchList = ebookDAO.ebookSearch(searchInfo);
-
-			ObjectMapper mapper = new ObjectMapper();
-			map = mapper.readValue(searchList.toString(), Map.class);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		return map;
-	}
-
-	@SuppressWarnings("unchecked")
-	@Override
-	public Map<String, Object> searchBookByISBN(String isbn) {
-		Map<String, Object> map = null;
-		
-		try {
-			HashMap<String, Object> searchInfo = new HashMap<String, Object>();
-			searchInfo.put("isbn", isbn);
+			searchInfo.put("pageNo", 1);
+			
+			if (searchType == SearchType.Title)
+				searchInfo.put("title", searchValue);
+			else if (searchType == SearchType.ISBN)
+				searchInfo.put("isbn", searchValue);
+				
 			JSONObject searchList = ebookDAO.ebookSearch(searchInfo);
 
 			ObjectMapper mapper = new ObjectMapper();

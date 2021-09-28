@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.teama.admin.service.AdminService;
+import com.teama.admin.service.SearchType;
 import com.teama.common.CommandMap;
 
 @Controller
@@ -52,7 +53,7 @@ public class AdminController {
 	}
 
 	@PostMapping("registRecommendBook.do")
-	public ModelAndView bookRecommend() {
+	public ModelAndView registRecommendBook() {
 		ModelAndView mv = new ModelAndView("admin/admin");
 		
 		List<Map<String, Object>> list = adminService.bookList();
@@ -63,25 +64,23 @@ public class AdminController {
 	
 	@SuppressWarnings("unchecked")
 	@PostMapping("searchBook.do")
-	public ModelAndView bookSearch(CommandMap commandMap) {
+	public ModelAndView searchBook(CommandMap commandMap) {
 		ModelAndView mv = new ModelAndView("admin/admin");
 		
-		String title = (String)commandMap.get("title");
-		String isbn = (String)commandMap.get("isbn");
+		String searchType = (String)commandMap.get("searchType");
+		String searchValue = (String)commandMap.get("searchValue");
 		
-		Map<String, Object> bookInfo = null;
-		if (title.isEmpty() == false)
-			bookInfo = adminService.searchBookByTitle(title);
-		else if (isbn.isEmpty() == false)
-			bookInfo = adminService.searchBookByISBN(isbn);
+		Map<String, Object> bookInfo = adminService.searchBook(SearchType.valueOf(searchType), searchValue);
 		
 		if (bookInfo != null) {
 			List<Map<String, Object>> docs = (List<Map<String, Object>>)bookInfo.get("docs");
 			Map<String, Object> docMap = docs.get(0);
 			
 			commandMap.put("author", (String)docMap.get("AUTHOR"));
-			mv.addObject("infoMap", commandMap.getMap());	
+			mv.addObject("infoMap", commandMap.getMap());
 		}
+		
+		mv.addObject("searchType", searchType);
 		
 		List<Map<String, Object>> list = adminService.bookList();
 		mv.addObject("list", list);
@@ -91,25 +90,22 @@ public class AdminController {
 	
 	@SuppressWarnings("unchecked")
 	@PostMapping("registBook.do")
-	public ModelAndView bookRegist(CommandMap commandMap) {
+	public ModelAndView registBook(CommandMap commandMap) {
 		ModelAndView mv = new ModelAndView("admin/admin");
+
+		String searchType = (String)commandMap.get("searchType");
+		String searchValue = (String)commandMap.get("searchValue");
 		
-		String title = (String)commandMap.get("title");
-		
-		String isbn = (String)commandMap.get("isbn");
-		
-		Map<String, Object> bookInfo = null;
-		if (title.isEmpty() == false)
-			bookInfo = adminService.searchBookByTitle(title);
-		else if (isbn.isEmpty() == false)
-			bookInfo = adminService.searchBookByISBN(isbn);
+		Map<String, Object> bookInfo = adminService.searchBook(SearchType.valueOf(searchType), searchValue);
 		
 		if (bookInfo != null) {
 			List<Map<String, Object>> docs = (List<Map<String, Object>>)bookInfo.get("docs");
 			Map<String, Object> docMap = docs.get(0);
-			
+
 			adminService.registBook(docMap);
 		}
+
+		mv.addObject("searchType", searchType);
 		
 		List<Map<String, Object>> list = adminService.bookList();
 		mv.addObject("list", list);

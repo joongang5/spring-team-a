@@ -35,18 +35,18 @@
 				<input type="submit" value="인기" formaction="/cyber/admin/registBestBook.do">
 				<input type="submit" value="사서추천" formaction="/cyber/admin/registRecommendBook.do">
 				<hr>
+				
 				<h3>도서 개별 등록</h3>
 				<table>
 					<tr>
-						<th>제목</th>
+						<th>
+							<select name="searchType">
+								<option value="Title" <c:if test="${searchType eq 'Title' }">selected="selected"</c:if>>제목</option>
+								<option value="ISBN" <c:if test="${searchType eq 'ISBN' }">selected="selected"</c:if>>ISBN</option>
+							</select>
+						</th>
 						<td>
-							<input type="text" name="title" value="${infoMap.title }">
-						</td>
-					</tr>
-					<tr>
-						<th>ISBN</th>
-						<td>
-							<input type="text" name="isbn" value="${infoMap.isbn }">
+							<input type="text" name="searchValue" value="${infoMap.searchValue }">
 						</td>
 					</tr>
 					<tr>
@@ -60,7 +60,8 @@
 				<input type="submit" value="등록" formaction="/cyber/admin/registBook.do">
 				<input type="submit" value="초기화">
 			</form>
-			<hr>	
+			<hr>
+			
 			<h3>등록된 도서 목록</h3>
 			<table>
 				<tr>
