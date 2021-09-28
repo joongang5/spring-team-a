@@ -9,6 +9,7 @@
 	#logo { margin: 0; padding: 20px; float: left; display: inline; }
 	#gnbNav { float: left; }
 	#siteMenu .join::before { content: ' | '; }
+	#siteMenu .admin::before { content: ' | '; }
 	#headerInner a { color: white; }
 	#headerInner a:link { text-decoration: none; }
 	#headerInner a:visited { text-decoration: none; color: white; }
@@ -23,6 +24,9 @@
 			</li>
 			<li class="join">
 				<a href="memberJoinRegist.do">회원가입</a>
+			</li>
+			<li class="admin">
+				<a href="admin/book.do">관리자</a>
 			</li>
 		</ul>
 	</div>
