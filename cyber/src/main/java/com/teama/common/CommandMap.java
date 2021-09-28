@@ -25,6 +25,10 @@ public class CommandMap {
 		return map.containsValue(value);
 	}
 
+	public Object get(String key) {
+		return map.get(key);
+	}
+	
 	public void clear() {
 		map.clear();
 	}

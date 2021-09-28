@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.teama.admin.service.AdminService;
+import com.teama.common.CommandMap;
 
 @Controller
 @RequestMapping("/admin")
@@ -61,8 +62,10 @@ public class AdminController {
 	}
 	
 	@PostMapping("searchBook.do")
-	public ModelAndView bookSearch() {
+	public ModelAndView bookSearch(CommandMap commandMap) {
 		ModelAndView mv = new ModelAndView("admin/admin");
+		
+		mv.addObject("infoMap", commandMap.getMap());
 		
 		List<Map<String, Object>> list = adminService.bookList();
 		mv.addObject("list", list);

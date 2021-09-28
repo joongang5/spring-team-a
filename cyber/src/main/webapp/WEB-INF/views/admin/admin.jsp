@@ -47,13 +47,13 @@
 					<tr>
 						<th>제목</th>
 						<td>
-							<input type="text" name="title">
+							<input type="text" name="title" value="${infoMap.title }">
 						</td>
 					</tr>
 					<tr>
 						<th>ISBN</th>
 						<td>
-							<input type="text" name="isbn">
+							<input type="text" name="isbn" value="${infoMap.isbn }">
 						</td>
 					</tr>
 					<tr>
@@ -68,7 +68,7 @@
 				<input type="submit" value="초기화">
 			</form>
 			<hr>	
-			<h3>도서 목록</h3>
+			<h3>등록된 도서 목록</h3>
 			<table>
 				<tr>
 					<th>번호</th>
