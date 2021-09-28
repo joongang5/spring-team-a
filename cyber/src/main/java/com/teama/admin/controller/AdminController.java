@@ -65,6 +65,14 @@ public class AdminController {
 	public ModelAndView bookSearch(CommandMap commandMap) {
 		ModelAndView mv = new ModelAndView("admin/admin");
 		
+		long isbn = 0;
+		String strIsbn = (String)commandMap.get("isbn");
+		if (strIsbn.isEmpty() == false)
+			isbn = Long.parseLong(strIsbn);
+		
+		Map<String, Object> bookInfo = adminService.searchBook(isbn);
+		
+		commandMap.put("author", (String)bookInfo.get("auther"));
 		mv.addObject("infoMap", commandMap.getMap());
 		
 		List<Map<String, Object>> list = adminService.bookList();
