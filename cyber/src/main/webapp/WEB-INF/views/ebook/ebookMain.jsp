@@ -89,32 +89,49 @@ $(document).ready(function() {
 			});
 		});
 });
-
-function paging(pageNo) {
-	$.ajax({
-		url : "./ebookMain.do",
-		type : "POST",
-		cache : false,
-		dataType : "json",
-		data : {
-			"pageNo" : pageNo
-		},
-		success : function(data) {
-			//alert("정상 : pageNo : " + data.PAGE_NO);
-			//alert("정상 : list : " + data.docs);
-			emp(data);
-		},
-		error : function(requst, status, error) {
-			alert("error : " + error);
-		}
-	});
+function paging(pageNo, search) {
+	if(search!=null){
+		$.ajax({
+			url : "./ebookMain.do",
+			type : "POST",
+			cache : false,
+			dataType : "json",
+			data : {
+				"pageNo" : pageNo,
+				"title" : search
+			},
+			success : function(data) {
+				emp(data);
+			},
+			error : function(requst, status, error) {
+				alert("error : " + error);
+			}
+		});
+	} else{
+		$.ajax({
+			url : "./ebookMain.do",
+			type : "POST",
+			cache : false,
+			dataType : "json",
+			data : {
+				"pageNo" : pageNo
+			},
+			success : function(data) {
+				emp(data);
+			},
+			error : function(requst, status, error) {
+				alert("error : " + error);
+			}
+		});
+	}
 }
 function emp(data) {
 	$("#mainTable").empty();
 	$("#paging").empty();
-	var pageNo = data.PAGE_NO;
+	var search = data.search;
+	var pageNo = parseInt(data.PAGE_NO);
 	var list = data.docs;
-	var totalCount = data.TOTAL_COUNT;
+	var totalCount = parseInt(data.TOTAL_COUNT);
 	var temp = "<h1>페이지 번호 : " + pageNo + "</h1>";
 	temp += "<h2>전체 글 수  : " + totalCount + "</h2>";
 	temp += "<table>";
@@ -132,6 +149,64 @@ function emp(data) {
 	}
 	temp += "</table>";
 	$("#mainTable").append(temp);
+	
+	var totalPage = parseInt(totalCount / 10);
+	if(totalCount % 10 != 0){
+		totalPage += 1; //10으로 나눈 나머지의 값이 있을 때 +1
+	}
+	var startPage = parseInt(pageNo / 10) * 10 + 1 ; // 혹시나 여긴 나중에 수정
+	
+	if(pageNo % 10 == 0 ){
+		startPage = pageNo - 9; 
+	} 
+	
+	var endPage = startPage + 9; //여기도 나중에 수정 
+	if(totalPage < endPage){
+		endPage = totalPage;
+	}
+	var nextPage = pageNo + 1;
+	var prevPage = pageNo - 1;
+	// 출력
+	var paging = "";
+	
+	// 첫 페이지 설정
+	if(pageNo != 1){
+		paging += "<button onclick=paging(1)>처음</button>";	
+	}else{
+		paging +="<button disabled='disabled')>처음</button>";	
+	}
+	
+	// 이전 페이지 설정
+	if(pageNo > 1){
+		paging += "<button onclick=paging("+ prevPage + ",'"+search+"')>이전</button>";	
+	}else{
+		paging +="<button disabled='disabled')>이전</button>";	
+	}
+	
+	//for출력
+	for(var i = startPage; i <= endPage; i++){
+		if(pageNo != i){
+			paging += "<button onclick=paging("+i+",'"+search+"')>" + i + "</button>";			
+		}else{
+			paging += "<b>" + i + "</b>";						
+		}
+	}
+	
+	// 이후 페이지 설정
+	if(pageNo < totalPage){
+		paging += "<button onclick=paging(" + nextPage + ",'"+search+"')>다음</button>"		
+	}else{
+		paging += "<button disabled='disabled')>다음</button>"			
+	}
+	
+	if( pageNo < totalPage){
+		paging += "<button onclick=paging(" + (totalPage) + ",'"+search+"')>마지막</button>"		
+	}else{
+		paging += "<button disabled='disabled')>마지막</button>"			
+	}
+	
+	
+	$("#paging").append(paging);
 }
 
 </script>
@@ -159,7 +234,7 @@ function emp(data) {
 			<hr>		
 		</c:forEach>	 --%>
 			</div>
-			<div id="paging">pageNo : ${pageNo }</div>
+			<div id="paging"></div>
 		</main>
 		<footer>footer</footer>
 	</div>

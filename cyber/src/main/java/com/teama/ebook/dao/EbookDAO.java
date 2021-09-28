@@ -20,8 +20,10 @@ public class EbookDAO {
 		
 		sb.append("?" + URLEncoder.encode("cert_key", "UTF-8") + "=" + serviceKey);
 		sb.append("&" + URLEncoder.encode("result_style", "UTF-8") + "=json");
-		sb.append("&" + URLEncoder.encode("page_no", "UTF-8") + "=1");
 		sb.append("&" + URLEncoder.encode("page_size", "UTF-8") + "=10");
+		if(map.get("pageNo") != null) {
+			sb.append("&" + URLEncoder.encode("page_no", "UTF-8") + "="+map.get("pageNo"));			
+		}
 		if(map.get("title") != null) {
 			sb.append("&" + URLEncoder.encode("title", "UTF-8") + "=" + URLEncoder.encode((String) map.get("title"),"UTF-8"));			
 		}
@@ -29,9 +31,9 @@ public class EbookDAO {
 		URL url = new URL(sb.toString());
 		JSONParser parser = new JSONParser();
 		JSONObject jsonObject = (JSONObject) parser.parse(new InputStreamReader(url.openStream()));
-		System.out.println("Json");
-		System.out.println(jsonObject.toJSONString());
-		System.out.println("Json");
+//		System.out.println("Json");
+//		System.out.println(jsonObject.toJSONString());
+//		System.out.println("Json");
 
 		return jsonObject;
 	}
