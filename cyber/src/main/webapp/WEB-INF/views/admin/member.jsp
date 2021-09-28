@@ -9,10 +9,6 @@
 	<title>관리자</title>
 	<style>
 		body { margin: 0; padding: 0; }
-		#wrap { width: 1000px; margin: 0 auto; }
-		header { width: 1000px; height: 130px; background: #111; }
-		main { float: left; width: 1000px; height: 600px; background: #222; }
-		footer	{ clear: both; width: 1000px; height: 100px; background: #333; }
 		ul { margin: 0; }
 		table { border: 1px solid black; }
 		th, td { border: 1px solid black; }
@@ -34,6 +30,7 @@
 			</ul>
 		</header>
 		<main>
+			<h3>회원 목록</h3>
 			<table>
 				<tr>
 					<th>번호</th>
@@ -55,7 +52,6 @@
 				</c:forEach>
 			</table>
 		</main>
-		<footer>footer</footer>
 	</div>
 </body>
 </html>

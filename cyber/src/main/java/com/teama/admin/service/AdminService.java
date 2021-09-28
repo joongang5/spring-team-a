@@ -8,6 +8,7 @@ public interface AdminService {
 	public List<Map<String, Object>> bookList();
 	public List<Map<String, Object>> memberList();
 	
-	public Map<String, Object> searchBook(long isbn);
-	public void registBook(long isbn);
+	public Map<String, Object> searchBookByTitle(String title);
+	public Map<String, Object> searchBookByISBN(String isbn);
+	public void registBook(Map<String, Object> infoMap);
 }

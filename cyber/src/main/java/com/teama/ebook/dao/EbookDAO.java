@@ -27,6 +27,9 @@ public class EbookDAO {
 		if(map.get("title") != null) {
 			sb.append("&" + URLEncoder.encode("title", "UTF-8") + "=" + URLEncoder.encode((String) map.get("title"),"UTF-8"));			
 		}
+		if(map.get("isbn") != null) {
+			sb.append("&" + URLEncoder.encode("isbn", "UTF-8") + "=" + URLEncoder.encode((String) map.get("isbn"),"UTF-8"));			
+		}
 		
 		URL url = new URL(sb.toString());
 		JSONParser parser = new JSONParser();

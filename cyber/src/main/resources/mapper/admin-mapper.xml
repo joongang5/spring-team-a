@@ -10,4 +10,71 @@
 	<select id="memberList" resultType="HashMap">
 		SELECT * FROM member
 	</select>
+	
+	<insert id="insertBook" parameterType="HashMap">
+		INSERT INTO book (
+			title,
+			vol,
+			series_title,
+			series_no,
+			author,
+			ea_isbn,
+			ea_add_code,
+			set_isbn,
+			set_add_code,
+			set_expression,
+			publisher,
+			edition_stmt,
+			pre_price,
+			kdc,
+			ddc,
+			page,
+			book_size,
+			form,
+			publish_predate,
+			subject,
+			ebook_yn,
+			cip_yn,
+			control_no,
+			title_url,
+			book_tb_cnt_url,
+			book_introduction_url,
+			book_summary_url,
+			publisher_url,
+			input_date,
+			update_date
+		)
+		VALUES (
+			#{TITLE},
+			#{VOL},
+			#{SERIES_TITLE},
+			#{SERIES_NO},
+			#{AUTHOR},
+			#{EA_ISBN},
+			#{EA_ADD_CODE},
+			#{SET_ISBN},
+			#{SET_ADD_CODE},
+			#{SET_EXPRESSION},
+			#{PUBLISHER},
+			#{EDITION_STMT},
+			#{PRE_PRICE},
+			#{KDC},
+			#{DDC},
+			#{PAGE},
+			#{BOOK_SIZE},
+			#{FORM},
+			#{PUBLISH_PREDATE},
+			#{SUBJECT},
+			#{EBOOK_YN},
+			#{CIP_YN},
+			#{CONTROL_NO},
+			#{TITLE_URL},
+			#{BOOK_TB_CNT_URL},
+			#{BOOK_INTRODUCTION_URL},
+			#{BOOK_SUMMARY_URL},
+			#{PUBLISHER_URL},
+			#{INPUT_DATE},
+			#{UPDATE_DATE}
+		)
+	</insert>
 </mapper>

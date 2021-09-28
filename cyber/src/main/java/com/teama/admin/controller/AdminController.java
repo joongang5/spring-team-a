@@ -61,19 +61,27 @@ public class AdminController {
 		return mv;
 	}
 	
+	@SuppressWarnings("unchecked")
 	@PostMapping("searchBook.do")
 	public ModelAndView bookSearch(CommandMap commandMap) {
 		ModelAndView mv = new ModelAndView("admin/admin");
 		
-		long isbn = 0;
-		String strIsbn = (String)commandMap.get("isbn");
-		if (strIsbn.isEmpty() == false)
-			isbn = Long.parseLong(strIsbn);
+		String title = (String)commandMap.get("title");
+		String isbn = (String)commandMap.get("isbn");
 		
-		Map<String, Object> bookInfo = adminService.searchBook(isbn);
+		Map<String, Object> bookInfo = null;
+		if (title.isEmpty() == false)
+			bookInfo = adminService.searchBookByTitle(title);
+		else if (isbn.isEmpty() == false)
+			bookInfo = adminService.searchBookByISBN(isbn);
 		
-		commandMap.put("author", (String)bookInfo.get("auther"));
-		mv.addObject("infoMap", commandMap.getMap());
+		if (bookInfo != null) {
+			List<Map<String, Object>> docs = (List<Map<String, Object>>)bookInfo.get("docs");
+			Map<String, Object> docMap = docs.get(0);
+			
+			commandMap.put("author", (String)docMap.get("AUTHOR"));
+			mv.addObject("infoMap", commandMap.getMap());	
+		}
 		
 		List<Map<String, Object>> list = adminService.bookList();
 		mv.addObject("list", list);
@@ -81,9 +89,27 @@ public class AdminController {
 		return mv;
 	}
 	
+	@SuppressWarnings("unchecked")
 	@PostMapping("registBook.do")
-	public ModelAndView bookRegist() {
+	public ModelAndView bookRegist(CommandMap commandMap) {
 		ModelAndView mv = new ModelAndView("admin/admin");
+		
+		String title = (String)commandMap.get("title");
+		
+		String isbn = (String)commandMap.get("isbn");
+		
+		Map<String, Object> bookInfo = null;
+		if (title.isEmpty() == false)
+			bookInfo = adminService.searchBookByTitle(title);
+		else if (isbn.isEmpty() == false)
+			bookInfo = adminService.searchBookByISBN(isbn);
+		
+		if (bookInfo != null) {
+			List<Map<String, Object>> docs = (List<Map<String, Object>>)bookInfo.get("docs");
+			Map<String, Object> docMap = docs.get(0);
+			
+			adminService.registBook(docMap);
+		}
 		
 		List<Map<String, Object>> list = adminService.bookList();
 		mv.addObject("list", list);

@@ -17,4 +17,8 @@ public class AdminDAO extends AbstractDAO {
 	public List<Map<String, Object>> memberList() {
 		return selectList("admin.memberList");
 	}
+	
+	public int insertBook(Map<String, Object> infoMap) {
+		return insertMap("admin.insertBook", infoMap); 
+	}
 }

@@ -25,4 +25,8 @@ public class AbstractDAO {
 		printQueryId(queryId);
 		return sqlSession.selectList(queryId);
 	}
+	
+	public int insertMap(String queryId, Map<String, Object> map) {
+		return sqlSession.insert(queryId, map);
+	}
 }

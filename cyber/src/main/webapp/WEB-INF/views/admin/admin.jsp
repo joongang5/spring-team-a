@@ -9,17 +9,10 @@
 	<title>관리자</title>
 	<style>
 		body { margin: 0; padding: 0; }
-		#wrap { width: 1000px; margin: 0 auto; }
-		header { width: 1000px; height: 130px; background: #111; }
-		main { float: left; width: 1000px; height: 600px; background: #222; }
-		footer	{ clear: both; width: 1000px; height: 100px; background: #333; }
 		ul { margin: 0; }
 		table { border: 1px solid black; }
 		th, td { border: 1px solid black; }
 	</style>
-	<script type="text/javascript">
-		
-	</script>
 </head>
 <body>
 	<div id="wrap">
@@ -59,7 +52,7 @@
 					<tr>
 						<th>저자</th>
 						<td>
-							<span></span>
+							<span>${infoMap.author }</span>
 						</td>
 					</tr>
 				</table>
@@ -72,17 +65,74 @@
 			<table>
 				<tr>
 					<th>번호</th>
-					<th>ISBN</th>
+					<td>표체</td>
+					<td>권차</td>
+					<td>총서명</td>
+					<td>총서편차</td>
+					<td>저자</td>
+					<td>ISBN</td>
+					<td>ISBN 부가기호</td>
+					<td>세트 ISBN</td>
+					<td>세트 ISBN 부가기호</td>
+					<td>세트표현</td>
+					<td>발행처</td>
+					<td>판사항</td>
+					<td>예정가격</td>
+					<td>한국십진분류</td>
+					<td>듀이십진분류</td>
+					<td>페이지</td>
+					<td>책크기</td>
+					<td>발행제본형태</td>
+					<td>출판예정일</td>
+					<td>주제</td>
+					<td>전자책여부</td>
+					<td>CIP 신청여부</td>
+					<td>CIP 제어번호</td>
+					<td>표지이미지 URL</td>
+					<td>목차</td>
+					<td>책소개</td>
+					<td>책요약</td>
+					<td>출판사 홈페이지 URL</td>
+					<td>등록날짜</td>
+					<td>수정날짜</td>
 				</tr>
 				<c:forEach items="${list }" var="l">
 					<tr>
-						<td>${l.no }</td>
-						<td>${l.isbn }</td>
+						<td>${l.no}</td>
+						<td>${l.title}</td>
+						<td>${l.vol}</td>
+						<td>${l.series_title}</td>
+						<td>${l.series_no}</td>
+						<td>${l.author}</td>
+						<td>${l.ea_isbn}</td>
+						<td>${l.ea_add_code}</td>
+						<td>${l.set_isbn}</td>
+						<td>${l.set_add_code}</td>
+						<td>${l.set_expression}</td>
+						<td>${l.publisher}</td>
+						<td>${l.edition_stmt}</td>
+						<td>${l.pre_price}</td>
+						<td>${l.kdc}</td>
+						<td>${l.ddc}</td>
+						<td>${l.page}</td>
+						<td>${l.book_size}</td>
+						<td>${l.form}</td>
+						<td>${l.publish_predate}</td>
+						<td>${l.subject}</td>
+						<td>${l.ebook_yn}</td>
+						<td>${l.cip_yn}</td>
+						<td>${l.control_no}</td>
+						<td>${l.title_url}</td>
+						<td>${l.book_tb_cnt_url}</td>
+						<td>${l.book_introduction_url}</td>
+						<td>${l.book_summary_url}</td>
+						<td>${l.publisher_url}</td>
+						<td>${l.input_date}</td>
+						<td>${l.update_date}</td>
 					</tr>
 				</c:forEach>
 			</table>
 		</main>
-		<footer>footer</footer>
 	</div>
 </body>
 </html>
