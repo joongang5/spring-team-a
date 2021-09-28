@@ -39,8 +39,8 @@
 		<main>
 			<form name="bookInfo" method="post">
 				<h3>도서 일괄 등록</h3>
-				<input type="submit" value="인기" formaction="/cyber/admin/bookBest.do">
-				<input type="submit" value="사서추천" formaction="/cyber/admin/bookRecommend.do">
+				<input type="submit" value="인기" formaction="/cyber/admin/registBestBook.do">
+				<input type="submit" value="사서추천" formaction="/cyber/admin/registRecommendBook.do">
 				<hr>
 				<h3>도서 개별 등록</h3>
 				<table>
@@ -63,8 +63,8 @@
 						</td>
 					</tr>
 				</table>
-				<input type="submit" value="검색" formaction="/cyber/admin/bookSearch.do">
-				<input type="submit" value="등록" formaction="/cyber/admin/bookRegist.do">
+				<input type="submit" value="검색" formaction="/cyber/admin/searchBook.do">
+				<input type="submit" value="등록" formaction="/cyber/admin/registBook.do">
 				<input type="submit" value="초기화">
 			</form>
 			<hr>	

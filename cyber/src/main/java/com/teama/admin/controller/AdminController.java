@@ -40,7 +40,7 @@ public class AdminController {
 		return mv;
 	}
 
-	@PostMapping("bookBest.do")
+	@PostMapping("registBestBook.do")
 	public ModelAndView bookBest() {
 		ModelAndView mv = new ModelAndView("admin/admin");
 		
@@ -50,7 +50,7 @@ public class AdminController {
 		return mv;
 	}
 
-	@PostMapping("bookRecommend.do")
+	@PostMapping("registRecommendBook.do")
 	public ModelAndView bookRecommend() {
 		ModelAndView mv = new ModelAndView("admin/admin");
 		
@@ -60,21 +60,17 @@ public class AdminController {
 		return mv;
 	}
 	
-	@PostMapping("bookSearch.do")
+	@PostMapping("searchBook.do")
 	public ModelAndView bookSearch() {
 		ModelAndView mv = new ModelAndView("admin/admin");
-		
-		
 		
 		List<Map<String, Object>> list = adminService.bookList();
 		mv.addObject("list", list);
 		
-		System.out.println("bookSearch");
-		
 		return mv;
 	}
 	
-	@PostMapping("bookRegist.do")
+	@PostMapping("registBook.do")
 	public ModelAndView bookRegist() {
 		ModelAndView mv = new ModelAndView("admin/admin");
 		
