@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -56,6 +55,7 @@
 				<button type="submit" id="categoryBtn">확인</button>
 			</form>
 			
+			<!-- 공지사항 list -->
 			<div id="noticeBoard">
 				<table>
 					<tr>
@@ -65,13 +65,13 @@
 						<th>조회수</th>
 						<th>작성자</th>
 					</tr>
-					<c:forEach items="" var="">
+					<c:forEach items="${list }" var="l">
 						<tr>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
+							<td>${l.notice_no }</td>
+							<td><a href="./noticeDetail.do?notice_no=${l.notice_no }">${l.title }</a></td>
+							<td>${l.date }</td>
+							<td>${l.count }</td>
+							<td>${l.id }(${l.name })</td>
 						</tr>
 					</c:forEach>
 				</table>
