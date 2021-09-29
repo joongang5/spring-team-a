@@ -20,26 +20,7 @@
 		<header>
 			<c:import url="/WEB-INF/views/component/headerInner.jsp" />
 		</header>
-		<main>
-			<table>
-				<tr>
-					<th>번호</th>
-					<th>제목</th>
-					<th>날짜</th>
-					<th>조회수</th>
-					<th>글쓴이</th>
-				</tr>
-				<c:forEach items="${list }" var="l">
-					<tr>
-						<td>${l.no }</td>
-						<td>${l.title }</td>
-						<td>${l.content }</td>
-						<td>${l.date }</td>
-						<td>${l.count }</td>
-					</tr>
-				</c:forEach>
-			</table>
-		</main>
+		<main>main</main>
 		<footer>footer</footer>
 	</div>
 </body>
