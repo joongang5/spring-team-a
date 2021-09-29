@@ -34,7 +34,7 @@ aside {
 main {
 	float: left;
 	width: 760px;
-	height: 600px;
+	min-height: 600px;
 	background: #444;
 }
 
@@ -139,8 +139,14 @@ function emp(data) {
 	temp += "<td>책</td><td>제목</td><td>출판사</td><td>저자</td><td>ISBN</td>";
 	temp += "</tr>";
 	for (var i = 0; i < list.length; i++) {
+		if(list[i].TITLE == ""){
+			list[i].TITLE = "제목없음";
+		}
+		if(list[i].EA_ISBN == ""){
+			list[i].EA_ISBN = "정보없음";
+		}
 		temp += "<tr>";
-		temp += "<td><img src=" + list[i].TITLE_URL+"></td>";
+		temp += "<td><img src=" + list[i].TITLE_URL+"></td>";			
 		temp += "<td>" + list[i].TITLE + "</td>";
 		temp += "<td>" + list[i].PUBLISHER + "</td>";
 		temp += "<td>" + list[i].AUTHOR + "</td>";
@@ -199,11 +205,12 @@ function emp(data) {
 		paging += "<button disabled='disabled')>다음</button>"			
 	}
 	
-	if( pageNo < totalPage){
+	//검색어 없이 조회시 서버 오류
+	/* if( pageNo < totalPage){
 		paging += "<button onclick=paging(" + (totalPage) + ",'"+search+"')>마지막</button>"		
 	}else{
 		paging += "<button disabled='disabled')>마지막</button>"			
-	}
+	} */
 	
 	
 	$("#paging").append(paging);

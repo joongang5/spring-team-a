@@ -30,9 +30,19 @@ public class ListEbookController {
 		if(!map.containsKey("pageNo")) {
 			map.put("pageNo", 1);
 		}
-		JSONObject searchList = listEbookService.ebookSearch(map.getMap());
-		searchList.put("search", map.getMap().get("title"));
-		return searchList.toJSONString();
+		JSONObject EbookList = listEbookService.ebookSearch(map.getMap());
+		//System.out.println(map.getMap().get("title"));
+		if(map.getMap().get("title")!=null) {
+		//System.out.println("search not null");
+		String search = ((String) map.getMap().get("title")).replace(" ", "");
+		
+		EbookList.put("search", search);
+		}else {
+			EbookList.put("search", null);
+		}
+		//System.out.println(EbookList);
+		System.out.println(EbookList.get("docs"));
+		return EbookList.toJSONString();
 	}
 //	@PostMapping("ebookMain.do")
 //	public ModelAndView ebookSearch(CommandMap map) throws Exception {
