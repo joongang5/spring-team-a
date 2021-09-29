@@ -67,16 +67,18 @@ td img {
 $(document).ready(function() {
 		//alert("정상작동");
 		//emp();
-		paging(1);
+		main(1);
 		$("#search").click(function() {
-			var searchTitle = $('#searchTitle').val();
+			var searchTarget = $('#searchTarget').val();
+			var searchValue = $('#searchValue').val();
 			$.ajax({
 				url : "./ebookMain.do",
 				type : "POST",
 				cache : false,
 				dataType : "json",
 				data : {
-					"title" : searchTitle
+					"searchTarget" : searchTarget,
+					"searchValue" : searchValue
 				},
 				success : function(data) {
 					//alert("정상 : pageNo : " + data.PAGE_NO);
@@ -89,8 +91,27 @@ $(document).ready(function() {
 			});
 		});
 });
-function paging(pageNo, search) {
-	if(search!=null){
+function main(pageNo) {
+		$.ajax({
+			url : "./ebookMain.do",
+			type : "POST",
+			cache : false,
+			dataType : "json",
+			data : {
+				"pageNo" : pageNo
+			},
+			success : function(data) {
+				emp(data);
+			},
+			error : function(requst, status, error) {
+				alert("error : " + error);
+			}
+		});	
+}
+function paging(pageNo) {
+	var searchResultTarget = $('#searchResultTarget').val();
+	var searchResultValue = $('#searchResultValue').val();
+	if(searchResultValue!=null){
 		$.ajax({
 			url : "./ebookMain.do",
 			type : "POST",
@@ -98,7 +119,8 @@ function paging(pageNo, search) {
 			dataType : "json",
 			data : {
 				"pageNo" : pageNo,
-				"title" : search
+				"searchTarget" : searchResultTarget,
+				"searchValue" : searchResultValue
 			},
 			success : function(data) {
 				emp(data);
@@ -128,12 +150,16 @@ function paging(pageNo, search) {
 function emp(data) {
 	$("#mainTable").empty();
 	$("#paging").empty();
-	var search = data.search;
+	var searchTarget = data.searchTarget;
+	var searchValue = data.searchValue;
 	var pageNo = parseInt(data.PAGE_NO);
 	var list = data.docs;
 	var totalCount = parseInt(data.TOTAL_COUNT);
 	var temp = "<h1>페이지 번호 : " + pageNo + "</h1>";
 	temp += "<h2>전체 글 수  : " + totalCount + "</h2>";
+	temp += "<h2>검색어  : " + data.searchValue + "</h2>";
+	temp += "<input type='hidden' id='searchResultTarget' value='"+data.searchTarget+"'/>";
+	temp += "<input type='hidden' id='searchResultValue' value='"+data.searchValue+"'/>";
 	temp += "<table>";
 	temp += "<tr>";
 	temp += "<td>책</td><td>제목</td><td>출판사</td><td>저자</td><td>ISBN</td>";
@@ -184,7 +210,7 @@ function emp(data) {
 	
 	// 이전 페이지 설정
 	if(pageNo > 1){
-		paging += "<button onclick=paging("+ prevPage + ",'"+search+"')>이전</button>";	
+		paging += "<button onclick=paging("+ prevPage + ")>이전</button>";	
 	}else{
 		paging +="<button disabled='disabled')>이전</button>";	
 	}
@@ -192,7 +218,7 @@ function emp(data) {
 	//for출력
 	for(var i = startPage; i <= endPage; i++){
 		if(pageNo != i){
-			paging += "<button onclick=paging("+i+",'"+search+"')>" + i + "</button>";			
+			paging += "<button onclick=paging("+i+")>" + i + "</button>";			
 		}else{
 			paging += "<b>" + i + "</b>";						
 		}
@@ -200,7 +226,7 @@ function emp(data) {
 	
 	// 이후 페이지 설정
 	if(pageNo < totalPage){
-		paging += "<button onclick=paging(" + nextPage + ",'"+search+"')>다음</button>"		
+		paging += "<button onclick=paging(" + nextPage + ")>다음</button>"		
 	}else{
 		paging += "<button disabled='disabled')>다음</button>"			
 	}
@@ -227,8 +253,13 @@ function emp(data) {
 		</aside>
 		<main>
 			<div>
-				검색어<input id="searchTitle" style="margin-left: 20px; width: 400px;">
-				<button id="search">검색</button>
+					<select id="searchTarget">
+						<option value='title'<c:if test="${searchTarget eq 'title'}">selected="selected"</c:if>>서명</option>
+						<option value='author'<c:if test="${searchTarget eq 'author'}">selected="selected"</c:if>>저자</option>
+						<option value='publisher'<c:if test="${searchTarget eq 'publisher'}">selected="selected"</c:if>>출판사</option>
+						<option value='isbn'<c:if test="${searchTarget eq 'isbn'}">selected="selected"</c:if>>ISBN</option>
+					</select>
+					<input id="searchValue" value="${search}" /> <button id = "search">검색</button>
 			</div>
 			<div id="mainTable">
 				<%-- 검색 결과 : ${totalCount }건<br>
