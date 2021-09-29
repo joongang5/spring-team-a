@@ -94,4 +94,8 @@
 	<update id="updateStoredBook" parameterType="HashMap">
 		UPDATE book_storage SET max_count=#{maxCount} WHERE book_no=#{bookNo}
 	</update>
+	
+	<select id="bookLoanListByMemberNo" resultType="HashMap" parameterType="HashMap">
+		SELECT * FROM book_loan_view WHERE member_no=#{memberNo}
+	</select>
 </mapper>

@@ -28,7 +28,7 @@
 			<c:import url="/WEB-INF/views/admin/component/headerInner.jsp" />
 		</header>
 		<main>
-			<form name="bookInfo" method="post">
+			<form method="post">
 				<h3>도서 재고 관리</h3>
 				<table>
 					<tr>
@@ -36,11 +36,11 @@
 						<td>
 							<input type="text" name="bookNo" value="${infoMap.bookNo }">
 						</td>
+						<td>
+							<input type="submit" value="검색" formaction="/cyber/admin/searchStoredBook.do">
+						</td>
 					</tr>
 				</table>
-				<input type="submit" value="검색" formaction="/cyber/admin/searchStoredBook.do">
-				<input type="submit" value="초기화">
-				<br>
 				<input type="submit" value="미등록 데이터 검색" formaction="/cyber/admin/notStoredBooks.do">
 			</form>
 			<hr>	

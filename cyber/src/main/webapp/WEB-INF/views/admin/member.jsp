@@ -87,6 +87,14 @@ th, td {
 	cursor: pointer;
 }
 </style>
+<script>
+	function openLoanPopup(no) {
+		var url = '/cyber/admin/loanPopup.do?memberNo=' + no;
+		var name = 'loanPopup';
+		var option = 'width=800, height=600';
+		window.open(url, name, option);
+	}
+</script>
 </head>
 <body>
 	<div id="wrap">
@@ -106,13 +114,13 @@ th, td {
 						</th>
 						<td>
 						<select name="search_type" class="">
-							<option value>전체</option>
+							<option value="">전체</option>
 							<option value="">아이디</option>
 							<option value="">이름</option>
 							<option value="">이메일</option>
 							<option value="">가입일</option>
 						</select>
-						<input type="text" name="keyword" value size="80">
+						<input type="text" name="keyword" value="" size="80">
 						</td>
 					</tr>
 					<tr>
@@ -124,7 +132,7 @@ th, td {
 						</th>
 						<td>
 							<select name="grade" class="">
-								<option value>전체</option>
+								<option value="">전체</option>
 								<option value="5">일반</option>
 								<option value="9">관리자</option>
 							</select>
@@ -146,6 +154,7 @@ th, td {
 					<th>이메일</th>
 					<th>가입일</th>
 					<th>등급</th>
+					<th>대출관리</th>
 				</tr>
 				<c:forEach items="${list }" var="l">
 					<tr>
@@ -153,8 +162,11 @@ th, td {
 						<td>${l.id }</td>
 						<td>${l.name }</td>
 						<td>${l.email }</td>
-						<td>${l.joinDate }</td>
+						<td>${l.join_date }</td>
 						<td>${l.grade }</td>
+						<td>
+							<button onclick="openLoanPopup(${l.no })">보기</button>
+						</td>
 					</tr>
 				</c:forEach>
 			</table>

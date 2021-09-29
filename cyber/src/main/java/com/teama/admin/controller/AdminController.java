@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.teama.admin.service.AdminService;
-import com.teama.admin.service.SearchType;
 import com.teama.common.CommandMap;
 
 @Controller
@@ -138,6 +137,16 @@ public class AdminController {
 		ModelAndView mv = new ModelAndView("admin/storageBook");
 		
 		adminService.updateStoredBook(commandMap.getMap());
+		
+		return mv;
+	}
+	
+	@GetMapping("loanPopup.do")
+	public ModelAndView loanPopup(CommandMap commandMap) {
+		ModelAndView mv = new ModelAndView("admin/loanPopup");
+		
+		List<Map<String, Object>> list = adminService.bookLoanListByMemberNo(commandMap.getMap());
+		mv.addObject("loanList", list);
 		
 		return mv;
 	}

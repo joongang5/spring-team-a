@@ -89,4 +89,9 @@ public class AdminServiceImpl implements AdminService {
 
 		return result;
 	}
+
+	@Override
+	public List<Map<String, Object>> bookLoanListByMemberNo(Map<String, Object> infoMap) {
+		return adminDAO.bookLoanListByMemberNo(infoMap);
+	}
 }

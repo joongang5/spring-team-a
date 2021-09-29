@@ -20,7 +20,7 @@
 			<c:import url="/WEB-INF/views/admin/component/headerInner.jsp" />
 		</header>
 		<main>
-			<form name="bookInfo" method="post">
+			<form method="post">
 				<h3>도서 일괄 등록</h3>
 				<input type="submit" value="인기" formaction="/cyber/admin/registBestBook.do">
 				<input type="submit" value="사서추천" formaction="/cyber/admin/registRecommendBook.do">
