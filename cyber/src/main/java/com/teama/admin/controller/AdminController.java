@@ -74,20 +74,16 @@ public class AdminController {
 	public ModelAndView searchBook(CommandMap commandMap) {
 		ModelAndView mv = new ModelAndView("admin/admin");
 		
-		String searchType = (String)commandMap.get("searchType");
-		String searchValue = (String)commandMap.get("searchValue");
-		
-		Map<String, Object> bookInfo = adminService.searchBook(SearchType.valueOf(searchType), searchValue);
+		Map<String, Object> bookInfo = adminService.searchBook(commandMap.getMap());
 		
 		if (bookInfo != null) {
 			List<Map<String, Object>> docs = (List<Map<String, Object>>)bookInfo.get("docs");
 			Map<String, Object> docMap = docs.get(0);
 			
 			commandMap.put("author", (String)docMap.get("AUTHOR"));
-			mv.addObject("infoMap", commandMap.getMap());
 		}
 		
-		mv.addObject("searchType", searchType);
+		mv.addObject("infoMap", commandMap.getMap());
 		
 		List<Map<String, Object>> list = adminService.bookList();
 		mv.addObject("list", list);
@@ -100,10 +96,7 @@ public class AdminController {
 	public ModelAndView registBook(CommandMap commandMap) {
 		ModelAndView mv = new ModelAndView("admin/admin");
 
-		String searchType = (String)commandMap.get("searchType");
-		String searchValue = (String)commandMap.get("searchValue");
-		
-		Map<String, Object> bookInfo = adminService.searchBook(SearchType.valueOf(searchType), searchValue);
+		Map<String, Object> bookInfo = adminService.searchBook(commandMap.getMap());
 		
 		if (bookInfo != null) {
 			List<Map<String, Object>> docs = (List<Map<String, Object>>)bookInfo.get("docs");
@@ -112,10 +105,39 @@ public class AdminController {
 			adminService.registBook(docMap);
 		}
 
-		mv.addObject("searchType", searchType);
+		mv.addObject("infoMap", commandMap.getMap());
 		
 		List<Map<String, Object>> list = adminService.bookList();
 		mv.addObject("list", list);
+		
+		return mv;
+	}
+	
+	@PostMapping("searchStoredBook.do")
+	public ModelAndView searchStoredBook(CommandMap commandMap) {
+		ModelAndView mv = new ModelAndView("admin/storageBook");
+		
+		List<Map<String, Object>> list = adminService.storedBookList(commandMap.getMap());
+		mv.addObject("list", list);
+		
+		return mv;
+	}
+	
+	@PostMapping("notStoredBooks.do")
+	public ModelAndView notStoredBooks() {
+		ModelAndView mv = new ModelAndView("admin/storageBook");
+		
+		List<Map<String, Object>> list = adminService.notStoredBookList();
+		mv.addObject("list", list);
+		
+		return mv;
+	}
+	
+	@GetMapping("updateStoredBook.do")
+	public ModelAndView updateStoredBook(CommandMap commandMap) {
+		ModelAndView mv = new ModelAndView("admin/storageBook");
+		
+		adminService.updateStoredBook(commandMap.getMap());
 		
 		return mv;
 	}

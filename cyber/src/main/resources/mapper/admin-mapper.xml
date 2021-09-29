@@ -77,4 +77,21 @@
 			#{UPDATE_DATE}
 		)
 	</insert>
+	
+	<select id="getStoredBook" resultType="HashMap" parameterType="HashMap">
+		SELECT * FROM book_storage WHERE book_no=#{bookNo}
+	</select>
+	
+	<select id="notStoredBookList" resultType="HashMap" parameterType="HashMap">
+		SELECT * FROM book_not_stored_view
+	</select>
+	
+	<insert id="insertStorageBook" parameterType="HashMap">
+		INSERT INTO book_storage (book_no, max_count, loan_count, reserve_count)
+		VALUES (#{bookNo}, #{maxCount}, 0, 0)
+	</insert>
+	
+	<update id="updateStoredBook" parameterType="HashMap">
+		UPDATE book_storage SET max_count=#{maxCount} WHERE book_no=#{bookNo}
+	</update>
 </mapper>

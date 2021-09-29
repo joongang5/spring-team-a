@@ -31,8 +31,8 @@
 					<tr>
 						<th>
 							<select name="searchType">
-								<option value="Title" <c:if test="${searchType eq 'Title' }">selected="selected"</c:if>>제목</option>
-								<option value="ISBN" <c:if test="${searchType eq 'ISBN' }">selected="selected"</c:if>>ISBN</option>
+								<option value="Title" <c:if test="${infoMap.searchType eq 'Title' }">selected="selected"</c:if>>제목</option>
+								<option value="ISBN" <c:if test="${infoMap.searchType eq 'ISBN' }">selected="selected"</c:if>>ISBN</option>
 							</select>
 						</th>
 						<td>

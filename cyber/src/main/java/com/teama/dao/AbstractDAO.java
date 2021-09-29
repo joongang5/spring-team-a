@@ -25,6 +25,14 @@ public class AbstractDAO {
 		printQueryId(queryId);
 		return sqlSession.selectList(queryId);
 	}
+
+	public List<Map<String, Object>> selectList(String queryId, Map<String, Object> map) {
+		return sqlSession.selectList(queryId, map);
+	}
+
+	public Map<String, Object> selectOne(String queryId) {
+		return sqlSession.selectOne(queryId);
+	}
 	
 	public Map<String, Object> selectOne(String queryID, Map<String, Object> map) {
 		printQueryId(queryID);
@@ -33,5 +41,9 @@ public class AbstractDAO {
 	
 	public int insertMap(String queryId, Map<String, Object> map) {
 		return sqlSession.insert(queryId, map);
+	}
+	
+	public int updateMap(String queryId, Map<String, Object> map) {
+		return sqlSession.update(queryId, map);
 	}
 }

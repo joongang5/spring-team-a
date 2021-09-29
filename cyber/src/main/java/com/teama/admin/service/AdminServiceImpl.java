@@ -33,7 +33,9 @@ public class AdminServiceImpl implements AdminService {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public Map<String, Object> searchBook(SearchType searchType, String searchValue) {
+	public Map<String, Object> searchBook(Map<String, Object> infoMap) {
+		String searchType = (String)infoMap.get("searchType");
+		String searchValue = (String)infoMap.get("searchValue");
 		if (searchValue.isEmpty())
 			return null;
 		
@@ -43,9 +45,10 @@ public class AdminServiceImpl implements AdminService {
 			HashMap<String, Object> searchInfo = new HashMap<String, Object>();
 			searchInfo.put("pageNo", 1);
 			
-			if (searchType == SearchType.Title)
+			SearchType type = SearchType.valueOf(searchType);
+			if (type == SearchType.Title)
 				searchInfo.put("title", searchValue);
-			else if (searchType == SearchType.ISBN)
+			else if (type == SearchType.ISBN)
 				searchInfo.put("isbn", searchValue);
 				
 			JSONObject searchList = ebookDAO.ebookSearch(searchInfo);
@@ -53,7 +56,6 @@ public class AdminServiceImpl implements AdminService {
 			ObjectMapper mapper = new ObjectMapper();
 			map = mapper.readValue(searchList.toString(), Map.class);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
@@ -61,7 +63,30 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	@Override
+	public List<Map<String, Object>> storedBookList(Map<String, Object> infoMap) {
+		return adminDAO.storedBookList(infoMap);
+	}
+	
+	@Override
 	public void registBook(Map<String, Object> infoMap) {
 		adminDAO.insertBook(infoMap);
+	}
+
+	@Override
+	public List<Map<String, Object>> notStoredBookList() {
+		return adminDAO.notStoredBookList();
+	}
+
+	@Override
+	public int updateStoredBook(Map<String, Object> infoMap) {
+		int result = 0;
+		
+		Map<String, Object> foundMap = adminDAO.getStoredBook(infoMap);
+		if (foundMap == null)
+			result = adminDAO.insertStorageBook(infoMap);
+		else
+			result = adminDAO.updateStoredBook(infoMap);
+
+		return result;
 	}
 }
