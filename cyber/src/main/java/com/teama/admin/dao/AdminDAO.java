@@ -19,7 +19,7 @@ public class AdminDAO extends AbstractDAO {
 	}
 
 	public int insertBook(Map<String, Object> infoMap) {
-		return insertMap("admin.insertBook", infoMap);
+		return insert("admin.insertBook", infoMap);
 	}
 
 	public Map<String, Object> getStoredBook(Map<String, Object> infoMap) {
@@ -35,10 +35,10 @@ public class AdminDAO extends AbstractDAO {
 	}
 
 	public int insertStorageBook(Map<String, Object> infoMap) {
-		return insertMap("admin.insertStorageBook", infoMap);
+		return insert("admin.insertStorageBook", infoMap);
 	}
 
 	public int updateStoredBook(Map<String, Object> infoMap) {
-		return updateMap("admin.updateStoredBook", infoMap);
+		return update("admin.updateStoredBook", infoMap);
 	}
 }
