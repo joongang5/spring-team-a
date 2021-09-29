@@ -39,11 +39,11 @@ public class AbstractDAO {
 		return sqlSession.selectOne(queryID, map);
 	}
 	
-	public int insertMap(String queryId, Map<String, Object> map) {
+	public int insert(String queryId, Map<String, Object> map) {
 		return sqlSession.insert(queryId, map);
 	}
 	
-	public int updateMap(String queryId, Map<String, Object> map) {
+	public int update(String queryId, Map<String, Object> map) {
 		return sqlSession.update(queryId, map);
 	}
 }
