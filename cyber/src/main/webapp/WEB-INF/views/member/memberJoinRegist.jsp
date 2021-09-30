@@ -5,7 +5,9 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>회원가입</title>
+<title>회원 가입</title>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <style>
 body {
 	margin: 0;
@@ -63,7 +65,7 @@ input {
 }
 
 #buttonbox {
-	margin-top: 45px;
+	margin-top: 35px;
 	text-align: center;
 }
 
@@ -86,16 +88,36 @@ button {
 }
 </style>
 <script type="text/javascript">
-	function checkPw() {
+	function idCheck() {		
+		$.ajax({
+			url : "idCheck.do",
+			type : "post",
+			dataType : 'text',
+			data : {
+				'id' : $("#id").val()
+			},
+			success : function(data) {
+				if (data == "true") {
+					$("#idCheckResult").text("사용 중인 ID입니다."");
+					$("#idCheckResult").css("color", "#da2244");
+					alert ("사용 중인 ID입니다."");
+				} else if (data == "false") {
+					$("#idCheckResult").css("color", "#0aca4a");
+					$("#idCheckResult").text('사용 가능한 ID입니다.');
+				}
+			}
+		})
+	}
+	function pwCheck() {
 		var pw1 = document.getElementById("pw");
 		var pw2 = document.getElementById("pw2");
 		var checkMsg = document.getElementById("checkMsg");
 
 		if (pw1 == pw2) {
-			$("#checkPw").text('사용 가능한 비밀번호입니다.');
+			$("#checkMsg").text('사용 가능한 비밀번호입니다.');
 		}
 	}
-</script>
+	</script>
 </head>
 <body>
 	<div id="wrap">
@@ -115,18 +137,19 @@ button {
 							<input type="text" id="name" name="name" required="required"
 								placeholder="이름" style="margin-bottom: 10px;"> <br>
 							<input type="text" id="id" name="id" required="required"
-								placeholder="아이디" style="margin-bottom: 10px;"> <br>
-							<input type="password" id="pw" name="pw" required="required"
-								placeholder="비밀번호" style="margin-bottom: 10px;"><br>
-							<input type="password" id="pw2" name="pw2" required="required"
+								placeholder="아이디" style="margin-bottom: 10px;"
+								onchange="idCheck()"> <br> <input type="password"
+								id="pw" name="pw" required="required" placeholder="비밀번호"
+								style="margin-bottom: 10px;"><br> <input
+								type="password" id="pw2" name="pw2" required="required"
 								placeholder="비밀번호 확인" style="margin-bottom: 10px;"><br>
-							<div id="checkPw" class="checkText"></div>
+							<div id="pwCheck" class="checkText"></div>
 							<input type="text" id="email" name="email" required="required"
 								placeholder="Email">
 						</div>
-				</div>
-				<div id="buttonbox">
-					<button type="submit">가입하기</button>
+						<div id="buttonbox">
+							<button type="submit">가입하기</button>
+						</div>
 					</form>
 				</div>
 			</div>

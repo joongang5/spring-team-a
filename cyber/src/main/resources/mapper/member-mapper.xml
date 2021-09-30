@@ -11,8 +11,15 @@
 	</select>
 
 	<insert id="join" parameterType="hashMap">
-		INSERT INTO member (id, pw,
-		name, email)
-		VALUES(#{id}, #{pw}, #{name}, #{email})
+		INSERT INTO member (name, id,
+		pw, email)
+		VALUES(#{name}, #{id}, #{pw}, #{email})
 	</insert>
+
+	<select id="idCheck" resultType="int">
+		SELECT COUNT(*)
+		FROM member
+		WHERE
+		id=#{id}
+	</select>
 </mapper>

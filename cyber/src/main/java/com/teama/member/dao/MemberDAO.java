@@ -2,24 +2,26 @@ package com.teama.member.dao;
 
 import java.util.Map;
 
-import org.apache.ibatis.session.SqlSession;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.teama.dao.AbstractDAO;
 
 @Repository
 public class MemberDAO extends AbstractDAO {
-	@Autowired
-	private static SqlSession sqlSession;
 
 	public Map<String, Object> login(Map<String, Object> map) {
-
 		return selectOne("login", map);
 	}
 
-	public static int join(Map<String, Object> map) {
+	public int join(Map<String, Object> map) {
+		return insert("join", map);
+	}
 
-		return sqlSession.insert("member.join", map);
+	public boolean isUsableId(Map<String, Object> map) {
+		int id = Integer.parseInt(String.valueOf(map.get("id")));
+		
+		int result = getCountByKey("idCheck", id);
+		
+		return result <= 0;
 	}
 }

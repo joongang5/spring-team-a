@@ -1,14 +1,13 @@
 package com.teama.member.controller;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.teama.common.CommandMap;
 import com.teama.member.service.MemberService;
 
 @Controller
@@ -23,21 +22,25 @@ public class MemberController {
 	}
 
 	@PostMapping("memberJoinRegist.do")
-	public String join(HttpServletRequest request) {
+	public String join(CommandMap map) {
+		String name = String.valueOf(map.get("name"));
+		String id = String.valueOf(map.get("value"));
+		;
+		String pw = String.valueOf(map.get("pw"));
+		;
+		String email = String.valueOf(map.get("email"));
+		;
 
-		String name = request.getParameter("name");
-		String id = request.getParameter("id");
-		String pw = request.getParameter("pw");
-		String email = request.getParameter("email");
-
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("name", name);
-		map.put("id", id);
-		map.put("pw", pw);
-		map.put("email", email);
-
-		MemberService.join(map);
+		memberService.join(map.getMap());
 
 		return "redirect:index.do";
+	}
+
+	@ResponseBody
+	@PostMapping("idCheck.do")
+	public boolean idCheck(CommandMap map) {
+		boolean check = memberService.isUsableId(map.getMap());
+		System.out.println("오는 값 ㅣ: " + check);
+		return check;
 	}
 }
