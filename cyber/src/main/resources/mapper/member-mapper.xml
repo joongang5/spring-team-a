@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"	
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="member">
+	<select id="login" resultType="HashMap">
+		SELECT no, name, id
+		FROM loginview
+		WHERE
+		id=#{id} AND pw=#{pw}
+	</select>
+
+	<insert id="join" parameterType="hashMap">
+		INSERT INTO member (id, pw,
+		name, email)
+		VALUES(#{id}, #{pw}, #{name}, #{email})
+	</insert>
+</mapper>
