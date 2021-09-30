@@ -94,4 +94,20 @@ public class AdminServiceImpl implements AdminService {
 	public List<Map<String, Object>> bookLoanListByMemberNo(Map<String, Object> infoMap) {
 		return adminDAO.bookLoanListByMemberNo(infoMap);
 	}
+
+	@Override
+	public List<Map<String, Object>> searchMember(Map<String, Object> infoMap) {
+		String searchType = String.valueOf(infoMap.get("search_type"));
+		String searchValue = String.valueOf(infoMap.get("keyword"));
+		infoMap.put(searchType, searchValue);
+		
+		List<Map<String, Object>> result = null;
+		if (searchType.equals("id")) {
+			result = adminDAO.memberListById(infoMap);
+		} else if (searchType.equals("name")) {
+			result = adminDAO.memberListByName(infoMap);
+		}
+		
+		return result;
+	}
 }
