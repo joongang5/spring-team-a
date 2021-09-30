@@ -16,4 +16,6 @@ public interface AdminService {
 	public int updateStoredBook(Map<String, Object> infoMap);
 	
 	public List<Map<String, Object>> bookLoanListByMemberNo(Map<String, Object> infoMap);
+
+	public List<Map<String, Object>> searchMember(Map<String, Object> infoMap);
 }

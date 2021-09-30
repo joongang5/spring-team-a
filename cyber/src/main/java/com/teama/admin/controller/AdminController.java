@@ -150,4 +150,15 @@ public class AdminController {
 		
 		return mv;
 	}
+	
+
+	@PostMapping("searchMember.do")
+	public ModelAndView searchMember(CommandMap commandMap) {
+		ModelAndView mv = new ModelAndView("admin/member");
+		
+		List<Map<String, Object>> list = adminService.searchMember(commandMap.getMap());
+		mv.addObject("list", list);
+		
+		return mv;
+	}
 }

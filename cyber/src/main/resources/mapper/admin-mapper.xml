@@ -11,6 +11,14 @@
 		SELECT * FROM member
 	</select>
 	
+	<select id="memberListById" resultType="HashMap">
+		SELECT * FROM member WHERE id=#{id}
+	</select>
+	
+	<select id="memberListByName" resultType="HashMap">
+		SELECT * FROM member WHERE name=#{name}
+	</select>
+	
 	<insert id="insertBook" parameterType="HashMap">
 		INSERT INTO book (
 			title,
