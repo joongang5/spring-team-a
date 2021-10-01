@@ -54,7 +54,11 @@ public class AdminDAO extends AbstractDAO {
 		return selectList("admin.bookLoanListByMemberNo", infoMap);
 	}
 	
-	public int loanBook(Map<String, Object> infoMap) {
-		return update("admin.loanBook", infoMap);
+	public int loanBookFromStorage(Map<String, Object> infoMap) {
+		return update("admin.loanBookFromStorage", infoMap);
+	}
+	
+	public int loanBookToMember(Map<String, Object> infoMap) {
+		return insert("admin.loanBookToMember", infoMap);
 	}
 }

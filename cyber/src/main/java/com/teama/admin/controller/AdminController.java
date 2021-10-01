@@ -136,8 +136,8 @@ public class AdminController {
 	public ModelAndView getStoredBook(CommandMap commandMap) {
 		ModelAndView mv = new ModelAndView("admin/loanPopup");
 		
-		Map<String, Object> bookInfo = adminService.getStoredBook(commandMap.getMap());
-		mv.addObject("bookInfo", bookInfo);
+		Map<String, Object> storedBook = adminService.getStoredBook(commandMap.getMap());
+		mv.addObject("storedBook", storedBook);
 		
 		List<Map<String, Object>> list = adminService.bookLoanListByMemberNo(commandMap.getMap());
 		mv.addObject("loanList", list);
@@ -167,7 +167,7 @@ public class AdminController {
 	}
 
 	@PostMapping("loanBook.do")
-	public ModelAndView loan(CommandMap commandMap) {
+	public ModelAndView loanBook(CommandMap commandMap) {
 		ModelAndView mv = new ModelAndView("admin/loanPopup");
 		
 		Map<String, Object> result = adminService.loanBook(commandMap.getMap());

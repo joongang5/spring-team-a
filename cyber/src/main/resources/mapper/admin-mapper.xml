@@ -103,9 +103,14 @@
 		UPDATE book_storage SET max_count=#{maxCount} WHERE book_no=#{bookNo}
 	</update>
 	
-	<update id="loanBook" parameterType="HashMap">
-		UPDATE book_storage SET
+	<update id="loanBookFromStorage" parameterType="HashMap">
+		UPDATE book_storage SET loan_count=loan_count+1 WHERE no=#{no}
 	</update>
+	
+	<insert id="loanBookToMember" parameterType="HashMap">
+		INSERT INTO book_loan (book_no, member_no, return_date)
+		VALUSE (#{bookNo}, #{memberNo}, DATE_ADD(NOW(), INTERVAL 5 DAY))
+	</insert>
 	
 	<select id="bookLoanListByMemberNo" resultType="HashMap" parameterType="HashMap">
 		SELECT * FROM book_loan_view WHERE member_no=#{memberNo}

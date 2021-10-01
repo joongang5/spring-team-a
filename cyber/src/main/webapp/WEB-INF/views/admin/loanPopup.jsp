@@ -44,19 +44,20 @@
 					<td></td>
 				</tr>
 				<tr>
-					<td>${bookInfo.no}</td>
-					<td>${bookInfo.title}</td>
-					<td>${bookInfo.vol}</td>
-					<td>${bookInfo.author}</td>
-					<td>${bookInfo.ea_isbn}</td>
-					<td>${bookInfo.max_count }</td>
-					<td>${bookInfo.loan_count }</td>
-					<td>${bookInfo.reserve_count }</td>
+					<td>${storedBook.no}</td>
+					<td>${storedBook.title}</td>
+					<td>${storedBook.vol}</td>
+					<td>${storedBook.author}</td>
+					<td>${storedBook.ea_isbn}</td>
+					<td>${storedBook.max_count }</td>
+					<td>${storedBook.loan_count }</td>
+					<td>${storedBook.reserve_count }</td>
 					<td>
 						<button formaction="/cyber/admin/loanBook.do">대출실행</button>
 					</td>
 				</tr>
 			</table>
+			<input type="hidden" name="no" value="${storedBook.no }">
 		</form>
 		
 		<h3>대출목록</h3>	
