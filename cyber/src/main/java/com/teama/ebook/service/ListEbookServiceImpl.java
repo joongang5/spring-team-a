@@ -13,10 +13,13 @@ public class ListEbookServiceImpl implements ListEbookService {
 
 	@Autowired
 	private EbookDAO ebookDAO;
-
 	@Override
 	public JSONObject ebookSearch(Map<String, Object> map) throws Exception {
-		return ebookDAO.ebookSearch(map);
+		return null;
+	}
+	@Override
+	public int ebookAdd(Map<String, Object> map) throws Exception {
+		return ebookDAO.ebookAdd(map);
 	}
 	
 }

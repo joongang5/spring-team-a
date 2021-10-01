@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.teama.admin.dao.AdminDAO;
-import com.teama.ebook.dao.EbookDAO;
+import com.teama.ebook.service.EbookAPIServiceImpl;
 
 @Service("adminService")
 public class AdminServiceImpl implements AdminService {
@@ -18,7 +18,7 @@ public class AdminServiceImpl implements AdminService {
 	@Autowired
 	private AdminDAO adminDAO;
 	@Autowired
-	private EbookDAO ebookDAO;
+	private EbookAPIServiceImpl ebookAPIService;
 	
 	
 	@Override
@@ -51,7 +51,7 @@ public class AdminServiceImpl implements AdminService {
 			else if (type == SearchType.ISBN)
 				searchInfo.put("isbn", searchValue);
 				
-			JSONObject searchList = ebookDAO.ebookSearch(searchInfo);
+			JSONObject searchList = ebookAPIService.ebookSearch(searchInfo);
 
 			ObjectMapper mapper = new ObjectMapper();
 			map = mapper.readValue(searchList.toString(), Map.class);
