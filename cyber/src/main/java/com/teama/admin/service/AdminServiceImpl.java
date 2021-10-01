@@ -101,14 +101,9 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	@Override
-	public Map<String, Object> loanBook(Map<String, Object> infoMap) {
-		int result = adminDAO.loanBookFromStorage(infoMap);
-		if (result <= 0)
-			return null;
-		
-		result = adminDAO.loanBookToMember(infoMap);
-		
-		return null;
+	public void loanBook(Map<String, Object> infoMap) {
+		adminDAO.loanBookFromStorage(infoMap);
+		adminDAO.loanBookToMember(infoMap);
 	}
 	
 	@Override

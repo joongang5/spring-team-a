@@ -104,12 +104,12 @@
 	</update>
 	
 	<update id="loanBookFromStorage" parameterType="HashMap">
-		UPDATE book_storage SET loan_count=loan_count+1 WHERE no=#{no}
+		UPDATE book_storage SET loan_count=loan_count+1 WHERE book_no=#{bookNo}
 	</update>
 	
 	<insert id="loanBookToMember" parameterType="HashMap">
 		INSERT INTO book_loan (book_no, member_no, return_date)
-		VALUSE (#{bookNo}, #{memberNo}, DATE_ADD(NOW(), INTERVAL 5 DAY))
+		VALUES (#{bookNo}, #{memberNo}, DATE_ADD(NOW(), INTERVAL 5 DAY))
 	</insert>
 	
 	<select id="bookLoanListByMemberNo" resultType="HashMap" parameterType="HashMap">

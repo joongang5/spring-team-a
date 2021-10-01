@@ -170,8 +170,12 @@ public class AdminController {
 	public ModelAndView loanBook(CommandMap commandMap) {
 		ModelAndView mv = new ModelAndView("admin/loanPopup");
 		
-		Map<String, Object> result = adminService.loanBook(commandMap.getMap());
-		mv.addObject("result", result);
+		adminService.loanBook(commandMap.getMap());
+		
+		List<Map<String, Object>> list = adminService.bookLoanListByMemberNo(commandMap.getMap());
+		mv.addObject("loanList", list);
+		
+		mv.addObject("memberNo", commandMap.get("memberNo"));
 		
 		return mv;
 	}

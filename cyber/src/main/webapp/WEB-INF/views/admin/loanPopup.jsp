@@ -30,7 +30,9 @@
 				</tr>
 			</table>
 			<input type="hidden" name="memberNo" value="${memberNo }">
-			
+		</form>
+		
+		<form method="post">	
 			<table>
 				<tr>
 					<th>번호</th>
@@ -44,7 +46,7 @@
 					<td></td>
 				</tr>
 				<tr>
-					<td>${storedBook.no}</td>
+					<td>${storedBook.book_no}</td>
 					<td>${storedBook.title}</td>
 					<td>${storedBook.vol}</td>
 					<td>${storedBook.author}</td>
@@ -57,7 +59,8 @@
 					</td>
 				</tr>
 			</table>
-			<input type="hidden" name="no" value="${storedBook.no }">
+			<input type="hidden" name="memberNo" value="${memberNo }">
+			<input type="hidden" name="bookNo" value="${storedBook.book_no }">
 		</form>
 		
 		<h3>대출목록</h3>	
