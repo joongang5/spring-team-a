@@ -5,8 +5,19 @@ import java.util.Map;
 
 public interface NoticeService {
 
-	List<Map<String, Object>> list();
-
-	Map<String, Object> detail(Map<String, Object> map);
-
+	//게시글 불러오기
+	List<Map<String, Object>> noticeList();
+	
+	//게시글 상세보기
+	public Map<String, Object> detail(Map<String, Object> map);
+	
+	//게시글 글쓰기
+	
+	//게시글 삭제
+	public int delete(Map<String, Object> map);
+	
+	//게시글 수정
+	
+	//게시글 조회수
+	public int count(Map<String, Object> map);
 }

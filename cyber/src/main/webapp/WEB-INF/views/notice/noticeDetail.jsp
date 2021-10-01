@@ -6,6 +6,9 @@
 <head>
 <meta charset="UTF-8">
 <title>공지사항 상세보기</title>
+<style type="text/css">
+	#detailBoard { width: 600px; height: 300px; }
+</style>
 <script type="text/javascript">
 function move(){
 	location.href='./listNotice.do';
@@ -14,24 +17,14 @@ function move(){
 </head>
 <body>
 	<div id="detailBoard">
-		<table>
-			<tr>
-				<th>번호</th>
-				<th>제목</th>
-				<th>작성자</th>
-				<th>등록일</th>
-				<th>내용</th>
-			</tr>
-			<c:forEach items="${detail }" var="d">
-			<tr>
-				<td>${d.notice_no }</td>
-				<td>${d.title }</td>
-				<td>${d.date }</td>
-				<td>${d.count }</td>
-				<td>${d.id }(${d.name })</td>
-			</tr>
-			</c:forEach>
-		</table>
+		<b>번호 |</b> ${detail.notice_no }
+		<b>제목 |</b> ${detail.title }
+		<b>작성자 |</b> ${detail.id }(${detail.name })
+		<b>등록일 |</b> ${detail.date }
+		<button onclick="location.href='./delete.do?notice_no=${detail.notice_no }'">삭제하기</button>
+		<button onclick="location.href='./update.do?notice_no=${detail.notice_no }'">수정하기</button>
+		<hr>
+		${detail.content }
 	</div> <!-- end of detailBoard -->
 	<button onclick="move()">돌아가기</button>
 </body>

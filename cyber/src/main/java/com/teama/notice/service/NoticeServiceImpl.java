@@ -14,13 +14,32 @@ public class NoticeServiceImpl implements NoticeService {
 	@Autowired
 	private NoticeDAO noticeDAO;
 	
+	//게시글 불러오기
 	@Override
-	public List<Map<String, Object>> list() {
-		return noticeDAO.selectList();
+	public List<Map<String, Object>> noticeList() {
+		return noticeDAO.noticeList();
 	}
 	
+	//게시글 상세보기
 	@Override
 	public Map<String, Object> detail(Map<String, Object> map) {
 		return noticeDAO.detail(map);
 	}
+	
+	//게시글 쓰기
+	
+	//게시글 삭제
+	@Override
+	public int delete(Map<String, Object> map) {
+		return noticeDAO.delete(map);
+	}
+	
+	//게시글 수정
+	
+	//게시글 조회수
+	@Override
+	public int count(Map<String, Object> map) {
+		return noticeDAO.count(map);
+	}
+	
 }

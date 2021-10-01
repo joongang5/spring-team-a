@@ -3,11 +3,36 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="notice">
-	<select id="list" resultType="HashMap">
-		SELECT * FROM noticeview LIMIT 0, 10
+	
+	<!-- 게시글 불러오기, 페이징 -->
+	<select id="noticeList" parameterType="HashMap" resultType="HashMap">
+		SELECT * FROM notice_view LIMIT 0, 10
 	</select>
 	
+	<!-- 게시글 상세보기 -->
 	<select id="detail" parameterType="HashMap" resultType="HashMap">
-		SELECT * FROM noticeview WHERE notice_no=#{notice_no }
+		SELECT * FROM notice_view WHERE notice_no=#{notice_no}
 	</select>
+	
+	<!-- 게시글 쓰기 -->
+	<insert id="write" parameterType="HashMap">
+		INSERT INTO notice (title, content, notice_no, no, category_no) 
+		VALUES (#{title}, #{content}, #{notice_no}, 2, 1) <!-- no=2 category_no=1 수정! -->
+	</insert>
+	
+	<!-- 게시글 삭제 -->
+	<delete id="delete" parameterType="HashMap">
+		DELETE FROM notice WHERE notice_no=#{notice_no}
+	</delete>
+	
+	<!-- 게시글 수정 -->
+	<update id="update" parameterType="HashMap">
+		UPDATE notice SET title=#{title}, content=#{content} WHERE notice_no=#{notice_no}
+	</update>
+	
+	<!-- 게시글 조회수 -->
+	<update id="count" parameterType="HashMap">
+		UPDATE notice SET count = count + 1 WHERE notice_no=#{notice_no}
+	</update>
+	
 </mapper>

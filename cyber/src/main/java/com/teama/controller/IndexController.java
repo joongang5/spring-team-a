@@ -15,8 +15,7 @@ public class IndexController {
 	private IndexService indexService;
 	
 	@GetMapping("index.do")
-	public ModelAndView main() throws Exception {
-		ModelAndView mv = new ModelAndView("index");
-		return mv;
+	public String main() throws Exception {
+		return "index";
 	}
 }
