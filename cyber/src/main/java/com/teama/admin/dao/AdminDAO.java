@@ -31,7 +31,7 @@ public class AdminDAO extends AbstractDAO {
 	}
 
 	public Map<String, Object> getStoredBook(Map<String, Object> infoMap) {
-		return selectOne("admin.getStoredBook");
+		return selectOne("admin.getStoredBook", infoMap);
 	}
 	
 	public List<Map<String, Object>> storedBookList(Map<String, Object> infoMap) {
@@ -52,5 +52,9 @@ public class AdminDAO extends AbstractDAO {
 	
 	public List<Map<String, Object>> bookLoanListByMemberNo(Map<String, Object> infoMap) {
 		return selectList("admin.bookLoanListByMemberNo", infoMap);
+	}
+	
+	public int loanBook(Map<String, Object> infoMap) {
+		return update("admin.loanBook", infoMap);
 	}
 }

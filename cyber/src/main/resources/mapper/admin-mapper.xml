@@ -103,6 +103,10 @@
 		UPDATE book_storage SET max_count=#{maxCount} WHERE book_no=#{bookNo}
 	</update>
 	
+	<update id="loanBook" parameterType="HashMap">
+		UPDATE book_storage SET
+	</update>
+	
 	<select id="bookLoanListByMemberNo" resultType="HashMap" parameterType="HashMap">
 		SELECT * FROM book_loan_view WHERE member_no=#{memberNo}
 	</select>

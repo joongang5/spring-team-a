@@ -11,11 +11,12 @@ public interface AdminService {
 	public Map<String, Object> searchBook(Map<String, Object> infoMap);
 	public void registBook(Map<String, Object> infoMap);
 	
+	public Map<String, Object> getStoredBook(Map<String, Object> infoMap);
 	public List<Map<String, Object>> storedBookList(Map<String, Object> infoMap);
 	public List<Map<String, Object>> notStoredBookList();
 	public int updateStoredBook(Map<String, Object> infoMap);
 	
 	public List<Map<String, Object>> bookLoanListByMemberNo(Map<String, Object> infoMap);
-
+	public Map<String, Object> loanBook(Map<String, Object> infoMap);
 	public List<Map<String, Object>> searchMember(Map<String, Object> infoMap);
 }

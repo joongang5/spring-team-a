@@ -63,6 +63,11 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	@Override
+	public Map<String, Object> getStoredBook(Map<String, Object> infoMap) {
+		return adminDAO.getStoredBook(infoMap);
+	}
+	
+	@Override
 	public List<Map<String, Object>> storedBookList(Map<String, Object> infoMap) {
 		return adminDAO.storedBookList(infoMap);
 	}
@@ -95,6 +100,17 @@ public class AdminServiceImpl implements AdminService {
 		return adminDAO.bookLoanListByMemberNo(infoMap);
 	}
 
+	@Override
+	public Map<String, Object> loanBook(Map<String, Object> infoMap) {
+		int result = adminDAO.loanBook(infoMap);
+		if (result <= 0)
+			return null;
+		
+		
+		
+		return null;
+	}
+	
 	@Override
 	public List<Map<String, Object>> searchMember(Map<String, Object> infoMap) {
 		String searchType = String.valueOf(infoMap.get("search_type"));

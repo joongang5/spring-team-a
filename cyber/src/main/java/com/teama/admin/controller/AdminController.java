@@ -132,6 +132,20 @@ public class AdminController {
 		return mv;
 	}
 	
+	@PostMapping("getStoredBook.do")
+	public ModelAndView getStoredBook(CommandMap commandMap) {
+		ModelAndView mv = new ModelAndView("admin/loanPopup");
+		
+		Map<String, Object> bookInfo = adminService.getStoredBook(commandMap.getMap());
+		mv.addObject("bookInfo", bookInfo);
+		
+		List<Map<String, Object>> list = adminService.bookLoanListByMemberNo(commandMap.getMap());
+		mv.addObject("loanList", list);
+		mv.addObject("memberNo", commandMap.get("memberNo"));
+		
+		return mv;
+	}
+	
 	@GetMapping("updateStoredBook.do")
 	public ModelAndView updateStoredBook(CommandMap commandMap) {
 		ModelAndView mv = new ModelAndView("admin/storageBook");
@@ -147,11 +161,21 @@ public class AdminController {
 		
 		List<Map<String, Object>> list = adminService.bookLoanListByMemberNo(commandMap.getMap());
 		mv.addObject("loanList", list);
+		mv.addObject("memberNo", commandMap.get("memberNo"));
+		
+		return mv;
+	}
+
+	@PostMapping("loanBook.do")
+	public ModelAndView loan(CommandMap commandMap) {
+		ModelAndView mv = new ModelAndView("admin/loanPopup");
+		
+		Map<String, Object> result = adminService.loanBook(commandMap.getMap());
+		mv.addObject("result", result);
 		
 		return mv;
 	}
 	
-
 	@PostMapping("searchMember.do")
 	public ModelAndView searchMember(CommandMap commandMap) {
 		ModelAndView mv = new ModelAndView("admin/member");

@@ -22,38 +22,42 @@
 				<tr>
 					<th>bookNo</th>
 					<td>
-						<input type="text" name="">
+						<input type="text" name="bookNo">
 					</td>
 					<td>
-						<input type="button" value="검색" formaction="/cyber/admin/searchStoredBook.do">
+						<input type="submit" value="검색" formaction="/cyber/admin/getStoredBook.do">
+					</td>
+				</tr>
+			</table>
+			<input type="hidden" name="memberNo" value="${memberNo }">
+			
+			<table>
+				<tr>
+					<th>번호</th>
+					<td>표제</td>
+					<td>권차</td>
+					<td>저자</td>
+					<td>ISBN</td>
+					<td>보유</td>
+					<td>대출</td>
+					<td>예약</td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>${bookInfo.no}</td>
+					<td>${bookInfo.title}</td>
+					<td>${bookInfo.vol}</td>
+					<td>${bookInfo.author}</td>
+					<td>${bookInfo.ea_isbn}</td>
+					<td>${bookInfo.max_count }</td>
+					<td>${bookInfo.loan_count }</td>
+					<td>${bookInfo.reserve_count }</td>
+					<td>
+						<button formaction="/cyber/admin/loanBook.do">대출실행</button>
 					</td>
 				</tr>
 			</table>
 		</form>
-		<table>
-			<tr>
-				<th>번호</th>
-				<td>표제</td>
-				<td>권차</td>
-				<td>저자</td>
-				<td>ISBN</td>
-				<td>보유</td>
-				<td>대출</td>
-				<td>예약</td>
-			</tr>
-			<c:forEach items="${storageList }" var="l">
-			<tr>
-				<td>${l.no}</td>
-				<td>${l.title}</td>
-				<td>${l.vol}</td>
-				<td>${l.author}</td>
-				<td>${l.ea_isbn}</td>
-				<td>${l.max_count }</td>
-				<td>${l.loan_count }</td>
-				<td>${l.reserve_count }</td>
-			</tr>
-			</c:forEach>
-		</table>
 		
 		<h3>대출목록</h3>	
 		<table>
