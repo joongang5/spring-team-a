@@ -187,6 +187,7 @@ public class AdminController {
 		List<Map<String, Object>> list = adminService.searchMember(commandMap.getMap());
 		mv.addObject("list", list);
 		
+		mv.addObject("keyword", commandMap.get("keyword"));
 		return mv;
 	}
 }

@@ -19,6 +19,14 @@
 		SELECT * FROM member WHERE name=#{name}
 	</select>
 	
+	<select id="memberListByEmail" resultType="HashMap">
+		SELECT * FROM member WHERE email=#{email}
+	</select>
+	
+	<select id="memberListByJoinDate" resultType="HashMap">
+		SELECT * FROM member WHERE join_date=#{join_date}
+	</select>
+	
 	<insert id="insertBook" parameterType="HashMap">
 		INSERT INTO book (
 			title,

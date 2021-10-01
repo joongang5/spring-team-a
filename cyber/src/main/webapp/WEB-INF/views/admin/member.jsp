@@ -135,7 +135,7 @@ th, td {
 								<option value="id">아이디</option>
 								<option value="name">이름</option>
 								<option value="email">이메일</option>
-								<option value="joinDate">가입일</option>
+								<option value="join_date">가입일</option>
 							</select>
 							<input type="text" name="keyword" value="" size="80">
 							</td>
@@ -149,7 +149,7 @@ th, td {
 							</th>
 							<td>
 								<select name="grade" class="">
-									<option value="">전체</option>
+									<option value="gall">전체</option>
 									<option value="5">일반</option>
 									<option value="9">관리자</option>
 								</select>
@@ -181,20 +181,24 @@ th, td {
 			</thead>
 			<c:forEach items="${list }" var="l">
 				<tr>
-					<td>${l.no }</td>
-					<td>${l.id }</td>
-					<td>${l.name }</td>
-					<td>${l.email }</td>
-					<td>${l.join_date }</td>
-					<td>${l.grade }</td>
-					<td>
-						<button onclick="openLoanPopup(${l.no })">보기</button>
-					</td>
-					<c:if test="">
+					<c:choose>
+						<c:when test="${keyword eq list }"> <!-- 내일 다시해봐야지 -->
+							<td>${l.no }</td>
+							<td>${l.id }</td>
+							<td>${l.name }</td>
+							<td>${l.email }</td>
+							<td>${l.join_date }</td>
+							<td>${l.grade }</td>
+							<td>
+								<button onclick="openLoanPopup(${l.no })">보기</button>
+							</td>
+						</c:when>
+						<c:otherwise>
+							<td>등록된 회원이 없습니다.</td>
+						</c:otherwise>
+					</c:choose>
+					<c:if test="${keyword eq null}"> <!-- 내일 다시해봐야지 -->
 						<td>검색한 회원이 없습니다.</td>
-					</c:if>
-					<c:if test="">
-						<td>등록된 회원이 없습니다.</td>
 					</c:if>
 				</tr>
 			</c:forEach>

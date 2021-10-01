@@ -117,6 +117,10 @@ public class AdminServiceImpl implements AdminService {
 			result = adminDAO.memberListById(infoMap);
 		} else if (searchType.equals("name")) {
 			result = adminDAO.memberListByName(infoMap);
+		} else if (searchType.equals("email")) {
+			result = adminDAO.memberListByEmail(infoMap);
+		} else if (searchType.equals("join_date")) {
+			result = adminDAO.memberListByJoinDate(infoMap);
 		}
 		
 		return result;
