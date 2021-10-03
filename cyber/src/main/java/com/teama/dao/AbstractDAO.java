@@ -13,7 +13,7 @@ public class AbstractDAO {
 	protected Log log = LogFactory.getLog(AbstractDAO.class);
 
 	@Autowired
-	private SqlSessionTemplate sqlSession;
+	protected SqlSessionTemplate sqlSession;
 
 	protected void printQueryId(String queryId) {
 		if (log.isDebugEnabled()) {
@@ -24,6 +24,10 @@ public class AbstractDAO {
 	public List<Map<String, Object>> selectList(String queryId) {
 		printQueryId(queryId);
 		return sqlSession.selectList(queryId);
+	}
+
+	public List<Map<String, Object>> selectList(String queryId, int value) {
+		return sqlSession.selectList(queryId, value);
 	}
 
 	public List<Map<String, Object>> selectList(String queryId, Map<String, Object> map) {

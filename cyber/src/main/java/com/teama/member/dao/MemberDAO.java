@@ -1,10 +1,12 @@
 package com.teama.member.dao;
 
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.stereotype.Repository;
 
 import com.teama.dao.AbstractDAO;
+import com.teama.member.dto.MemberDTO;
 
 @Repository
 public class MemberDAO extends AbstractDAO {
@@ -23,5 +25,33 @@ public class MemberDAO extends AbstractDAO {
 		int result = getCountByKey("idCheck", id);
 		
 		return result <= 0;
+	}
+	
+	public MemberDTO getMemberByNo(int no) {
+		return sqlSession.selectOne("member.getMemberByNo", no);
+	}
+
+	public List<MemberDTO> getMemberList() {
+		return sqlSession.selectList("member.getMemberList");
+	}
+	
+	public List<MemberDTO> getMemberListByNo(int no) {
+		return sqlSession.selectList("member.getMemberByNo", no);
+	}
+	
+	public List<MemberDTO> memberListById(String id) {
+		return sqlSession.selectList("member.getMemberById", id);
+	}
+
+	public List<MemberDTO> memberListByName(String name) {
+		return sqlSession.selectList("member.getMemberByName", name);
+	}
+	
+	public List<MemberDTO> memberListByEmail(String email) {
+		return sqlSession.selectList("member.getMemberByEmail", email);
+	}
+	
+	public List<MemberDTO> memberListByJoinDate(String joinDate) {
+		return sqlSession.selectList("member.getMemberByJoinDate", joinDate);
 	}
 }

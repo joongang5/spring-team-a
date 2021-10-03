@@ -13,13 +13,33 @@ import org.jsoup.select.Elements;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.teama.api.util.HttpURLConnUtil;
 import com.teama.ebook.dao.EbookDAO;
 
 @Service("ebookAPIService")
-public class EbookAPIServiceImpl {
+public class EbookAPIServiceImpl implements EbookAPIService {
 	@Autowired
 	private EbookDAO ebookDAO;
+	
+	@SuppressWarnings("unchecked")
+	public Map<String, Object> searchEbook(String searchType, String searchValue, int pageNo) {
+		Map<String, Object> map = null;
+		Map<String, Object> searchInfo = Map.of(
+				"pageNo", pageNo,
+				"searchType", searchType,
+				"searchValue", searchValue);
+		
+		 try {
+			JSONObject resultObj = ebookSearch(searchInfo);
+			ObjectMapper mapper = new ObjectMapper();
+			map = mapper.readValue(resultObj.toString(), Map.class);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return map;
+	}
 	
 	@SuppressWarnings("unchecked")
 	public JSONObject ebookSearch(Map<String, Object> map) throws Exception {
@@ -32,11 +52,12 @@ public class EbookAPIServiceImpl {
 		params.put("page_no", String.valueOf(map.get("pageNo")));
 		
 		if (map.get("searchValue") != null) {
-			params.put((String)map.get("searchTarget"), (String) map.get("searchValue"));
+			params.put((String)map.get("searchType"), (String) map.get("searchValue"));
 		}
-		
+
+		String response = HttpURLConnUtil.doGetRequest(url, null, params);
 		JSONParser parser = new JSONParser();
-		JSONObject jsonObject = (JSONObject) parser.parse(HttpURLConnUtil.doGetRequest(url, null, params));
+		JSONObject jsonObject = (JSONObject) parser.parse(response);
 		List<Map<String, Object>> docsMap = (List<Map<String, Object>>) jsonObject.get("docs");
 		List<Map<String, Object>> kakaoList = null;
 		for (int i = 0; i < docsMap.size(); i++) {

@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 
 <!DOCTYPE html>
 <html>
@@ -105,7 +106,7 @@ th, td {
 </style>
 <script>
 	function openLoanPopup(no) {
-		var url = '/cyber/admin/loanPopup.do?memberNo=' + no;
+		var url = '/cyber/admin/loan/showPopup.do?memberNo=' + no;
 		var name = 'loanPopup';
 		var option = 'width=800, height=600';
 		window.open(url, name, option);
@@ -119,7 +120,7 @@ th, td {
 		</header>
 		<main>
 			<h3>회원 목록</h3>
-			<form action="./searchMember.do" method="post">
+			<form action="searchMember.do" method="post">
 				<table class="table_search">
 					<tbody>
 						<tr>
@@ -130,7 +131,7 @@ th, td {
 								검색어
 							</th>
 							<td>
-							<select name="search_type" class="">
+							<select name="searchType" class="">
 								<option value="all">전체</option>
 								<option value="id">아이디</option>
 								<option value="name">이름</option>
@@ -166,43 +167,37 @@ th, td {
 				</div>
 			</form>
 			
-			
 			<table class="table_basic">
-			<thead>
-			<tr>
-				<th>번호</th>
-				<th>아이디</th>
-				<th>이름</th>
-				<th>이메일</th>
-				<th>가입일</th>
-				<th>등급</th>
-				<th>대출관리</th>
-			</tr>
-			</thead>
-			<c:forEach items="${list }" var="l">
+				<thead>
 				<tr>
-					<c:choose>
-						<c:when test="${keyword eq list }"> <!-- 내일 다시해봐야지 -->
-							<td>${l.no }</td>
-							<td>${l.id }</td>
-							<td>${l.name }</td>
-							<td>${l.email }</td>
-							<td>${l.join_date }</td>
-							<td>${l.grade }</td>
-							<td>
-								<button onclick="openLoanPopup(${l.no })">보기</button>
-							</td>
-						</c:when>
-						<c:otherwise>
-							<td>등록된 회원이 없습니다.</td>
-						</c:otherwise>
-					</c:choose>
-					<c:if test="${keyword eq null}"> <!-- 내일 다시해봐야지 -->
-						<td>검색한 회원이 없습니다.</td>
-					</c:if>
+					<th>번호</th>
+					<th>아이디</th>
+					<th>이름</th>
+					<th>이메일</th>
+					<th>가입일</th>
+					<th>등급</th>
+					<th>대출관리</th>
 				</tr>
-			</c:forEach>
-		</table>
+				</thead>
+				<c:if test="${fn:length(memberDTOList) gt 0 }">
+					<c:forEach items="${memberDTOList }" var="l">
+					<tr>
+						<td>${l.no }</td>
+						<td>${l.id }</td>
+						<td>${l.name }</td>
+						<td>${l.email }</td>
+						<td>${l.join_date }</td>
+						<td>${l.grade }</td>
+						<td>
+							<button onclick="openLoanPopup(${l.no })">보기</button>
+						</td>
+					</tr>
+					</c:forEach>
+				</c:if>
+			</table>
+			<c:if test="${fn:length(memberDTOList) le 0 }">
+				<div>등록된 회원이 없습니다.</div>
+			</c:if>
 		</main>
 	</div>
 </body>

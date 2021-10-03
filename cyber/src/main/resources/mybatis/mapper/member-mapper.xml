@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"	
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="member">
+	<select id="login" resultType="HashMap">
+		SELECT no, name, id
+		FROM loginview
+		WHERE
+		id=#{id} AND pw=#{pw}
+	</select>
+
+	<insert id="join" parameterType="hashMap">
+		INSERT INTO member (name, id,
+		pw, email)
+		VALUES(#{name}, #{id}, #{pw}, #{email})
+	</insert>
+
+	<select id="idCheck" resultType="int">
+		SELECT COUNT(*)
+		FROM member
+		WHERE
+		id=#{id}
+	</select>
+	
+	<select id="getMemberList" resultType="memberDTO">
+		SELECT * FROM member
+	</select>
+	
+	<select id="getMemberByNo" parameterType="Integer" resultType="memberDTO">
+		SELECT * FROM member WHERE no=#{no}
+	</select>
+	
+	<select id="getMemberById" parameterType="String" resultType="memberDTO">
+		SELECT * FROM member WHERE id=#{no}
+	</select>
+	
+	<select id="getMemberByName" parameterType="String" resultType="memberDTO">
+		SELECT * FROM member WHERE name=#{name}
+	</select>
+	
+	<select id="getMemberByEmail" parameterType="String" resultType="memberDTO">
+		SELECT * FROM member WHERE email=#{email}
+	</select>
+	
+	<select id="getMemberByJoinDate" parameterType="String" resultType="memberDTO">
+		SELECT * FROM member WHERE join_date=#{joinDate}
+	</select>
+</mapper>
+	

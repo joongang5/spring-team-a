@@ -29,6 +29,22 @@ public class CommandMap {
 		return map.get(key);
 	}
 	
+	public String getStrValue(String key) {
+		Object obj = map.get(key);
+		if (obj == null)
+			return "";
+		
+		return String.valueOf(obj);
+	}
+	
+	public int getIntValue(String key) {
+		String strValue = getStrValue(key);
+		if (strValue == null)
+			throw new NullPointerException();
+		
+		return Integer.parseInt(strValue);
+	}
+	
 	public void clear() {
 		map.clear();
 	}

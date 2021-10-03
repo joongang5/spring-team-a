@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+
+	<typeAliases>
+		<typeAlias type="com.teama.loan.dto.LoanDTO" alias="loanDTO"/>
+		<typeAlias type="com.teama.loan.dto.LoanViewDTO" alias="loanViewDTO"/>
+		<typeAlias type="com.teama.storage.dto.BookStorageDTO" alias="bookStorageDTO"/>
+		<typeAlias type="com.teama.storage.dto.BookStorageViewDTO" alias="bookStorageViewDTO"/>
+		<typeAlias type="com.teama.ebook.dto.EbookDTO" alias="ebookDTO"/>
+		<typeAlias type="com.teama.member.dto.MemberDTO" alias="memberDTO"/>
+	</typeAliases>
+
+</configuration>

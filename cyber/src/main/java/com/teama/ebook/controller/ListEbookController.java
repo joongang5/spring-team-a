@@ -19,13 +19,13 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.teama.common.CommandMap;
 import com.teama.ebook.service.EbookAPIServiceImpl;
-import com.teama.ebook.service.ListEbookServiceImpl;
+import com.teama.ebook.service.EbookServiceImpl;
 
 @Controller
 public class ListEbookController {
 
-	@Resource(name="listEbookService")
-	private ListEbookServiceImpl listEbookService;
+	@Resource(name="ebookService")
+	private EbookServiceImpl ebookService;
 	@Resource(name="ebookAPIService")
 	private EbookAPIServiceImpl ebookAPIService;
 	
@@ -87,11 +87,11 @@ public class ListEbookController {
 			
 		map.put("pageNo", 1);
 		
-		int EbookList = listEbookService.ebookAdd(map.getMap());
+		int EbookList = ebookService.ebookAdd(map.getMap());
 		
 		for (int i = 2; i < 10; i++) {
 			map.put("pageNo", i);
-			listEbookService.ebookAdd(map.getMap());
+			ebookService.ebookAdd(map.getMap());
 		}
 		return null;
 	}

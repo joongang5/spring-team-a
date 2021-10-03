@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"	
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="bookStorage">
+	<select id="getBookList" resultType="bookStorageViewDTO">
+		SELECT * FROM book_storage_view
+	</select>
+	
+	<select id="getBookByBookNo" resultType="bookStorageViewDTO" parameterType="Integer">
+		SELECT * FROM book_storage_view WHERE book_no=#{bookNo}
+	</select>
+	
+	<insert id="insertBook" parameterType="bookStorageDTO">
+		INSERT INTO book_storage (book_no, max_count, loan_count, reserve_count)
+		VALUES (#{book_no}, #{max_count}, #{loan_count}, #{reserve_count})
+	</insert>
+
+	<update id="increaseLoanCountByBookNo" parameterType="Integer">
+		UPDATE book_storage SET loan_count=loan_count+1 WHERE book_no=#{bookNo}
+	</update>
+	
+	<update id="updateMaxCount" parameterType="HashMap">
+		UPDATE book_storage SET max_count=#{maxCount} WHERE book_no=#{bookNo}
+	</update>
+	
+	<select id="getUnregisteredBookList" resultType="bookStorageViewDTO">
+		SELECT * FROM book_storage_unregistered_view
+	</select>
+</mapper>

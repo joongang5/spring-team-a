@@ -25,7 +25,7 @@
 						<input type="text" name="bookNo">
 					</td>
 					<td>
-						<input type="submit" value="검색" formaction="/cyber/admin/getStoredBook.do">
+						<input type="submit" value="검색" formaction="/cyber/admin/loan/getStoredBook.do">
 					</td>
 				</tr>
 			</table>
@@ -46,21 +46,21 @@
 					<td></td>
 				</tr>
 				<tr>
-					<td>${storedBook.book_no}</td>
-					<td>${storedBook.title}</td>
-					<td>${storedBook.vol}</td>
-					<td>${storedBook.author}</td>
-					<td>${storedBook.ea_isbn}</td>
-					<td>${storedBook.max_count }</td>
-					<td>${storedBook.loan_count }</td>
-					<td>${storedBook.reserve_count }</td>
+					<td>${bookStorageDTO.book_no}</td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td>${bookStorageDTO.max_count }</td>
+					<td>${bookStorageDTO.loan_count }</td>
+					<td>${bookStorageDTO.reserve_count }</td>
 					<td>
-						<button formaction="/cyber/admin/loanBook.do">대출실행</button>
+						<button formaction="/cyber/admin/loan/loan.do">대출실행</button>
 					</td>
 				</tr>
 			</table>
 			<input type="hidden" name="memberNo" value="${memberNo }">
-			<input type="hidden" name="bookNo" value="${storedBook.book_no }">
+			<input type="hidden" name="bookNo" value="${bookStorageDTO.book_no }">
 		</form>
 		
 		<h3>대출목록</h3>	
@@ -72,7 +72,7 @@
 				<th>권차</th>
 				<th>반납일</th>
 			</tr>
-			<c:forEach items="${loanList }" var="l">
+			<c:forEach items="${loanViewDTOList }" var="l">
 			<tr>
 				<td>${l.no }</td>
 				<td>${l.title }</td>
