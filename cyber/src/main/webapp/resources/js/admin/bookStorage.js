@@ -21,17 +21,19 @@ function rewriteTbody(data) {
 	var html = "";
 	var list = data.bookStorageViewDTOList;
 	for (var i = 0; i < list.length; i++) {
+		var l = list[i];
+		
 		html += "<tr>";
-		html += 	"<td>" + list[i].no + "</td>";
-		html += 	"<td>" + list[i].book_no + "</td>";
-		html += 	"<td>" + list[i].title + "</td>";
-		html += 	"<td>" + list[i].vol + "</td>";
-		html += 	"<td>" + list[i].author + "</td>";
-		html += 	"<td>" + list[i].ea_isbn + "</td>";
-		html += 	"<td>" + list[i].max_count + "</td>";
-		html += 	"<td>" + list[i].loan_count + "</td>";
-		html += 	"<td>" + list[i].reserve_count + "</td>";
-		html += 	"<td><input type='button' value='수정' onclick='updateStoredBook(" + list[i].no + ")'></td>";
+		html += 	"<td>" + l.no + "</td>";
+		html += 	"<td>" + l.book_no + "</td>";
+		html += 	"<td>" + l.title + "</td>";
+		html += 	"<td>" + l.vol + "</td>";
+		html += 	"<td>" + l.author + "</td>";
+		html += 	"<td>" + l.ea_isbn + "</td>";
+		html += 	"<td><input type='text' id='maxCount" + l.no + "' value='" + l.max_count + "'></td>";
+		html += 	"<td><input type='text' id='loanCount" + l.no + "' value='" + l.loan_count + "'></td>";
+		html += 	"<td><input type='text' id='reserveCount" + l.no + "' value='" + l.reserve_count + "'></td>";
+		html += 	"<td><input type='button' value='수정' onclick='updateStoredBook(" + l.no + ")'></td>";
 		html += "</tr>";
 	}
 	
@@ -62,4 +64,31 @@ function updateStoredBook(no) {
 function linkPage(pageNo) {
 	var pathname = window.location.pathname;
 	location.href = pathname + "?pageNo=" + pageNo;
+}
+
+function linkPageAJAX(pageNo) {
+	var pathname = window.location.pathname;
+	var url = pathname.replace(".do", "AJAX.do");
+	
+	$.ajax({
+		url : url,
+		type : "POST",
+		dataType : "json",
+		data : { "pageNo" : pageNo },
+		success : function(data) {
+			rewriteTbody(data);
+			rewritePagination(data);
+		},
+		error : function(request, status, error) {
+			alert("error : " + error);
+		}
+	});
+}
+
+function rewritePagination(data) {
+	$("#pagination").empty();
+	
+	var html = "<ui:pagination paginationInfo='" + data.paginationInfo + "' type='text' jsFunction='linkPageAJAX'/>";
+	
+	$("#pagination").append(html);
 }

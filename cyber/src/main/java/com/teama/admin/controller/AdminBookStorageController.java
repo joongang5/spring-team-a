@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.teama.common.CommandMap;
 import com.teama.storage.dto.BookStorageDTO;
 import com.teama.storage.dto.BookStorageViewDTO;
@@ -49,7 +50,36 @@ public class AdminBookStorageController {
 		
 		return mv;
 	}
+	
+	@SuppressWarnings("unchecked")
+	@PostMapping(value="homeAJAX.do", produces="text/plain;charset=utf-8")
+	@ResponseBody
+	public String homeAJAX(CommandMap commandMap) {
 
+		int currentPageNo = commandMap.getIntValue("pageNo", 1);
+		int totalRecordCount = bookStorageService.getTotalCount();
+		
+		PaginationInfo paginationInfo = new PaginationInfo();
+		paginationInfo.setCurrentPageNo(currentPageNo);
+		paginationInfo.setRecordCountPerPage(3);
+		paginationInfo.setPageSize(8);
+		paginationInfo.setTotalRecordCount(totalRecordCount);
+		
+		int firstRecordIndex = paginationInfo.getFirstRecordIndex();
+		int recordCountPerPage = paginationInfo.getRecordCountPerPage();
+		
+		List<Map<String, Object>> bookStorageViewDTOList = bookStorageService.getPagingBookMapList(firstRecordIndex, recordCountPerPage);
+		
+		JSONObject jsonObj = new JSONObject();
+		jsonObj.put("bookStorageViewDTOList", bookStorageViewDTOList);
+		
+		ObjectMapper mapper = new ObjectMapper();
+		Map<String, Object> paginationInfoMap = mapper.convertValue(paginationInfo, Map.class);
+		jsonObj.put("paginationInfo", paginationInfoMap);
+		
+		return jsonObj.toString();
+	}
+	
 	@PostMapping("getBook.do")
 	public ModelAndView getBook(CommandMap commandMap) {
 		ModelAndView mv = new ModelAndView("admin/bookStorage");

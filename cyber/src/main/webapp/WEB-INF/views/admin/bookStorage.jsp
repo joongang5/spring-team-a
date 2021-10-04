@@ -81,7 +81,9 @@
 					</c:forEach>
 				</tbody>
 			</table>
-			<ui:pagination paginationInfo="${paginationInfo }" type="text" jsFunction="linkPage"/>
+			<div id="pagination">
+				<ui:pagination paginationInfo="${paginationInfo }" type="text" jsFunction="linkPage"/>
+			</div>
 		</main>
 	</div>
 </body>
