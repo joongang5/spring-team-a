@@ -6,8 +6,14 @@
 	<select id="getBookList" resultType="bookStorageViewDTO">
 		SELECT * FROM book_storage_view
 	</select>
+	<select id="getBookMapList" resultType="hashmap">
+		SELECT * FROM book_storage_view
+	</select>
 	
-	<select id="getBookByBookNo" resultType="bookStorageViewDTO" parameterType="Integer">
+	<select id="getBookByBookNo" resultType="bookStorageViewDTO" parameterType="int">
+		SELECT * FROM book_storage_view WHERE book_no=#{bookNo}
+	</select>
+	<select id="getBookMapByBookNo" resultType="hashmap" parameterType="int">
 		SELECT * FROM book_storage_view WHERE book_no=#{bookNo}
 	</select>
 	
@@ -16,15 +22,18 @@
 		VALUES (#{book_no}, #{max_count}, #{loan_count}, #{reserve_count})
 	</insert>
 
-	<update id="increaseLoanCountByBookNo" parameterType="Integer">
+	<update id="increaseLoanCountByBookNo" parameterType="int">
 		UPDATE book_storage SET loan_count=loan_count+1 WHERE book_no=#{bookNo}
 	</update>
 	
-	<update id="updateMaxCount" parameterType="HashMap">
+	<update id="updateMaxCount" parameterType="hashmap">
 		UPDATE book_storage SET max_count=#{maxCount} WHERE book_no=#{bookNo}
 	</update>
 	
 	<select id="getUnregisteredBookList" resultType="bookStorageViewDTO">
+		SELECT * FROM book_storage_unregistered_view
+	</select>
+	<select id="getUnregisteredBookMapList" resultType="hashmap">
 		SELECT * FROM book_storage_unregistered_view
 	</select>
 </mapper>

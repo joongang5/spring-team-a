@@ -15,9 +15,17 @@ public class BookStorageDAO extends AbstractDAO {
 	public List<BookStorageViewDTO> getBookList() {
 		return sqlSession.selectList("bookStorage.getBookList");
 	}
+
+	public List<Map<String, Object>> getBookMapList() {
+		return sqlSession.selectList("bookStorage.getBookMapList");
+	}
 	
 	public BookStorageViewDTO getBookByBookNo(int bookNo) {
 		return sqlSession.selectOne("bookStorage.getBookByBookNo", bookNo);
+	}
+
+	public Map<String, Object> getBookMapByBookNo(int bookNo) {
+		return sqlSession.selectOne("bookStorage.getBookMapByBookNo", bookNo);
 	}
 	
 	public int increaseLoanCountByBookNo(int bookNo) {
@@ -28,6 +36,10 @@ public class BookStorageDAO extends AbstractDAO {
 		return sqlSession.selectList("bookStorage.getUnregisteredBookList");
 	}
 
+	public List<Map<String, Object>> getUnregisteredBookMapList() {
+		return sqlSession.selectList("bookStorage.getUnregisteredBookMapList");
+	}
+	
 	public int insertBook(BookStorageDTO dto) {
 		return sqlSession.insert("bookStorage.insertBook", dto);
 	}

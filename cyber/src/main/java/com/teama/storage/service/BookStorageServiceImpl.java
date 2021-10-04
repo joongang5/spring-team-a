@@ -1,6 +1,7 @@
 package com.teama.storage.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,15 +22,30 @@ public class BookStorageServiceImpl implements BookStorageService {
 	}
 
 	@Override
+	public Map<String, Object> getBookMap(int bookNo) {
+		return bookStorageDAO.getBookMapByBookNo(bookNo);
+	}
+	
+	@Override
 	public List<BookStorageViewDTO> getBookList() {
 		return bookStorageDAO.getBookList();
+	}
+
+	@Override
+	public List<Map<String, Object>> getBookMapList() {
+		return bookStorageDAO.getBookMapList();
 	}
 
 	@Override
 	public List<BookStorageViewDTO> getUnregisteredBookList() {
 		return bookStorageDAO.getUnregisteredBookList();
 	}
-
+	
+	@Override
+	public List<Map<String, Object>> getUnregisteredBookMapList() {
+		return bookStorageDAO.getUnregisteredBookMapList();
+	}
+	
 	@Override
 	public int insertBook(BookStorageDTO dto) {
 		return bookStorageDAO.insertBook(dto);
