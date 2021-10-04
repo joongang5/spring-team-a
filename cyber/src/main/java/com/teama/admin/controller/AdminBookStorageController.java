@@ -18,6 +18,8 @@ import com.teama.storage.dto.BookStorageDTO;
 import com.teama.storage.dto.BookStorageViewDTO;
 import com.teama.storage.service.BookStorageService;
 
+import egovframework.rte.ptl.mvc.tags.ui.pagination.PaginationInfo;
+
 @Controller
 @RequestMapping("/admin/storage")
 public class AdminBookStorageController {
@@ -25,19 +27,32 @@ public class AdminBookStorageController {
 	@Resource(name="bookStorageService")
 	private BookStorageService bookStorageService;
 	
-	@GetMapping("home.do")
-	public ModelAndView home() {
-		ModelAndView mv = new ModelAndView("admin/storageBook");
+	@RequestMapping("home.do")
+	public ModelAndView home(CommandMap commandMap) {
+		ModelAndView mv = new ModelAndView("admin/bookStorage");
+
+		int currentPageNo = commandMap.getIntValue("pageNo", 1);
+		int totalRecordCount = bookStorageService.getTotalCount();
 		
-		List<BookStorageViewDTO> bookStorageViewDTOList = bookStorageService.getBookList();
+		PaginationInfo paginationInfo = new PaginationInfo();
+		paginationInfo.setCurrentPageNo(currentPageNo);
+		paginationInfo.setRecordCountPerPage(3);
+		paginationInfo.setPageSize(8);
+		paginationInfo.setTotalRecordCount(totalRecordCount);
+		
+		int firstRecordIndex = paginationInfo.getFirstRecordIndex();
+		int recordCountPerPage = paginationInfo.getRecordCountPerPage();
+		
+		List<Map<String, Object>> bookStorageViewDTOList = bookStorageService.getPagingBookMapList(firstRecordIndex, recordCountPerPage);
 		mv.addObject("bookStorageViewDTOList", bookStorageViewDTOList);
+		mv.addObject("paginationInfo", paginationInfo);
 		
 		return mv;
 	}
 
 	@PostMapping("getBook.do")
 	public ModelAndView getBook(CommandMap commandMap) {
-		ModelAndView mv = new ModelAndView("admin/storageBook");
+		ModelAndView mv = new ModelAndView("admin/bookStorage");
 
 		int bookNo = commandMap.getIntValue("bookNo");
 		
@@ -66,7 +81,7 @@ public class AdminBookStorageController {
 	
 	@PostMapping("unregisteredBook.do")
 	public ModelAndView unregisteredBook() {
-		ModelAndView mv = new ModelAndView("admin/storageBook");
+		ModelAndView mv = new ModelAndView("admin/bookStorage");
 		
 		List<BookStorageViewDTO> bookStorageViewDTOList = bookStorageService.getUnregisteredBookList();
 		mv.addObject("bookStorageViewDTOList", bookStorageViewDTOList);
@@ -89,7 +104,7 @@ public class AdminBookStorageController {
 	
 	@GetMapping("updateBook.do")
 	public ModelAndView updateBook(CommandMap commandMap) {
-		ModelAndView mv = new ModelAndView("admin/storageBook");
+		ModelAndView mv = new ModelAndView("admin/bookStorage");
 		
 		int bookNo = commandMap.getIntValue("bookNo");
 		int maxCount = commandMap.getIntValue("maxCount");

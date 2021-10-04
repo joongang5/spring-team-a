@@ -9,6 +9,13 @@
 	<select id="getBookMapList" resultType="hashmap">
 		SELECT * FROM book_storage_view
 	</select>
+	<select id="getPagingBookMapList" resultType="hashmap" parameterType="hashmap">
+		SELECT * FROM book_storage_view limit #{firstIndex}, #{recordCountPerPage} 
+	</select>
+	
+	<select id="getTotalCount" resultType="int">
+		SELECT COUNT(*) FROM book_storage
+	</select>	
 	
 	<select id="getBookByBookNo" resultType="bookStorageViewDTO" parameterType="int">
 		SELECT * FROM book_storage_view WHERE book_no=#{bookNo}

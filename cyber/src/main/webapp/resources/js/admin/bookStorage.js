@@ -58,3 +58,8 @@ function updateStoredBook(no) {
 	var reserveCount = document.getElementById('reserveCount' + no).value;
 	location.href = '/cyber/admin/storage/updateBook.do?bookNo=' + no + '&maxCount=' + maxCount + "&loanCount=" + loanCount + "&reserveCount=" + reserveCount;
 }
+
+function linkPage(pageNo) {
+	var pathname = window.location.pathname;
+	location.href = pathname + "?pageNo=" + pageNo;
+}

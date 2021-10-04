@@ -39,8 +39,16 @@ public class CommandMap {
 	
 	public int getIntValue(String key) {
 		String strValue = getStrValue(key);
-		if (strValue == null)
+		if (strValue.isEmpty())
 			throw new NullPointerException();
+		
+		return Integer.parseInt(strValue);
+	}
+
+	public int getIntValue(String key, int defaultValue) {
+		String strValue = getStrValue(key);
+		if (strValue.isEmpty())
+			return defaultValue;
 		
 		return Integer.parseInt(strValue);
 	}

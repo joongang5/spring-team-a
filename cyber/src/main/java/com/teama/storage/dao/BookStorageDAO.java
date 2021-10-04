@@ -20,6 +20,17 @@ public class BookStorageDAO extends AbstractDAO {
 		return sqlSession.selectList("bookStorage.getBookMapList");
 	}
 	
+	public List<Map<String, Object>> getPagingBookMapList(int firstIndex, int recordCountPerPage) {
+		Map<String, Object> map = Map.of(
+				"firstIndex", firstIndex,
+				"recordCountPerPage", recordCountPerPage);
+		return sqlSession.selectList("bookStorage.getPagingBookMapList", map);
+	}
+	
+	public int getTotalCount() {
+		return sqlSession.selectOne("bookStorage.getTotalCount");
+	}
+	
 	public BookStorageViewDTO getBookByBookNo(int bookNo) {
 		return sqlSession.selectOne("bookStorage.getBookByBookNo", bookNo);
 	}
