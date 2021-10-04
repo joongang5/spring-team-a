@@ -82,7 +82,7 @@
 				</tbody>
 			</table>
 			<div id="pagination">
-				<ui:pagination paginationInfo="${paginationInfo }" type="text" jsFunction="linkPage"/>
+				<ui:pagination paginationInfo="${paginationInfo }" type="text" jsFunction="linkPageAJAX"/>
 			</div>
 		</main>
 	</div>

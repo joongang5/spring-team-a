@@ -88,7 +88,7 @@ function linkPageAJAX(pageNo) {
 function rewritePagination(data) {
 	$("#pagination").empty();
 	
-	var html = "<ui:pagination paginationInfo='" + data.paginationInfo + "' type='text' jsFunction='linkPageAJAX'/>";
+	var html = data.pagination;
 	
 	$("#pagination").append(html);
 }

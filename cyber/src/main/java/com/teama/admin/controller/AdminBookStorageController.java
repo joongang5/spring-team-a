@@ -18,6 +18,7 @@ import com.teama.common.CommandMap;
 import com.teama.storage.dto.BookStorageDTO;
 import com.teama.storage.dto.BookStorageViewDTO;
 import com.teama.storage.service.BookStorageService;
+import com.teama.util.PaginationTagServlet;
 
 import egovframework.rte.ptl.mvc.tags.ui.pagination.PaginationInfo;
 
@@ -55,7 +56,6 @@ public class AdminBookStorageController {
 	@PostMapping(value="homeAJAX.do", produces="text/plain;charset=utf-8")
 	@ResponseBody
 	public String homeAJAX(CommandMap commandMap) {
-
 		int currentPageNo = commandMap.getIntValue("pageNo", 1);
 		int totalRecordCount = bookStorageService.getTotalCount();
 		
@@ -73,9 +73,12 @@ public class AdminBookStorageController {
 		JSONObject jsonObj = new JSONObject();
 		jsonObj.put("bookStorageViewDTOList", bookStorageViewDTOList);
 		
-		ObjectMapper mapper = new ObjectMapper();
-		Map<String, Object> paginationInfoMap = mapper.convertValue(paginationInfo, Map.class);
-		jsonObj.put("paginationInfo", paginationInfoMap);
+		PaginationTagServlet tag = new PaginationTagServlet();
+		tag.setJsFunction("linkPageAJAX");
+		tag.setPaginationInfo(paginationInfo);
+		tag.setType("text");
+		tag.getHtml();
+		jsonObj.put("pagination", tag.getHtml());
 		
 		return jsonObj.toString();
 	}
