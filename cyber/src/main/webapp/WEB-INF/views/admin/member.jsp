@@ -103,6 +103,20 @@ th, td {
 	color: $666666;
 	cursor: pointer;
 }
+
+.nomember {
+	margin: 0 auto;
+	padding: 0;
+	width: 95%;
+	border-collapse: collapse;
+	line-height: 1.5;
+	border-bottom: 1px solid #d7d6db;
+	border-right: 1px solid #d7d6db;
+	border-left: 1px solid #d7d6db;
+	color: #000;
+	text-align: center;
+}
+
 </style>
 <script>
 	function openLoanPopup(no) {
@@ -196,7 +210,7 @@ th, td {
 				</c:if>
 			</table>
 			<c:if test="${fn:length(memberDTOList) le 0 }">
-				<div>등록된 회원이 없습니다.</div>
+				<div class="nomember">등록된 회원이 없습니다.</div>
 			</c:if>
 		</main>
 	</div>
