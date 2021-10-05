@@ -54,7 +54,7 @@ public class AbstractDAO {
 	public int update(String queryId, Map<String, Object> map) {
 		return sqlSession.update(queryId, map);
 	}
-	
+
 	public int delete(String queryId, Map<String, Object> map) {
 		return sqlSession.delete(queryId, map);
 	}

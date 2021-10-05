@@ -87,37 +87,95 @@ button {
 	font-size: 14px;
 }
 </style>
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script type="text/javascript">
-	function idCheck() {		
-		$.ajax({
-			url : "idCheck.do",
-			type : "post",
-			dataType : 'text',
-			data : {
-				'id' : $("#id").val()
-			},
-			success : function(data) {
-				if (data == "true") {
-					$("#idCheckResult").text("사용 중인 ID입니다."");
-					$("#idCheckResult").css("color", "#da2244");
-					alert ("사용 중인 ID입니다."");
-				} else if (data == "false") {
-					$("#idCheckResult").css("color", "#0aca4a");
-					$("#idCheckResult").text('사용 가능한 ID입니다.');
+	$(function() {
+		$("#alert-success").hide();
+		$("#alert-danger").hide();
+		$("input").keyup(function() {
+			var pw1 = $("#pw").val();
+			var pw2 = $("#pw2").val();
+
+			if (pw1 != "" || pw2 != "") {
+
+				if (pw1 == pw2) {
+					$("#alert-success").show();
+					$("#alert-danger").hide();
+					$("#submit").removeAttr("disabled");
+
+				} else {
+					$("#alert-success").hide();
+					$("#alert-danger").show();
+					$("#submit").attr("disabled", "disabled");
 				}
 			}
-		})
-	}
-	function pwCheck() {
-		var pw1 = document.getElementById("pw");
-		var pw2 = document.getElementById("pw2");
-		var checkMsg = document.getElementById("checkMsg");
+		});
+	});
+</script>
+<script type="text/javascript">
+	function idCheck() {
+		var id = $("#id").val();
+		if (id == "" || id.length < 5) {
+			alert("ID는 5글자 이상 입력해주세요.");
+			return false;
 
-		if (pw1 == pw2) {
-			$("#checkMsg").text('사용 가능한 비밀번호입니다.');
+		} else {
+			$.ajax({
+				url : "./idCheck.do",
+				type : "POST",
+				cache : false,
+				dataType : "html",
+				data : {
+					'id' : id
+				},
+				success : function(data) {
+					if (data == 0) {
+						alert("사용 가능한 ID입니다.");
+
+					} else {
+						alert("이미 사용 중인 ID입니다.");
+					}
+				},
+				error : function(request, status, error) {
+					alert(error);
+				}
+			});
 		}
+		return false;
 	}
-	</script>
+</script>
+<script type="text/javascript">
+	function emailCheck() {
+		var email = $("#email").val();
+		if (email == "" || email.length < 5) {
+			alert("Email은 5글자 이상 입력해주세요.");
+			return false;
+
+		} else {
+			$.ajax({
+				url : "./emailCheck.do",
+				type : "POST",
+				cache : false,
+				dataType : "html",
+				data : {
+					'email' : email
+				},
+				success : function(data) {
+					if (data == 0) {
+						alert("사용 가능한 Email입니다.");
+
+					} else {
+						alert("이미 사용 중인 Email입니다.");
+					}
+				},
+				error : function(request, status, error) {
+					alert(error);
+				}
+			});
+		}
+		return false;
+	}
+</script>
 </head>
 <body>
 	<div id="wrap">
@@ -139,13 +197,19 @@ button {
 							<input type="text" id="id" name="id" required="required"
 								placeholder="아이디" style="margin-bottom: 10px;"
 								onchange="idCheck()"> <br> <input type="password"
-								id="pw" name="pw" required="required" placeholder="비밀번호"
-								style="margin-bottom: 10px;"><br> <input
-								type="password" id="pw2" name="pw2" required="required"
-								placeholder="비밀번호 확인" style="margin-bottom: 10px;"><br>
-							<div id="pwCheck" class="checkText"></div>
+								id="pw" name="pw" class="form-control" required="required"
+								placeholder="비밀번호" style="margin-bottom: 10px;"><br>
+							<input type="password" id="pw2" name="pw" class="form-control"
+								required="required" placeholder="비밀번호 확인"
+								style="margin-bottom: 10px;">
+							<div class="alert alert-success" id="alert-success"
+								style="font-family: 'NanumSquare', serif; margin-bottom: 10px;">비밀번호가
+								일치합니다.</div>
+							<div class="alert alert-danger" id="alert-danger"
+								style="font-family: 'NanumSquare', serif; margin-bottom: 10px;">비밀번호가
+								일치하지 않습니다.</div>
 							<input type="text" id="email" name="email" required="required"
-								placeholder="Email">
+								placeholder="Email" onchange="emailCheck()">
 						</div>
 						<div id="buttonbox">
 							<button type="submit">가입하기</button>

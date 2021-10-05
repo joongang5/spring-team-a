@@ -20,14 +20,13 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public boolean isUsableId(Map<String, Object> map) {
-		boolean result = false;
-		try {
-			result = memberDAO.isUsableId(map);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return result;
+	public String isUsableId(String id) {
+		return memberDAO.isUsableId(id);
+	}
+
+	@Override
+	public String isUsableEmail(String email) {
+		return memberDAO.isUsableEmail(email);
 	}
 
 	@Override
@@ -48,7 +47,7 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public List<MemberDTO> getMemberList(String searchType, String searchValue) {
 		List<MemberDTO> result = null;
-		
+
 		if (searchType.equals("id")) {
 			result = memberDAO.memberListById(searchValue);
 		} else if (searchType.equals("name")) {
@@ -58,7 +57,7 @@ public class MemberServiceImpl implements MemberService {
 		} else if (searchType.equals("join_date")) {
 			result = memberDAO.memberListByJoinDate(searchValue);
 		}
-		
+
 		return result;
 	}
 }

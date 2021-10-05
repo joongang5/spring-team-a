@@ -36,11 +36,19 @@ public class MemberController {
 		return "redirect:index.do";
 	}
 
-	@ResponseBody
 	@PostMapping("idCheck.do")
-	public boolean idCheck(CommandMap map) {
-		boolean check = memberService.isUsableId(map.getMap());
-		System.out.println("오는 값 ㅣ: " + check);
+	public @ResponseBody String idCheck(CommandMap map) {
+		String id = String.valueOf(map.get("id"));
+		String check = "1";
+		check = memberService.isUsableId(id);
+		return check;
+	}
+
+	@PostMapping("emailCheck.do")
+	public @ResponseBody String emailCheck(CommandMap map) {
+		String email = String.valueOf(map.get("email"));
+		String check = "1";
+		check = memberService.isUsableEmail(email);
 		return check;
 	}
 }

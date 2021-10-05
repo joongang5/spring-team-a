@@ -16,34 +16,48 @@
 		VALUES(#{name}, #{id}, #{pw}, #{email})
 	</insert>
 
-	<select id="idCheck" resultType="int">
-		SELECT COUNT(*)
+	<select id="idCheck" parameterType="String" resultType="String">
+		SELECT
+		COUNT(*)
 		FROM member
 		WHERE
 		id=#{id}
 	</select>
-	
+
+	<select id="emailCheck" parameterType="String"
+		resultType="String">
+		SELECT COUNT(*)
+		FROM member
+		WHERE
+		email=#{email}
+	</select>
+
 	<select id="getMemberList" resultType="memberDTO">
 		SELECT * FROM member
 	</select>
-	
-	<select id="getMemberByNo" parameterType="Integer" resultType="memberDTO">
+
+	<select id="getMemberByNo" parameterType="Integer"
+		resultType="memberDTO">
 		SELECT * FROM member WHERE no=#{no}
 	</select>
-	
-	<select id="getMemberById" parameterType="String" resultType="memberDTO">
+
+	<select id="getMemberById" parameterType="String"
+		resultType="memberDTO">
 		SELECT * FROM member WHERE id=#{no}
 	</select>
-	
-	<select id="getMemberByName" parameterType="String" resultType="memberDTO">
+
+	<select id="getMemberByName" parameterType="String"
+		resultType="memberDTO">
 		SELECT * FROM member WHERE name=#{name}
 	</select>
-	
-	<select id="getMemberByEmail" parameterType="String" resultType="memberDTO">
+
+	<select id="getMemberByEmail" parameterType="String"
+		resultType="memberDTO">
 		SELECT * FROM member WHERE email=#{email}
 	</select>
-	
-	<select id="getMemberByJoinDate" parameterType="String" resultType="memberDTO">
+
+	<select id="getMemberByJoinDate" parameterType="String"
+		resultType="memberDTO">
 		SELECT * FROM member WHERE join_date=#{joinDate}
 	</select>
 </mapper>

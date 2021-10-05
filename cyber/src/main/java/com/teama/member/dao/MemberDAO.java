@@ -19,14 +19,14 @@ public class MemberDAO extends AbstractDAO {
 		return insert("join", map);
 	}
 
-	public boolean isUsableId(Map<String, Object> map) {
-		int id = Integer.parseInt(String.valueOf(map.get("id")));
-		
-		int result = getCountByKey("idCheck", id);
-		
-		return result <= 0;
+	public String isUsableId(String id) {
+		return sqlSession.selectOne("idCheck", id);
 	}
-	
+
+	public String isUsableEmail(String email) {
+		return sqlSession.selectOne("emailCheck", email);
+	}
+
 	public MemberDTO getMemberByNo(int no) {
 		return sqlSession.selectOne("member.getMemberByNo", no);
 	}
@@ -34,11 +34,11 @@ public class MemberDAO extends AbstractDAO {
 	public List<MemberDTO> getMemberList() {
 		return sqlSession.selectList("member.getMemberList");
 	}
-	
+
 	public List<MemberDTO> getMemberListByNo(int no) {
 		return sqlSession.selectList("member.getMemberByNo", no);
 	}
-	
+
 	public List<MemberDTO> memberListById(String id) {
 		return sqlSession.selectList("member.getMemberById", id);
 	}
@@ -46,11 +46,11 @@ public class MemberDAO extends AbstractDAO {
 	public List<MemberDTO> memberListByName(String name) {
 		return sqlSession.selectList("member.getMemberByName", name);
 	}
-	
+
 	public List<MemberDTO> memberListByEmail(String email) {
 		return sqlSession.selectList("member.getMemberByEmail", email);
 	}
-	
+
 	public List<MemberDTO> memberListByJoinDate(String joinDate) {
 		return sqlSession.selectList("member.getMemberByJoinDate", joinDate);
 	}
