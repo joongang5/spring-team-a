@@ -6,7 +6,10 @@ import java.util.Map;
 public interface NoticeService {
 
 	//게시글 불러오기
-	List<Map<String, Object>> noticeList();
+	List<Map<String, Object>> noticeList(Map<String, Object> map);
+	
+	//페이징 totalCount
+	public int totalCount(Map<String, Object> map);
 	
 	//게시글 상세보기
 	public Map<String, Object> detail(Map<String, Object> map);

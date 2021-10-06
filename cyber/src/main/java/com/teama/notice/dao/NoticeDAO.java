@@ -11,8 +11,13 @@ import com.teama.dao.AbstractDAO;
 public class NoticeDAO extends AbstractDAO {
 	
 	//게시글 불러오기
-	public List<Map<String, Object>> noticeList() {
-		return (List<Map<String, Object>>) selectList("notice.noticeList");
+	public List<Map<String, Object>> noticeList(Map<String, Object> map) {
+		return (List<Map<String, Object>>) selectList("notice.noticeList", map);
+	}
+	
+	//페이징 totalCount
+	public int totalCount(Map<String, Object> map) {
+		return Integer.parseInt( String.valueOf (selectOne("notice.totalCount", map).get("totalCount")) );
 	}
 	
 	//게시글 상세보기
@@ -21,6 +26,7 @@ public class NoticeDAO extends AbstractDAO {
 	}
 	
 	//게시글 글쓰기
+	
 	
 	//게시글 삭제
 	public int delete(Map<String, Object> map) {
@@ -33,4 +39,5 @@ public class NoticeDAO extends AbstractDAO {
 	public int count(Map<String, Object> map) {
 		return update("notice.count", map);
 	}
+
 }

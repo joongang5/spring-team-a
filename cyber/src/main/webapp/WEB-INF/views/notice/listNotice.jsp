@@ -1,10 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="ui" uri="http://egovframework.gov/ctl/ui" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>공지사항</title>
+<script type="text/javascript">
+function linkPage(pageNo) {
+	location.href="./listNotice.do?pageNo=" + pageNo;
+}
+</script>
 <style>
 	body { margin: 0; padding: 0; }
 	#wrap { width: 1000px; margin: 0 auto; }
@@ -24,6 +30,7 @@
 	a { text-decoration: none; color: black; }
 </style>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src='<c:url value="/resources/js/notice/listNotice.js"/>'></script>
 </head>
 
 <body>
@@ -68,31 +75,35 @@
 			<!-- 공지사항 list -->
 			<div id="noticeBoard">
 				<table>
-					<tr>
-						<th>번호</th>
-						<th>제목</th>
-						<th>등록일</th>
-						<th>조회수</th>
-						<th>작성자</th>
-					</tr>
-					<c:forEach items="${list }" var="l">
+					<thead>
 						<tr>
-							<td>${l.notice_no }</td>
-							<td><a href="./noticeDetail.do?notice_no=${l.notice_no }">${l.title }</a></td>
-							<td>${l.date }</td>
-							<td>${l.count }</td>
-							<td>${l.id }(${l.name })</td>
+							<th>번호</th>
+							<th>제목</th>
+							<th>등록일</th>
+							<th>조회수</th>
+							<th>작성자</th>
 						</tr>
-					</c:forEach>
+					</thead>
+					<tbody id="nbody">
+						<c:forEach items="${list }" var="l">
+							<tr>
+								<td>${l.notice_no }</td>
+								<td><a href="./noticeDetail.do?notice_no=${l.notice_no }">${l.title }</a></td>
+								<td>${l.date }</td>
+								<td>${l.count }</td>
+								<td>${l.id }(${l.name })</td>
+							</tr>
+						</c:forEach>
+					</tbody>
 				</table>
+			</div> <!-- end of noticeBoard -->
 				
 			<!-- 페이징-->
-			<div id="paging">
+			<div id="pagination">
+				<ui:pagination paginationInfo="${paginationInfo }" type="text" jsFunction="linkPage"/>
 			</div> <!-- end of paging -->
 			
-			</div> <!-- end of noticeBoard -->
-			
-		<button>글쓰기</button>
+			<a href="./noticeWrite.do">글쓰기</a>
 						
 		</main>
 		

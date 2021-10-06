@@ -15,9 +15,13 @@ public class NoticeServiceImpl implements NoticeService {
 	private NoticeDAO noticeDAO;
 	
 	//게시글 불러오기
-	@Override
-	public List<Map<String, Object>> noticeList() {
-		return noticeDAO.noticeList();
+	public List<Map<String, Object>> noticeList(Map<String, Object> map) {
+		return noticeDAO.noticeList(map);
+	}
+	
+	//페이징 totalCount
+	public int totalCount(Map<String, Object> map) {
+		return noticeDAO.totalCount(map);
 	}
 	
 	//게시글 상세보기
@@ -26,7 +30,7 @@ public class NoticeServiceImpl implements NoticeService {
 		return noticeDAO.detail(map);
 	}
 	
-	//게시글 쓰기
+	//게시글 글쓰기
 	
 	//게시글 삭제
 	@Override
