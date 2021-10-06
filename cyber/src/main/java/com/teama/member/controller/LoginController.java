@@ -9,11 +9,13 @@ import javax.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.teama.common.CommandMap;
 import com.teama.member.service.LoginService;
 
 @Controller
+@RequestMapping("/member")
 public class LoginController {
 
 	@Resource(name = "loginService")
@@ -31,7 +33,7 @@ public class LoginController {
 		session.setAttribute("name", login.get("name"));
 		session.setAttribute("id", login.get("id"));
 
-		return "redirect:index.do";
+		return "redirect:/index.do";
 	}
 
 	@GetMapping("/logout.do")
@@ -46,6 +48,6 @@ public class LoginController {
 			session.removeAttribute("id");
 		}
 
-		return "redirect:index.do";
+		return "redirect:/index.do";
 	}
 }

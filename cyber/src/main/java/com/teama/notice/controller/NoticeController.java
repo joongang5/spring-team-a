@@ -14,6 +14,7 @@ import com.teama.notice.service.NoticeServiceImpl;
 
 
 @Controller
+@RequestMapping("/bbs")
 public class NoticeController {
 
 	@Resource(name="noticeService")

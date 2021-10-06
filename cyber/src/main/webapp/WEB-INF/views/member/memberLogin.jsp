@@ -88,6 +88,7 @@ button {
 	vertical-align: -3px;
 }
 </style>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 </head>
 <body>
 	<div id="wrap">
@@ -102,7 +103,7 @@ button {
 				<img alt="book" src="resources/img/book.png"
 					style="margin-left: 170px; margin-top: 10px; margin-bottom: 20px;">
 				<div id="inputbox">
-					<form action="memberLogin.do" method="post">
+					<form action="/cyber/member/memberLogin.do" method="post">
 						<c:if test="${not empty rememberCookie.getValue()}">
 							<c:set value="checked" var="checked" />
 						</c:if>
@@ -120,8 +121,8 @@ button {
 					<button type="submit">로그인</button>
 					<br>
 					</form>
-					<a href="memberFind.do"><button type="submit">ID/PW 찾기</button></a>
-					<br> <a href="memberJoinRegist.do"><button type="submit">회원
+					<a href="/cyber/member/memberFind.do"><button type="submit">ID/PW 찾기</button></a>
+					<br> <a href="/cyber/member/memberJoinRegist.do"><button type="submit">회원
 							가입</button></a>
 				</div>
 			</div>

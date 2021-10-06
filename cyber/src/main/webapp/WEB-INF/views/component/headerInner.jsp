@@ -20,32 +20,32 @@
 	<div id="siteMenu">
 		<ul>
 			<li class="login">
-				<a href="memberLogin.do">로그인</a>
+				<a href="/cyber/member/memberLogin.do">로그인</a>
 			</li>
 			<li class="join">
-				<a href="memberJoinRegist.do">회원가입</a>
+				<a href="/cyber/member/memberJoinRegist.do">회원가입</a>
 			</li>
 			<li class="admin">
-				<a href="admin/home.do">관리자</a>
+				<a href="/cyber/admin/home.do">관리자</a>
 			</li>
 		</ul>
 	</div>
 	<h1 id="logo">
-		<a href="index.do">사이버도서관</a>
+		<a href="/cyber/index.do">사이버도서관</a>
 	</h1>
 	<nav id="gnbNav">
 		<ul>
 			<li>
-				<a href="ebookMain.do">전자책</a>
+				<a href="/cyber/ebook/ebookMain.do">전자책</a>
 			</li>
 			<li>
-				<a href="ebookMain.do">소통마당</a>
+				<a href="/cyber/ebook/ebookMain.do">소통마당</a>
 			</li>
 			<li>
-				<a href="myPage.do">나만의도서관</a>
+				<a href="/cyber/myPage/myPage.do">나만의도서관</a>
 			</li>
 			<li>
-				<a href="listNotice.do">공지사항</a>
+				<a href="/cyber/bbs/listNotice.do">공지사항</a>
 			</li>
 		</ul>
 	</nav>

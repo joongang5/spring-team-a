@@ -15,6 +15,7 @@
 		main { float: left; width: 760px; height: 600px; background: #444; }
 		footer	{ clear: both; width: 1000px; height: 100px; background: #555; }
 	</style>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 </head>
 <body>
 	<div id="wrap">

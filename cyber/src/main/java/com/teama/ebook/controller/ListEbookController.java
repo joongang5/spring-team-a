@@ -22,6 +22,7 @@ import com.teama.ebook.service.EbookAPIServiceImpl;
 import com.teama.ebook.service.EbookServiceImpl;
 
 @Controller
+@RequestMapping("/ebook")
 public class ListEbookController {
 
 	@Resource(name="ebookService")
