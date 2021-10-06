@@ -79,7 +79,7 @@ button {
 	margin-bottom: 10px;
 }
 
-#checkbox {
+#idSaveCheck {
 	width: 15px;
 	height: 15px;
 	margin-left: 100px;
@@ -88,7 +88,64 @@ button {
 	vertical-align: -3px;
 }
 </style>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
+	$(document).ready(function() {
+		var userInputId = getCookie("userInputId");
+		$("input[name='id']").val(userInputId);
+
+		if ($("input[name='id']").val() != "") {
+			$("#idSaveCheck").attr("checked", true);
+		}
+
+		$("#idSaveCheck").change(function() {
+			if ($("#idSaveCheck").is(":checked")) {
+				var userInputId = $("input[name='id']").val();
+				setCookie("userInputId", userInputId, 7);
+			} else {
+				deleteCookie("userInputId");
+			}
+		});
+
+		$("input[name='id']").keyup(function() {
+			if ($("#idSaveCheck").is(":checked")) {
+				var userInputId = $("input[name='id']").val();
+				setCookie("userInputId", userInputId, 7);
+			}
+		});
+	});
+
+	function setCookie(cookieName, value, exdays) {
+		var exdate = new Date();
+		exdate.setDate(exdate.getDate() + exdays);
+		var cookieValue = escape(value)
+				+ ((exdays == null) ? "" : "; expires=" + exdate.toGMTString());
+		document.cookie = cookieName + "=" + cookieValue;
+	}
+
+	function deleteCookie(cookieName) {
+		var expireDate = new Date();
+		expireDate.setDate(expireDate.getDate() - 1);
+		document.cookie = cookieName + "= " + "; expires="
+				+ expireDate.toGMTString();
+	}
+
+	function getCookie(cookieName) {
+		cookieName = cookieName + '=';
+		var cookieData = document.cookie;
+		var start = cookieData.indexOf(cookieName);
+		var cookieValue = '';
+		if (start != -1) {
+			start += cookieName.length;
+			var end = cookieData.indexOf(';', start);
+			if (end == -1)
+				end = cookieData.length;
+			cookieValue = cookieData.substring(start, end);
+		}
+		return unescape(cookieValue);
+	}
+</script>
 </head>
 <body>
 	<div id="wrap">
@@ -103,10 +160,8 @@ button {
 				<img alt="book" src="../resources/img/book.png"
 					style="margin-left: 170px; margin-top: 10px; margin-bottom: 20px;">
 				<div id="inputbox">
-					<form action="/cyber/member/memberLogin.do" method="post">
-						<c:if test="${not empty rememberCookie.getValue()}">
-							<c:set value="checked" var="checked" />
-						</c:if>
+					<form class="login-form" action="/cyber/member/memberLogin.do"
+						method="post">
 						<div>
 							<input type="text" name="id" placeholder="아이디"
 								style="margin-bottom: 10px;" value="${rememberId.getValue() }">
@@ -114,16 +169,15 @@ button {
 						</div>
 				</div>
 				<div style="font-family: 'NanumSquare', serif; font-size: 12px;">
-					<input type="checkbox" id="checkbox" value="true" ${checked}>
-					아이디 기억하기
+					<input type="checkbox" id="idSaveCheck"> 아이디 기억하기
 				</div>
 				<div id="buttonbox">
 					<button type="submit">로그인</button>
 					<br>
 					</form>
-					<a href="/cyber/member/memberFind.do"><button type="submit">ID/PW 찾기</button></a>
-					<br> <a href="/cyber/member/memberJoinRegist.do"><button type="submit">회원
-							가입</button></a>
+					<a href="/cyber/member/memberFind.do"><button type="submit">ID/PW
+							찾기</button></a> <br> <a href="/cyber/member/memberJoinRegist.do"><button
+							type="submit">회원 가입</button></a>
 				</div>
 			</div>
 		</main>

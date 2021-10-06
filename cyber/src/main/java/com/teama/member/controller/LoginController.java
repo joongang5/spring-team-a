@@ -37,22 +37,17 @@ public class LoginController {
 		return "redirect:/index.do";
 	}
 
-	@GetMapping("/logout.do")
-	public String logout(CommandMap commandMap, HttpServletRequest request) {
+	@GetMapping("/logout")
+	public String logout(HttpServletRequest request) {
 		HttpSession session = request.getSession();
-
-		if (session.getAttribute("name") != null) {
-			session.removeAttribute("name");
-		}
 
 		if (session.getAttribute("id") != null) {
 			session.removeAttribute("id");
 		}
 
-		if (session.getAttribute("memberNo") != null) {
-			session.removeAttribute("memberNo");
+		if (session.getAttribute("name") != null) {
+			session.removeAttribute("name");
 		}
-		
 		return "redirect:/index.do";
 	}
 }
