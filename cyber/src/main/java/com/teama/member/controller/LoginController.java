@@ -32,6 +32,7 @@ public class LoginController {
 		HttpSession session = request.getSession();
 		session.setAttribute("name", login.get("name"));
 		session.setAttribute("id", login.get("id"));
+		session.setAttribute("memberNo", login.get("no"));
 
 		return "redirect:/index.do";
 	}
@@ -48,6 +49,10 @@ public class LoginController {
 			session.removeAttribute("id");
 		}
 
+		if (session.getAttribute("memberNo") != null) {
+			session.removeAttribute("memberNo");
+		}
+		
 		return "redirect:/index.do";
 	}
 }

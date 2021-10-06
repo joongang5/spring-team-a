@@ -5,6 +5,7 @@ public class LoanDTO {
 	private int no;
 	private int book_no;
 	private int member_no;
+	private String loan_date;
 	private String return_date;
 
 	public int getNo() {
@@ -29,6 +30,14 @@ public class LoanDTO {
 
 	public void setMember_no(int member_no) {
 		this.member_no = member_no;
+	}
+	
+	public String getLoan_date() {
+		return loan_date;
+	}
+
+	public void setLoan_date(String loan_date) {
+		this.loan_date = loan_date;
 	}
 
 	public String getReturn_date() {

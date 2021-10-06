@@ -81,4 +81,8 @@
 			#{UPDATE_DATE}
 		)
 	</insert>
+	
+	<select id="getEbookByNo" resultType="ebookDTO" parameterType="int">
+		SELECT * FROM book WHERE no=#{bookNo}
+	</select>
 </mapper>

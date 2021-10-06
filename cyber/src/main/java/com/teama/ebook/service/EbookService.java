@@ -15,4 +15,6 @@ public interface EbookService {
  	
 	public List<EbookDTO> getEbookList();
 	public int insertBook(Map<String, Object> map);
+
+	public EbookDTO getEbook(int bookNo);
 }

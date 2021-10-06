@@ -35,4 +35,9 @@ public class EbookServiceImpl implements EbookService {
 	public int insertBook(Map<String, Object> map) {
 		return ebookDAO.insert("ebook.insertBook", map);
 	}
+	
+	@Override
+	public EbookDTO getEbook(int bookNo) {
+		return ebookDAO.getEbook(bookNo);
+	}
 }
