@@ -100,7 +100,7 @@ button {
 		</aside>
 		<main>
 			<div id="loginbox">
-				<img alt="book" src="resources/img/book.png"
+				<img alt="book" src="../resources/img/book.png"
 					style="margin-left: 170px; margin-top: 10px; margin-bottom: 20px;">
 				<div id="inputbox">
 					<form action="/cyber/member/memberLogin.do" method="post">

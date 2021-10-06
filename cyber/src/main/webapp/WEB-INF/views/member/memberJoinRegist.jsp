@@ -187,7 +187,7 @@ button {
 		</aside>
 		<main>
 			<div id="joinbox">
-				<img alt="registration" src="resources/img/registration.png"
+				<img alt="registration" src="../resources/img/registration.png"
 					style="margin-left: 170px; margin-top: 10px; margin-bottom: 20px;">
 				<div id="inputbox">
 					<form action="memberJoinRegist.do" method="post">
