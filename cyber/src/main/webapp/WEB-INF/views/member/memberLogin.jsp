@@ -179,6 +179,20 @@ button {
 							찾기</button></a> <br> <a href="/cyber/member/memberJoinRegist.do"><button
 							type="submit">회원 가입</button></a>
 				</div>
+				<div id="naverLogin"
+					style="text-align: center; padding-bottom: 10px;">
+					<form action="naverAuth.do" method="post">
+						<img alt="naverLogin" src="../resources/img/naverLogin.png"
+							width="190px;" height="40px;" />
+					</form>
+				</div>
+				<div id="kakaoLogin"
+					style="text-align: center; padding-bottom: 10px;">
+					<form action="kakakoAuth.do" method="post">
+						<img alt="kakaoLogin" src="../resources/img/kakaoLogin.png"
+							width="190px;" height="40px;" />
+					</form>
+				</div>
 			</div>
 		</main>
 		<footer>footer</footer>

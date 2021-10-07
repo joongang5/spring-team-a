@@ -152,26 +152,30 @@ button {
 			return false;
 
 		} else {
-			$.ajax({
-				url : "./emailCheck.do",
-				type : "POST",
-				cache : false,
-				dataType : "html",
-				data : {
-					'email' : email
-				},
-				success : function(data) {
-					if (data == 0) {
-						alert("사용 가능한 Email입니다.");
+			if (email.indexOf("@") != -1) {
+				$.ajax({
+					url : "./emailCheck.do",
+					type : "POST",
+					cache : false,
+					dataType : "html",
+					data : {
+						'email' : email
+					},
+					success : function(data) {
+						if (data == 0) {
+							alert("사용 가능한 Email입니다.");
 
-					} else {
-						alert("이미 사용 중인 Email입니다.");
+						} else {
+							alert("이미 사용 중인 Email입니다.");
+						}
+					},
+					error : function(request, status, error) {
+						alert(error);
 					}
-				},
-				error : function(request, status, error) {
-					alert(error);
-				}
-			});
+				});
+			} else {
+				alert("올바른 Email을 입력해주세요.");
+			}
 		}
 		return false;
 	}

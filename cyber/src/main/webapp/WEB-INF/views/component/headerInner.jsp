@@ -64,26 +64,26 @@
 		<ul>
 			<li class="login"><c:choose>
 					<c:when test="${sessionScope.name ne null}">
-						<a href="/cyber/member/logout.do">로그아웃</a>
+						<a href="/cyber/member/logout.do">로그아웃&nbsp;</a>
 					</c:when>
 					<c:otherwise>
-						<a href="/cyber/member/memberLogin.do">로그인</a>
+						<a href="/cyber/member/memberLogin.do">로그인&nbsp;</a>
 					</c:otherwise>
 				</c:choose></li>
-			<li class="join"><a href="/cyber/member/memberJoinRegist.do">회원가입</a>
+			<li class="join"><a href="/cyber/member/memberJoinRegist.do">회원가입&nbsp;</a>
 			</li>
 			<li class="admin"><a href="/cyber/admin/home.do">관리자</a></li>
 		</ul>
 	</div>
 	<h1 id="logo">
-		<a href="/cyber/index.do">사이버도서관</a>
+		<a href="/cyber/index.do">사이버 도서관</a>
 	</h1>
 	<nav id="gnbNav">
 		<ul>
-			<li><a href="/cyber/ebook/ebookMain.do">전자책</a></li>
-			<li><a href="/cyber/ebook/ebookMain.do">소통마당</a></li>
-			<li><a href="/cyber/myPage/myPage.do">나만의도서관</a></li>
-			<li><a href="/cyber/bbs/listNotice.do">공지사항</a></li>
+			<li><a href="/cyber/ebook/ebookMain.do">전자책&nbsp;&nbsp;</a></li>
+			<li><a href="/cyber/ebook/ebookMain.do">소통마당&nbsp;&nbsp;</a></li>
+			<li><a href="/cyber/bbs/listNotice.do">공지사항&nbsp;&nbsp;</a></li>
+			<li><a href="/cyber/myPage/myPage.do">내 도서관&nbsp;&nbsp;</a></li>
 		</ul>
 	</nav>
 </div>

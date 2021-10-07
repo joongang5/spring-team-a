@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.teama.common.CommandMap;
 import com.teama.member.service.LoginService;
+import com.teama.member.service.NaverAPIService;
 
 @Controller
 @RequestMapping("/member")
@@ -49,5 +50,18 @@ public class LoginController {
 			session.removeAttribute("name");
 		}
 		return "redirect:/index.do";
+	}
+
+	@Resource(name = "naverAPIService")
+	private NaverAPIService naverAPIService;
+
+	@GetMapping("naverAuth.do")
+	public String naverAuth() {
+		return "member/memberLogin";
+	}
+
+	@GetMapping("onNaverLoginCallback.do")
+	public String onNaverLoginCallback() {
+		return "member/memberLogin";
 	}
 }

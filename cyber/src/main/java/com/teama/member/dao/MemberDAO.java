@@ -12,15 +12,15 @@ import com.teama.member.dto.MemberDTO;
 public class MemberDAO extends AbstractDAO {
 
 	public Map<String, Object> login(Map<String, Object> map) {
-		return selectOne("login", map);
+		return selectOne("member.login", map);
 	}
 
 	public int join(Map<String, Object> map) {
-		return insert("join", map);
+		return insert("member.join", map);
 	}
 
 	public String isUsableId(String id) {
-		return sqlSession.selectOne("idCheck", id);
+		return sqlSession.selectOne("member.idCheck", id);
 	}
 
 	public String isUsableEmail(String email) {
