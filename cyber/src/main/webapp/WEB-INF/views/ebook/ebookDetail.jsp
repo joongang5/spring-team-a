@@ -81,6 +81,7 @@ $(document).ready(function() {
 				success : function(data) {
 					//alert("정상 : pageNo : " + data.PAGE_NO);
 					//alert("정상 : list : " + data.docs);
+					alert('??');
 					emp(data);
 				},
 				error : function(requst, status, error) {
@@ -101,7 +102,26 @@ $(document).ready(function() {
 		</aside>
 		<main>
 			<div id="mainTable">
-	
+			<img src="${ebookDetail.title_url}" style="width: 100px"><br> 
+			제목 : ${ebookDetail.title}<br>
+			저자 : ${ebookDetail.author}<br>
+			출판사 : ${ebookDetail.publisher}<br>
+			ISBN : ${ebookDetail.isbn}<br>
+			출판일 : ${ebookDetail.datetime}<br>
+			가격 : ${ebookDetail.price}<br>
+			페이지 : ${ebookDetail.page}<br>
+			책 크기 : ${ebookDetail.book_size }
+			
+			<hr>
+			책소개<br>
+			${detail.detail0 }<br>
+			<hr>	
+			저자<br>
+			${detail.detail1 }<br>
+			<hr>
+			목차<br>
+			${detail.detail2 }<br>
+			<hr>
 			</div>
 		</main>
 		<footer>footer</footer>

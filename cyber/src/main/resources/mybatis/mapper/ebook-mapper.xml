@@ -43,4 +43,19 @@
 	<select id="getEbookByNo" resultType="ebookDTO" parameterType="int">
 		SELECT * FROM book WHERE no=#{bookNo}
 	</select>
+	
+	<select id="getEbookDetail" resultType="ebookDTO" parameterType="String">
+		SELECT 
+			title, 
+			title_url, 
+			author, 
+			publisher, 
+			isbn, 
+			datetime, 
+			price, 
+			page, 
+			book_size 
+			FROM book WHERE isbn=#{isbn}
+	</select>
+	
 </mapper>

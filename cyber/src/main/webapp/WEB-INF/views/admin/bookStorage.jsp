@@ -47,7 +47,6 @@
 						<th>저장번호</th>
 						<th>책번호</th>
 						<th>표제</th>
-						<th>권차</th>
 						<th>저자</th>
 						<th>ISBN</th>
 						<th>보유</th>
@@ -62,9 +61,8 @@
 						<td>${l.no}</td>
 						<td>${l.book_no}</td>
 						<td>${l.title}</td>
-						<td>${l.vol}</td>
 						<td>${l.author}</td>
-						<td>${l.ea_isbn}</td>
+						<td>${l.isbn}</td>
 						<td>
 							<input type="text" id="maxCount${l.no }" value="${l.max_count }">
 						</td>

@@ -29,4 +29,8 @@ public class EbookDAO extends AbstractDAO{
 	public EbookDTO getEbook(int bookNo) {
 		return sqlSession.selectOne("ebook.getEbookByNo", bookNo);
 	}
+
+	public EbookDTO ebookDetail(String isbn) {
+		return sqlSession.selectOne("ebook.getEbookDetail", isbn);
+	}
 }

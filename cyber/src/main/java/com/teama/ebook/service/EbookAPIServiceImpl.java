@@ -69,10 +69,9 @@ public class EbookAPIServiceImpl implements EbookAPIService {
 					docs.setPage((String) docsMap.get(i).get("PAGE"));
 					docs.setBook_size((String) docsMap.get(i).get("BOOK_SIZE"));
 					info.add(docs);
-					System.out.println("pageNO = " + map.get("pageNo"));
-					System.out.println("등록");
+					//System.out.println("등록");
 				} else {
-					System.out.println("ISBN 없음 미등록");
+					//System.out.println("ISBN 없음 미등록");
 				}
 			}
 			
@@ -84,7 +83,7 @@ public class EbookAPIServiceImpl implements EbookAPIService {
 	}
 
 	@SuppressWarnings("unchecked")
-	public List<EbookDTO> ebookSearchKakao(String isbn) throws Exception {
+	public List<Map<String, Object>> ebookSearchKakao(String isbn) throws Exception {
 		String serviceKey = "KakaoAK b6e603937314371fe828d320341a4c07";
 		String url = "https://dapi.kakao.com/v3/search/book";
 		Map<String, String> params = new HashMap<String, String>();
@@ -95,13 +94,15 @@ public class EbookAPIServiceImpl implements EbookAPIService {
 		properties.put("Authorization", serviceKey);
 		JSONParser parser = new JSONParser();
 		JSONObject jsonObject = (JSONObject) parser.parse(HttpURLConnUtil.doGetRequest(url, properties, params));
-		List<EbookDTO> kakao = (List<EbookDTO>) jsonObject.get("documents");
-		return kakao;
+		List<Map<String, Object>> kakao = (List<Map<String, Object>>) jsonObject.get("documents");
+		if(kakao.size()!=0) {
+			return kakao;			
+		}
+		return null;
 	}
 
 	public Map<String, Object> ebookCrawler(String url) throws Exception {
 		Document doc = Jsoup.connect(url).get();
-
 		Elements elem = doc.select("div.info_section");
 		Elements content = elem.select("p.desc");
 		Map<String, Object> detail = new HashMap<String, Object>();
