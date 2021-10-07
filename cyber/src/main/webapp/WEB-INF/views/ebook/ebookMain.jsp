@@ -95,12 +95,11 @@ function main(pageNo) {
 		$.ajax({
 			url : "./ebookMain.do",
 			type : "POST",
-			cache : false,
-			dataType : "json",
 			data : {
 				"pageNo" : pageNo
 			},
 			success : function(data) {
+				alert(data);
 				emp(data);
 			},
 			error : function(requst, status, error) {

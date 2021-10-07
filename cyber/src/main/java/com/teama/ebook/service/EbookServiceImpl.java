@@ -17,7 +17,7 @@ public class EbookServiceImpl implements EbookService {
 	private EbookDAO ebookDAO;
 	
 	@Override
-	public JSONObject ebookSearch(Map<String, Object> map) throws Exception {
+	public List<EbookDTO> ebookSearch(Map<String, Object> map) throws Exception {
 		return null;
 	}
 	
@@ -32,7 +32,7 @@ public class EbookServiceImpl implements EbookService {
 	}
 
 	@Override
-	public int insertBook(Map<String, Object> map) {
-		return ebookDAO.insert("ebook.insertBook", map);
+	public int insertBook(EbookDTO map) {
+		return ebookDAO.insertEbook("ebook.insertBook", map);
 	}
 }

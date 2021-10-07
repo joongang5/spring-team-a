@@ -1,12 +1,12 @@
 package com.teama.ebook.controller;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
-import org.json.simple.JSONObject;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.teama.common.CommandMap;
+import com.teama.ebook.dto.EbookDTO;
 import com.teama.ebook.service.EbookAPIServiceImpl;
 import com.teama.ebook.service.EbookServiceImpl;
 
@@ -34,10 +35,9 @@ public class ListEbookController {
 	public String ebookMain(CommandMap map) throws Exception {
 		return "ebook/ebookMain";
 	}
-	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "/ebookMain.do", method = RequestMethod.POST, produces = "text/plain;charset=utf-8")
 	@ResponseBody
-	public String ebookSearch(CommandMap map, HttpServletRequest request) throws Exception {
+	public List<EbookDTO> ebookSearch(CommandMap map, HttpServletRequest request) throws Exception {
 		if(!map.containsKey("pageNo")) {
 			map.put("pageNo", 1);
 		}
@@ -45,15 +45,15 @@ public class ListEbookController {
 		//map.put("searchValue", "9791163032816");
 		
 		System.out.println(map.get("pageNo"));
-		JSONObject EbookList = ebookAPIService.ebookSearch(map.getMap());
+		List<EbookDTO> EbookList = ebookService.ebookSearch(map.getMap());
 		//System.out.println(map.getMap().get("searchTarget"));
 		//System.out.println(map.getMap().get("searchValue"));
-		if(map.getMap().get("searchValue")!=null) {
-			EbookList.put("searchTarget", map.getMap().get("searchTarget"));
-			EbookList.put("searchValue", map.getMap().get("searchValue"));
-		}
-		
-		return EbookList.toJSONString();
+//		if(map.getMap().get("searchValue")!=null) {
+//			EbookList.put("searchTarget", map.getMap().get("searchTarget"));
+//			EbookList.put("searchValue", map.getMap().get("searchValue"));
+//		}
+//		
+		return EbookList;
 	}
 	
 	@GetMapping("/ebookDetail")
@@ -74,26 +74,6 @@ public class ListEbookController {
 		return mv;		
 	}
 	
-//	@PostMapping("ebookMain.do")
-//	public ModelAndView ebookSearch(CommandMap map) throws Exception {
-//		ModelAndView mv = new ModelAndView("ebook/ebookMain");
-//		JSONObject searchList = listEbookService.ebookSearch(map.getMap());
-//		mv.addObject("totalCount", searchList.get("TOTAL_COUNT"));
-//		mv.addObject("pageNo", searchList.get("PAGE_NO"));
-//		mv.addObject("searchList", searchList.get("docs"));
-//		return mv;
-//	}
-	@GetMapping("/ebookAdd")
-	public String ebookAdd(CommandMap map, HttpServletRequest request) throws Exception {
-			
-		map.put("pageNo", 1);
-		
-		int EbookList = ebookService.ebookAdd(map.getMap());
-		
-		for (int i = 2; i < 10; i++) {
-			map.put("pageNo", i);
-			ebookService.ebookAdd(map.getMap());
-		}
-		return null;
-	}
+
+
 }
