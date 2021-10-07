@@ -32,22 +32,22 @@ public class LoginController {
 		HttpSession session = request.getSession();
 		session.setAttribute("name", login.get("name"));
 		session.setAttribute("id", login.get("id"));
+		session.setAttribute("memberNo", login.get("no"));
 
 		return "redirect:/index.do";
 	}
 
-	@GetMapping("/logout.do")
-	public String logout(CommandMap commandMap, HttpServletRequest request) {
+	@GetMapping("/logout")
+	public String logout(HttpServletRequest request) {
 		HttpSession session = request.getSession();
-
-		if (session.getAttribute("name") != null) {
-			session.removeAttribute("name");
-		}
 
 		if (session.getAttribute("id") != null) {
 			session.removeAttribute("id");
 		}
 
+		if (session.getAttribute("name") != null) {
+			session.removeAttribute("name");
+		}
 		return "redirect:/index.do";
 	}
 }

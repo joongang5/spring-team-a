@@ -4,9 +4,13 @@
 
 <mapper namespace="notice">
 	
-	<!-- 게시글 불러오기, 페이징 -->
+	<!-- 게시글 불러오기 -->
 	<select id="noticeList" parameterType="HashMap" resultType="HashMap">
-		SELECT * FROM notice_view LIMIT 0, 10
+		SELECT * FROM notice_view LIMIT #{startPage }, #{lastPage }
+	</select>
+	
+	<select id="totalCount" parameterType="HashMap" resultType="HashMap">
+		SELECT count(*) as totalCount FROM notice_view
 	</select>
 	
 	<!-- 게시글 상세보기 -->
@@ -14,7 +18,7 @@
 		SELECT * FROM notice_view WHERE notice_no=#{notice_no}
 	</select>
 	
-	<!-- 게시글 쓰기 -->
+	<!-- 게시글 글쓰기 -->
 	<insert id="write" parameterType="HashMap">
 		INSERT INTO notice (title, content, notice_no, no, category_no) 
 		VALUES (#{title}, #{content}, #{notice_no}, 2, 1) <!-- no=2 category_no=1 수정! -->

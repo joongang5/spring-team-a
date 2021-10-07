@@ -3,8 +3,6 @@ package com.teama.ebook.service;
 import java.util.List;
 import java.util.Map;
 
-import org.json.simple.JSONObject;
-
 import com.teama.ebook.dto.EbookDTO;
 
 public interface EbookService {
@@ -16,4 +14,6 @@ public interface EbookService {
 	public List<EbookDTO> getEbookList();
 	
 	public int insertBook(EbookDTO ebookDTO);
+	
+	public EbookDTO getEbook(int bookNo);
 }
