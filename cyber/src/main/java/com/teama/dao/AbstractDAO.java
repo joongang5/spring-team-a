@@ -8,6 +8,8 @@ import org.apache.commons.logging.LogFactory;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.teama.ebook.dto.EbookDTO;
+
 public class AbstractDAO {
 
 	protected Log log = LogFactory.getLog(AbstractDAO.class);
@@ -57,5 +59,8 @@ public class AbstractDAO {
 
 	public int delete(String queryId, Map<String, Object> map) {
 		return sqlSession.delete(queryId, map);
+	}
+	public int insertEbook(String queryId, EbookDTO map) {
+		return sqlSession.insert(queryId, map);
 	}
 }

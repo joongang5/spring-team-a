@@ -17,12 +17,12 @@ function move(){
 </head>
 <body>
 	<div id="detailBoard">
-		<b>번호 |</b> ${detail.notice_no }
+		<b>번호 |</b> ${detail.no }
 		<b>제목 |</b> ${detail.title }
 		<b>작성자 |</b> ${detail.id }(${detail.name })
 		<b>등록일 |</b> ${detail.date }
-		<button onclick="location.href='./delete.do?notice_no=${detail.notice_no }'">삭제하기</button>
-		<button onclick="location.href='./update.do?notice_no=${detail.notice_no }'">수정하기</button>
+		<button onclick="location.href='./delete.do?no=${detail.no }'">삭제하기</button>
+		<button onclick="location.href='./update.do?no=${detail.no }'">수정하기</button>
 		<hr>
 		${detail.content }
 	</div> <!-- end of detailBoard -->

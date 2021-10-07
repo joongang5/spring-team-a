@@ -1,12 +1,15 @@
 package com.teama.ebook.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
 import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
@@ -17,7 +20,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.fasterxml.jackson.core.JsonParser;
 import com.teama.common.CommandMap;
+import com.teama.ebook.dto.EbookDTO;
+import com.teama.ebook.service.EbookAPIService;
 import com.teama.ebook.service.EbookAPIServiceImpl;
 import com.teama.ebook.service.EbookServiceImpl;
 
@@ -25,75 +31,101 @@ import com.teama.ebook.service.EbookServiceImpl;
 @RequestMapping("/ebook")
 public class ListEbookController {
 
-	@Resource(name="ebookService")
+	@Resource(name = "ebookService")
 	private EbookServiceImpl ebookService;
-	@Resource(name="ebookAPIService")
+	@Resource(name = "ebookAPIService")
 	private EbookAPIServiceImpl ebookAPIService;
-	
+
 	@GetMapping("ebookMain.do")
-	public String ebookMain(CommandMap map) throws Exception {
-		return "ebook/ebookMain";
-	}
-	@SuppressWarnings("unchecked")
-	@RequestMapping(value = "/ebookMain.do", method = RequestMethod.POST, produces = "text/plain;charset=utf-8")
-	@ResponseBody
-	public String ebookSearch(CommandMap map, HttpServletRequest request) throws Exception {
-		if(!map.containsKey("pageNo")) {
+	public ModelAndView ebookMain(CommandMap map) throws Exception {
+		ModelAndView mv = new ModelAndView("ebook/ebookMain");
+		if (!map.containsKey("pageNo")) {
 			map.put("pageNo", 1);
 		}
-		//map.put("searchTarget", "isbn");
-		//map.put("searchValue", "9791163032816");
-		
-		System.out.println(map.get("pageNo"));
-		JSONObject EbookList = ebookAPIService.ebookSearch(map.getMap());
-		//System.out.println(map.getMap().get("searchTarget"));
-		//System.out.println(map.getMap().get("searchValue"));
-		if(map.getMap().get("searchValue")!=null) {
-			EbookList.put("searchTarget", map.getMap().get("searchTarget"));
-			EbookList.put("searchValue", map.getMap().get("searchValue"));
-		}
-		
-		return EbookList.toJSONString();
-	}
-	
-	@GetMapping("/ebookDetail")
-	public ModelAndView ebookDetail(CommandMap map) throws Exception {
-		ModelAndView mv = new ModelAndView("ebook/ebookDetail");
-		String URL = "https://search.daum.net/search?w=bookpage&bookId=3761145&q=%EB%8C%80%ED%95%9C%EB%AF%BC%EA%B5%AD%EC%97%90+%EC%9D%B4%EB%9F%B0+%ED%95%99%EA%B5%90%EA%B0%80+%EC%9E%88%EC%97%88%EC%96%B4%3F";
-		Document doc = Jsoup.connect(URL).get();
+		// map.put("searchTarget", "isbn");
+		// map.put("searchValue", "9791163032816");
 
-		Elements elem = doc.select("div.info_section");
-		Elements content = elem.select("p.desc");
-		//System.out.println(content);
-//		System.out.println(elem.size());
-		Map<String, Object> detail = new HashMap<String, Object>();
-		for(int i = 0; i < content.size(); i++) {
-			detail.put("detail"+i, content.get(i).text());			
+		// System.out.println(map.get("pageNo"));
+		// System.out.println(map.getMap().get("searchTarget"));
+		// System.out.println(map.getMap().get("searchValue"));
+		List<EbookDTO> EbookList = ebookService.ebookSearch(map.getMap());
+		for (EbookDTO list : EbookList) {
+			if (list.getTitle_url().equals("")) {
+				List<Map<String, Object>> kakao = ebookAPIService.ebookSearchKakao(list.getIsbn());
+				// 도서 썸네일 없을시 카카오에서 가져오기
+				if (kakao != null) {
+					list.setTitle_url((String) kakao.get(0).get("thumbnail"));
+				} else {
+					list.setTitle_url(null);
+				}
+			}
 		}
-		System.out.println(detail.get("detail1"));
-		return mv;		
+//		if(map.getMap().get("searchValue")!=null) {
+//			EbookList.put("searchTarget", map.getMap().get("searchTarget"));
+//			EbookList.put("searchValue", map.getMap().get("searchValue"));
+//		}
+		mv.addObject("EbookList", EbookList);
+		return mv;
 	}
-	
-//	@PostMapping("ebookMain.do")
-//	public ModelAndView ebookSearch(CommandMap map) throws Exception {
-//		ModelAndView mv = new ModelAndView("ebook/ebookMain");
-//		JSONObject searchList = listEbookService.ebookSearch(map.getMap());
-//		mv.addObject("totalCount", searchList.get("TOTAL_COUNT"));
-//		mv.addObject("pageNo", searchList.get("PAGE_NO"));
-//		mv.addObject("searchList", searchList.get("docs"));
-//		return mv;
-//	}
-	@GetMapping("/ebookAdd")
-	public String ebookAdd(CommandMap map, HttpServletRequest request) throws Exception {
-			
-		map.put("pageNo", 1);
-		
-		int EbookList = ebookService.ebookAdd(map.getMap());
-		
-		for (int i = 2; i < 10; i++) {
-			map.put("pageNo", i);
-			ebookService.ebookAdd(map.getMap());
-		}
+
+	@RequestMapping(value = "/ebookMain.do", method = RequestMethod.POST, produces = "text/plain;charset=utf-8")
+	@ResponseBody
+	public ModelAndView ebookSearch(CommandMap map, HttpServletRequest request) throws Exception {
+
 		return null;
 	}
+
+	@RequestMapping(value = "/ebooklist.do", method = RequestMethod.POST, produces = "text/plain;charset=utf-8")
+	@ResponseBody
+	public List<EbookDTO> ebookList(CommandMap map) throws Exception {
+		System.out.println(map.getMap().get("pageNo"));
+		if (!map.containsKey("pageNo")) {
+			map.put("pageNo", 1);
+		}
+		// map.put("searchTarget", "isbn");
+		// map.put("searchValue", "9791163032816");
+
+		System.out.println(map.get("pageNo"));
+		// System.out.println(map.getMap().get("searchTarget"));
+		// System.out.println(map.getMap().get("searchValue"));
+		List<EbookDTO> EbookList = ebookService.ebookSearch(map.getMap());
+//		if(map.getMap().get("searchValue")!=null) {
+//			EbookList.put("searchTarget", map.getMap().get("searchTarget"));
+//			EbookList.put("searchValue", map.getMap().get("searchValue"));
+//		}
+		System.out.println(EbookList);
+		return EbookList;
+	}
+
+	@GetMapping("/ebookDetail.do")
+	public ModelAndView ebookDetail(EbookDTO bookInfo) throws Exception {
+		ModelAndView mv = new ModelAndView("ebook/ebookDetail");
+		String isbn = bookInfo.getIsbn();
+		EbookDTO EbookDetail = ebookService.ebookDetail(isbn);
+		List<Map<String, Object>> kakao = ebookAPIService.ebookSearchKakao(isbn);
+		if (kakao != null) {
+			if (EbookDetail.getTitle_url().equals("")) {
+				EbookDetail.setTitle_url((String) kakao.get(0).get("thumbnail"));
+			} else {
+				EbookDetail.setTitle_url(null);
+			}
+			String URL = String.valueOf(kakao.get(0).get("url"));
+			System.out.println(URL);
+			Document doc = Jsoup.connect(URL).get();
+			
+			Elements elem = doc.select("div.info_section");
+			Elements content = elem.select("p.desc");
+			System.out.println("content -----------" + content);
+//		System.out.println(elem.size());
+			Map<String, Object> detail = new HashMap<String, Object>();
+			for (int i = 0; i < content.size(); i++) {
+				detail.put("detail" + i, content.get(i).text());
+			}
+			System.out.println("detail ===== " +detail.get("detail1"));
+			mv.addObject("detail", detail);
+		}
+		mv.addObject("ebookDetail", EbookDetail);
+		return mv;
+	}
+
 }

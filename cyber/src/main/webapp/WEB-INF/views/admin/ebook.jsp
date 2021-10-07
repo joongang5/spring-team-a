@@ -12,6 +12,10 @@
 		ul { margin: 0; }
 		table { border: 1px solid black; }
 		th, td { border: 1px solid black; }
+		td img{width: 60px;}
+		.content {   white-space: nowrap;
+        				overflow: hidden;
+      			  text-overflow: ellipsis;	
 	</style>
 </head>
 <body>
@@ -40,9 +44,13 @@
 						</td>
 					</tr>
 					<tr>
+						<th>타이틀</th>
+						<td>
+							<span>${bookInfo.title }</span>
+						</td>
 						<th>저자</th>
 						<td>
-							<span>${commandMap.author }</span>
+							<span>${bookInfo.author }</span>
 						</td>
 					</tr>
 				</table>
@@ -50,76 +58,65 @@
 				<input type="submit" value="등록" formaction="/cyber/admin/ebook/registBook.do">
 				<input type="submit" value="초기화">
 			</form>
+			<c:if test="${bookInfoList ne null }">
+			<h4>검색 도서 목록</h4>
+			<table>
+				<tr>
+					<td>서명</td>
+					<td>표지 이미지</td>
+					<td>저자</td>
+					<td>발행처</td>
+					<td>ISBN</td>
+					<td>출판일</td>
+					<td>가격</td>
+					<td>페이지 수</td>
+					<td>책 크기</td>
+				</tr>
+				<c:forEach items="${bookInfoList }" var="l">
+					<tr>
+						<td>${l.title}</td>
+						<td><img src="${l.title_url}"></td>
+						<td>${l.author}</td>
+						<td>${l.publisher}</td>
+						<td>${l.isbn}</td>
+						<td>${l.datetime}</td>
+						<td>${l.price}</td>
+						<td>${l.page}</td>
+						<td>${l.book_size}</td>
+					</tr>
+				</c:forEach>
+				</table>
+			</c:if>
 			<hr>
 			
 			<h3>등록된 도서 목록</h3>
 			<table>
 				<tr>
 					<th>번호</th>
-					<td>표제</td>
-					<td>권차</td>
-					<td>총서명</td>
-					<td>총서편차</td>
+					<td>카테고리</td>
+					<td>서명</td>
+					<td>표지 이미지</td>
 					<td>저자</td>
-					<td>ISBN</td>
-					<td>ISBN 부가기호</td>
-					<td>세트 ISBN</td>
-					<td>세트 ISBN 부가기호</td>
-					<td>세트표현</td>
 					<td>발행처</td>
-					<td>판사항</td>
-					<td>예정가격</td>
-					<td>한국십진분류</td>
-					<td>듀이십진분류</td>
-					<td>페이지</td>
-					<td>책크기</td>
-					<td>발행제본형태</td>
-					<td>출판예정일</td>
-					<td>주제</td>
-					<td>전자책여부</td>
-					<td>CIP 신청여부</td>
-					<td>CIP 제어번호</td>
-					<td>표지이미지 URL</td>
-					<td>목차</td>
-					<td>책소개</td>
-					<td>책요약</td>
-					<td>출판사 홈페이지 URL</td>
-					<td>등록날짜</td>
-					<td>수정날짜</td>
+					<td>ISBN</td>
+					<td>출판일</td>
+					<td>가격</td>
+					<td>페이지 수</td>
+					<td>책 크기</td>
 				</tr>
 				<c:forEach items="${ebookDTOList }" var="l">
 					<tr>
 						<td>${l.no}</td>
+						<td>${l.category}</td>
 						<td>${l.title}</td>
-						<td>${l.vol}</td>
-						<td>${l.series_title}</td>
-						<td>${l.series_no}</td>
+						<td><img src="${l.title_url}"></td>
 						<td>${l.author}</td>
-						<td>${l.ea_isbn}</td>
-						<td>${l.ea_add_code}</td>
-						<td>${l.set_isbn}</td>
-						<td>${l.set_add_code}</td>
-						<td>${l.set_expression}</td>
 						<td>${l.publisher}</td>
-						<td>${l.edition_stmt}</td>
-						<td>${l.pre_price}</td>
-						<td>${l.kdc}</td>
-						<td>${l.ddc}</td>
+						<td>${l.isbn}</td>
+						<td>${l.datetime}</td>
+						<td>${l.price}</td>
 						<td>${l.page}</td>
 						<td>${l.book_size}</td>
-						<td>${l.form}</td>
-						<td>${l.publish_predate}</td>
-						<td>${l.subject}</td>
-						<td>${l.ebook_yn}</td>
-						<td>${l.cip_yn}</td>
-						<td>${l.control_no}</td>
-						<td>${l.title_url}</td>
-						<td>${l.book_tb_cnt_url}</td>
-						<td>${l.book_introduction_url}</td>
-						<td>${l.book_summary_url}</td>
-						<td>${l.publisher_url}</td>
-						<td>${l.input_date}</td>
-						<td>${l.update_date}</td>
 					</tr>
 				</c:forEach>
 			</table>

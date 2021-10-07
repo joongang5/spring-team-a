@@ -4,7 +4,7 @@
 
 <mapper namespace="ebook">
 	<select id="getEbookList" resultType="ebookDTO">
-		SELECT * FROM book
+		SELECT * FROM book LIMIT 0, 10
 	</select>
 	
 	<select id="getEbookListByTitle" resultType="ebookDTO">
@@ -12,77 +12,50 @@
 	</select>
 	
 	<select id="getEbookByISBN" resultType="ebookDTO">
-		SELECT * FROM book WHERE ea_isbn=#{isbn}
+		SELECT * FROM book WHERE isbn=#{isbn}
 	</select>
 	
-	<insert id="insertBook" parameterType="HashMap">
+	<insert id="insertBook" parameterType="ebookDTO">
 		INSERT INTO book (
 			title,
-			vol,
-			series_title,
-			series_no,
-			author,
-			ea_isbn,
-			ea_add_code,
-			set_isbn,
-			set_add_code,
-			set_expression,
-			publisher,
-			edition_stmt,
-			pre_price,
-			kdc,
-			ddc,
-			page,
-			book_size,
-			form,
-			publish_predate,
-			subject,
-			ebook_yn,
-			cip_yn,
-			control_no,
 			title_url,
-			book_tb_cnt_url,
-			book_introduction_url,
-			book_summary_url,
-			publisher_url,
-			input_date,
-			update_date
+			author,
+			publisher,
+			isbn,
+			datetime,
+			price,
+			page,
+			book_size
 		)
 		VALUES (
-			#{TITLE},
-			#{VOL},
-			#{SERIES_TITLE},
-			#{SERIES_NO},
-			#{AUTHOR},
-			#{EA_ISBN},
-			#{EA_ADD_CODE},
-			#{SET_ISBN},
-			#{SET_ADD_CODE},
-			#{SET_EXPRESSION},
-			#{PUBLISHER},
-			#{EDITION_STMT},
-			#{PRE_PRICE},
-			#{KDC},
-			#{DDC},
-			#{PAGE},
-			#{BOOK_SIZE},
-			#{FORM},
-			#{PUBLISH_PREDATE},
-			#{SUBJECT},
-			#{EBOOK_YN},
-			#{CIP_YN},
-			#{CONTROL_NO},
-			#{TITLE_URL},
-			#{BOOK_TB_CNT_URL},
-			#{BOOK_INTRODUCTION_URL},
-			#{BOOK_SUMMARY_URL},
-			#{PUBLISHER_URL},
-			#{INPUT_DATE},
-			#{UPDATE_DATE}
+			#{title},
+			#{title_url},
+			#{author},
+			#{publisher},
+			#{isbn},
+			#{datetime},
+			#{price},
+			#{page},
+			#{book_size}
 		)
 	</insert>
 	
 	<select id="getEbookByNo" resultType="ebookDTO" parameterType="int">
 		SELECT * FROM book WHERE no=#{bookNo}
 	</select>
+	
+	<select id="getEbookDetail" resultType="ebookDTO" parameterType="String">
+		SELECT 
+			title, 
+			title_url, 
+			author, 
+			publisher, 
+			isbn, 
+			datetime, 
+			price, 
+			page, 
+			book_size 
+			FROM book WHERE isbn=#{isbn}
+	</select>
+	
 </mapper>

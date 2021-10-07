@@ -15,6 +15,7 @@ public interface NoticeService {
 	public Map<String, Object> detail(Map<String, Object> map);
 	
 	//게시글 글쓰기
+	public int write(Map<String, Object> map);
 	
 	//게시글 삭제
 	public int delete(Map<String, Object> map);

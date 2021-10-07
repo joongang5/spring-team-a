@@ -8,7 +8,13 @@
 <title>공지사항</title>
 <script type="text/javascript">
 function linkPage(pageNo) {
-	location.href="./listNotice.do?pageNo=" + pageNo;
+	<c:if test="${searchKeyword != null}">
+		var search = "&searchCondition=${searchCondition}&searchKeyword=${searchKeyword}";
+		location.href="./listNotice.do?pageNo=" + pageNo + search;
+	</c:if>
+	<c:if test="${searchCondition == null}">
+		location.href="./listNotice.do?pageNo=" + pageNo;
+	</c:if>
 }
 </script>
 <style>
@@ -51,25 +57,13 @@ function linkPage(pageNo) {
 			</div> <!-- end of naviandtitle -->
 			
 			<!-- 검색 기능 -->
-			<form action="pageSearch" id="pageSearch" method="get">
+			<form action="./listNotice.do" id="pageSearch" method="get">
 			<select name="searchCondition" id="searchCondition" title="검색방법 선택">
-				<option value="title">제목</option>
-				<option value="content">내용</option>
+				<option value="title" <c:if test="${searchCondition eq 'title' }">selected="selected"</c:if>> 제목</option>
+				<option value="content" <c:if test="${searchCondition eq 'content' }">selected="selected"</c:if>> 내용</option>
 			</select>
-			<input type="text" name="searchKeyword" id="searchKeyword" title="검색어 입력" placeholder="검색어를 입력해주세요.">
+			<input type="text" name="searchKeyword"  value="${searchKeyword}" id="searchKeyword" title="검색어 입력" placeholder="검색어를 입력해주세요.">
 			<button type="submit" id="searchBtn">검색</button>
-			</form>
-			
-			<!-- 카테고리 기능 -->
-			<form action="pageCategory" id="pageCategory" method="get">
-				<select name="categoryCondition" id="categoryCondition" title="카테고리 선택">
-					<option value="">카테고리</option>
-					<option value="home">홈페이지</option>
-					<option value="ebook">전자책</option>
-					<option value="freeboard">소통마당</option>
-					<option value="mylibrary">나만의 도서관</option>
-				</select>
-				<button type="submit" id="categoryBtn">확인</button>
 			</form>
 			
 			<!-- 공지사항 list -->
@@ -87,8 +81,8 @@ function linkPage(pageNo) {
 					<tbody id="nbody">
 						<c:forEach items="${list }" var="l">
 							<tr>
-								<td>${l.notice_no }</td>
-								<td><a href="./noticeDetail.do?notice_no=${l.notice_no }">${l.title }</a></td>
+								<td>${l.no }</td>
+								<td><a href="./noticeDetail.do?no=${l.no }">${l.title }</a></td>
 								<td>${l.date }</td>
 								<td>${l.count }</td>
 								<td>${l.id }(${l.name })</td>

@@ -3,7 +3,6 @@ package com.teama.ebook.service;
 import java.util.List;
 import java.util.Map;
 
-import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,8 +16,8 @@ public class EbookServiceImpl implements EbookService {
 	private EbookDAO ebookDAO;
 	
 	@Override
-	public JSONObject ebookSearch(Map<String, Object> map) throws Exception {
-		return null;
+	public List<EbookDTO> ebookSearch(Map<String, Object> map) throws Exception {
+		return ebookDAO.getEbookList();
 	}
 	
 	@Override
@@ -32,12 +31,16 @@ public class EbookServiceImpl implements EbookService {
 	}
 
 	@Override
-	public int insertBook(Map<String, Object> map) {
-		return ebookDAO.insert("ebook.insertBook", map);
+	public int insertBook(EbookDTO map) {
+		return ebookDAO.insertEbook("ebook.insertBook", map);
 	}
 	
 	@Override
 	public EbookDTO getEbook(int bookNo) {
 		return ebookDAO.getEbook(bookNo);
+	}
+
+	public EbookDTO ebookDetail(String isbn) {
+		return ebookDAO.ebookDetail(isbn);
 	}
 }
