@@ -4,39 +4,57 @@
 
 <mapper namespace="notice">
 	
-	<!-- 게시글 불러오기 -->
+	<!-- 게시글 불러오기, 페이징, 검색 -->
 	<select id="noticeList" parameterType="HashMap" resultType="HashMap">
-		SELECT * FROM notice_view LIMIT #{startPage }, #{lastPage }
+		SELECT * FROM notice_view
+		
+		<if test="searchCondition == 'title' and searchKeyword != null">
+			WHERE title LIKE CONCAT('%', #{searchKeyword }, '%')
+		</if>
+		
+		<if test="searchCondition == 'content' and searchKeyword != null">
+			WHERE content LIKE CONCAT('%', #{searchKeyword }, '%')
+		</if>
+		
+		LIMIT #{startPage }, #{lastPage }
 	</select>
 	
 	<select id="totalCount" parameterType="HashMap" resultType="HashMap">
 		SELECT count(*) as totalCount FROM notice_view
+		
+		<if test="searchCondition == 'title' and searchKeyword != null">
+			WHERE title LIKE CONCAT('%', #{searchKeyword }, '%')
+		</if>
+		
+		<if test="searchCondition == 'content' and searchKeyword != null">
+			WHERE content LIKE CONCAT('%', #{searchKeyword }, '%')
+		</if>
 	</select>
 	
 	<!-- 게시글 상세보기 -->
 	<select id="detail" parameterType="HashMap" resultType="HashMap">
-		SELECT * FROM notice_view WHERE notice_no=#{notice_no}
+		SELECT * FROM notice_view WHERE no=#{no}
 	</select>
 	
 	<!-- 게시글 글쓰기 -->
 	<insert id="write" parameterType="HashMap">
-		INSERT INTO notice (title, content, notice_no, no, category_no) 
-		VALUES (#{title}, #{content}, #{notice_no}, 2, 1) <!-- no=2 category_no=1 수정! -->
+		INSERT INTO notice (title, content, member_no) 
+		VALUES (#{title}, #{content}, #{member_no})
 	</insert>
 	
 	<!-- 게시글 삭제 -->
 	<delete id="delete" parameterType="HashMap">
-		DELETE FROM notice WHERE notice_no=#{notice_no}
+		DELETE FROM notice WHERE no=#{no}
 	</delete>
 	
 	<!-- 게시글 수정 -->
 	<update id="update" parameterType="HashMap">
-		UPDATE notice SET title=#{title}, content=#{content} WHERE notice_no=#{notice_no}
+		UPDATE notice SET title=#{title}, content=#{content} WHERE no=#{no}
 	</update>
 	
 	<!-- 게시글 조회수 -->
 	<update id="count" parameterType="HashMap">
-		UPDATE notice SET count = count + 1 WHERE notice_no=#{notice_no}
+		UPDATE notice SET count = count + 1 WHERE no=#{no}
 	</update>
 	
 </mapper>

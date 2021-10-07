@@ -31,6 +31,10 @@ public class NoticeServiceImpl implements NoticeService {
 	}
 	
 	//게시글 글쓰기
+	@Override
+	public int write(Map<String, Object> map) {
+		return noticeDAO.write(map);
+	}
 	
 	//게시글 삭제
 	@Override

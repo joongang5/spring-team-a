@@ -26,7 +26,9 @@ public class NoticeDAO extends AbstractDAO {
 	}
 	
 	//게시글 글쓰기
-	
+	public int write(Map<String, Object> map) {
+		return insert("notice.write", map);
+	}
 	
 	//게시글 삭제
 	public int delete(Map<String, Object> map) {
