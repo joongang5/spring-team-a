@@ -36,6 +36,9 @@ public class NoticeDAO extends AbstractDAO {
 	}
 	
 	//게시글 수정
+	public int update(Map<String, Object> map) {
+		return update("notice.update", map);
+	}
 	
 	//게시글 조회수
 	public int count(Map<String, Object> map) {

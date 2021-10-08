@@ -22,7 +22,7 @@ function move(){
 		<b>작성자 |</b> ${detail.id }(${detail.name })
 		<b>등록일 |</b> ${detail.date }
 		<button onclick="location.href='./delete.do?no=${detail.no }'">삭제하기</button>
-		<button onclick="location.href='./update.do?no=${detail.no }'">수정하기</button>
+		<button onclick="location.href='./noticeUpdate.do?no=${detail.no }'">수정하기</button>
 		<hr>
 		${detail.content }
 	</div> <!-- end of detailBoard -->

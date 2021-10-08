@@ -58,7 +58,7 @@ public class NoticeController {
 		return mv;
 	}
 	
-	//게시글 상세보기 -> 글쓰기로 넘기기
+	//게시글 상세보기 -> 글쓰기 페이지로 넘기기
 	@GetMapping("/noticeWrite.do")
 	public String write() {
 		return "notice/noticeWrite";
@@ -93,8 +93,22 @@ public class NoticeController {
 		return "redirect:listNotice.do";
 	}
 	
-	//게시글 수정
+	//게시글 상세보기 -> 수정하기 페이지로 값 가지고 넘기기
+	@GetMapping("/noticeUpdate.do")
+	public ModelAndView update(CommandMap map) {
+		ModelAndView mv = new ModelAndView("notice/noticeUpdate");
+		Map<String, Object> detail = noticeService.detail(map.getMap());
+		mv.addObject("detail", detail);
+		return mv;
+	}
 	
+	//값 받아서 수정하기
+	@PostMapping("/noticeUpdate.do")
+	public String postUpdate(CommandMap map) {
+		int result = noticeService.update(map.getMap());
+		System.out.println("update = " + result);
+		return "redirect:noticeDetail.do?no="+map.get("no");
+	}
 	
 	//페이징
 	private void setPagination(CommandMap map, ModelAndView mv) {

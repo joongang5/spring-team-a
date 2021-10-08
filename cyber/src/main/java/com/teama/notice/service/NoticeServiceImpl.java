@@ -43,6 +43,10 @@ public class NoticeServiceImpl implements NoticeService {
 	}
 	
 	//게시글 수정
+	@Override
+	public int update(Map<String, Object> map) {
+		return noticeDAO.update(map);
+	}
 	
 	//게시글 조회수
 	@Override

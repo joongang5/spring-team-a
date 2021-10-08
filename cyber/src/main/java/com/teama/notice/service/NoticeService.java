@@ -21,6 +21,7 @@ public interface NoticeService {
 	public int delete(Map<String, Object> map);
 	
 	//게시글 수정
+	public int update(Map<String, Object> map);
 	
 	//게시글 조회수
 	public int count(Map<String, Object> map);
