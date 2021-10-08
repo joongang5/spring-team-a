@@ -49,7 +49,50 @@ function linkPage(pageNo){
 		location.href="./home.do?pageNo="+pageNo;
 	//}
 }
+$(function(){
+	var chkObj = document.getElementsByName("RowCheck");
+	var rowCnt = chkObj.length;
+	
+	$("input[name='allCheck']").click(function(){
+		var chk_listArr = $("input[name='RowCheck']");
+		for (var i=0; i<chk_listArr.length; i++){
+			chk_listArr[i].checked = this.checked;
+		}
+	});
+	$("input[name='RowCheck']").click(function(){
+		if($("input[name='RowCheck']:checked").length == rowCnt){
+			$("input[name='allCheck']")[0].checked = true;
+		}
+		else{
+			$("input[name='allCheck']")[0].checked = false;
+		}
+	});
+});
+function bookAdd(){
+	var valueArr = new Array();
+    var list = $("input[name='RowCheck']");
+    for(var i = 0; i < list.length; i++){
+        if(list[i].checked){ //선택되어 있으면 배열에 값을 저장함
+            valueArr.push(list[i].value);
+        }
+    }
+    if (valueArr.length == 0){
+    	alert("선택된 도서가 없습니다.");
+    }
+    else{
+		var chk = confirm(valueArr.length + "개의 도서를 등록하시겠습니까?");				 
+		$.ajax({
+		    url : "registBook.do",                    // 전송 URL
+		    type : 'POST',                // POST 방식
+		    traditional : true,
+		    data : {
+		    	valueArr : valueArr        // 보내고자 하는 data 변수 설정
+		    },
+		});
+	}
+}
 </script>
+
 </head>
 <body>
 	<div id="wrap">
@@ -57,7 +100,7 @@ function linkPage(pageNo){
 			<c:import url="/WEB-INF/views/admin/component/headerInner.jsp" />
 		</header>
 		<main>
-			<form method="post">
+			<form method="post" id="form">
 				<h3>도서 일괄 등록</h3>
 				<input type="submit" value="인기"
 					formaction="/cyber/admin/ebook/registBestBook.do"> <input
@@ -86,14 +129,15 @@ function linkPage(pageNo){
 				</table>
 				<input type="submit" value="검색"
 					formaction="/cyber/admin/ebook/searchBook.do"> <input
-					type="submit" value="등록"
-					formaction="/cyber/admin/ebook/registBook.do"> <input
+					type="submit" value="등록" onclick="bookAdd();">
+					<input
 					type="submit" value="초기화">
-			</form>
+		
 			<c:if test="${bookInfoList ne null }">
 				<h4>검색 도서 목록</h4>
 				<table>
 					<tr>
+						<td><input id="allCheck" type="checkbox" name="allCheck"/></td>
 						<td>서명</td>
 						<td>표지 이미지</td>
 						<td>저자</td>
@@ -106,6 +150,7 @@ function linkPage(pageNo){
 					</tr>
 					<c:forEach items="${bookInfoList }" var="l">
 						<tr>
+							<td><input name="RowCheck" type="checkbox" value="${l.isbn}"/></td>
 							<td>${l.title}</td>
 							<td><img src="${l.title_url}"></td>
 							<td>${l.author}</td>
@@ -120,7 +165,7 @@ function linkPage(pageNo){
 				</table>
 			</c:if>
 			<hr>
-
+		</form>
 			<h3>등록된 도서 목록</h3>
 			<table>
 				<tr>

@@ -18,7 +18,7 @@ public class HttpURLConnUtil {
 		String strParams = parseParams(params);
 		if (strParams.isEmpty() == false)
 			url += "?" + strParams;
-		
+			
         try {
             URL urlObj = new URL(url);
             HttpURLConnection con = (HttpURLConnection)urlObj.openConnection();
@@ -29,7 +29,6 @@ public class HttpURLConnUtil {
             		con.setRequestProperty(entry.getKey(), entry.getValue());
             	}
             }
-            
             int responseCode = con.getResponseCode();
             BufferedReader br;
             if(responseCode == 200) { 	// success

@@ -3,6 +3,7 @@ package com.teama.admin.controller;
 import java.util.List;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -49,10 +50,12 @@ public class AdminEbookController {
 		List<EbookDTO> ebookDTOList = ebookService.getEbookList(map.getMap());
 		
 		paginationInfo.setTotalRecordCount(ebookDTOList.get(0).getTotalCount());
+		if(map.containsKey("searchValue")) {
+			mv.addObject("commandMap", map.getMap());
+		}
 		mv.addObject("pageNo", pageNo);
 		mv.addObject("paginationInfo", paginationInfo);
 		mv.addObject("ebookDTOList", ebookDTOList);
-		
 		return mv;
 	}
 
@@ -62,10 +65,9 @@ public class AdminEbookController {
 		
 		String searchType = map.getStrValue("searchType");
 		String searchValue = map.getStrValue("searchValue");
-		System.out.println(searchType);
 		List<EbookDTO> bookInfo = ebookAPIService.searchEbook(searchType, searchValue, 1);
-
-		if (bookInfo != null) {
+		
+		if (bookInfo.size() != 0) {
 			//commandMap.put("author", bookInfo.get(0).getAuthors());
 			mv.addObject("bookInfo", bookInfo.get(0));
 		}
@@ -98,21 +100,16 @@ public class AdminEbookController {
 	}
 
 	@PostMapping("registBook.do")
-	public ModelAndView registBook(CommandMap commandMap) {
-		ModelAndView mv = new ModelAndView("admin/ebook");
+	public String registBook(CommandMap commandMap, HttpServletRequest request) {
 		
-		String searchType = commandMap.getStrValue("searchType");
-		String searchValue = commandMap.getStrValue("searchValue");
-		mv.addObject("commandMap", commandMap.getMap());
+		String searchType = "isbn";
+		String[] valueArr = request.getParameterValues("valueArr");
+		for (String searchValue : valueArr) {
+			List<EbookDTO> bookInfo = ebookAPIService.searchEbook(searchType, searchValue, 1);
+			ebookService.insertBook(bookInfo.get(0));
+		}
 		
-		List<EbookDTO> bookInfo = ebookAPIService.searchEbook(searchType, searchValue, 1);
-		
-		ebookService.insertBook(bookInfo.get(0));
-
-		List<EbookDTO> ebookDTOList = ebookService.getEbookList(commandMap.getMap());
-		mv.addObject("ebookDTOList", ebookDTOList);
-		
-		return mv;
+		return "redirect:/registBook.do";
 	}
 	
 	@PostMapping("registBestBook.do")
