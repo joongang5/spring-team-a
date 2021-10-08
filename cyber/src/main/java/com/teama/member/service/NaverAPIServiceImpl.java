@@ -78,6 +78,8 @@ public class NaverAPIServiceImpl implements LoginAPIService {
 		String birthday = getStrValueFromJsonNode(responseNode, "birthday");
 		
 		MemberDTO memberDTO = new MemberDTO();
+		memberDTO.setId(id);
+		memberDTO.setPw("");
 		memberDTO.setEmail(email);
 		memberDTO.setName(name);
 		
@@ -86,10 +88,10 @@ public class NaverAPIServiceImpl implements LoginAPIService {
 	
 	@SuppressWarnings("unused")
 	private String getStrValueFromJsonNode(JsonNode parentNode, String key) {
-		JsonNode node = parentNode.get("key");
+		JsonNode node = parentNode.get(key);
 		if (node == null)
 			return "";
 		
-		return node.toString();
+		return node.asText();
 	}
 }
