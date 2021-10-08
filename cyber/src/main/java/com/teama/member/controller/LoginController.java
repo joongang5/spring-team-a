@@ -12,8 +12,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.teama.common.CommandMap;
+import com.teama.member.service.LoginAPIService;
 import com.teama.member.service.LoginService;
-import com.teama.member.service.NaverAPIService;
+import com.teama.member.service.NaverAPIServiceImpl;
 
 @Controller
 @RequestMapping("/member")
@@ -21,6 +22,10 @@ public class LoginController {
 
 	@Resource(name = "loginService")
 	private LoginService loginService;
+	@Resource(name = "naverAPIService")
+	private LoginAPIService naverAPIService;
+	//@Resource(name = "kakaoAPIService")
+	//private LoginAPIService kakaoAPIService;
 
 	@GetMapping("memberLogin.do")
 	public String login() {
@@ -51,9 +56,6 @@ public class LoginController {
 		}
 		return "redirect:/index.do";
 	}
-
-	@Resource(name = "naverAPIService")
-	private NaverAPIService naverAPIService;
 
 	@GetMapping("naverAuth.do")
 	public String naverAuth() {

@@ -1,6 +1,9 @@
 package com.teama.member.service;
 
-public class NaverAPIService {
+import org.springframework.stereotype.Service;
+
+@Service("naverAPIService")
+public class NaverAPIServiceImpl implements LoginAPIService {
 	private final String CLIENT_ID = "wn_m3HL4uolGFA5Fudbr";
 	private final String CLIENT_SECRET = "VPT8CIEF4K";
 	private final String BASE_URL_AUTH = "https://nid.naver.com/oauth2.0/authorize";
