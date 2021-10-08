@@ -51,7 +51,8 @@
 
 #headerInner a:visited {
 	text-decoration: none;
-	color: white;
+	color: #94b5e0;
+	font-family: 'NanumSquare', serif;
 }
 
 #gnbNav a:hover {

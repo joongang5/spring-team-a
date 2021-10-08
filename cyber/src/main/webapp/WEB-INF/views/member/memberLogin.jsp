@@ -1,3 +1,4 @@
+<%@page import="com.teama.member.service.LoginAPIService"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
@@ -175,15 +176,18 @@ button {
 					<button type="submit">로그인</button>
 					<br>
 					</form>
-					<a href="/cyber/member/memberFind.do"><button type="submit">ID/PW
-							찾기</button></a> <br> <a href="/cyber/member/memberJoinRegist.do"><button
-							type="submit">회원 가입</button></a>
+					<a href="/cyber/member/memberJoinRegist.do"><button
+							type="submit">회원 가입</button></a> <br> <a
+						href="/cyber/member/memberFindId.do"><button type="submit"
+							style="width: 100px;">ID찾기</button></a><a
+						href="/cyber/member/memberFindPw.do"><button type="submit"
+							style="width: 100px;">PW 찾기</button></a>
 				</div>
 				<div id="naverLogin"
 					style="text-align: center; padding-bottom: 10px;">
 					<form action="naverAuth.do" method="post">
-						<img alt="naverLogin" src="../resources/img/naverLogin.png"
-							width="190px;" height="40px;" />
+						<input type="image" src="../resources/img/naverLogin.png"
+							style="width: 190px; height: 40px;">
 					</form>
 				</div>
 				<div id="kakaoLogin"

@@ -53,4 +53,30 @@ public class MemberController {
 		check = memberService.isUsableEmail(email);
 		return check;
 	}
+
+	@GetMapping("memberFindId.do")
+	public String memberFindId() {
+		return "member/memberFindId";
+	}
+	
+	@PostMapping("memberFindId.do")
+	public @ResponseBody String findId(CommandMap map) {
+		String id = String.valueOf(map.get("id"));
+		String check = "1";
+		check = memberService.isUsableId(id);
+		return check;
+	}
+
+	@GetMapping("memberFindPw.do")
+	public String memberFindPw() {
+		return "member/memberFindPw";
+	}
+	
+	@PostMapping("memberFindPw.do")
+	public @ResponseBody String findPw(CommandMap map) {
+		String pw = String.valueOf(map.get("pw"));
+		String check = "1";
+		check = memberService.isUsableId(pw);
+		return check;
+	}
 }
