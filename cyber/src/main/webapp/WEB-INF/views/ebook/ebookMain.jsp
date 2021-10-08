@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-
+<%@ taglib prefix="ui" uri="http://egovframework.gov/ctl/ui" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -63,7 +63,18 @@ td img {
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script src='<c:url value="/resources/js/admin/bookStorage.js"/>'></script>
+<script type="text/javascript">
 
+function linkPage(pageNo){
+/* 	var searchOption = getParameterByName('searchOption');
+	var search = getParameterByName('search'); */
+	/* if(!searchOption && !search){
+		location.href="./ebookMain.do?pageNo="+pageNo;
+	}else{ */
+		location.href="./ebookMain.do?pageNo="+pageNo;
+	//}
+}
+</script>
 
 <body>
 	<div id="wrap">
@@ -112,9 +123,12 @@ td img {
 					</tr>
 			</c:forEach>
 			</table>
-		
 			</div>
-			<div id="paging"></div>
+			<div >
+				<ul id="paging">				
+				<ui:pagination paginationInfo="${paginationInfo }" type="text" jsFunction="linkPage"/>			
+				</ul>
+			</div>
 		</main>
 		<footer>footer</footer>
 	</div>

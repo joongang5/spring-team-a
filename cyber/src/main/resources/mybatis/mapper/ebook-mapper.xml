@@ -3,8 +3,15 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="ebook">
-	<select id="getEbookList" resultType="ebookDTO">
-		SELECT * FROM book LIMIT 0, 10
+	<select id="getEbookList" resultType="ebookDTO" parameterType="HashMap">
+		SELECT 
+		(SELECT count(1) FROM book) AS totalCount,
+		title, 
+		title_url, 
+		author, 
+		publisher,
+		isbn
+		FROM book LIMIT #{startPage}, #{lastPage}
 	</select>
 	
 	<select id="getEbookListByTitle" resultType="ebookDTO">

@@ -11,9 +11,14 @@ public interface EbookService {
 	
 	public int ebookAdd(Map<String, Object> map) throws Exception;
  	
-	public List<EbookDTO> getEbookList();
+	public List<EbookDTO> getEbookList(Map<String, Object> map);
 	
 	public int insertBook(EbookDTO ebookDTO);
 	
 	public EbookDTO getEbook(int bookNo);
+	
+	public EbookDTO ebookDetail(String isbn);
+
+
+
 }

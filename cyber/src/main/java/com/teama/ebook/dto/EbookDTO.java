@@ -1,7 +1,7 @@
 package com.teama.ebook.dto;
 
 public class EbookDTO {
-
+	private int totalCount;
 	private int no;
 	private String category;
 	private String title;
@@ -13,6 +13,14 @@ public class EbookDTO {
 	private String price;
 	private String page;
 	private String book_size;
+
+	public int getTotalCount() {
+		return totalCount;
+	}
+
+	public void setTotalCount(int totalCount) {
+		this.totalCount = totalCount;
+	}
 
 	public int getNo() {
 		return no;
@@ -101,5 +109,6 @@ public class EbookDTO {
 	public void setBook_size(String book_size) {
 		this.book_size = book_size;
 	}
+
 
 }

@@ -14,8 +14,8 @@ public class EbookDAO extends AbstractDAO{
 		return insert("ebook.ebookAdd", map);
 	}
 	
-	public List<EbookDTO> getEbookList() {
-		return sqlSession.selectList("ebook.getEbookList");
+	public List<EbookDTO> getEbookList(Map<String, Object> map) {
+		return sqlSession.selectList("ebook.getEbookList", map);
 	}
 
 	public EbookDTO getEbookListByTitle(String title) {
@@ -32,5 +32,9 @@ public class EbookDAO extends AbstractDAO{
 
 	public EbookDTO ebookDetail(String isbn) {
 		return sqlSession.selectOne("ebook.getEbookDetail", isbn);
+	}
+
+	public List<EbookDTO> getEbookSearch(Map<String, Object> map) {
+		return null;
 	}
 }

@@ -1,6 +1,5 @@
 package com.teama.ebook.controller;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -8,8 +7,6 @@ import java.util.Map;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
@@ -20,12 +17,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.fasterxml.jackson.core.JsonParser;
 import com.teama.common.CommandMap;
 import com.teama.ebook.dto.EbookDTO;
-import com.teama.ebook.service.EbookAPIService;
 import com.teama.ebook.service.EbookAPIServiceImpl;
 import com.teama.ebook.service.EbookServiceImpl;
+
+import egovframework.rte.ptl.mvc.tags.ui.pagination.PaginationInfo;
 
 @Controller
 @RequestMapping("/ebook")
@@ -39,16 +36,39 @@ public class ListEbookController {
 	@GetMapping("ebookMain.do")
 	public ModelAndView ebookMain(CommandMap map) throws Exception {
 		ModelAndView mv = new ModelAndView("ebook/ebookMain");
-		if (!map.containsKey("pageNo")) {
-			map.put("pageNo", 1);
-		}
+		
+		PaginationInfo paginationInfo = new PaginationInfo();
+		int pageNo = 1; //현재 페이지 번호
+		int listScale = 10; //한 페이지에 나올 글 수
+		int pageScale = 10; // 페이지 개수
 		// map.put("searchTarget", "isbn");
-		// map.put("searchValue", "9791163032816");
+				// map.put("searchValue", "9791163032816");
 
-		// System.out.println(map.get("pageNo"));
-		// System.out.println(map.getMap().get("searchTarget"));
-		// System.out.println(map.getMap().get("searchValue"));
-		List<EbookDTO> EbookList = ebookService.ebookSearch(map.getMap());
+				// System.out.println(map.get("pageNo"));
+				// System.out.println(map.getMap().get("searchTarget"));
+				// System.out.println(map.getMap().get("searchValue"));
+		
+		if (!map.containsKey("pageNo")) {
+			pageNo = 1;
+		}else {
+			pageNo= Integer.parseInt((String) map.get("pageNo"));
+		}
+		
+	
+		paginationInfo.setCurrentPageNo(pageNo);	//현재 페이지 번호
+		paginationInfo.setRecordCountPerPage(listScale);	//한 페이지에 나올 글 수
+		paginationInfo.setPageSize(pageScale);	//페이지 개수
+
+		int startPage = paginationInfo.getFirstRecordIndex(); // 시작페이지
+		int lastPage = paginationInfo.getRecordCountPerPage(); // 마지막페이지
+		System.out.println(startPage);
+		System.out.println(lastPage);
+		map.put("startPage", startPage);
+		map.put("lastPage", lastPage);
+		List<EbookDTO> EbookList = ebookService.getEbookList(map.getMap());
+		
+		paginationInfo.setTotalRecordCount(EbookList.get(0).getTotalCount());
+		
 		for (EbookDTO list : EbookList) {
 			if (list.getTitle_url().equals("")) {
 				List<Map<String, Object>> kakao = ebookAPIService.ebookSearchKakao(list.getIsbn());
@@ -64,6 +84,8 @@ public class ListEbookController {
 //			EbookList.put("searchTarget", map.getMap().get("searchTarget"));
 //			EbookList.put("searchValue", map.getMap().get("searchValue"));
 //		}
+		mv.addObject("pageNo", pageNo);
+		mv.addObject("paginationInfo", paginationInfo);
 		mv.addObject("EbookList", EbookList);
 		return mv;
 	}
@@ -75,9 +97,9 @@ public class ListEbookController {
 		return null;
 	}
 
-	@RequestMapping(value = "/ebooklist.do", method = RequestMethod.POST, produces = "text/plain;charset=utf-8")
+	@RequestMapping(value = "/ebookSearch.do", method = RequestMethod.POST, produces = "text/plain;charset=utf-8")
 	@ResponseBody
-	public List<EbookDTO> ebookList(CommandMap map) throws Exception {
+	public List<EbookDTO> ebookSearch(CommandMap map) throws Exception {
 		System.out.println(map.getMap().get("pageNo"));
 		if (!map.containsKey("pageNo")) {
 			map.put("pageNo", 1);
@@ -93,6 +115,7 @@ public class ListEbookController {
 //			EbookList.put("searchTarget", map.getMap().get("searchTarget"));
 //			EbookList.put("searchValue", map.getMap().get("searchValue"));
 //		}
+		System.out.println("POST");
 		System.out.println(EbookList);
 		return EbookList;
 	}
@@ -106,8 +129,6 @@ public class ListEbookController {
 		if (kakao != null) {
 			if (EbookDetail.getTitle_url().equals("")) {
 				EbookDetail.setTitle_url((String) kakao.get(0).get("thumbnail"));
-			} else {
-				EbookDetail.setTitle_url(null);
 			}
 			String URL = String.valueOf(kakao.get(0).get("url"));
 			System.out.println(URL);

@@ -15,6 +15,8 @@ import com.teama.ebook.dto.EbookDTO;
 import com.teama.ebook.service.EbookAPIServiceImpl;
 import com.teama.ebook.service.EbookService;
 
+import egovframework.rte.ptl.mvc.tags.ui.pagination.PaginationInfo;
+
 @Controller
 @RequestMapping("/admin/ebook")
 public class AdminEbookController {
@@ -25,21 +27,41 @@ public class AdminEbookController {
 	private EbookAPIServiceImpl ebookAPIService;
 	
 	@GetMapping("home.do")
-	public ModelAndView home() {
+	public ModelAndView home(CommandMap map) {
 		ModelAndView mv = new ModelAndView("admin/ebook");
+		PaginationInfo paginationInfo = new PaginationInfo();
+		int pageNo = 1; //현재 페이지 번호
+		int listScale = 10; //한 페이지에 나올 글 수
+		int pageScale = 10;
+		if (!map.containsKey("pageNo")) {
+			pageNo = 1;
+		}else {
+			pageNo= Integer.parseInt((String) map.get("pageNo"));
+		}
+		paginationInfo.setCurrentPageNo(pageNo);	//현재 페이지 번호
+		paginationInfo.setRecordCountPerPage(listScale);	//한 페이지에 나올 글 수
+		paginationInfo.setPageSize(pageScale);	//페이지 개수
+		int startPage = paginationInfo.getFirstRecordIndex(); // 시작페이지
+		int lastPage = paginationInfo.getRecordCountPerPage(); // 마지막페이지
+		map.put("startPage", startPage);
+		map.put("lastPage", lastPage);
 
-		List<EbookDTO> ebookDTOList = ebookService.getEbookList();
+		List<EbookDTO> ebookDTOList = ebookService.getEbookList(map.getMap());
+		
+		paginationInfo.setTotalRecordCount(ebookDTOList.get(0).getTotalCount());
+		mv.addObject("pageNo", pageNo);
+		mv.addObject("paginationInfo", paginationInfo);
 		mv.addObject("ebookDTOList", ebookDTOList);
 		
 		return mv;
 	}
 
 	@PostMapping("searchBook.do")
-	public ModelAndView searchBook(CommandMap commandMap) {
+	public ModelAndView searchBook(CommandMap map) {
 		ModelAndView mv = new ModelAndView("admin/ebook");
 		
-		String searchType = commandMap.getStrValue("searchType");
-		String searchValue = commandMap.getStrValue("searchValue");
+		String searchType = map.getStrValue("searchType");
+		String searchValue = map.getStrValue("searchValue");
 		System.out.println(searchType);
 		List<EbookDTO> bookInfo = ebookAPIService.searchEbook(searchType, searchValue, 1);
 
@@ -47,12 +69,31 @@ public class AdminEbookController {
 			//commandMap.put("author", bookInfo.get(0).getAuthors());
 			mv.addObject("bookInfo", bookInfo.get(0));
 		}
+		PaginationInfo paginationInfo = new PaginationInfo();
+		int pageNo = 1; //현재 페이지 번호
+		int listScale = 10; //한 페이지에 나올 글 수
+		int pageScale = 10;
+		if (!map.containsKey("pageNo")) {
+			pageNo = 1;
+		}else {
+			pageNo= Integer.parseInt((String) map.get("pageNo"));
+		}
+		paginationInfo.setCurrentPageNo(pageNo);	//현재 페이지 번호
+		paginationInfo.setRecordCountPerPage(listScale);	//한 페이지에 나올 글 수
+		paginationInfo.setPageSize(pageScale);	//페이지 개수
+		int startPage = paginationInfo.getFirstRecordIndex(); // 시작페이지
+		int lastPage = paginationInfo.getRecordCountPerPage(); // 마지막페이지
+		map.put("startPage", startPage);
+		map.put("lastPage", lastPage);
+		
 		mv.addObject("bookInfoList", bookInfo);
-		mv.addObject("commandMap", commandMap.getMap());
+		mv.addObject("commandMap", map.getMap());
+		List<EbookDTO> ebookDTOList = ebookService.getEbookList(map.getMap());
 		
-		List<EbookDTO> ebookDTOList = ebookService.getEbookList();
+		paginationInfo.setTotalRecordCount(ebookDTOList.get(0).getTotalCount());
+		mv.addObject("pageNo", pageNo);
+		mv.addObject("paginationInfo", paginationInfo);
 		mv.addObject("ebookDTOList", ebookDTOList);
-		
 		return mv;
 	}
 
@@ -68,27 +109,27 @@ public class AdminEbookController {
 		
 		ebookService.insertBook(bookInfo.get(0));
 
-		List<EbookDTO> ebookDTOList = ebookService.getEbookList();
+		List<EbookDTO> ebookDTOList = ebookService.getEbookList(commandMap.getMap());
 		mv.addObject("ebookDTOList", ebookDTOList);
 		
 		return mv;
 	}
 	
 	@PostMapping("registBestBook.do")
-	public ModelAndView registBestBook() {
+	public ModelAndView registBestBook(CommandMap commandMap) {
 		ModelAndView mv = new ModelAndView("admin/ebook");
 
-		List<EbookDTO> ebookDTOList = ebookService.getEbookList();
+		List<EbookDTO> ebookDTOList = ebookService.getEbookList(commandMap.getMap());
 		mv.addObject("ebookDTOList", ebookDTOList);
 		
 		return mv;
 	}
 
 	@PostMapping("registRecommendBook.do")
-	public ModelAndView registRecommendBook() {
+	public ModelAndView registRecommendBook(CommandMap commandMap) {
 		ModelAndView mv = new ModelAndView("admin/ebook");
 		
-		List<EbookDTO> ebookDTOList = ebookService.getEbookList();
+		List<EbookDTO> ebookDTOList = ebookService.getEbookList(commandMap.getMap());
 		mv.addObject("ebookDTOList", ebookDTOList);
 		
 		return mv;
