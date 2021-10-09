@@ -13,55 +13,51 @@
 		table { border: 1px solid black; }
 		th, td { border: 1px solid black; }
 	</style>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+	<script src='<c:url value="/resources/js/admin/loanPopup.js"/>'></script>
 </head>
 <body>
 	<div id="wrap">
-		<h3>도서검색</h3>
-		<form method="post">
-			<table>
-				<tr>
-					<th>bookNo</th>
-					<td>
-						<input type="text" name="bookNo">
-					</td>
-					<td>
-						<input type="submit" value="검색" formaction="/cyber/admin/loan/getStoredBook.do">
-					</td>
-				</tr>
-			</table>
-			<input type="hidden" name="memberNo" value="${memberNo }">
-		</form>
+		<input type="hidden" name="memberNo" value="${memberNo }">
 		
-		<form method="post">	
-			<table>
+		<h3>도서검색</h3>
+		<table>
+			<tr>
+				<th>bookNo</th>
+				<td>
+					<input type="text" name="bookNo">
+				</td>
+				<td>
+					<button type="button" onclick="onclickSearchBtn()">검색</button>
+				</td>
+			</tr>
+		</table>
+		<hr>
+		<table>
+			<tr>
+				<th>번호</th>
+				<td>표제</td>
+				<td>권차</td>
+				<td>저자</td>
+				<td>ISBN</td>
+				<td>보유</td>
+				<td>대출</td>
+				<td>예약</td>
+			</tr>
+			<tbody id="searchTbody">
 				<tr>
-					<th>번호</th>
-					<td>표제</td>
-					<td>권차</td>
-					<td>저자</td>
-					<td>ISBN</td>
-					<td>보유</td>
-					<td>대출</td>
-					<td>예약</td>
-					<td></td>
+					<td>${bookStorageViewDTO.book_no }</td>
+					<td>${bookStorageViewDTO.title }</td>
+					<td>${bookStorageViewDTO.vol }</td>
+					<td>${bookStorageViewDTO.author }</td>
+					<td>${bookStorageViewDTO.ea_isbn }</td>
+					<td>${bookStorageViewDTO.max_count }</td>
+					<td>${bookStorageViewDTO.loan_count }</td>
+					<td>${bookStorageViewDTO.reserve_count }</td>
 				</tr>
-				<tr>
-					<td>${bookStorageDTO.book_no}</td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td>${bookStorageDTO.max_count }</td>
-					<td>${bookStorageDTO.loan_count }</td>
-					<td>${bookStorageDTO.reserve_count }</td>
-					<td>
-						<button formaction="/cyber/admin/loan/loan.do">대출실행</button>
-					</td>
-				</tr>
-			</table>
-			<input type="hidden" name="memberNo" value="${memberNo }">
-			<input type="hidden" name="bookNo" value="${bookStorageDTO.book_no }">
-		</form>
+			</tbody>
+		</table>
+		<button type="button" onclick="onclickLoanBtn()">대출실행</button>
 		
 		<h3>대출목록</h3>	
 		<table>
@@ -72,15 +68,17 @@
 				<th>권차</th>
 				<th>반납일</th>
 			</tr>
-			<c:forEach items="${loanViewDTOList }" var="l">
-			<tr>
-				<td>${l.no }</td>
-				<td>${l.title }</td>
-				<td>${l.author }</td>
-				<td>${l.vol }</td>
-				<td>${l.return_date }</td>
-			</tr>
-			</c:forEach>
+			<tbody id="loanTbody">
+				<c:forEach items="${loanViewDTOList }" var="l">
+				<tr>
+					<td>${l.no }</td>
+					<td>${l.title }</td>
+					<td>${l.author }</td>
+					<td>${l.vol }</td>
+					<td>${l.return_date }</td>
+				</tr>
+				</c:forEach>
+			</tbody>
 		</table>
 	</div>
 </body>

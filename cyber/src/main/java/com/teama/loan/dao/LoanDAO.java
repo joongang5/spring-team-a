@@ -6,6 +6,7 @@ import java.util.Map;
 import org.springframework.stereotype.Repository;
 
 import com.teama.dao.AbstractDAO;
+import com.teama.loan.dto.LoanDTO;
 import com.teama.loan.dto.LoanViewDTO;
 
 @Repository
@@ -15,11 +16,23 @@ public class LoanDAO extends AbstractDAO {
 		return sqlSession.selectList("loan.getLoanListByMemberNo", memberNo);
 	}
 	
+	public List<Map<String, Object>> getLoanMapListByMemberNo(int memberNo) {
+		return sqlSession.selectList("loan.getLoanMapListByMemberNo", memberNo);
+	}
+	
 	public int insertNewLoanData(int bookNo, int memberNo) {
 		Map<String, Object> map = Map.of(
 				"bookNo", bookNo,
 				"memberNo", memberNo);
 				
 		return update("loan.insertNewLoanData", map);
+	}
+	
+	public LoanDTO getLoanByMemberNoAndBookNo(int bookNo, int memberNo) {
+		Map<String, Object> map = Map.of(
+				"bookNo", bookNo,
+				"memberNo", memberNo);
+		
+		return sqlSession.selectOne("loan.getLoanByMemberNoAndBookNo", map);	
 	}
 }
