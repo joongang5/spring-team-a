@@ -12,10 +12,12 @@ public interface BookStorageService {
 	public Map<String, Object> getBookMap(int bookNo);
 	public List<BookStorageViewDTO> getBookList();
 	public List<Map<String, Object>> getBookMapList();
-	public List<Map<String, Object>> getPagingBookMapList(int firstIndex, int recordCountPerPage);
+	public List<Map<String, Object>> getBookMapList(int firstIndex, int recordCountPerPage);
 	public List<BookStorageViewDTO> getUnregisteredBookList();
 	public List<Map<String, Object>> getUnregisteredBookMapList();
+	public List<Map<String, Object>> getUnregisteredBookMapList(int firstIndex, int recordCountPerPage);
 	public int getTotalCount();
+	public int getTotalUnregisteredCount();
 	public int insertBook(BookStorageDTO dto);
 	public int updateMaxCount(BookStorageDTO dto);
 	public int updateMaxCount(int bookNo, int maxCount);

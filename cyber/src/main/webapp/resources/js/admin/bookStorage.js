@@ -24,16 +24,14 @@ function rewriteTbody(data) {
 		var l = list[i];
 		
 		html += "<tr>";
-		html += 	"<td>" + l.no + "</td>";
 		html += 	"<td>" + l.book_no + "</td>";
 		html += 	"<td>" + l.title + "</td>";
-		html += 	"<td>" + l.vol + "</td>";
 		html += 	"<td>" + l.author + "</td>";
-		html += 	"<td>" + l.ea_isbn + "</td>";
-		html += 	"<td><input type='text' id='maxCount" + l.no + "' value='" + l.max_count + "'></td>";
-		html += 	"<td><input type='text' id='loanCount" + l.no + "' value='" + l.loan_count + "'></td>";
-		html += 	"<td><input type='text' id='reserveCount" + l.no + "' value='" + l.reserve_count + "'></td>";
-		html += 	"<td><input type='button' value='수정' onclick='updateStoredBook(" + l.no + ")'></td>";
+		html += 	"<td>" + l.isbn + "</td>";
+		html += 	"<td><input type='text' id='maxCount" + l.book_no + "' value='" + l.max_count + "'></td>";
+		html += 	"<td><input type='text' id='loanCount" + l.book_no + "' value='" + l.loan_count + "'></td>";
+		html += 	"<td><input type='text' id='reserveCount" + l.book_no + "' value='" + l.reserve_count + "'></td>";
+		html += 	"<td><input type='button' value='수정' onclick='onclickUpdateBtn(" + l.book_no + ")'></td>";
 		html += "</tr>";
 	}
 	
@@ -47,6 +45,7 @@ function onclickSearchUnregisteredBtn() {
 		dataType : "json",
 		success : function(data) {
 			rewriteTbody(data);
+			rewritePagination(data);
 		},
 		error : function(request, status, error) {
 			alert("error : " + error);
@@ -54,11 +53,27 @@ function onclickSearchUnregisteredBtn() {
 	});
 }
 
-function updateStoredBook(no) {
-	var maxCount = document.getElementById('maxCount' + no).value;
-	var loanCount = document.getElementById('loanCount' + no).value;
-	var reserveCount = document.getElementById('reserveCount' + no).value;
-	location.href = '/cyber/admin/storage/updateBook.do?bookNo=' + no + '&maxCount=' + maxCount + "&loanCount=" + loanCount + "&reserveCount=" + reserveCount;
+function onclickUpdateBtn(bookNo) {
+	var maxCount = $("#maxCount" + bookNo).val();
+	var loanCount = $("#loanCount" + bookNo).val();
+	var reserveCount = $("#reserveCount" + bookNo).val();
+	
+	$.ajax({
+		url : "/cyber/admin/storage/updateBook.do",
+		type : "POST",
+		dataType : "html",
+		data : { "bookNo" : bookNo, "maxCount" : maxCount, "loanCount" : loanCount, "reserveCount" : reserveCount },
+		success : function(data) {
+			if (data == "0") {
+				alert("수정에 실패했습니다.");
+				return;
+			}
+			alert("수정에 성공했습니다.");
+		},
+		error : function(request, status, error) {
+			alert("error : " + error);
+		}
+	});	
 }
 
 function linkPage(pageNo) {

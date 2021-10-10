@@ -23,28 +23,25 @@
 			<c:import url="/WEB-INF/views/admin/component/headerInner.jsp" />
 		</header>
 		<main>
-			<form method="post">
-				<h3>도서 재고 관리</h3>
-				<table>
-					<tr>
-						<th>book_no</th>
-						<td>
-							<input type="text" name="bookNo" value="${bookNo }">
-						</td>
-						<td>
-							<input type="button" id="searchBtn" value="검색" onclick="onclickSearchBtn()">
-						</td>
-					</tr>
-				</table>
-				<input type="button" id="searchUnregisterdBtn" value="미등록 데이터 검색" onclick="onclickSearchUnregisteredBtn()">
-			</form>
+			<h3>도서 재고 관리</h3>
+			<table>
+				<tr>
+					<th>book_no</th>
+					<td>
+						<input type="text" name="bookNo" value="${bookNo }">
+					</td>
+					<td>
+						<input type="button" id="searchBtn" value="검색" onclick="onclickSearchBtn()">
+					</td>
+				</tr>
+			</table>
+			<input type="button" id="searchUnregisterdBtn" value="미등록 데이터 검색" onclick="onclickSearchUnregisteredBtn()">
 			<hr>	
 		
 			<h3>검색 결과</h3>
 			<table>
 				<thead>
 					<tr>
-						<th>저장번호</th>
 						<th>책번호</th>
 						<th>표제</th>
 						<th>저자</th>
@@ -58,22 +55,21 @@
 				<tbody id="tbody">
 					<c:forEach items="${bookStorageViewDTOList }" var="l">
 					<tr>
-						<td>${l.no}</td>
 						<td>${l.book_no}</td>
 						<td>${l.title}</td>
 						<td>${l.author}</td>
 						<td>${l.isbn}</td>
 						<td>
-							<input type="text" id="maxCount${l.no }" value="${l.max_count }">
+							<input type="text" id="maxCount${l.book_no }" value="${l.max_count }">
 						</td>
 						<td>
-							<input type="text" id="loanCount${l.no }" value="${l.loan_count }">
+							<input type="text" id="loanCount${l.book_no }" value="${l.loan_count }">
 						</td>
 						<td>
-							<input type="text" id="reserveCount${l.no }" value="${l.reserve_count }">
+							<input type="text" id="reserveCount${l.book_no }" value="${l.reserve_count }">
 						</td>
 						<td>
-							<input type="button" value="수정" onclick="updateStoredBook(${l.no })">
+							<input type="button" value="수정" onclick="onclickUpdateBtn(${l.book_no })">
 						</td>
 					</tr>
 					</c:forEach>

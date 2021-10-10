@@ -6,16 +6,16 @@
 	<select id="getBookList" resultType="bookStorageViewDTO">
 		SELECT * FROM book_storage_view
 	</select>
-	<select id="getBookMapList" resultType="hashmap">
+	<select id="getBookMapList" resultType="hashmap" parameterType="hashmap">
 		SELECT * FROM book_storage_view
-	</select>
-	<select id="getPagingBookMapList" resultType="hashmap" parameterType="hashmap">
-		SELECT * FROM book_storage_view limit #{firstIndex}, #{recordCountPerPage} 
+		<if test="firstIndex != null and recordCountPerPage != null">
+			LIMIT #{firstIndex}, #{recordCountPerPage}
+		</if> 
 	</select>
 	
 	<select id="getTotalCount" resultType="int">
 		SELECT COUNT(*) FROM book_storage
-	</select>	
+	</select>
 	
 	<select id="getBookByBookNo" resultType="bookStorageViewDTO" parameterType="int">
 		SELECT * FROM book_storage_view WHERE book_no=#{bookNo}
@@ -42,5 +42,12 @@
 	</select>
 	<select id="getUnregisteredBookMapList" resultType="hashmap">
 		SELECT * FROM book_storage_unregistered_view
+		<if test="firstIndex != null and recordCountPerPage != null">
+			LIMIT #{firstIndex}, #{recordCountPerPage}
+		</if>
+	</select>
+	
+	<select id="getTotalUnregisteredCount" resultType="int">
+		SELECT COUNT(*) FROM book_storage_unregistered_view
 	</select>
 </mapper>

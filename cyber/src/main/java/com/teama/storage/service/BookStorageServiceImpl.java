@@ -38,8 +38,8 @@ public class BookStorageServiceImpl implements BookStorageService {
 
 
 	@Override
-	public List<Map<String, Object>> getPagingBookMapList(int firstIndex, int recordCountPerPage) {
-		return bookStorageDAO.getPagingBookMapList(firstIndex, recordCountPerPage);
+	public List<Map<String, Object>> getBookMapList(int firstIndex, int recordCountPerPage) {
+		return bookStorageDAO.getBookMapList(firstIndex, recordCountPerPage);
 	}
 	
 	@Override
@@ -53,8 +53,18 @@ public class BookStorageServiceImpl implements BookStorageService {
 	}
 
 	@Override
+	public List<Map<String, Object>> getUnregisteredBookMapList(int firstIndex, int recordCountPerPage) {
+		return bookStorageDAO.getUnregisteredBookMapList(firstIndex, recordCountPerPage);
+	}
+	
+	@Override
 	public int getTotalCount() {
 		return bookStorageDAO.getTotalCount();
+	}
+	
+	@Override
+	public int getTotalUnregisteredCount() {
+		return bookStorageDAO.getTotalUnregisteredCount();
 	}
 	
 	@Override

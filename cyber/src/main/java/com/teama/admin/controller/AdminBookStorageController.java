@@ -7,7 +7,6 @@ import javax.annotation.Resource;
 
 import org.json.simple.JSONObject;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -37,14 +36,14 @@ public class AdminBookStorageController {
 		
 		PaginationInfo paginationInfo = new PaginationInfo();
 		paginationInfo.setCurrentPageNo(currentPageNo);
-		paginationInfo.setRecordCountPerPage(3);
-		paginationInfo.setPageSize(8);
+		paginationInfo.setRecordCountPerPage(10);
+		paginationInfo.setPageSize(10);
 		paginationInfo.setTotalRecordCount(totalRecordCount);
 		
 		int firstRecordIndex = paginationInfo.getFirstRecordIndex();
 		int recordCountPerPage = paginationInfo.getRecordCountPerPage();
 		
-		List<Map<String, Object>> bookStorageViewDTOList = bookStorageService.getPagingBookMapList(firstRecordIndex, recordCountPerPage);
+		List<Map<String, Object>> bookStorageViewDTOList = bookStorageService.getBookMapList(firstRecordIndex, recordCountPerPage);
 		mv.addObject("bookStorageViewDTOList", bookStorageViewDTOList);
 		mv.addObject("paginationInfo", paginationInfo);
 		
@@ -60,14 +59,14 @@ public class AdminBookStorageController {
 		
 		PaginationInfo paginationInfo = new PaginationInfo();
 		paginationInfo.setCurrentPageNo(currentPageNo);
-		paginationInfo.setRecordCountPerPage(3);
-		paginationInfo.setPageSize(8);
+		paginationInfo.setRecordCountPerPage(10);
+		paginationInfo.setPageSize(10);
 		paginationInfo.setTotalRecordCount(totalRecordCount);
 		
 		int firstRecordIndex = paginationInfo.getFirstRecordIndex();
 		int recordCountPerPage = paginationInfo.getRecordCountPerPage();
 		
-		List<Map<String, Object>> bookStorageViewDTOList = bookStorageService.getPagingBookMapList(firstRecordIndex, recordCountPerPage);
+		List<Map<String, Object>> bookStorageViewDTOList = bookStorageService.getBookMapList(firstRecordIndex, recordCountPerPage);
 		
 		JSONObject jsonObj = new JSONObject();
 		jsonObj.put("bookStorageViewDTOList", bookStorageViewDTOList);
@@ -124,20 +123,37 @@ public class AdminBookStorageController {
 	@SuppressWarnings("unchecked")
 	@PostMapping(value="unregisteredBookAJAX.do", produces="text/plain;charset=utf-8")
 	@ResponseBody
-	public String unregisteredBookAJAX() {
+	public String unregisteredBookAJAX(CommandMap commandMap) {
+		int currentPageNo = commandMap.getIntValue("pageNo", 1);
+		int totalRecordCount = bookStorageService.getTotalUnregisteredCount();
 		
-		List<Map<String, Object>> bookStorageViewDTOList = bookStorageService.getUnregisteredBookMapList();
+		PaginationInfo paginationInfo = new PaginationInfo();
+		paginationInfo.setCurrentPageNo(currentPageNo);
+		paginationInfo.setRecordCountPerPage(10);
+		paginationInfo.setPageSize(10);
+		paginationInfo.setTotalRecordCount(totalRecordCount);
+		
+		int firstRecordIndex = paginationInfo.getFirstRecordIndex();
+		int recordCountPerPage = paginationInfo.getRecordCountPerPage();
+		
+		List<Map<String, Object>> bookStorageViewDTOList = bookStorageService.getUnregisteredBookMapList(firstRecordIndex, recordCountPerPage);
 
 		JSONObject jsonObj = new JSONObject();
 		jsonObj.put("bookStorageViewDTOList", bookStorageViewDTOList);
 		
+		PaginationTagServlet tag = new PaginationTagServlet();
+		tag.setJsFunction("linkPageAJAX");
+		tag.setPaginationInfo(paginationInfo);
+		tag.setType("text");
+		tag.getHtml();
+		jsonObj.put("pagination", tag.getHtml());
+		
 		return jsonObj.toString();
 	}
 	
-	@GetMapping("updateBook.do")
-	public ModelAndView updateBook(CommandMap commandMap) {
-		ModelAndView mv = new ModelAndView("admin/bookStorage");
-		
+	@PostMapping(value="updateBook.do", produces="text/plain;charset=utf-8")
+	@ResponseBody
+	public String updateBook(CommandMap commandMap) {
 		int bookNo = commandMap.getIntValue("bookNo");
 		int maxCount = commandMap.getIntValue("maxCount");
 		
@@ -145,8 +161,8 @@ public class AdminBookStorageController {
 		dto.setBook_no(bookNo);
 		dto.setMax_count(maxCount);
 		
-		bookStorageService.updateMaxCount(dto);
+		int result = bookStorageService.updateMaxCount(dto); 
 		
-		return mv;
+		return String.valueOf(result);
 	}
 }
