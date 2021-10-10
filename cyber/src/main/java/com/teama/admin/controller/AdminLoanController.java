@@ -17,6 +17,7 @@ import com.teama.common.CommandMap;
 import com.teama.loan.dto.LoanViewDTO;
 import com.teama.loan.service.LoanService;
 import com.teama.storage.service.BookStorageService;
+import com.teama.util.Util;
 
 @Controller
 @RequestMapping("/admin/loan")
@@ -40,14 +41,20 @@ public class AdminLoanController {
 		return mv;
 	}
 	
+	@SuppressWarnings("unchecked")
 	@PostMapping(value="searchBookAJAX.do", produces="text/plain;charset=utf-8")
 	@ResponseBody
 	public String searchBookAJAX(CommandMap commandMap) {
 		int bookNo = commandMap.getIntValue("bookNo");
 
+		JSONObject jsonObj = new JSONObject();
 		Map<String, Object> bookStorageViewDTO = bookStorageService.getBookMap(bookNo);
-
-		JSONObject jsonObj = new JSONObject(bookStorageViewDTO);
+		if (bookStorageViewDTO == null) {
+			jsonObj.put("errorMessage", "저장된 책이 없습니다.");
+		} else {
+			jsonObj.put("errorMessage", "");
+			jsonObj.put("bookStorageViewDTO", bookStorageViewDTO);
+		}
 		
 		return jsonObj.toString();
 	}
@@ -84,10 +91,42 @@ public class AdminLoanController {
 		
 		List<Map<String, Object>> loanViewDTOList = loanService.getLoanMapListByMemberNo(memberNo);
 		for (Map<String, Object> loanViewDTO : loanViewDTOList) {
-			Object loanDateObj = loanViewDTO.get("loan_date");
-			loanViewDTO.put("loan_date", loanDateObj.toString());
-			Object returnDateObj = loanViewDTO.get("return_date");
-			loanViewDTO.put("return_date", returnDateObj.toString());
+			String loanDate = Util.parseDateTime(loanViewDTO.get("loan_date"));
+			loanViewDTO.put("loan_date", loanDate);
+			String reserveDate = Util.parseDateTime(loanViewDTO.get("reserve_date"));
+			loanViewDTO.put("reserve_date", reserveDate);
+			String returnDate = Util.parseDateTime(loanViewDTO.get("return_date"));
+			loanViewDTO.put("return_date", returnDate);
+		}		
+		jsonObj.put("loanViewDTOList", loanViewDTOList);
+		
+		Map<String, Object> bookStorageViewDTO = bookStorageService.getBookMap(bookNo);
+		jsonObj.put("bookStorageViewDTO", bookStorageViewDTO);
+		
+		return jsonObj.toString();
+	}
+	
+
+	@SuppressWarnings("unchecked")
+	@PostMapping(value="reserveAJAX.do", produces="text/plain;charset=utf-8")
+	@ResponseBody
+	public String reserveAJAX(CommandMap commandMap) {
+		int bookNo = commandMap.getIntValue("bookNo");
+		int memberNo = commandMap.getIntValue("memberNo");
+
+		JSONObject jsonObj = new JSONObject();
+		
+		String errorMessage = loanService.reserve(bookNo, memberNo);
+		jsonObj.put("errorMessage", errorMessage);
+		
+		List<Map<String, Object>> loanViewDTOList = loanService.getLoanMapListByMemberNo(memberNo);
+		for (Map<String, Object> loanViewDTO : loanViewDTOList) {
+			String loanDate = Util.parseDateTime(loanViewDTO.get("loan_date"));
+			loanViewDTO.put("loan_date", loanDate);
+			String reserveDate = Util.parseDateTime(loanViewDTO.get("reserve_date"));
+			loanViewDTO.put("reserve_date", reserveDate);
+			String returnDate = Util.parseDateTime(loanViewDTO.get("return_date"));
+			loanViewDTO.put("return_date", returnDate);
 		}		
 		jsonObj.put("loanViewDTOList", loanViewDTOList);
 		

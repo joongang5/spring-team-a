@@ -42,6 +42,10 @@ public class BookStorageDAO extends AbstractDAO {
 	public int increaseLoanCountByBookNo(int bookNo) {
 		return sqlSession.update("bookStorage.increaseLoanCountByBookNo", bookNo);
 	}
+
+	public int increaseReserveCountByBookNo(int bookNo) {
+		return sqlSession.update("bookStorage.increaseReserveCountByBookNo", bookNo);
+	}
 	
 	public List<BookStorageViewDTO> getUnregisteredBookList() {
 		return sqlSession.selectList("bookStorage.getUnregisteredBookList");

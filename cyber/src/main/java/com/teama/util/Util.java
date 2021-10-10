@@ -6,4 +6,11 @@ public class Util {
 		String strObj = String.valueOf(obj);
 		return Integer.parseInt(strObj);
 	}
+	
+	public static String parseDateTime(Object dateTimeObj) {
+		if (dateTimeObj == null)
+			return "";
+		
+		return dateTimeObj.toString();
+	}
 }

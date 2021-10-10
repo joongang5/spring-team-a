@@ -51,4 +51,8 @@ public class BookStorageDTO {
 	public boolean isLoanable() {
 		return loan_count < max_count;
 	}
+	
+	public boolean isReservable() {
+		return reserve_count < max_count;
+	}
 }

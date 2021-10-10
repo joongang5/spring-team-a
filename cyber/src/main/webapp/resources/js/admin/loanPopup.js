@@ -6,8 +6,11 @@ function onclickSearchBtn() {
 		type : "POST",
 		dataType : "json",
 		data : { "bookNo" : bookNo },
-		success : function(bookStorageViewDTO) {
-			rewriteSearchTbody(bookStorageViewDTO);
+		success : function(data) {
+			if (data.errorMessage != "")
+				alert(data.errorMessage);
+			else
+				rewriteSearchTbody(data.bookStorageViewDTO);
 		},
 		error : function(request, status, error) {
 			alert("error : " + error);
@@ -72,4 +75,27 @@ function rewriteLoanTbody(data) {
 	}
 	
 	$("#loanTbody").append(html);
+}
+
+function onclickReserveBtn() {
+	var bookNo = $("input[name=bookNo]").val();
+	var memberNo = $("input[name=memberNo]").val();
+	
+	$.ajax({
+		url : "/cyber/admin/loan/reserveAJAX.do",
+		type : "POST",
+		dataType : "json",
+		data : { "bookNo" : bookNo, "memberNo" : memberNo },
+		success : function(data) {
+			if (data.errorMessage != "") {
+				alert(data.errorMessage);
+				return;
+			}
+			rewriteSearchTbody(data.bookStorageViewDTO);
+			rewriteLoanTbody(data);
+		},
+		error : function(request, status, error) {
+			alert("error : " + error);
+		}
+	});	
 }

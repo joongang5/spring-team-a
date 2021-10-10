@@ -8,7 +8,8 @@ public class LoanViewDTO {
 	private String publisher;
 	private String vol;
 	private String title_url;
-	private String loan_date;	
+	private String loan_date;
+	private String reserve_date;
 	private String return_date;
 	private int member_no;
 
@@ -68,6 +69,14 @@ public class LoanViewDTO {
 		this.loan_date = loan_date;
 	}
 	
+	public String getReserve_date() {
+		return reserve_date;
+	}
+
+	public void setReserve_date(String reserve_date) {
+		this.reserve_date = reserve_date;
+	}
+
 	public String getReturn_date() {
 		return return_date;
 	}

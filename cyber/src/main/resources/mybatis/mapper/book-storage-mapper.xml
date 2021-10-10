@@ -33,6 +33,10 @@
 		UPDATE book_storage SET loan_count=loan_count+1 WHERE book_no=#{bookNo}
 	</update>
 	
+	<update id="increaseReserveCountByBookNo" parameterType="int">
+		UPDATE book_storage SET reserve_count=reserve_count+1 WHERE book_no=#{bookNo}
+	</update>
+	
 	<update id="updateMaxCount" parameterType="hashmap">
 		UPDATE book_storage SET max_count=#{maxCount} WHERE book_no=#{bookNo}
 	</update>

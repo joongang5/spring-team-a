@@ -4,8 +4,13 @@
 
 <mapper namespace="loan">
 	<insert id="insertLoan" parameterType="hashmap">
-		INSERT INTO book_loan (book_no, member_no, return_date)
-		VALUES (#{bookNo}, #{memberNo}, DATE_ADD(NOW(), INTERVAL 5 DAY))
+		INSERT INTO book_loan (book_no, member_no, state, return_date)
+		VALUES (#{bookNo}, #{memberNo}, 0, DATE_ADD(NOW(), INTERVAL 5 DAY))
+	</insert>
+	
+	<insert id="insertReserve" parameterType="hashmap">
+		INSERT INTO book_loan (book_no, member_no, state, reserve_date, loan_date)
+		VALUES (#{bookNo}, #{memberNo}, 1, NOW(), #{reservedLoanDate})
 	</insert>
 	
 	<select id="getLoanListByMemberNo" resultType="loanViewDTO" parameterType="int">
@@ -17,5 +22,16 @@
 	
 	<select id="getLoanByMemberNoAndBookNo" resultType="loanDTO" parameterType="hashmap">
 		SELECT * FROM book_loan WHERE member_no=#{memberNo} AND book_no=#{bookNo}
+		<if test="state != null">
+			AND state=#{state}
+		</if>
+	</select>
+	
+	<select id="getLoanByBookNo" resultType="loanDTO" parameterType="int">
+		SELECT * FROM book_loan WHERE book_no=#{bookNo} AND state=0 ORDER BY return_date ASC
+	</select>
+	
+	<select id="getReserveByBookNo" resultType="loanDTO" parameterType="int">
+		SELECT * FROM book_loan WHERE book_no=#{bookNo} AND state=1
 	</select>
 </mapper>

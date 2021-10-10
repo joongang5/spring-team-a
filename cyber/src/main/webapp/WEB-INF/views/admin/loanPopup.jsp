@@ -56,6 +56,7 @@
 			</tbody>
 		</table>
 		<button type="button" onclick="onclickLoanBtn()">대출실행</button>
+		<button type="button" onclick="onclickReserveBtn()">예약실행</button>
 		
 		<h3>대출목록</h3>	
 		<table>
