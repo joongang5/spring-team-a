@@ -42,8 +42,8 @@ function onclickLoanBtn() {
 		dataType : "json",
 		data : { "bookNo" : bookNo, "memberNo" : memberNo },
 		success : function(data) {
-			if (data.loanResult == false) {
-				alert("대출에 실패했습니다.");
+			if (data.errorMessage != "") {
+				alert(data.errorMessage);
 				return;
 			}
 			rewriteSearchTbody(data.bookStorageViewDTO);

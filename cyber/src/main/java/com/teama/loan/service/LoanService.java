@@ -9,5 +9,5 @@ public interface LoanService {
 
 	public List<LoanViewDTO> getLoanListByMemberNo(int memberNo);
 	public List<Map<String, Object>> getLoanMapListByMemberNo(int memberNo);
-	public boolean loan(int bookNo, int memberNo);
+	public String loan(int bookNo, int memberNo);
 }

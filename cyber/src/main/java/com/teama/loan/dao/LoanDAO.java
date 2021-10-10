@@ -20,12 +20,12 @@ public class LoanDAO extends AbstractDAO {
 		return sqlSession.selectList("loan.getLoanMapListByMemberNo", memberNo);
 	}
 	
-	public int insertNewLoanData(int bookNo, int memberNo) {
+	public int insertLoan(int bookNo, int memberNo) {
 		Map<String, Object> map = Map.of(
 				"bookNo", bookNo,
 				"memberNo", memberNo);
 				
-		return update("loan.insertNewLoanData", map);
+		return insert("loan.insertLoan", map);
 	}
 	
 	public LoanDTO getLoanByMemberNoAndBookNo(int bookNo, int memberNo) {

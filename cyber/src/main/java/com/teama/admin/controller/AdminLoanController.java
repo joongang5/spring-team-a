@@ -60,8 +60,9 @@ public class AdminLoanController {
 		mv.addObject("bookNo", bookNo);
 		int memberNo = commandMap.getIntValue("memberNo");
 		mv.addObject("memberNo", memberNo);
-		boolean loanResult = loanService.loan(bookNo, memberNo);
-		mv.addObject("loanResult", loanResult);
+		
+		String errorMessage = loanService.loan(bookNo, memberNo);
+		mv.addObject("errorMessage", errorMessage);
 		
 		List<LoanViewDTO> loanViewDTOList = loanService.getLoanListByMemberNo(memberNo);
 		mv.addObject("loanViewDTOList", loanViewDTOList);
@@ -78,8 +79,8 @@ public class AdminLoanController {
 
 		JSONObject jsonObj = new JSONObject();
 		
-		boolean loanResult = loanService.loan(bookNo, memberNo);
-		jsonObj.put("loanResult", loanResult);
+		String errorMessage = loanService.loan(bookNo, memberNo);
+		jsonObj.put("errorMessage", errorMessage);
 		
 		List<Map<String, Object>> loanViewDTOList = loanService.getLoanMapListByMemberNo(memberNo);
 		for (Map<String, Object> loanViewDTO : loanViewDTOList) {

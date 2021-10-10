@@ -47,4 +47,8 @@ public class BookStorageDTO {
 	public void setReserve_count(int reserve_count) {
 		this.reserve_count = reserve_count;
 	}
+	
+	public boolean isLoanable() {
+		return loan_count < max_count;
+	}
 }
