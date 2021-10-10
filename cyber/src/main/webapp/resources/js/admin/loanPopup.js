@@ -17,14 +17,13 @@ function onclickSearchBtn() {
 
 function rewriteSearchTbody(bookStorageViewDTO) {
 	$("#searchTbody").empty();
-	
+
 	var html = "";
 	html += "<tr>";
 	html += 	"<td>" + bookStorageViewDTO.book_no + "</td>";
 	html += 	"<td>" + bookStorageViewDTO.title + "</td>";
-	html += 	"<td>" + bookStorageViewDTO.vol + "</td>";
 	html += 	"<td>" + bookStorageViewDTO.author + "</td>";
-	html += 	"<td>" + bookStorageViewDTO.ea_isbn + "</td>";
+	html += 	"<td>" + bookStorageViewDTO.isbn + "</td>";
 	html += 	"<td>" + bookStorageViewDTO.max_count + "</td>";
 	html += 	"<td>" + bookStorageViewDTO.loan_count + "</td>";
 	html += 	"<td>" + bookStorageViewDTO.reserve_count + "</td>";
@@ -47,6 +46,7 @@ function onclickLoanBtn() {
 				alert("대출에 실패했습니다.");
 				return;
 			}
+			rewriteSearchTbody(data.bookStorageViewDTO);
 			rewriteLoanTbody(data);
 		},
 		error : function(request, status, error) {
@@ -67,7 +67,6 @@ function rewriteLoanTbody(data) {
 		html += 	"<td>" + l.no + "</td>";
 		html += 	"<td>" + l.title + "</td>";
 		html += 	"<td>" + l.author + "</td>";
-		html += 	"<td>" + l.vol + "</td>";
 		html += 	"<td>" + l.return_date + "</td>";
 		html += "</tr>";
 	}

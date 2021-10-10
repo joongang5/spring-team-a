@@ -37,7 +37,6 @@
 			<tr>
 				<th>번호</th>
 				<td>표제</td>
-				<td>권차</td>
 				<td>저자</td>
 				<td>ISBN</td>
 				<td>보유</td>
@@ -48,9 +47,8 @@
 				<tr>
 					<td>${bookStorageViewDTO.book_no }</td>
 					<td>${bookStorageViewDTO.title }</td>
-					<td>${bookStorageViewDTO.vol }</td>
 					<td>${bookStorageViewDTO.author }</td>
-					<td>${bookStorageViewDTO.ea_isbn }</td>
+					<td>${bookStorageViewDTO.isbn }</td>
 					<td>${bookStorageViewDTO.max_count }</td>
 					<td>${bookStorageViewDTO.loan_count }</td>
 					<td>${bookStorageViewDTO.reserve_count }</td>
@@ -65,7 +63,6 @@
 				<th>번호</th>
 				<th>표제</th>
 				<th>저자</th>
-				<th>권차</th>
 				<th>반납일</th>
 			</tr>
 			<tbody id="loanTbody">
@@ -74,7 +71,6 @@
 					<td>${l.no }</td>
 					<td>${l.title }</td>
 					<td>${l.author }</td>
-					<td>${l.vol }</td>
 					<td>${l.return_date }</td>
 				</tr>
 				</c:forEach>

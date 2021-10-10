@@ -5,7 +5,7 @@ public class BookStorageViewDTO extends BookStorageDTO {
 	private String title;
 	private String vol;
 	private String author;
-	private String ea_isbn;
+	private String isbn;
 
 	public String getTitle() {
 		return title;
@@ -31,11 +31,11 @@ public class BookStorageViewDTO extends BookStorageDTO {
 		this.author = author;
 	}
 
-	public String getEa_isbn() {
-		return ea_isbn;
+	public String getIsbn() {
+		return isbn;
 	}
 
-	public void setEa_isbn(String ea_isbn) {
-		this.ea_isbn = ea_isbn;
+	public void setIsbn(String isbn) {
+		this.isbn = isbn;
 	}
 }

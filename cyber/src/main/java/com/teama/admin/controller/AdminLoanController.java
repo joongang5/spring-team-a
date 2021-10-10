@@ -87,9 +87,11 @@ public class AdminLoanController {
 			loanViewDTO.put("loan_date", loanDateObj.toString());
 			Object returnDateObj = loanViewDTO.get("return_date");
 			loanViewDTO.put("return_date", returnDateObj.toString());
-		}
-		
+		}		
 		jsonObj.put("loanViewDTOList", loanViewDTOList);
+		
+		Map<String, Object> bookStorageViewDTO = bookStorageService.getBookMap(bookNo);
+		jsonObj.put("bookStorageViewDTO", bookStorageViewDTO);
 		
 		return jsonObj.toString();
 	}
