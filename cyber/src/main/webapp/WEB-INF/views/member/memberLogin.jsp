@@ -2,13 +2,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>로그인</title>
 <style>
+html {
+	font-family: 'NanumSquare', serif;
+	color: #003857;
+}
+
 body {
 	margin: 0;
 	padding: 0;
@@ -22,32 +26,32 @@ body {
 header {
 	width: 1000px;
 	height: 130px;
-	background: #111;
+	background: #white;
 }
 
 aside {
 	float: left;
 	width: 240px;
 	height: 600px;
-	background: #333;
+	background: #e3f0ff;
 }
 
 main {
 	float: left;
 	width: 760px;
 	height: 600px;
-	background: #444;
+	background: #white;
 }
 
 footer {
 	clear: both;
 	width: 1000px;
 	height: 100px;
-	background: #555;
+	background: #cee5fe;
 }
 
 #loginbox {
-	background-color: #c4c8d2;
+	background-color: #e3f0ff;
 	height: auto;
 	width: 400px;
 	margin: 0 auto;
@@ -89,6 +93,7 @@ button {
 	vertical-align: -3px;
 }
 </style>
+<link rel="stylesheet" type="text/css" href="./resources/css/base.css">
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script>

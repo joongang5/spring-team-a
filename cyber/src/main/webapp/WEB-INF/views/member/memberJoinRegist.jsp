@@ -9,6 +9,11 @@
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <style>
+html {
+	font-family: 'NanumSquare', serif;
+	color: #003857;
+}
+
 body {
 	margin: 0;
 	padding: 0;
@@ -22,32 +27,32 @@ body {
 header {
 	width: 1000px;
 	height: 130px;
-	background: #111;
+	background: #white;
 }
 
 aside {
 	float: left;
 	width: 240px;
 	height: 600px;
-	background: #333;
+	background: #e3f0ff;
 }
 
 main {
 	float: left;
 	width: 760px;
 	height: 600px;
-	background: #444;
+	background: #white;
 }
 
 footer {
 	clear: both;
 	width: 1000px;
 	height: 100px;
-	background: #555;
+	background: #cee5fe;
 }
 
 #joinbox {
-	background-color: #c4c8d2;
+	background-color: #e3f0ff;
 	height: auto;
 	width: 400px;
 	margin: 0 auto;

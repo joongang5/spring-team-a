@@ -1,18 +1,26 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-
 <style type="text/css">
-#lnbNav>h2 {
-	margin: 0;
+#lnbNav {
+	background-color: #e3f0ff;
 }
 
 #lnb {
 	list-style: none;
 	margin: 0;
 	padding: 0;
+	background: #e3f0ff;
+}
+
+#lnbWrap {
+	background-color: white;
+}
+
+#lnbTitle {
+	background-color: #e3f0ff;
+	margin: 0;
 }
 </style>
-
 <script>
 	$(document).ready(function() {
 		drawLnb();
@@ -39,10 +47,10 @@
 
 	function getMemberNaviMap() {
 		var map = {
-			"/cyber/member/memberLogin.do" : "로그인",
-			"/cyber/member/memberJoinRegist.do" : "회원가입",
-			"/cyber/member/memberFindId.do" : "아이디찾기",
-			"/cyber/member/memberFindPw.do" : "비밀번호찾기"
+			"/cyber/member/memberLogin.do" : "&nbsp;로그인",
+			"/cyber/member/memberJoinRegist.do" : "&nbsp;회원가입",
+			"/cyber/member/memberFindId.do" : "&nbsp;아이디찾기",
+			"/cyber/member/memberFindPw.do" : "&nbsp;비밀번호찾기"
 		};
 		return map;
 	}
@@ -67,11 +75,12 @@
 		return map;
 	}
 </script>
-
 <div id="lnbNav">
-	<h2 id="lnbTitle"></h2>
+	<div id="lnbTitle">
+		<h2>&nbsp;Menu</h2>
+	</div>
 	<div id="lnbWrap">
-		<ul id="lnb">
+		<ul id="lnb" style="font-size: 18px;">
 		</ul>
 	</div>
 </div>

@@ -1,0 +1,35 @@
+@charset "UTF-8";
+
+html {
+	font-family: 'NanumSquare', serif;
+	color: #003857;
+}
+
+body {
+	margin: 0;
+	padding: 0;
+}
+
+#wrap {
+	width: 1000px;
+	margin: 0 auto;
+}
+
+header {
+	width: 1000px;
+	height: 130px;
+	background: white;
+}
+
+main {
+	width: 1000px;
+	height: 600px;
+	background: #white;
+}
+
+footer {
+	clear: both;
+	width: 1000px;
+	height: 100px;
+	background: #cee5fe;
+}

@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
@@ -7,25 +7,93 @@
 <meta charset="UTF-8">
 <title>공지사항 상세보기</title>
 <style type="text/css">
-	#detailBoard { width: 600px; height: 300px; }
+html {
+	font-family: 'NanumSquare', serif;
+	color: #003857;
+}
+
+body {
+	margin: 0;
+	padding: 0;
+}
+
+#wrap {
+	width: 1000px;
+	margin: 0 auto;
+}
+
+header {
+	width: 1000px;
+	height: 130px;
+	background: #white;
+}
+
+aside {
+	float: left;
+	width: 240px;
+	height: 600px;
+	background: #e3f0ff;
+}
+
+main {
+	float: left;
+	width: 760px;
+	height: 600px;
+	background: #white;
+}
+
+footer {
+	clear: both;
+	width: 1000px;
+	height: 100px;
+	background: #cee5fe;
+}
+
+#detailBoard {
+	width: 600px;
+	height: 300px;
+}
+
+button {
+	width: 100px;
+	height: 30px;
+	text-align: center;
+	font-family: 'NanumSquare', serif;
+	background-color: white; border-color : #e3f0ff; border-radius : 10px;
+	margin-bottom: 10px;
+	border-radius: 10px;
+	border-radius: 10px;
+	border-color: #e3f0ff;
+	border-radius: 10px;
+}
 </style>
 <script type="text/javascript">
-function move(){
-	location.href='./listNotice.do';
-}
+	function move() {
+		location.href = './listNotice.do';
+	}
 </script>
 </head>
 <body>
-	<div id="detailBoard">
-		<b>번호 |</b> ${detail.no }
-		<b>제목 |</b> ${detail.title }
-		<b>작성자 |</b> ${detail.id }(${detail.name })
-		<b>등록일 |</b> ${detail.date }
-		<button onclick="location.href='./delete.do?no=${detail.no }'">삭제하기</button>
-		<button onclick="location.href='./noticeUpdate.do?no=${detail.no }'">수정하기</button>
-		<hr>
-		${detail.content }
-	</div> <!-- end of detailBoard -->
-	<button onclick="move()">돌아가기</button>
+	<div id="wrap">
+		<header>
+			<c:import url="/WEB-INF/views/component/headerInner.jsp" />
+		</header>
+		<aside>
+			<c:import url="/WEB-INF/views/component/lnbNav.jsp" />
+		</aside>
+		<main>
+			<div id="detailBoard">
+				<b>번호 |</b> ${detail.no } <b>제목 |</b> ${detail.title } <b>작성자 |</b>
+				${detail.id }(${detail.name }) <b>등록일 |</b> ${detail.date }
+				<button onclick="location.href='./delete.do?no=${detail.no }'">삭제하기</button>
+				<button onclick="location.href='./noticeUpdate.do?no=${detail.no }'">수정하기</button>
+				<hr>
+				${detail.content }
+			</div>
+			<!-- end of detailBoard -->
+			<button onclick="move()">돌아가기</button>
+		</main>
+		<footer>footer</footer>
+	</div>
 </body>
 </html>
