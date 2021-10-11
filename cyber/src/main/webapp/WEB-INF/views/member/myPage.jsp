@@ -2,12 +2,11 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
-
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>내 도서관</title>
+<title>나만의도서관</title>
 <style>
 html {
 	font-family: 'NanumSquare', serif;
@@ -50,23 +49,53 @@ footer {
 	height: 100px;
 	background: #cee5fe;
 }
-
-.libtn {
-	background-color: #0066b3;
-	font-family: sans-serif;
-	font: bold;
-	color: white;
-}
-
-.infoBox {
+.serviceBox {
 	margin: 0 auto;
 	padding: 0;
-	background-color: #f2f2f2;
-	font-family: sans-serif;
+	width: 90%;
+	height: 40%;
+	background-color: #ebf7fa;
+	
+}
+.b {
+	color: #0066B3;
+}
+.ewqBox {
+	margin: 0 auto;
+	margin-top: 30px;
+	padding: 0;
+	width: 90%;
+}
+.ebBox {
+	float: left;
+	width: 30%;
+	height: 200px;
+	box-sizing: border-box;
+	border: 1px solid #e1e1e1;
+	background-color: #FFFFFF;
+	text-align: center;
+}
+.wbBox {
+	float: left;
+	margin-left: 5%;
+	width: 30%;
+	height: 200px;
+	box-sizing: border-box;
+	border: 1px solid #e1e1e1;
+	background-color: #FFFFFF;
+	text-align: center;
+}
+.qtBox {
+	float: right;
+	width: 30%;
+	height: 200px;
+	box-sizing: border-box;
+	border: 1px solid #e1e1e1;
+	background-color: #FFFFFF;
+	text-align: center;
 }
 </style>
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 </head>
 <body>
 	<div id="wrap">
@@ -77,53 +106,41 @@ footer {
 			<c:import url="/WEB-INF/views/component/lnbNav.jsp" />
 		</aside>
 		<main>
-			<div>
-				<c:choose>
-					<c:when test="${sessionScope.id ne null}">
-						<a class="libtn" href="myPage.do">내서재</a>
-						<a class="libtn" href="">나의별점/리뷰</a>
-						<a class="libtn" href="">관심목록</a>
-						<div class="infoBox">
-							- 현재 대출중인 전자책을 확인하고, 전자책을 보거나 반납할 수 있습니다.<br> - 대출한 책은
-							반납예정일이 지나면 자동 반납되며, [반납하기]를 눌러서 미리 반납도 가능합니다.
+			<c:choose>
+				<c:when test="${sessionScope.id ne null}">
+					<div class="serviceBox">
+						<h2>나의 서비스 이용현황</h2>
+						<b>${sessionScope.name }</b>님은 <b>전자책</b> 서비스를 이용하실 수 있습니다.
+					</div>
+					<div class="ewqBox">
+						<div class="ebBox">
+							<a href="ebookLoanList.do" style="text-decoration:none; color: black;">
+								<img src="../resources/img/monitor.png"><br>
+								전자책 대출현황<br>
+								대출권수<br>
+								예약권수
+							</a>
 						</div>
-						<hr>
-						<table>
-							<tr>
-								<th>사진</th>
-								<th>제목</th>
-								<th>저자</th>
-								<th>출판사</th>
-								<th>대출일</th>
-								<th>반납예정일</th>
-							</tr>
-						</table>
-						<table>
-							<c:choose>
-								<c:when test="${fn:length(loanViewDTOList) gt 0 }">
-									<c:forEach items="${loanViewDTOList }" var="l">
-										<tr>
-											<td><img alt="book" src="${l.title_url }"
-												style="width: 100px; height: 120px;"></td>
-											<td>${l.title }</td>
-											<td>${l.author }</td>
-											<td>${l.publisher }</td>
-											<td>${l.loan_date }</td>
-											<td>${l.return_date }</td>
-										</tr>
-									</c:forEach>
-								</c:when>
-								<c:otherwise>
-								대출중인 전자책이 없습니다.
-							</c:otherwise>
-							</c:choose>
-						</table>
-					</c:when>
-					<c:otherwise>
-						<a href="/cyber/member/memberLogin.do">로그인 해주세요.</a>
-					</c:otherwise>
-				</c:choose>
-			</div>
+						<div class="wbBox">
+							<a href="" style="text-decoration:none; color: black;">
+								<img src="../resources/img/book2.png"><br>
+								희망전자책 신청현황<br>
+								신청권수
+							</a>
+						</div>
+						<div class="qtBox">
+							<a href="" style="text-decoration:none; color: black;">
+								<img src="../resources/img/qna.png"><br>
+								묻고답하기 문의현황<br>
+								문의건수
+							</a>
+						</div>
+					</div>
+				</c:when>
+				<c:otherwise>
+					<a class="noLogin" href="/cyber/member/memberLogin.do">로그인해주세요.</a>
+				</c:otherwise>
+			</c:choose>
 		</main>
 		<footer>footer</footer>
 	</div>

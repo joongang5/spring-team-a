@@ -8,6 +8,11 @@
 		VALUES (#{bookNo}, #{memberNo}, 0, DATE_ADD(NOW(), INTERVAL 5 DAY))
 	</insert>
 	
+	<update id="extendLoan" parameterType="hashmap">
+		INSERT INTO book_loan (book_no, member_no, state, return_date)
+		VALUES (#{bookNo}, #{memberNo}, 0, DATE_ADD(return_date, INTERVAL 5 DAY))
+	</update>
+	
 	<insert id="insertReserve" parameterType="hashmap">
 		INSERT INTO book_loan (book_no, member_no, state, reserve_date, loan_date)
 		VALUES (#{bookNo}, #{memberNo}, 1, NOW(), #{reservedLoanDate})
