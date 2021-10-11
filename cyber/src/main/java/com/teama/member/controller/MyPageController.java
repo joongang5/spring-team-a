@@ -39,7 +39,7 @@ public class MyPageController {
 		if (memberNoObj != null) {
 			int memberNo = Util.parseInt(memberNoObj);
 
-			List<LoanViewDTO> loanViewDTOList = loanService.getLoanListByMemberNo(memberNo);
+			List<LoanViewDTO> loanViewDTOList = loanService.getViewListByMemberNo(memberNo);
 			mv.addObject("loanViewDTOList", loanViewDTOList);
 		}
 		return mv;

@@ -43,7 +43,7 @@ public class AdminBookStorageController {
 		int firstRecordIndex = paginationInfo.getFirstRecordIndex();
 		int recordCountPerPage = paginationInfo.getRecordCountPerPage();
 		
-		List<Map<String, Object>> bookStorageViewDTOList = bookStorageService.getBookMapList(firstRecordIndex, recordCountPerPage);
+		List<Map<String, Object>> bookStorageViewDTOList = bookStorageService.getViewMapList(firstRecordIndex, recordCountPerPage);
 		mv.addObject("bookStorageViewDTOList", bookStorageViewDTOList);
 		mv.addObject("paginationInfo", paginationInfo);
 		
@@ -66,7 +66,7 @@ public class AdminBookStorageController {
 		int firstRecordIndex = paginationInfo.getFirstRecordIndex();
 		int recordCountPerPage = paginationInfo.getRecordCountPerPage();
 		
-		List<Map<String, Object>> bookStorageViewDTOList = bookStorageService.getBookMapList(firstRecordIndex, recordCountPerPage);
+		List<Map<String, Object>> bookStorageViewDTOList = bookStorageService.getViewMapList(firstRecordIndex, recordCountPerPage);
 		
 		JSONObject jsonObj = new JSONObject();
 		jsonObj.put("bookStorageViewDTOList", bookStorageViewDTOList);
@@ -87,7 +87,7 @@ public class AdminBookStorageController {
 
 		int bookNo = commandMap.getIntValue("bookNo");
 		
-		BookStorageViewDTO bookStorageViewDTO = bookStorageService.getBook(bookNo);
+		BookStorageViewDTO bookStorageViewDTO = bookStorageService.getView(bookNo);
 		List<BookStorageViewDTO> bookStorageViewDTOList = List.of(bookStorageViewDTO);
 		
 		mv.addObject("bookStorageViewDTOList", bookStorageViewDTOList);
@@ -101,7 +101,7 @@ public class AdminBookStorageController {
 	public String getBookAJAX(CommandMap commandMap) {
 		int bookNo = commandMap.getIntValue("bookNo");
 		
-		Map<String, Object> bookStorageViewDTO = bookStorageService.getBookMap(bookNo);
+		Map<String, Object> bookStorageViewDTO = bookStorageService.getViewMap(bookNo);
 		List<Map<String, Object>> bookStorageViewDTOList = List.of(bookStorageViewDTO);
 		
 		JSONObject jsonObj = new JSONObject();
@@ -114,7 +114,7 @@ public class AdminBookStorageController {
 	public ModelAndView unregisteredBook() {
 		ModelAndView mv = new ModelAndView("admin/bookStorage");
 		
-		List<BookStorageViewDTO> bookStorageViewDTOList = bookStorageService.getUnregisteredBookList();
+		List<BookStorageViewDTO> bookStorageViewDTOList = bookStorageService.getUnregisteredViewList();
 		mv.addObject("bookStorageViewDTOList", bookStorageViewDTOList);
 		
 		return mv;
@@ -136,7 +136,7 @@ public class AdminBookStorageController {
 		int firstRecordIndex = paginationInfo.getFirstRecordIndex();
 		int recordCountPerPage = paginationInfo.getRecordCountPerPage();
 		
-		List<Map<String, Object>> bookStorageViewDTOList = bookStorageService.getUnregisteredBookMapList(firstRecordIndex, recordCountPerPage);
+		List<Map<String, Object>> bookStorageViewDTOList = bookStorageService.getUnregisteredViewMapList(firstRecordIndex, recordCountPerPage);
 
 		JSONObject jsonObj = new JSONObject();
 		jsonObj.put("bookStorageViewDTOList", bookStorageViewDTOList);

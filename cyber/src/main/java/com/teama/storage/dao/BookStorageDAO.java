@@ -11,32 +11,40 @@ import com.teama.storage.dto.BookStorageViewDTO;
 
 @Repository
 public class BookStorageDAO extends AbstractDAO {
-
-	public List<BookStorageViewDTO> getBookList() {
+	
+	public List<BookStorageDTO> getBookList() {
 		return sqlSession.selectList("bookStorage.getBookList");
 	}
-
-	public List<Map<String, Object>> getBookMapList() {
-		return sqlSession.selectList("bookStorage.getBookMapList");
+	
+	public List<BookStorageDTO> getNeedAutoLoanList() {
+		return sqlSession.selectList("bookStorage.getNeedAutoLoanList");
 	}
 	
-	public List<Map<String, Object>> getBookMapList(int firstIndex, int recordCountPerPage) {
+	public List<BookStorageViewDTO> getViewList() {
+		return sqlSession.selectList("bookStorage.getViewList");
+	}
+
+	public List<Map<String, Object>> getViewMapList() {
+		return sqlSession.selectList("bookStorage.getViewMapList");
+	}
+	
+	public List<Map<String, Object>> getViewMapList(int firstIndex, int recordCountPerPage) {
 		Map<String, Object> map = Map.of(
 				"firstIndex", firstIndex,
 				"recordCountPerPage", recordCountPerPage);
-		return sqlSession.selectList("bookStorage.getBookMapList", map);
+		return sqlSession.selectList("bookStorage.getViewMapList", map);
 	}
 	
 	public int getTotalCount() {
 		return sqlSession.selectOne("bookStorage.getTotalCount");
 	}
 	
-	public BookStorageViewDTO getBookByBookNo(int bookNo) {
-		return sqlSession.selectOne("bookStorage.getBookByBookNo", bookNo);
+	public BookStorageViewDTO getViewByBookNo(int bookNo) {
+		return sqlSession.selectOne("bookStorage.getViewByBookNo", bookNo);
 	}
 
-	public Map<String, Object> getBookMapByBookNo(int bookNo) {
-		return sqlSession.selectOne("bookStorage.getBookMapByBookNo", bookNo);
+	public Map<String, Object> getViewMapByBookNo(int bookNo) {
+		return sqlSession.selectOne("bookStorage.getViewMapByBookNo", bookNo);
 	}
 	
 	public int increaseLoanCountByBookNo(int bookNo) {
@@ -46,20 +54,32 @@ public class BookStorageDAO extends AbstractDAO {
 	public int increaseReserveCountByBookNo(int bookNo) {
 		return sqlSession.update("bookStorage.increaseReserveCountByBookNo", bookNo);
 	}
+
+	public int decreaseLoanCountByBookNo(int bookNo) {
+		return sqlSession.update("bookStorage.decreaseLoanCountByBookNo", bookNo);
+	}
+
+	public int decreaseReserveCountByBookNo(int bookNo) {
+		return sqlSession.update("bookStorage.decreaseReserveCountByBookNo", bookNo);
+	}
+
+	public int reserveToLoanByBookNo(int bookNo) {
+		return sqlSession.update("bookStorage.reserveToLoanByBookNo", bookNo);
+	}
 	
-	public List<BookStorageViewDTO> getUnregisteredBookList() {
+	public List<BookStorageViewDTO> getUnregisteredViewList() {
 		return sqlSession.selectList("bookStorage.getUnregisteredBookList");
 	}
 
-	public List<Map<String, Object>> getUnregisteredBookMapList() {
-		return sqlSession.selectList("bookStorage.getUnregisteredBookMapList");
+	public List<Map<String, Object>> getUnregisteredViewMapList() {
+		return sqlSession.selectList("bookStorage.getUnregisteredViewMapList");
 	}
 
-	public List<Map<String, Object>> getUnregisteredBookMapList(int firstIndex, int recordCountPerPage) {
+	public List<Map<String, Object>> getUnregisteredViewMapList(int firstIndex, int recordCountPerPage) {
 		Map<String, Object> map = Map.of(
 				"firstIndex", firstIndex,
 				"recordCountPerPage", recordCountPerPage);
-		return sqlSession.selectList("bookStorage.getUnregisteredBookMapList", map);
+		return sqlSession.selectList("bookStorage.getUnregisteredViewMapList", map);
 	}
 
 	public int getTotalUnregisteredCount() {

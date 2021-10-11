@@ -1,7 +1,5 @@
 package com.teama.loan.service;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -12,7 +10,9 @@ import com.teama.loan.dao.LoanDAO;
 import com.teama.loan.dto.LoanDTO;
 import com.teama.loan.dto.LoanViewDTO;
 import com.teama.storage.dao.BookStorageDAO;
+import com.teama.storage.dto.BookStorageDTO;
 import com.teama.storage.dto.BookStorageViewDTO;
+import com.teama.util.Util;
 
 @Service("loanService")
 public class LoanServiceImpl implements LoanService {
@@ -23,25 +23,35 @@ public class LoanServiceImpl implements LoanService {
 	private BookStorageDAO bookStorageDAO;
 	
 	@Override
-	public List<LoanViewDTO> getLoanListByMemberNo(int memberNo) {
-		return loanDAO.getLoanListByMemberNo(memberNo);
+	public List<LoanViewDTO> getViewListByMemberNo(int memberNo) {
+		return loanDAO.getViewListByMemberNo(memberNo);
 	}
 
 	@Override
-	public List<Map<String, Object>> getLoanMapListByMemberNo(int memberNo) {
-		return loanDAO.getLoanMapListByMemberNo(memberNo);
+	public List<LoanViewDTO> getViewListByMemberNo(int memberNo, int state) {
+		return loanDAO.getViewListByMemberNo(memberNo, state);
+	}
+
+	@Override
+	public List<Map<String, Object>> getViewMapListByMemberNo(int memberNo) {
+		return loanDAO.getViewMapListByMemberNo(memberNo);
+	}
+
+	@Override
+	public List<Map<String, Object>> getViewMapListByMemberNo(int memberNo, int state) {
+		return loanDAO.getViewMapListByMemberNo(memberNo, state);
 	}
 	
 	// 대출 기본 로직
 	@Override
 	public String loan(int bookNo, int memberNo) throws RuntimeException {
 		// 이미 대출한 책인 경우 대출이 불가합니다.
-		LoanDTO loanDTO = loanDAO.getLoanByMemberNoAndBookNo(bookNo, memberNo);
+		LoanDTO loanDTO = loanDAO.getLoanByMemberNoAndBookNo(bookNo, memberNo, LoanState.loan.getValue());
 		if (loanDTO != null)
 			return "이미 대출한 책입니다.";
 		
 		// 책 재고가 부족하다면 대출할 수 없습니다.
-		BookStorageViewDTO bookStorageViewDTO = bookStorageDAO.getBookByBookNo(bookNo);
+		BookStorageViewDTO bookStorageViewDTO = bookStorageDAO.getViewByBookNo(bookNo);
 		if (bookStorageViewDTO.isLoanable() == false)
 			return "재고가 부족합니다.";
 		
@@ -69,7 +79,7 @@ public class LoanServiceImpl implements LoanService {
 			return "이미 예약한 책입니다.";		
 
 		// 예약이 다 차면 예약할 수 없습니다.
-		BookStorageViewDTO bookStorageViewDTO = bookStorageDAO.getBookByBookNo(bookNo);
+		BookStorageViewDTO bookStorageViewDTO = bookStorageDAO.getViewByBookNo(bookNo);
 		if (bookStorageViewDTO.isReservable() == false)
 			return "예약이 모두 찼습니다.";
 		
@@ -78,11 +88,9 @@ public class LoanServiceImpl implements LoanService {
 		String reservedLoanDate;
 		// 예약은 모든 대출이 나간 이후에 가능하지만 테스트를 위해 체크합니다.
 		if (bookStorageViewDTO.getLoan_count() <= bookStorageViewDTO.getReserve_count()) {
-			Date currentTime = new Date();
-			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-			reservedLoanDate = format.format(currentTime);
+			reservedLoanDate = Util.getStrCurrentTime();
 		} else {
-			List<LoanDTO> loanDTOList = loanDAO.getLoanByBookNo(bookNo);
+			List<LoanDTO> loanDTOList = loanDAO.getLoanByBookNo(bookNo, LoanState.loan.getValue());
 			LoanDTO reservableLoanDTO = loanDTOList.get(bookStorageViewDTO.getReserve_count());
 			reservedLoanDate = reservableLoanDTO.getReturn_date();	
 		}
@@ -98,6 +106,62 @@ public class LoanServiceImpl implements LoanService {
 		result = bookStorageDAO.increaseReserveCountByBookNo(bookNo);
 		if (result <= 0)
 			return "예약에 실패했습니다.";
+		
+		return "";
+	}
+	
+	// 반납 기본 로직
+	@Override
+	public String doReturn(int bookNo, int memberNo) {
+		LoanDTO loanDTO = loanDAO.getLoanByMemberNoAndBookNo(bookNo, memberNo, LoanState.loan.getValue());
+		if (loanDTO == null)
+			return "대출 정보를 찾을 수 없습니다.";
+		
+		// 대출 상태를 loan->returned로 변경합니다.
+		loanDTO.setState(LoanState.returned.getValue());
+		// 대출 당시에는 반납 예정일로 사용했던 return_date를 실제 반납 완료일로 변경합니다.  
+		loanDTO.setReturn_date(Util.getStrCurrentTime());
+
+		int result = 0;
+		// 수정 사항을 DB에 반영합니다.
+		result = loanDAO.updateLoanByNo(loanDTO);
+		if (result <= 0)
+			return "반납 처리에 실패했습니다.";
+
+		// 반납된 책에 대한 대출 카운트를 감소시킵니다.
+		result = bookStorageDAO.decreaseLoanCountByBookNo(bookNo);
+		if (result <= 0)
+			return "반납 처리에 실패했습니다.";
+		
+		return "";
+	}
+	
+	@Override
+	public String autoLoan() {
+		int result = 0;
+		
+		List<BookStorageDTO> needAutoLoanList = bookStorageDAO.getNeedAutoLoanList();
+		for (BookStorageDTO bookStorageDTO : needAutoLoanList) {
+			int tryCount = bookStorageDTO.getMax_count() - bookStorageDTO.getLoan_count();
+			
+			List<LoanDTO> loanDTOList = loanDAO.getLoanListByBookNo(bookStorageDTO.getBook_no(), LoanState.reserve.getValue());
+			for (int i = 0; i < loanDTOList.size(); i++) {
+				if (i >= tryCount)
+					break;
+				
+				LoanDTO reservedLoanDTO = loanDTOList.get(i);
+				reservedLoanDTO.setState(LoanState.loan.getValue());
+				reservedLoanDTO.setLoan_date(Util.getStrCurrentTime());
+
+				result = loanDAO.updateLoanByNo(reservedLoanDTO);
+				if (result <= 0)
+					return "자동 대출 처리에 실패했습니다.";
+				
+				result = bookStorageDAO.reserveToLoanByBookNo(reservedLoanDTO.getBook_no());
+				if (result <= 0)
+					return "자동 대출 처리에 실패했습니다.";
+			}	
+		}
 		
 		return "";
 	}

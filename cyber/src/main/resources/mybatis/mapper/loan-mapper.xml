@@ -13,11 +13,23 @@
 		VALUES (#{bookNo}, #{memberNo}, 1, NOW(), #{reservedLoanDate})
 	</insert>
 	
-	<select id="getLoanListByMemberNo" resultType="loanViewDTO" parameterType="int">
+	<update id="updateLoanByNo" parameterType="loanDTO">
+		UPDATE book_loan SET state=#{state}, loan_date=#{loan_date}, reserve_date=#{reserve_date}, return_date=#{return_date} WHERE no=#{no}
+	</update>
+	
+	<select id="getViewListByMemberNo" resultType="loanViewDTO" parameterType="hashmap">
+		SELECT * FROM book_loan_view WHERE member_no=#{memberNo}
+		<if test="state != null">
+			AND state=#{state}
+		</if>
+	</select>
+	
+	<select id="getViewMapListByMemberNo" resultType="hashmap" parameterType="int">
 		SELECT * FROM book_loan_view WHERE member_no=#{memberNo}
 	</select>
-	<select id="getLoanMapListByMemberNo" resultType="hashmap" parameterType="int">
-		SELECT * FROM book_loan_view WHERE member_no=#{memberNo}
+	
+	<select id="getLoanListByBookNo" resultType="loanDTO" parameterType="hashmap">
+		SELECT * FROM book_loan WHERE book_no=#{bookNo} AND state=#{state}
 	</select>
 	
 	<select id="getLoanByMemberNoAndBookNo" resultType="loanDTO" parameterType="hashmap">
@@ -27,8 +39,8 @@
 		</if>
 	</select>
 	
-	<select id="getLoanByBookNo" resultType="loanDTO" parameterType="int">
-		SELECT * FROM book_loan WHERE book_no=#{bookNo} AND state=0 ORDER BY return_date ASC
+	<select id="getLoanByBookNo" resultType="loanDTO" parameterType="hashmap">
+		SELECT * FROM book_loan WHERE book_no=#{bookNo} AND state=#{state} ORDER BY return_date ASC
 	</select>
 	
 	<select id="getReserveByBookNo" resultType="loanDTO" parameterType="int">

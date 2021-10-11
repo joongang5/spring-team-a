@@ -2,23 +2,23 @@ package com.teama.loan.dto;
 
 public class LoanViewDTO {
 
-	private int no;
+	private int book_no;
 	private String title;
 	private String author;
 	private String publisher;
-	private String vol;
 	private String title_url;
+	private int state;
 	private String loan_date;
 	private String reserve_date;
 	private String return_date;
 	private int member_no;
 
-	public int getNo() {
-		return no;
+	public int getBook_no() {
+		return book_no;
 	}
 
-	public void setNo(int no) {
-		this.no = no;
+	public void setBook_no(int book_no) {
+		this.book_no = book_no;
 	}
 
 	public String getTitle() {
@@ -45,14 +45,6 @@ public class LoanViewDTO {
 		this.publisher = publisher;
 	}
 
-	public String getVol() {
-		return vol;
-	}
-
-	public void setVol(String vol) {
-		this.vol = vol;
-	}
-
 	public String getTitle_url() {
 		return title_url;
 	}
@@ -60,7 +52,15 @@ public class LoanViewDTO {
 	public void setTitle_url(String title_url) {
 		this.title_url = title_url;
 	}
-	
+
+	public int getState() {
+		return state;
+	}
+
+	public void setState(int state) {
+		this.state = state;
+	}
+
 	public String getLoan_date() {
 		return loan_date;
 	}

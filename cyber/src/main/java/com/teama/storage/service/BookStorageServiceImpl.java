@@ -17,44 +17,54 @@ public class BookStorageServiceImpl implements BookStorageService {
 	private BookStorageDAO bookStorageDAO;
 	
 	@Override
-	public BookStorageViewDTO getBook(int bookNo) {
-		return bookStorageDAO.getBookByBookNo(bookNo);
+	public BookStorageViewDTO getView(int bookNo) {
+		return bookStorageDAO.getViewByBookNo(bookNo);
 	}
 
 	@Override
-	public Map<String, Object> getBookMap(int bookNo) {
-		return bookStorageDAO.getBookMapByBookNo(bookNo);
+	public Map<String, Object> getViewMap(int bookNo) {
+		return bookStorageDAO.getViewMapByBookNo(bookNo);
+	}
+
+	@Override
+	public List<BookStorageDTO> getBookList() {
+		return bookStorageDAO.getBookList();	
 	}
 	
 	@Override
-	public List<BookStorageViewDTO> getBookList() {
-		return bookStorageDAO.getBookList();
-	}
-
-	@Override
-	public List<Map<String, Object>> getBookMapList() {
-		return bookStorageDAO.getBookMapList();
-	}
-
-
-	@Override
-	public List<Map<String, Object>> getBookMapList(int firstIndex, int recordCountPerPage) {
-		return bookStorageDAO.getBookMapList(firstIndex, recordCountPerPage);
+	public List<BookStorageDTO> getNeedAutoLoanList() {
+		return bookStorageDAO.getNeedAutoLoanList();	
 	}
 	
 	@Override
-	public List<BookStorageViewDTO> getUnregisteredBookList() {
-		return bookStorageDAO.getUnregisteredBookList();
-	}
-	
-	@Override
-	public List<Map<String, Object>> getUnregisteredBookMapList() {
-		return bookStorageDAO.getUnregisteredBookMapList();
+	public List<BookStorageViewDTO> getViewList() {
+		return bookStorageDAO.getViewList();
 	}
 
 	@Override
-	public List<Map<String, Object>> getUnregisteredBookMapList(int firstIndex, int recordCountPerPage) {
-		return bookStorageDAO.getUnregisteredBookMapList(firstIndex, recordCountPerPage);
+	public List<Map<String, Object>> getViewMapList() {
+		return bookStorageDAO.getViewMapList();
+	}
+
+
+	@Override
+	public List<Map<String, Object>> getViewMapList(int firstIndex, int recordCountPerPage) {
+		return bookStorageDAO.getViewMapList(firstIndex, recordCountPerPage);
+	}
+	
+	@Override
+	public List<BookStorageViewDTO> getUnregisteredViewList() {
+		return bookStorageDAO.getUnregisteredViewList();
+	}
+	
+	@Override
+	public List<Map<String, Object>> getUnregisteredViewMapList() {
+		return bookStorageDAO.getUnregisteredViewMapList();
+	}
+
+	@Override
+	public List<Map<String, Object>> getUnregisteredViewMapList(int firstIndex, int recordCountPerPage) {
+		return bookStorageDAO.getUnregisteredViewMapList(firstIndex, recordCountPerPage);
 	}
 	
 	@Override
@@ -76,7 +86,7 @@ public class BookStorageServiceImpl implements BookStorageService {
 	public int updateMaxCount(BookStorageDTO dto) {
 		int result = 0;
 		
-		BookStorageDTO resultDTO = getBook(dto.getBook_no());
+		BookStorageDTO resultDTO = getView(dto.getBook_no());
 		if (resultDTO == null)
 			result = insertBook(dto);
 		else
@@ -93,5 +103,25 @@ public class BookStorageServiceImpl implements BookStorageService {
 	@Override
 	public int increaseLoanCount(int bookNo) {
 		return bookStorageDAO.increaseLoanCountByBookNo(bookNo);
+	}
+
+	@Override
+	public int increaseReserveCount(int bookNo) {
+		return bookStorageDAO.increaseReserveCountByBookNo(bookNo);
+	}
+
+	@Override
+	public int decreaseLoanCount(int bookNo) {
+		return bookStorageDAO.decreaseLoanCountByBookNo(bookNo);
+	}
+
+	@Override
+	public int decreaseReserveCount(int bookNo) {
+		return bookStorageDAO.decreaseReserveCountByBookNo(bookNo);
+	}
+
+	@Override
+	public int reserveToLoanByBookNo(int bookNo) {
+		return bookStorageDAO.reserveToLoanByBookNo(bookNo);
 	}
 }

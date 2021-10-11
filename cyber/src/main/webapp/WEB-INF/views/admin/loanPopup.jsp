@@ -65,14 +65,20 @@
 				<th>표제</th>
 				<th>저자</th>
 				<th>반납일</th>
+				<th></th>
 			</tr>
 			<tbody id="loanTbody">
 				<c:forEach items="${loanViewDTOList }" var="l">
 				<tr>
-					<td>${l.no }</td>
+					<td>${l.book_no }</td>
 					<td>${l.title }</td>
 					<td>${l.author }</td>
 					<td>${l.return_date }</td>
+					<td>
+						<c:if test="${l.state == 0 }">
+							<button type="button" onclick="onclickReturnBtn(${l.book_no})">반납</button>
+						</c:if>
+					</td>
 				</tr>
 				</c:forEach>
 			</tbody>

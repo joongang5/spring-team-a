@@ -12,14 +12,41 @@ import com.teama.loan.dto.LoanViewDTO;
 @Repository
 public class LoanDAO extends AbstractDAO {
 
-	public List<LoanViewDTO> getLoanListByMemberNo(int memberNo) {
-		return sqlSession.selectList("loan.getLoanListByMemberNo", memberNo);
+	public List<LoanViewDTO> getViewListByMemberNo(int memberNo) {
+		Map<String, Object> map = Map.of(
+				"memberNo", memberNo);
+		
+		return sqlSession.selectList("loan.getViewListByMemberNo", map);
+	}
+
+	public List<LoanViewDTO> getViewListByMemberNo(int memberNo, int state) {
+		Map<String, Object> map = Map.of(
+				"memberNo", memberNo,
+				"state", state);
+		
+		return sqlSession.selectList("loan.getViewListByMemberNo", map);
+	}
+		
+	public List<Map<String, Object>> getViewMapListByMemberNo(int memberNo) {
+		return sqlSession.selectList("loan.getViewMapListByMemberNo", memberNo);
 	}
 	
-	public List<Map<String, Object>> getLoanMapListByMemberNo(int memberNo) {
-		return sqlSession.selectList("loan.getLoanMapListByMemberNo", memberNo);
+	public List<Map<String, Object>> getViewMapListByMemberNo(int memberNo, int state) {
+		Map<String, Object> map = Map.of(
+				"memberNo", memberNo,
+				"state", state);
+		
+		return sqlSession.selectList("loan.getViewMapListByMemberNo", map);
 	}
 	
+	public List<LoanDTO> getLoanListByBookNo(int bookNo, int state) {
+		Map<String, Object> map = Map.of(
+				"bookNo", bookNo,
+				"state", state);
+		
+		return sqlSession.selectList("loan.getLoanListByBookNo", map);
+	}
+
 	public int insertLoan(int bookNo, int memberNo) {
 		Map<String, Object> map = Map.of(
 				"bookNo", bookNo,
@@ -36,6 +63,10 @@ public class LoanDAO extends AbstractDAO {
 				
 		return insert("loan.insertReserve", map);
 	}	
+	
+	public int updateLoanByNo(LoanDTO dto) {
+		return sqlSession.update("loan.updateLoanByNo", dto);
+	}
 	
 	public LoanDTO getLoanByMemberNoAndBookNo(int bookNo, int memberNo) {
 		Map<String, Object> map = Map.of(
@@ -54,7 +85,11 @@ public class LoanDAO extends AbstractDAO {
 		return sqlSession.selectOne("loan.getLoanByMemberNoAndBookNo", map);	
 	}
 	
-	public List<LoanDTO> getLoanByBookNo(int bookNo) {
-		return sqlSession.selectList("loan.getLoanByBookNo", bookNo);
+	public List<LoanDTO> getLoanByBookNo(int bookNo, int state) {
+		Map<String, Object> map = Map.of(
+				"bookNo", bookNo,
+				"state", state);
+		
+		return sqlSession.selectList("loan.getLoanByBookNo", map);
 	}
 }

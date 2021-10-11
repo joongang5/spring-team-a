@@ -67,10 +67,12 @@ function rewriteLoanTbody(data) {
 		var l = list[i];
 		
 		html += "<tr>";
-		html += 	"<td>" + l.no + "</td>";
+		html += 	"<td>" + l.book_no + "</td>";
 		html += 	"<td>" + l.title + "</td>";
 		html += 	"<td>" + l.author + "</td>";
 		html += 	"<td>" + l.return_date + "</td>";
+		if (l.state == 0)
+			html += 	"<td><button type='button' onclick='onclickReturnBtn(" + l.book_no + ")'>반납실행</button></td>"
 		html += "</tr>";
 	}
 	
@@ -93,6 +95,30 @@ function onclickReserveBtn() {
 			}
 			rewriteSearchTbody(data.bookStorageViewDTO);
 			rewriteLoanTbody(data);
+		},
+		error : function(request, status, error) {
+			alert("error : " + error);
+		}
+	});	
+}
+
+function onclickReturnBtn(bookNo) {
+	var memberNo = $("input[name=memberNo]").val();
+	
+	$.ajax({
+		url : "/cyber/admin/loan/returnAJAX.do",
+		type : "POST",
+		dataType : "json",
+		data : { "bookNo" : bookNo, "memberNo" : memberNo },
+		success : function(data) {
+			if (data.errorMessage != "") {
+				alert(data.errorMessage);
+				return;
+			}
+			$("input[name=bookNo]").val(bookNo);
+			rewriteSearchTbody(data.bookStorageViewDTO);
+			rewriteLoanTbody(data);
+			alert("반납되었습니다.");
 		},
 		error : function(request, status, error) {
 			alert("error : " + error);

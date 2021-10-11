@@ -35,7 +35,7 @@ public class AdminLoanController {
 		int memberNo = commandMap.getIntValue("memberNo");
 		mv.addObject("memberNo", memberNo);
 
-		List<LoanViewDTO> loanViewDTOList = loanService.getLoanListByMemberNo(memberNo);
+		List<LoanViewDTO> loanViewDTOList = loanService.getViewListByMemberNo(memberNo);
 		mv.addObject("loanViewDTOList", loanViewDTOList);
 		
 		return mv;
@@ -48,7 +48,7 @@ public class AdminLoanController {
 		int bookNo = commandMap.getIntValue("bookNo");
 
 		JSONObject jsonObj = new JSONObject();
-		Map<String, Object> bookStorageViewDTO = bookStorageService.getBookMap(bookNo);
+		Map<String, Object> bookStorageViewDTO = bookStorageService.getViewMap(bookNo);
 		if (bookStorageViewDTO == null) {
 			jsonObj.put("errorMessage", "저장된 책이 없습니다.");
 		} else {
@@ -71,7 +71,7 @@ public class AdminLoanController {
 		String errorMessage = loanService.loan(bookNo, memberNo);
 		mv.addObject("errorMessage", errorMessage);
 		
-		List<LoanViewDTO> loanViewDTOList = loanService.getLoanListByMemberNo(memberNo);
+		List<LoanViewDTO> loanViewDTOList = loanService.getViewListByMemberNo(memberNo);
 		mv.addObject("loanViewDTOList", loanViewDTOList);
 		
 		return mv;
@@ -89,7 +89,7 @@ public class AdminLoanController {
 		String errorMessage = loanService.loan(bookNo, memberNo);
 		jsonObj.put("errorMessage", errorMessage);
 		
-		List<Map<String, Object>> loanViewDTOList = loanService.getLoanMapListByMemberNo(memberNo);
+		List<Map<String, Object>> loanViewDTOList = loanService.getViewMapListByMemberNo(memberNo);
 		for (Map<String, Object> loanViewDTO : loanViewDTOList) {
 			String loanDate = Util.parseDateTime(loanViewDTO.get("loan_date"));
 			loanViewDTO.put("loan_date", loanDate);
@@ -100,7 +100,7 @@ public class AdminLoanController {
 		}		
 		jsonObj.put("loanViewDTOList", loanViewDTOList);
 		
-		Map<String, Object> bookStorageViewDTO = bookStorageService.getBookMap(bookNo);
+		Map<String, Object> bookStorageViewDTO = bookStorageService.getViewMap(bookNo);
 		jsonObj.put("bookStorageViewDTO", bookStorageViewDTO);
 		
 		return jsonObj.toString();
@@ -119,7 +119,7 @@ public class AdminLoanController {
 		String errorMessage = loanService.reserve(bookNo, memberNo);
 		jsonObj.put("errorMessage", errorMessage);
 		
-		List<Map<String, Object>> loanViewDTOList = loanService.getLoanMapListByMemberNo(memberNo);
+		List<Map<String, Object>> loanViewDTOList = loanService.getViewMapListByMemberNo(memberNo);
 		for (Map<String, Object> loanViewDTO : loanViewDTOList) {
 			String loanDate = Util.parseDateTime(loanViewDTO.get("loan_date"));
 			loanViewDTO.put("loan_date", loanDate);
@@ -130,7 +130,36 @@ public class AdminLoanController {
 		}		
 		jsonObj.put("loanViewDTOList", loanViewDTOList);
 		
-		Map<String, Object> bookStorageViewDTO = bookStorageService.getBookMap(bookNo);
+		Map<String, Object> bookStorageViewDTO = bookStorageService.getViewMap(bookNo);
+		jsonObj.put("bookStorageViewDTO", bookStorageViewDTO);
+		
+		return jsonObj.toString();
+	}
+
+	@SuppressWarnings("unchecked")
+	@PostMapping(value="returnAJAX.do", produces="text/plain;charset=utf-8")
+	@ResponseBody
+	public String returnAJAX(CommandMap commandMap) {
+		int bookNo = commandMap.getIntValue("bookNo");
+		int memberNo = commandMap.getIntValue("memberNo");
+
+		JSONObject jsonObj = new JSONObject();
+		
+		String errorMessage = loanService.doReturn(bookNo, memberNo);
+		jsonObj.put("errorMessage", errorMessage);
+		
+		List<Map<String, Object>> loanViewDTOList = loanService.getViewMapListByMemberNo(memberNo);
+		for (Map<String, Object> loanViewDTO : loanViewDTOList) {
+			String loanDate = Util.parseDateTime(loanViewDTO.get("loan_date"));
+			loanViewDTO.put("loan_date", loanDate);
+			String reserveDate = Util.parseDateTime(loanViewDTO.get("reserve_date"));
+			loanViewDTO.put("reserve_date", reserveDate);
+			String returnDate = Util.parseDateTime(loanViewDTO.get("return_date"));
+			loanViewDTO.put("return_date", returnDate);
+		}		
+		jsonObj.put("loanViewDTOList", loanViewDTOList);
+		
+		Map<String, Object> bookStorageViewDTO = bookStorageService.getViewMap(bookNo);
 		jsonObj.put("bookStorageViewDTO", bookStorageViewDTO);
 		
 		return jsonObj.toString();
