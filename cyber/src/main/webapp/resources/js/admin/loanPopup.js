@@ -71,6 +71,7 @@ function rewriteLoanTbody(data) {
 		html += 	"<td>" + l.title + "</td>";
 		html += 	"<td>" + l.author + "</td>";
 		html += 	"<td>" + l.return_date + "</td>";
+		html += 	"<td>" + l.state + "</td>";
 		if (l.state == 0)
 			html += 	"<td><button type='button' onclick='onclickReturnBtn(" + l.book_no + ")'>반납실행</button></td>"
 		html += "</tr>";

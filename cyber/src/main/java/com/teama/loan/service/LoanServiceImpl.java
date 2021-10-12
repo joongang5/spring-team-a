@@ -50,6 +50,11 @@ public class LoanServiceImpl implements LoanService {
 		if (loanDTO != null)
 			return "이미 대출한 책입니다.";
 		
+		// 이미 예약한 책인 경우 예약이 불가합니다.
+		LoanDTO reservedloanDTO = loanDAO.getLoanByMemberNoAndBookNo(bookNo, memberNo, LoanState.reserve.getValue());
+		if (reservedloanDTO != null)
+			return "이미 예약한 책입니다.";
+		
 		// 책 재고가 부족하다면 대출할 수 없습니다.
 		BookStorageViewDTO bookStorageViewDTO = bookStorageDAO.getViewByBookNo(bookNo);
 		if (bookStorageViewDTO.isLoanable() == false)
@@ -74,8 +79,13 @@ public class LoanServiceImpl implements LoanService {
 	@Override
 	public String reserve(int bookNo, int memberNo) {
 		// 이미 예약한 책인 경우 예약이 불가합니다.
-		LoanDTO loanDTO = loanDAO.getLoanByMemberNoAndBookNo(bookNo, memberNo, LoanState.reserve.getValue());
+		LoanDTO loanDTO = loanDAO.getLoanByMemberNoAndBookNo(bookNo, memberNo, LoanState.loan.getValue());
 		if (loanDTO != null)
+			return "이미 대출한 책입니다.";	
+				
+		// 이미 예약한 책인 경우 예약이 불가합니다.
+		LoanDTO reservedloanDTO = loanDAO.getLoanByMemberNoAndBookNo(bookNo, memberNo, LoanState.reserve.getValue());
+		if (reservedloanDTO != null)
 			return "이미 예약한 책입니다.";		
 
 		// 예약이 다 차면 예약할 수 없습니다.

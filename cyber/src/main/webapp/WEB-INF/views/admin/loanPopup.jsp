@@ -65,6 +65,7 @@
 				<th>표제</th>
 				<th>저자</th>
 				<th>반납일</th>
+				<th>상태</th>
 				<th></th>
 			</tr>
 			<tbody id="loanTbody">
@@ -74,6 +75,7 @@
 					<td>${l.title }</td>
 					<td>${l.author }</td>
 					<td>${l.return_date }</td>
+					<td>${l.state }</td>
 					<td>
 						<c:if test="${l.state == 0 }">
 							<button type="button" onclick="onclickReturnBtn(${l.book_no})">반납</button>
