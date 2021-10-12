@@ -1,6 +1,7 @@
 package com.teama.util;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 public class Util {
@@ -21,5 +22,14 @@ public class Util {
 		Date currentTime = new Date();
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		return format.format(currentTime);	
+	}
+	
+	public static String getStrCurrentTime(int additiveDay) {
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(new Date());
+		cal.add(Calendar.DATE, additiveDay);
+		
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		return format.format(cal.getTime());	
 	}
 }

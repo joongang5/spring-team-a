@@ -54,7 +54,7 @@
 	</update>
 	
 	<update id="reserveToLoanByBookNo" parameterType="int">
-		UPDATE book_storage SET loan_count=loan_count+1 reserve_count=reserve_count-1 WHERE book_no=#{bookNo}
+		UPDATE book_storage SET loan_count=loan_count+1, reserve_count=reserve_count-1 WHERE book_no=#{bookNo}
 	</update>
 	
 	<update id="updateMaxCount" parameterType="hashmap">

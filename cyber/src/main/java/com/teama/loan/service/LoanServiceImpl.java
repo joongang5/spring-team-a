@@ -152,6 +152,7 @@ public class LoanServiceImpl implements LoanService {
 				LoanDTO reservedLoanDTO = loanDTOList.get(i);
 				reservedLoanDTO.setState(LoanState.loan.getValue());
 				reservedLoanDTO.setLoan_date(Util.getStrCurrentTime());
+				reservedLoanDTO.setReturn_date(Util.getStrCurrentTime(5));
 
 				result = loanDAO.updateLoanByNo(reservedLoanDTO);
 				if (result <= 0)

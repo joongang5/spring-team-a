@@ -107,3 +107,21 @@ function rewritePagination(data) {
 	
 	$("#pagination").append(html);
 }
+
+function onclickAutoLoanBtn() {
+	$.ajax({
+		url : "/cyber/admin/storage/autoLoan.do",
+		type : "POST",
+		dataType : "html",
+		success : function(errorMessage) {
+			if (errorMessage != "") {
+				alert(errorMessage);
+				return;
+			}
+			alert("자동 대출에 성공했습니다.");
+		},
+		error : function(request, status, error) {
+			alert("error : " + error);
+		}
+	});	
+}

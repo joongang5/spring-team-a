@@ -36,6 +36,7 @@
 				</tr>
 			</table>
 			<input type="button" id="searchUnregisterdBtn" value="미등록 데이터 검색" onclick="onclickSearchUnregisteredBtn()">
+			<input type="button" id="autoLoanBtn" value="자동 대출 실행" onclick="onclickAutoLoanBtn()">
 			<hr>	
 		
 			<h3>검색 결과</h3>

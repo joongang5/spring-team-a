@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.teama.common.CommandMap;
+import com.teama.loan.service.LoanService;
 import com.teama.storage.dto.BookStorageDTO;
 import com.teama.storage.dto.BookStorageViewDTO;
 import com.teama.storage.service.BookStorageService;
@@ -26,6 +27,8 @@ public class AdminBookStorageController {
 
 	@Resource(name="bookStorageService")
 	private BookStorageService bookStorageService;
+	@Resource(name="loanService")
+	private LoanService loanService;
 	
 	@RequestMapping("home.do")
 	public ModelAndView home(CommandMap commandMap) {
@@ -164,5 +167,14 @@ public class AdminBookStorageController {
 		int result = bookStorageService.updateMaxCount(dto); 
 		
 		return String.valueOf(result);
+	}
+	
+
+	@PostMapping(value="autoLoan.do", produces="text/plain;charset=utf-8")
+	@ResponseBody
+	public String autoLoan(CommandMap commandMap) {
+		String errorMessage = loanService.autoLoan(); 
+		
+		return errorMessage;
 	}
 }

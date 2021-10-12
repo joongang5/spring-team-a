@@ -13,9 +13,9 @@ public class MainScheduler {
 	@Resource(name="loanService")
 	private LoanService loanService;
 	
-	@Scheduled(cron="* */1 * * * *")
+	@Scheduled(cron="0 0/1 * * * *")
 	public void autoLoan() {
-		//System.out.println("scheduled-autoLoan");
+//		System.out.println("scheduled-autoLoan");
 		
 		//loanService.autoLoan();
 	}
