@@ -49,23 +49,26 @@ footer {
 	height: 100px;
 	background: #cee5fe;
 }
+
 .serviceBox {
 	margin: 0 auto;
 	padding: 0;
 	width: 90%;
 	height: 40%;
 	background-color: #ebf7fa;
-	
 }
+
 .b {
 	color: #0066B3;
 }
+
 .ewqBox {
 	margin: 0 auto;
 	margin-top: 30px;
 	padding: 0;
 	width: 90%;
 }
+
 .ebBox {
 	float: left;
 	width: 30%;
@@ -75,6 +78,7 @@ footer {
 	background-color: #FFFFFF;
 	text-align: center;
 }
+
 .wbBox {
 	float: left;
 	margin-left: 5%;
@@ -85,6 +89,7 @@ footer {
 	background-color: #FFFFFF;
 	text-align: center;
 }
+
 .qtBox {
 	float: right;
 	width: 30%;
@@ -95,7 +100,8 @@ footer {
 	text-align: center;
 }
 </style>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 </head>
 <body>
 	<div id="wrap">
@@ -114,31 +120,30 @@ footer {
 					</div>
 					<div class="ewqBox">
 						<div class="ebBox">
-							<a href="ebookLoanList.do" style="text-decoration:none; color: black;">
-								<img src="../resources/img/monitor.png"><br>
-								전자책 대출현황<br>
-								대출권수<br>
-								예약권수
+							<a href="ebookLoanList.do"
+								style="text-decoration: none; color: black;"> <img
+								src="../resources/img/monitor.png"><br> 전자책 대출현황<br>
+								대출권수<br> 예약권수
 							</a>
 						</div>
 						<div class="wbBox">
-							<a href="" style="text-decoration:none; color: black;">
-								<img src="../resources/img/book2.png"><br>
-								희망전자책 신청현황<br>
+							<a href="" style="text-decoration: none; color: black;"> <img
+								src="../resources/img/book2.png"><br> 희망전자책 신청현황<br>
 								신청권수
 							</a>
 						</div>
 						<div class="qtBox">
-							<a href="" style="text-decoration:none; color: black;">
-								<img src="../resources/img/qna.png"><br>
-								묻고답하기 문의현황<br>
+							<a href="" style="text-decoration: none; color: black;"> <img
+								src="../resources/img/qna.png"><br> 묻고답하기 문의현황<br>
 								문의건수
 							</a>
 						</div>
 					</div>
 				</c:when>
 				<c:otherwise>
-					<a class="noLogin" href="/cyber/member/memberLogin.do">로그인해주세요.</a>
+					<h2>
+						<a class="noLogin" href="/cyber/member/memberLogin.do">&nbsp;로그인해주세요.</a>
+					</h2>
 				</c:otherwise>
 			</c:choose>
 		</main>

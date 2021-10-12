@@ -6,15 +6,41 @@
 	height: 100%;
 }
 
-#headerInner ul {
+ul {
+	text-decoration: none;
 	list-style: none;
 	margin: 0;
 	padding: 0;
 	height: 29px;
 }
 
-#headerInner li {
+li {
 	float: left;
+	list-style: none;
+	margin: 1px;
+}
+
+#gnbNav li a {
+	display: block;
+	width: 240px;
+	height: 40px;
+	background: #c9f3c6;
+	color: #black;
+	border: 1px solid white;
+	font-size: 20px;
+	font-weight: bold;
+	text-align: center;
+	padding-top: 18px;
+	text-decoration: none;
+}
+
+#gnbNav li a span {
+	display: block;
+}
+
+#gnbNav li a:hover {
+	background: #a3d9a0;
+	text-decoration: none;
 }
 
 #siteMenu {
@@ -54,8 +80,16 @@
 	font-family: 'NanumSquare', serif;
 }
 
+#siteMenu a {
+	text-align: right;
+}
+
 #gnbNav a:hover {
-	color: #0047a3;
+	color: #black;
+}
+
+a {
+	color: black;
 }
 </style>
 <div id="headerInner">
@@ -80,14 +114,14 @@
 				href="/cyber/index.do">사이버 도서관</a>
 		</h1>
 	</div>
-	<div>
-		<nav id="gnbNav">
-			<ul>
-				<li><a href="/cyber/ebook/ebookMain.do">전자책&nbsp;&nbsp;</a></li>
-				<li><a href="/cyber/ebook/ebookMain.do">소통마당&nbsp;&nbsp;</a></li>
-				<li><a href="/cyber/bbs/listNotice.do">공지사항&nbsp;&nbsp;</a></li>
-				<li><a href="/cyber/myPage/myPage.do">내 도서관&nbsp;&nbsp;</a></li>
-			</ul>
-		</nav>
-	</div>
+</div>
+<div id="gnbNav">
+	<nav>
+		<ul>
+			<li><a href="/cyber/ebook/ebookMain.do">전자책&nbsp;&nbsp;</a></li>
+			<li><a href="/cyber/bbs/listNotice.do">소통마당&nbsp;&nbsp;</a></li>
+			<li><a href="/cyber/bbs/listNotice.do">공지사항&nbsp;&nbsp;</a></li>
+			<li><a href="/cyber/myPage/myPage.do">내 도서관&nbsp;&nbsp;</a></li>
+		</ul>
+	</nav>
 </div>

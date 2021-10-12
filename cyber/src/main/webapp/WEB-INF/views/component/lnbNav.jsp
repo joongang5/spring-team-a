@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <style type="text/css">
 #lnbNav {
+	text-decoration: none;
 	background-color: #e3f0ff;
 }
 
@@ -10,15 +11,33 @@
 	margin: 0;
 	padding: 0;
 	background: #e3f0ff;
+	text-decoration: none;
 }
 
 #lnbWrap {
+	text-decoration: none;
 	background-color: white;
 }
 
 #lnbTitle {
+	text-decoration: none;
 	background-color: #e3f0ff;
 	margin: 0;
+}
+
+a {
+	text-decoration: none;
+	color: black;
+}
+
+a:link {
+	color: black;
+	text-decoration: none;
+}
+
+a:visited {
+	color: black;
+	text-decoration: none;
 }
 </style>
 <script>
@@ -30,7 +49,7 @@
 		var html = "";
 		var map = getNaviMap();
 		for ( var key in map) {
-			html += "<li><a href='" + key + "'>" + map[key] + "</a></li>";
+			html += "<p><a href='" + key + "'>" + map[key] + "</a></p>";
 		}
 		$("#lnb").append(html);
 	}
@@ -49,28 +68,28 @@
 		var map = {
 			"/cyber/member/memberLogin.do" : "&nbsp;로그인",
 			"/cyber/member/memberJoinRegist.do" : "&nbsp;회원가입",
-			"/cyber/member/memberFindId.do" : "&nbsp;아이디찾기",
-			"/cyber/member/memberFindPw.do" : "&nbsp;비밀번호찾기"
+			"/cyber/member/memberFindId.do" : "&nbsp;아이디 찾기",
+			"/cyber/member/memberFindPw.do" : "&nbsp;비밀번호 찾기"
 		};
 		return map;
 	}
 
 	function getEbookNaviMap() {
 		var map = {
-			"/cyber/ebook/ebookMain.do" : "일반전자책",
-			"/cyber/ebook/ebookChild.do" : "어린이전자책",
-			"/cyber/ebook/ebookSearchDetail.do" : "전자책 상세검색",
-			"/cyber/bbs/listNotice.do" : "공지사항"
+			"/cyber/ebook/ebookMain.do" : "&nbsp;일반 전자책",
+			"/cyber/ebook/ebookChild.do" : "&nbsp;어린이 전자책",
+			"/cyber/ebook/ebookSearchDetail.do" : "&nbsp;전자책 상세검색",
+			"/cyber/bbs/listNotice.do" : "&nbsp;공지사항"
 		};
 		return map;
 	}
 
 	function getMyPageNaviMap() {
 		var map = {
-			"/cyber/myPage/myPage.do" : "서비스 이용현황",
-			"/cyber/myPage/ebookLoanList.do" : "전자책",
-			"/cyber/myPage/myBbsPostList.do" : "묻고답하기",
-			"/cyber/myPage/pwdCheck.do" : "회원정보수정"
+			"/cyber/myPage/myPage.do" : "&nbsp;서비스 이용현황",
+			"/cyber/myPage/ebookLoanList.do" : "&nbsp;전자책",
+			"/cyber/myPage/myBbsPostList.do" : "&nbsp;문의사항",
+			"/cyber/myPage/pwdCheck.do" : "&nbsp;회원정보수정"
 		};
 		return map;
 	}
@@ -80,7 +99,7 @@
 		<h2>&nbsp;Menu</h2>
 	</div>
 	<div id="lnbWrap">
-		<ul id="lnb" style="font-size: 18px;">
+		<ul id="lnb" style="font-size: 18px; text-align: left;">
 		</ul>
 	</div>
 </div>

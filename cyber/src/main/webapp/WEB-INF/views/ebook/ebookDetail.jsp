@@ -8,6 +8,11 @@
 <meta charset="UTF-8">
 <title>일반전자책</title>
 <style>
+html {
+	font-family: 'NanumSquare', serif;
+	color: #003857;
+}
+
 body {
 	margin: 0;
 	padding: 0;
@@ -21,28 +26,28 @@ body {
 header {
 	width: 1000px;
 	height: 130px;
-	background: #111;
+	background: #white;
 }
 
 aside {
 	float: left;
 	width: 240px;
 	height: 600px;
-	background: #222;
+	background: #e3f0ff;
 }
 
 main {
 	float: left;
 	width: 760px;
-	min-height: 600px;
-	background: #444;
+	height: 600px;
+	background: #white;
 }
 
 footer {
 	clear: both;
 	width: 1000px;
 	height: 100px;
-	background: #555;
+	background: #cee5fe;
 }
 
 table {
@@ -64,7 +69,7 @@ td img {
 <script src="./resources/js/data.js"></script>
 
 <script>
-$(document).ready(function() {
+	$(document).ready(function() {
 		//alert("정상작동");
 		//emp();
 		paging(1);
@@ -89,8 +94,7 @@ $(document).ready(function() {
 				}
 			});
 		});
-});
-
+	});
 </script>
 <body>
 	<div id="wrap">
@@ -102,26 +106,19 @@ $(document).ready(function() {
 		</aside>
 		<main>
 			<div id="mainTable">
-			<img src="${ebookDetail.title_url}" style="width: 100px"><br> 
-			제목 : ${ebookDetail.title}<br>
-			저자 : ${ebookDetail.author}<br>
-			출판사 : ${ebookDetail.publisher}<br>
-			ISBN : ${ebookDetail.isbn}<br>
-			출판일 : ${ebookDetail.datetime}<br>
-			가격 : ${ebookDetail.price}<br>
-			페이지 : ${ebookDetail.page}<br>
-			책 크기 : ${ebookDetail.book_size }
-			
-			<hr>
-			책소개<br>
-			${detail.detail0 }<br>
-			<hr>	
-			저자<br>
-			${detail.detail1 }<br>
-			<hr>
-			목차<br>
-			${detail.detail2 }<br>
-			<hr>
+				<img src="${ebookDetail.title_url}" style="width: 100px"><br>
+				제목 : ${ebookDetail.title}<br> 저자 : ${ebookDetail.author}<br>
+				출판사 : ${ebookDetail.publisher}<br> ISBN : ${ebookDetail.isbn}<br>
+				출판일 : ${ebookDetail.datetime}<br> 가격 : ${ebookDetail.price}<br>
+				페이지 : ${ebookDetail.page}<br> 책 크기 : ${ebookDetail.book_size }
+
+				<hr>
+				책소개<br> ${detail.detail0 }<br>
+				<hr>
+				저자<br> ${detail.detail1 }<br>
+				<hr>
+				목차<br> ${detail.detail2 }<br>
+				<hr>
 			</div>
 		</main>
 		<footer>footer</footer>

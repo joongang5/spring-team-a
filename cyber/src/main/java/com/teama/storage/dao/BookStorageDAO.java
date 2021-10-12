@@ -97,4 +97,8 @@ public class BookStorageDAO extends AbstractDAO {
 		
 		return update("bookStorage.updateMaxCount", map);
 	}
+	
+	public List<BookStorageViewDTO> getPopularViewList() {
+		return sqlSession.selectList("bookStorage.getPopularViewList");
+	}
 }

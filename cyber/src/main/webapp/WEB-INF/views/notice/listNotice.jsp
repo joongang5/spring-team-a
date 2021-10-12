@@ -21,7 +21,7 @@ function linkPage(pageNo) {
 <style>
 html {
 	font-family: 'NanumSquare', serif;
-	color: #003857;
+	color: #black;
 }
 
 body {
@@ -106,19 +106,17 @@ a {
 	width: 100px;
 	height: 35px;
 	text-align: center;
-	font-family: 'NanumSquare', serif;	
+	font-family: 'NanumSquare', serif;
 	background-color: white;
-	border-color: #e3f0ff; border-radius : 10px;
+	border-color: #e3f0ff;
+	border-radius: 10px;
 	margin-bottom: 10px;
-	border-radius: 10px;
-	border-radius: 10px;
 }
 </style>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src='<c:url value="/resources/js/notice/listNotice.js"/>'></script>
 </head>
-
 <body>
 	<div id="wrap">
 		<header>
@@ -127,7 +125,6 @@ a {
 		<aside>
 			<c:import url="/WEB-INF/views/component/lnbNav.jsp" />
 		</aside>
-
 		<main>
 			<div id="naviandtitle">
 				<div id="navi">

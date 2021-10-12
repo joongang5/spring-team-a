@@ -19,6 +19,11 @@
 			</div>
 			<div id="bestList">
 				<h2>많이 본 책</h2>
+				<c:forEach items="${bookStorageViewDTOList }" var="l">
+					<div>${l.book_no }</div>
+					<div>${l.title }</div>
+					<div>${l.author }</div>
+				</c:forEach>
 			</div>
 		</main>
 		<footer>이용약관</footer>

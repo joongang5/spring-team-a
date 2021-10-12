@@ -29,4 +29,5 @@ public interface BookStorageService {
 	public int decreaseLoanCount(int bookNo);
 	public int decreaseReserveCount(int bookNo);
 	public int reserveToLoanByBookNo(int bookNo);
+	public List<BookStorageViewDTO> getPopularViewList();
 }

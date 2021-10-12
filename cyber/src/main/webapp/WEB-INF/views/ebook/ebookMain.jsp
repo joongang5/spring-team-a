@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>일반전자책</title>
+<title>일반 전자책</title>
 <style>
 html {
 	font-family: 'NanumSquare', serif;
@@ -102,8 +102,8 @@ td img {
 				<button id="search">검색</button>
 			</div>
 			<div id="mainTable">
-				<h1>전체 글수 : ${totalCount}</h1>
-				<h2>페이지 번호 : ${pageNo}</h2>
+				<h2>전체 글수 : ${totalCount}</h2>
+				<h3>페이지 번호 : ${pageNo}</h3>
 				<table>
 					<tr>
 						<td>서명</td>

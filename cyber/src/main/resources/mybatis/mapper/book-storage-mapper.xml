@@ -6,62 +6,79 @@
 	<select id="getBookList" resultType="bookStorageDTO">
 		SELECT * FROM book_storage
 	</select>
-	
+
 	<select id="getNeedAutoLoanList" resultType="bookStorageDTO">
-		SELECT * FROM book_storage WHERE loan_count <![CDATA[<]]> max_count AND reserve_count <![CDATA[>]]> 0
+		SELECT * FROM book_storage WHERE loan_count <![CDATA[<]]>
+		max_count AND reserve_count <![CDATA[>]]>
+		0
 	</select>
-	
+
 	<select id="getViewList" resultType="bookStorageViewDTO">
-		SELECT * FROM book_storage_view
+		SELECT * FROM
+		book_storage_view
 	</select>
-	<select id="getViewMapList" resultType="hashmap" parameterType="hashmap">
+	<select id="getViewMapList" resultType="hashmap"
+		parameterType="hashmap">
 		SELECT * FROM book_storage_view
 		<if test="firstIndex != null and recordCountPerPage != null">
 			LIMIT #{firstIndex}, #{recordCountPerPage}
-		</if> 
+		</if>
 	</select>
-	
+
 	<select id="getTotalCount" resultType="int">
-		SELECT COUNT(*) FROM book_storage
+		SELECT COUNT(*) FROM
+		book_storage
 	</select>
-	
-	<select id="getViewByBookNo" resultType="bookStorageViewDTO" parameterType="int">
+
+	<select id="getViewByBookNo" resultType="bookStorageViewDTO"
+		parameterType="int">
 		SELECT * FROM book_storage_view WHERE book_no=#{bookNo}
 	</select>
-	<select id="getViewMapByBookNo" resultType="hashmap" parameterType="int">
+	<select id="getViewMapByBookNo" resultType="hashmap"
+		parameterType="int">
 		SELECT * FROM book_storage_view WHERE book_no=#{bookNo}
 	</select>
-	
+
 	<insert id="insertBook" parameterType="bookStorageDTO">
-		INSERT INTO book_storage (book_no, max_count, loan_count, reserve_count)
-		VALUES (#{book_no}, #{max_count}, #{loan_count}, #{reserve_count})
+		INSERT INTO book_storage
+		(book_no, max_count, loan_count, reserve_count)
+		VALUES (#{book_no},
+		#{max_count}, #{loan_count}, #{reserve_count})
 	</insert>
 
 	<update id="increaseLoanCountByBookNo" parameterType="int">
-		UPDATE book_storage SET loan_count=loan_count+1 WHERE book_no=#{bookNo}
+		UPDATE
+		book_storage SET loan_count=loan_count+1 WHERE book_no=#{bookNo}
 	</update>
-	
+
 	<update id="increaseReserveCountByBookNo" parameterType="int">
-		UPDATE book_storage SET reserve_count=reserve_count+1 WHERE book_no=#{bookNo}
+		UPDATE
+		book_storage SET reserve_count=reserve_count+1 WHERE book_no=#{bookNo}
 	</update>
-	
+
 	<update id="decreaseLoanCountByBookNo" parameterType="int">
-		UPDATE book_storage SET loan_count=loan_count-1 WHERE book_no=#{bookNo}
+		UPDATE
+		book_storage SET loan_count=loan_count-1 WHERE book_no=#{bookNo}
 	</update>
-	
+
 	<update id="decreaseReserveCountByBookNo" parameterType="int">
-		UPDATE book_storage SET reserve_count=reserve_count-1 WHERE book_no=#{bookNo}
+		UPDATE
+		book_storage SET reserve_count=reserve_count-1 WHERE book_no=#{bookNo}
 	</update>
-	
+
 	<update id="reserveToLoanByBookNo" parameterType="int">
-		UPDATE book_storage SET loan_count=loan_count+1, reserve_count=reserve_count-1 WHERE book_no=#{bookNo}
+		UPDATE
+		book_storage SET loan_count=loan_count+1 reserve_count=reserve_count-1
+		WHERE book_no=#{bookNo}
 	</update>
-	
+
 	<update id="updateMaxCount" parameterType="hashmap">
-		UPDATE book_storage SET max_count=#{maxCount} WHERE book_no=#{bookNo}
+		UPDATE book_storage
+		SET max_count=#{maxCount} WHERE book_no=#{bookNo}
 	</update>
-	
-	<select id="getUnregisteredViewList" resultType="bookStorageViewDTO">
+
+	<select id="getUnregisteredViewList"
+		resultType="bookStorageViewDTO">
 		SELECT * FROM book_storage_unregistered_view
 	</select>
 	<select id="getUnregisteredViewMapList" resultType="hashmap">
@@ -70,8 +87,15 @@
 			LIMIT #{firstIndex}, #{recordCountPerPage}
 		</if>
 	</select>
-	
+
 	<select id="getTotalUnregisteredCount" resultType="int">
-		SELECT COUNT(*) FROM book_storage_unregistered_view
+		SELECT
+		COUNT(*) FROM book_storage_unregistered_view
+	</select>
+
+	<select id="getPopularViewList" resultType="bookStorageViewDTO">
+		SELECT * FROM book_loan_view GROUP BY book_no ORDER BY
+		COUNT(*) DESC
+		LIMIT 5
 	</select>
 </mapper>
