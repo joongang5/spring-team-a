@@ -119,7 +119,7 @@ a {
 	<nav>
 		<ul>
 			<li><a href="/cyber/ebook/ebookMain.do">전자책&nbsp;&nbsp;</a></li>
-			<li><a href="/cyber/bbs/listNotice.do">소통마당&nbsp;&nbsp;</a></li>
+			<li><a href="/cyber/bbs/listBoard.do">소통마당&nbsp;&nbsp;</a></li>
 			<li><a href="/cyber/bbs/listNotice.do">공지사항&nbsp;&nbsp;</a></li>
 			<li><a href="/cyber/myPage/myPage.do">내 도서관&nbsp;&nbsp;</a></li>
 		</ul>

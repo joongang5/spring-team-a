@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>공지사항 수정하기</title>
+<title>게시판 수정하기</title>
 <style type="text/css">
 #detailBoard {
 	width: 600px;
@@ -80,12 +80,12 @@ button {
 			<c:import url="/WEB-INF/views/component/lnbNav.jsp" />
 		</aside>
 		<main>
-			<form action="noticeUpdate.do" method="post">
+			<form action="boardUpdate.do" method="post">
 				<p>제목</p>
-				<input class="noticeTitle" id="noticeTitle" name="title"
+				<input class="boardTitle" id="boardTitle" name="title"
 					value="${detail.title}" placeholder="제목을 입력하세요.">
 				<p>내용</p>
-				<textarea class="noticeContent" id="noticeContent" name="content"
+				<textarea class="boardContent" id="boardContent" name="content"
 					rows="10">${detail.content}</textarea>
 				<br> <input type="hidden" name="no" value="${detail.no}">
 				<button onclick="updateBtn()" type="submit" class="writeBtn">수정하기</button>

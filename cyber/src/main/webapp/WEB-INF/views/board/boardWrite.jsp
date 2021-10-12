@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>공지사항 수정하기</title>
+<title>게시판 글쓰기</title>
 <style type="text/css">
 #detailBoard {
 	width: 600px;
@@ -65,11 +65,6 @@ button {
 	margin-bottom: 10px;
 }
 </style>
-<script type="text/javascript">
-	function updateBtn() {
-		alert("게시글이 수정되었습니다.");
-	}
-</script>
 </head>
 <body>
 	<div id="wrap">
@@ -80,15 +75,15 @@ button {
 			<c:import url="/WEB-INF/views/component/lnbNav.jsp" />
 		</aside>
 		<main>
-			<form action="noticeUpdate.do" method="post">
+			<form action="boardWrite.do" method="post">
 				<p>제목</p>
-				<input class="noticeTitle" id="noticeTitle" name="title"
-					value="${detail.title}" placeholder="제목을 입력하세요.">
+				<textarea class="boardTitle" id="boardTitle" name="title"
+					placeholder="제목을 입력하세요."></textarea>
 				<p>내용</p>
-				<textarea class="noticeContent" id="noticeContent" name="content"
-					rows="10">${detail.content}</textarea>
-				<br> <input type="hidden" name="no" value="${detail.no}">
-				<button onclick="updateBtn()" type="submit" class="writeBtn">수정하기</button>
+				<textarea class="boardContent" id="boardContent" name="content"
+					rows="10"></textarea>
+				<br>
+				<button type="submit" class="writeBtn">글쓰기</button>
 			</form>
 		</main>
 	</div>

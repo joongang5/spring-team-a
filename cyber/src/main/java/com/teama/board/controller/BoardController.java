@@ -1,4 +1,4 @@
-package com.teama.notice.controller;
+package com.teama.board.controller;
 
 import java.util.List;
 import java.util.Map;
@@ -13,23 +13,23 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.teama.board.service.BoardServiceImpl;
 import com.teama.common.CommandMap;
-import com.teama.notice.service.NoticeServiceImpl;
 
 import egovframework.rte.ptl.mvc.tags.ui.pagination.PaginationInfo;
 
 
 @Controller
 @RequestMapping("/bbs")
-public class NoticeController {
+public class BoardController {
 
-	@Resource(name="noticeService")
-	private NoticeServiceImpl noticeService;
+	@Resource(name="boardService")
+	private BoardServiceImpl boardService;
 	
 	//게시글 불러오기
-	@RequestMapping("/listNotice.do")
-	public ModelAndView noticeList(CommandMap map) {
-		ModelAndView mv = new ModelAndView("notice/listNotice");
+	@RequestMapping("/listBoard.do")
+	public ModelAndView boardList(CommandMap map) {
+		ModelAndView mv = new ModelAndView("board/listBoard");
 		
 		//검색 출력해보기
 		System.out.println(map.getMap()); //search값이 오는지 확인하려고
@@ -46,28 +46,28 @@ public class NoticeController {
 	}
 	
 	//게시글 상세보기
-	@RequestMapping("/noticeDetail.do")
+	@RequestMapping("/boardDetail.do")
 	public ModelAndView detail(CommandMap map) {
-		ModelAndView mv = new ModelAndView("notice/noticeDetail");
+		ModelAndView mv = new ModelAndView("board/boardDetail");
 		
 		//조회수
-		noticeService.count(map.getMap());
+		boardService.count(map.getMap());
 		
-		Map<String, Object> detail = noticeService.detail(map.getMap());
+		Map<String, Object> detail = boardService.detail(map.getMap());
 		mv.addObject("detail", detail);
 		return mv;
 	}
 	
 	//게시글 상세보기 -> 글쓰기 페이지로 넘기기
-	@GetMapping("/noticeWrite.do")
+	@GetMapping("/boardWrite.do")
 	public String write() {
-		return "notice/noticeWrite";
+		return "board/boardWrite";
 	}
 	
 	//값 받아서 글쓰기
-	@PostMapping("/noticeWrite.do")
+	@PostMapping("/boardWrite.do")
 	public ModelAndView postWrite(CommandMap map, HttpServletRequest request) {
-		ModelAndView mv = new ModelAndView("notice/listNotice");
+		ModelAndView mv = new ModelAndView("board/listBoard");
 		
 		//title content -> jsp에서 form으로 받아온 값
 		//member_no -> db
@@ -76,7 +76,7 @@ public class NoticeController {
 		HttpSession session = request.getSession();
 		map.put("member_no", session.getAttribute("memberNo"));
 		
-		int result = noticeService.write(map.getMap());
+		int result = boardService.write(map.getMap());
 		System.out.println(result);
 		
 		setPagination(map, mv);
@@ -85,29 +85,29 @@ public class NoticeController {
 	}
 	
 	//게시글 삭제
-	@RequestMapping("/noticeDelete.do")
+	@RequestMapping("/boardDelete.do")
 	public String delete(CommandMap map) {
-		int result = noticeService.delete(map.getMap());
+		int result = boardService.delete(map.getMap());
 		System.out.println("delete = " + result);
 
-		return "redirect:listNotice.do";
+		return "redirect:listBoard.do";
 	}
 	
 	//게시글 상세보기 -> 수정하기 페이지로 값 가지고 넘기기
-	@GetMapping("/noticeUpdate.do")
+	@GetMapping("/boardUpdate.do")
 	public ModelAndView update(CommandMap map) {
-		ModelAndView mv = new ModelAndView("notice/noticeUpdate");
-		Map<String, Object> detail = noticeService.detail(map.getMap());
+		ModelAndView mv = new ModelAndView("board/boardUpdate");
+		Map<String, Object> detail = boardService.detail(map.getMap());
 		mv.addObject("detail", detail);
 		return mv;
 	}
 	
 	//값 받아서 수정하기
-	@PostMapping("/noticeUpdate.do")
+	@PostMapping("/boardUpdate.do")
 	public String postUpdate(CommandMap map) {
-		int result = noticeService.update(map.getMap());
+		int result = boardService.update(map.getMap());
 		System.out.println("update = " + result);
-		return "redirect:noticeDetail.do?no="+map.get("no");
+		return "redirect:boardDetail.do?no="+map.get("no");
 	}
 	
 	//페이징
@@ -121,7 +121,7 @@ public class NoticeController {
 		int pageScale = 10;
 		
 		//totalCount
-		int totalCount = noticeService.totalCount(map.getMap());
+		int totalCount = boardService.totalCount(map.getMap());
 		System.out.println(totalCount + "개가 있습니다.");
 		
 		//전자정부 페이징 불러오기
@@ -140,7 +140,7 @@ public class NoticeController {
 		map.put("lastPage", lastPage);
 		
 		//질의
-		List<Map<String, Object>> list = noticeService.noticeList(map.getMap());
+		List<Map<String, Object>> list = boardService.boardList(map.getMap());
 
 		mv.addObject("list", list); //앞엔 호출이름, 뒤는 값
 		mv.addObject("paginationInfo", paginationInfo);

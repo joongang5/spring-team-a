@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>공지사항 상세보기</title>
+<title>게시판 상세보기</title>
 <style type="text/css">
 html {
 	font-family: 'NanumSquare', serif;
@@ -70,30 +70,30 @@ button {
 <script type="text/javascript">
 	//이전글
 	function preMove() {
-		location.href='./listNotice.do';
+		location.href='./listBoard.do';
 	}
 	
 	//다음글
 	function nextMove() {
-		location.href='./listNotice.do';
+		location.href='./listBoard.do';
 	}
 	
 	//삭제 확인
-	function noticeDelete() {
+	function boardDelete() {
 		if(confirm("삭제하시겠습니까?")) {
-			location.href='./noticeDelete.do?no=${detail.no }';
+			location.href='./boardDelete.do?no=${detail.no }';
 			alert("게시글이 삭제되었습니다.");
 		} else {
-			location.href='./noticeDetail.do?no=${detail.no }';
+			location.href='./boardDetail.do?no=${detail.no }';
 		}
 	}
 	
 	//수정 확인
-	function noticeUpdate() {
+	function boardUpdate() {
 		if(confirm("수정하시겠습니까?")) {
-			location.href='./noticeUpdate.do?no=${detail.no }';
+			location.href='./boardUpdate.do?no=${detail.no }';
 		} else {
-			location.href='./noticeDetail.do?no=${detail.no }';
+			location.href='./boardDetail.do?no=${detail.no }';
 		}
 	}
 	
@@ -112,8 +112,8 @@ button {
 				<b>번호 |</b> ${detail.no } <b>제목 |</b> ${detail.title } <b>작성자 |</b>
 				${detail.id }(${detail.name }) <b>등록일 |</b> ${detail.date }
 				<c:if test="${sessionScope.id ne null }">
-					<button onclick="noticeDelete()">삭제하기</button>
-					<button onclick="noticeUpdate()">수정하기</button>
+					<button onclick="boardDelete()">삭제하기</button>
+					<button onclick="boardUpdate()">수정하기</button>
 				</c:if>
 				<hr>
 				${detail.content }
