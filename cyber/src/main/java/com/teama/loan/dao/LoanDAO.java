@@ -26,7 +26,11 @@ public class LoanDAO extends AbstractDAO {
 		
 		return sqlSession.selectList("loan.getViewListByMemberNo", map);
 	}
-		
+
+	public List<LoanViewDTO> getViewPagingListByMemberNo(Map<String, Object> map) {
+		return sqlSession.selectList("loan.getViewListByMemberNo", map);
+	}
+	
 	public List<Map<String, Object>> getViewMapListByMemberNo(int memberNo) {
 		return sqlSession.selectList("loan.getViewMapListByMemberNo", memberNo);
 	}
@@ -92,4 +96,5 @@ public class LoanDAO extends AbstractDAO {
 		
 		return sqlSession.selectList("loan.getLoanByBookNo", map);
 	}
+	
 }

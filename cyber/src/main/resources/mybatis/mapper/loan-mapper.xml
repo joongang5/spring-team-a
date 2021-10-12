@@ -29,6 +29,13 @@
 		</if>
 	</select>
 	
+	<select id="getViewPagingListByMemberNo" resultType="loanViewDTO" parameterType="hashmap">
+		SELECT * FROM book_loan_view WHERE member_no=#{memberNo}
+		<if test="startPage != null and lastPage != null">
+			LIMIT #{startPage}, #{lastPage}
+		</if>
+	</select>
+	
 	<select id="getViewMapListByMemberNo" resultType="hashmap" parameterType="int">
 		SELECT * FROM book_loan_view WHERE member_no=#{memberNo}
 	</select>

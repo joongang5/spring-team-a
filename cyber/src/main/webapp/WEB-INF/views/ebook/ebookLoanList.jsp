@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="ui" uri="http://egovframework.gov/ctl/ui"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -117,6 +118,15 @@ button {
 
 </style>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
+	function retfunction(bookNo) {
+		location.href="./doReturn.do?bookNo="+bookNo;
+	}
+	
+	function linkPage(pageNo){
+		location.href="./ebookLoanList.do?pageNo="+pageNo;
+	}
+</script>
 </head>
 <body>
 	<div id="wrap">
@@ -177,6 +187,11 @@ button {
 						<a class="noLogin" href="/cyber/member/memberLogin.do">로그인 해주세요.</a>
 					</c:otherwise>
 				</c:choose>
+			</div>
+			<div>
+				<ul id="paging">
+					<ui:pagination paginationInfo="${paginationInfo }" type="text" jsFunction="linkPage" />
+				</ul>
 			</div>
 		</main>
 		<footer>footer</footer>

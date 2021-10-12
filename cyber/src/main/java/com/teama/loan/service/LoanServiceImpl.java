@@ -21,7 +21,7 @@ public class LoanServiceImpl implements LoanService {
 	private LoanDAO loanDAO;
 	@Autowired
 	private BookStorageDAO bookStorageDAO;
-	
+
 	@Override
 	public List<LoanViewDTO> getViewListByMemberNo(int memberNo) {
 		return loanDAO.getViewListByMemberNo(memberNo);
@@ -32,6 +32,11 @@ public class LoanServiceImpl implements LoanService {
 		return loanDAO.getViewListByMemberNo(memberNo, state);
 	}
 
+	@Override
+	public List<LoanViewDTO> getViewPagingListByMemberNo(Map<String, Object> map) {
+		return loanDAO.getViewPagingListByMemberNo(map);
+	}
+	
 	@Override
 	public List<Map<String, Object>> getViewMapListByMemberNo(int memberNo) {
 		return loanDAO.getViewMapListByMemberNo(memberNo);

@@ -9,6 +9,7 @@ public interface LoanService {
 
 	public List<LoanViewDTO> getViewListByMemberNo(int memberNo);
 	public List<LoanViewDTO> getViewListByMemberNo(int memberNo, int state);
+	public List<LoanViewDTO> getViewPagingListByMemberNo(Map<String, Object> map);
 	public List<Map<String, Object>> getViewMapListByMemberNo(int memberNo);
 	public List<Map<String, Object>> getViewMapListByMemberNo(int memberNo, int state);
 	public String loan(int bookNo, int memberNo);

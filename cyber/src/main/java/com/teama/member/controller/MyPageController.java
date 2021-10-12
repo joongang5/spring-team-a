@@ -18,6 +18,8 @@ import com.teama.loan.service.LoanService;
 import com.teama.member.service.MyPageService;
 import com.teama.util.Util;
 
+import egovframework.rte.ptl.mvc.tags.ui.pagination.PaginationInfo;
+
 @Controller
 @RequestMapping("/myPage")
 public class MyPageController {
@@ -37,8 +39,33 @@ public class MyPageController {
 	}
 	
 	@GetMapping("ebookLoanList.do")
-	private ModelAndView ebookLoanList(HttpServletRequest request) {
+	private ModelAndView ebookLoanList(HttpServletRequest request, CommandMap map) {
 		ModelAndView mv = new ModelAndView("ebook/ebookLoanList");
+		
+		PaginationInfo paginationInfo = new PaginationInfo();
+		
+		int pageNo = 1;
+		
+		if (map.containsKey("pageNo")) {
+			pageNo= Integer.parseInt(String.valueOf(map.get("pageNo")));
+		}
+		
+		int listScale = 4;
+		int pageScale = 4;
+		
+		paginationInfo.setCurrentPageNo(pageNo);
+		paginationInfo.setRecordCountPerPage(listScale);
+		paginationInfo.setPageSize(pageScale);
+		
+		
+		int startPage = paginationInfo.getFirstRecordIndex();
+		int lastPage = paginationInfo.getRecordCountPerPage();
+		
+		System.out.println(startPage);
+		System.out.println(lastPage);
+		
+		map.put("startPage", startPage);
+		map.put("lastPage", lastPage);
 		
 		HttpSession session = request.getSession();
 		Object memberNoObj = session.getAttribute("memberNo");
@@ -46,7 +73,13 @@ public class MyPageController {
 			int memberNo = Util.parseInt(memberNoObj);
 
 			List<LoanViewDTO> loanViewDTOList = loanService.getViewListByMemberNo(memberNo);
+			List<LoanViewDTO> loanPagingViewDTOList = loanService.getViewPagingListByMemberNo(map.getMap());
+			
 			mv.addObject("loanViewDTOList", loanViewDTOList);
+			mv.addObject("loanPagingViewDTOList", loanPagingViewDTOList);
+			mv.addObject("paginationInfo", paginationInfo);
+			mv.addObject("pageNo", pageNo);
+			
 		}
 		
 		return mv;
@@ -56,7 +89,29 @@ public class MyPageController {
 	private ModelAndView doReturn(HttpServletRequest request, CommandMap map) {
 		ModelAndView mv = new ModelAndView("ebook/ebookLoanList");
 		
-		int bookNo = map.getIntValue("book_no");
+		int bookNo = map.getIntValue("bookNo");
+		
+		PaginationInfo paginationInfo = new PaginationInfo();
+		
+		int pageNo = 1;
+		
+		if (map.containsKey("pageNo")) {
+			pageNo= Integer.parseInt(String.valueOf(map.get("pageNo")));
+		}
+		
+		int listScale = 4;
+		int pageScale = 4;
+		
+		paginationInfo.setCurrentPageNo(pageNo);
+		paginationInfo.setRecordCountPerPage(listScale);
+		paginationInfo.setPageSize(pageScale);
+		
+		
+		int startPage = paginationInfo.getFirstRecordIndex();
+		int lastPage = paginationInfo.getRecordCountPerPage();
+		
+		map.put("startPage", startPage);
+		map.put("lastPage", lastPage);
 		
 		HttpSession session = request.getSession();
 		Object memberNoObj = session.getAttribute("memberNo");
@@ -64,7 +119,12 @@ public class MyPageController {
 			int memberNo = Util.parseInt(memberNoObj);
 
 			List<LoanViewDTO> loanViewDTOList = loanService.getViewListByMemberNo(memberNo);
+			List<LoanViewDTO> loanPagingViewDTOList = loanService.getViewPagingListByMemberNo(map.getMap());
+			
 			mv.addObject("loanViewDTOList", loanViewDTOList);
+			mv.addObject("loanPagingViewDTOList", loanPagingViewDTOList);
+			mv.addObject("paginationInfo", paginationInfo);
+			mv.addObject("pageNo", pageNo);
 			
 			loanService.doReturn(bookNo, memberNo);
 		}
