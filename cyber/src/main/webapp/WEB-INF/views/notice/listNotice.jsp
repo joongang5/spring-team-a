@@ -175,9 +175,12 @@ a {
 				</table>
 			</div>
 			<!-- end of noticeBoard -->
-
-			<a href="./noticeWrite.do"><button id="writebutton">글쓰기</button></a>
-
+			
+			<!-- 글쓰기 버튼 관리자만 보이게 -->
+			<c:if test="${sessionScope.id ne null }">
+				<a href="./noticeWrite.do"><button id="writebutton">글쓰기</button></a>
+			</c:if>
+			
 			<!-- 페이징-->
 			<div id="pagination">
 				<ui:pagination paginationInfo="${paginationInfo }" type="text"

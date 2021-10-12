@@ -65,6 +65,11 @@ button {
 	margin-bottom: 10px;
 }
 </style>
+<script type="text/javascript">
+	function updateBtn() {
+		alert("게시글이 수정되었습니다.");
+	}
+</script>
 </head>
 <body>
 	<div id="wrap">
@@ -83,7 +88,7 @@ button {
 				<textarea class="noticeContent" id="noticeContent" name="content"
 					rows="10">${detail.content}</textarea>
 				<br> <input type="hidden" name="no" value="${detail.no}">
-				<button type="submit" class="writeBtn">글쓰기</button>
+				<button onclick="updateBtn()" type="submit" class="writeBtn">글쓰기</button>
 			</form>
 		</main>
 	</div>

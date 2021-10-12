@@ -68,9 +68,35 @@ button {
 }
 </style>
 <script type="text/javascript">
-	function move() {
-		location.href = './listNotice.do';
+	//이전글
+	function preMove() {
+		location.href='./listNotice.do';
 	}
+	
+	//다음글
+	function nextMove() {
+		location.href='./listNotice.do';
+	}
+	
+	//삭제 확인
+	function noticeDelete() {
+		if(confirm("삭제하시겠습니까?")) {
+			location.href='./delete.do?no=${detail.no }';
+			alert("게시글이 삭제되었습니다.");
+		} else {
+			location.href='./noticeDetail.do?no=${detail.no }';
+		}
+	}
+	
+	//수정 확인
+	function noticeUpdate() {
+		if(confirm("수정하시겠습니까?")) {
+			location.href='./noticeUpdate.do?no=${detail.no }';
+		} else {
+			location.href='./noticeDetail.do?no=${detail.no }';
+		}
+	}
+	
 </script>
 </head>
 <body>
@@ -85,13 +111,16 @@ button {
 			<div id="detailBoard">
 				<b>번호 |</b> ${detail.no } <b>제목 |</b> ${detail.title } <b>작성자 |</b>
 				${detail.id }(${detail.name }) <b>등록일 |</b> ${detail.date }
-				<button onclick="location.href='./delete.do?no=${detail.no }'">삭제하기</button>
-				<button onclick="location.href='./noticeUpdate.do?no=${detail.no }'">수정하기</button>
+				<c:if test="${sessionScope.id ne null }">
+					<button onclick="noticeDelete()">삭제하기</button>
+					<button onclick="noticeUpdate()">수정하기</button>
+				</c:if>
 				<hr>
 				${detail.content }
 			</div>
 			<!-- end of detailBoard -->
-			<button onclick="move()">돌아가기</button>
+			<button onclick="preMove()">이전글</button>
+			<button onclick="nextMove()">다음글</button>
 		</main>
 		<footer>footer</footer>
 	</div>
