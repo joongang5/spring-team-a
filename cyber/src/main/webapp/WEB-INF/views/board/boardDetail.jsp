@@ -70,12 +70,22 @@ button {
 <script type="text/javascript">
 	//이전글
 	function preMove() {
-		location.href='./listBoard.do';
+		<c:if test="${detail.preNum != null}">
+			location.href='./boardDetail.do?no=${detail.preNum }';
+		</c:if>
+		<c:if test="${detail.preNum == null}">
+			location.href='./boardDetail.do?no=${detail.no }';
+		</c:if>
 	}
-	
+
 	//다음글
 	function nextMove() {
-		location.href='./listBoard.do';
+		<c:if test="${detail.nextNum != null}">
+			location.href='./boardDetail.do?no=${detail.nextNum }';
+		</c:if>
+		<c:if test="${detail.nextNum == null}">
+			location.href='./boardDetail.do?no=${detail.no }';
+		</c:if>
 	}
 	
 	//삭제 확인
@@ -119,8 +129,22 @@ button {
 				${detail.content }
 			</div>
 			<!-- end of detailBoard -->
-			<button onclick="preMove()">이전글</button>
-			<button onclick="nextMove()">다음글</button>
+			
+			<!-- 이전글, 다음글 -->
+			<c:if test="${detail.preTitle != null }">
+				이전글 | <button onclick="preMove()">${detail.preTitle }</button><br>
+			</c:if>
+			<c:if test="${detail.preTitle == null }">
+				이전글이 없습니다.<br>
+			</c:if>
+			<c:if test="${detail.nextTitle != null }">
+				다음글 | <button onclick="nextMove()">${detail.nextTitle }</button>
+			</c:if>
+			<c:if test="${detail.nextTitle == null }">
+				다음글이 없습니다.
+			</c:if>
+			<!-- end of 이전글, 다음글 -->
+			
 		</main>
 		<footer>footer</footer>
 	</div>

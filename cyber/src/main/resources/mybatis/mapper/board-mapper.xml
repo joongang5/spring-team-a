@@ -33,7 +33,14 @@
 	
 	<!-- 게시글 상세보기 -->
 	<select id="detail" parameterType="HashMap" resultType="HashMap">
-		SELECT * FROM board_view WHERE no=#{no}
+		SELECT b.* FROM (
+		SELECT no, title, content, date, count, file, id, name, member_no, 
+		LAG(no) OVER(ORDER BY no) AS preNum, 
+		LAG(title) OVER(ORDER BY title) AS preTitle, 
+		LEAD(no) OVER(ORDER BY no) AS nextNum, 
+		LEAD(title) OVER(ORDER BY title) AS nextTitle 
+		FROM board_view) b 
+		WHERE b.no = #{no}
 	</select>
 	
 	<!-- 게시글 글쓰기 (로그인한 사람만) -->
