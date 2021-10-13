@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="ui" uri="http://egovframework.gov/ctl/ui"%>
 <!DOCTYPE html>
 <html>
@@ -68,14 +69,21 @@ td img {
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script type="text/javascript">
+function getParameterByName(name) {
+    name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+    var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+        results = regex.exec(location.search);
+    return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+}
 	function linkPage(pageNo) {
-		/* 	var searchOption = getParameterByName('searchOption');
-		 var search = getParameterByName('search'); */
-		/* if(!searchOption && !search){
+		alert(getParameterByName('searchTraget'));
+		 var searchTarget = getParameterByName('searchTraget');
+		 var searchValue = getParameterByName('searchValue');
+		 if(!searchTarget && !searchValue){
 			location.href="./ebookMain.do?pageNo="+pageNo;
-		}else{ */
-		location.href = "./ebookMain.do?pageNo=" + pageNo;
-		//}
+		}else{ 
+		location.href = "./ebookMain.do?pageNo=" + pageNo + '&searchTarge=' + searchTarget + '&searchValue=' + searchValue;
+		}
 	}
 </script>
 
@@ -88,8 +96,9 @@ td img {
 			<c:import url="/WEB-INF/views/component/lnbNav.jsp" />
 		</aside>
 		<main>
-			<div>
-				<select id="searchTarget">
+			<div id="SearchTarget">
+				<form action="./ebookMain.do" method="GET">
+				<select name="searchTarget">
 					<option value='title'
 						<c:if test="${searchTarget eq 'title'}">selected="selected"</c:if>>서명</option>
 					<option value='author'
@@ -98,12 +107,19 @@ td img {
 						<c:if test="${searchTarget eq 'publisher'}">selected="selected"</c:if>>출판사</option>
 					<option value='isbn'
 						<c:if test="${searchTarget eq 'isbn'}">selected="selected"</c:if>>ISBN</option>
-				</select> <input id="searchValue" value="${search}" />
-				<button id="search">검색</button>
+				</select> <input name="searchValue" value="${searchValue}" />
+				 <button id = "search" type="submit">검색</button>
+				 </form>
 			</div>
+			<c:choose>
+			<c:when test="${fn:length(EbookList) gt 0 }">
 			<div id="mainTable">
-				<h2>전체 글수 : ${totalCount}</h2>
+				<c:if test="${searchValue ne null }">
+				<h2>도서 수 : ${EbookList.get(0).totalCount }</h2>
 				<h3>페이지 번호 : ${pageNo}</h3>
+				<h3>검색어 : ${searchValue }</h3>
+				</c:if>
+				
 				<table>
 					<tr>
 						<td>서명</td>
@@ -137,6 +153,13 @@ td img {
 						jsFunction="linkPage" />
 				</ul>
 			</div>
+			</c:when>
+			<c:otherwise>
+			검색된 도서가 없습니다.<br>
+			잠시후 전자책 페이지로 이동합니다.
+			<meta http-equiv="refresh" content="3; url='/cyber/ebook/ebookMain.do'"> 
+			</c:otherwise>
+			</c:choose>
 		</main>
 		<footer>footer</footer>
 	</div>

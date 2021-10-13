@@ -42,12 +42,16 @@ public class ListEbookController {
 		int listScale = 10; //한 페이지에 나올 글 수
 		int pageScale = 10; // 페이지 개수
 		// map.put("searchTarget", "isbn");
-				// map.put("searchValue", "9791163032816");
+		// map.put("searchValue", "9791163032816");
 
-				// System.out.println(map.get("pageNo"));
-				// System.out.println(map.getMap().get("searchTarget"));
-				// System.out.println(map.getMap().get("searchValue"));
-		
+		// System.out.println(map.get("pageNo"));
+		//System.out.println(map.get("searchTarget"));
+		//System.out.println(map.get("searchValue"));
+		if(map.get("searchValue") != null) {
+			System.out.println("검색어 없음");
+			mv.addObject("searchTarget", map.get("searchTarget"));
+			mv.addObject("searchValue", map.get("searchValue"));
+		}
 		if (!map.containsKey("pageNo")) {
 			pageNo = 1;
 		}else {
@@ -67,26 +71,30 @@ public class ListEbookController {
 		map.put("lastPage", lastPage);
 		List<EbookDTO> EbookList = ebookService.getEbookList(map.getMap());
 		
-		paginationInfo.setTotalRecordCount(EbookList.get(0).getTotalCount());
 		
-		for (EbookDTO list : EbookList) {
-			if (list.getTitle_url().equals("")) {
-				List<Map<String, Object>> kakao = ebookAPIService.ebookSearchKakao(list.getIsbn());
-				// 도서 썸네일 없을시 카카오에서 가져오기
-				if (kakao != null) {
-					list.setTitle_url((String) kakao.get(0).get("thumbnail"));
-				} else {
-					list.setTitle_url(null);
+		if(!EbookList.isEmpty()) {
+			paginationInfo.setTotalRecordCount(EbookList.get(0).getTotalCount());
+			
+			for (EbookDTO list : EbookList) {
+				if (list.getTitle_url().equals("")) {
+					List<Map<String, Object>> kakao = ebookAPIService.ebookSearchKakao(list.getIsbn());
+					// 도서 썸네일 없을시 카카오에서 가져오기
+					if (kakao != null) {
+						list.setTitle_url((String) kakao.get(0).get("thumbnail"));
+					} else {
+						list.setTitle_url(null);
+					}
 				}
 			}
-		}
 //		if(map.getMap().get("searchValue")!=null) {
 //			EbookList.put("searchTarget", map.getMap().get("searchTarget"));
 //			EbookList.put("searchValue", map.getMap().get("searchValue"));
 //		}
+			mv.addObject("EbookList", EbookList);
+			
+		}
 		mv.addObject("pageNo", pageNo);
 		mv.addObject("paginationInfo", paginationInfo);
-		mv.addObject("EbookList", EbookList);
 		return mv;
 	}
 
@@ -134,13 +142,16 @@ public class ListEbookController {
 			System.out.println(URL);
 			Document doc = Jsoup.connect(URL).get();
 			
-			Elements elem = doc.select("div.info_section");
-			Elements content = elem.select("p.desc");
-			System.out.println("content -----------" + content);
+			doc.outputSettings().prettyPrint(false);
+			Elements content = doc.select("div.info_section").select("p.desc");
+			System.out.println("content=" +  content);
+			//Elements content = elem.select("p.desc");
+			//크롤링시 줄바꿈 문제 해결
+			//System.out.println("content -----------" + content);
 //		System.out.println(elem.size());
 			Map<String, Object> detail = new HashMap<String, Object>();
 			for (int i = 0; i < content.size(); i++) {
-				detail.put("detail" + i, content.get(i).text());
+				detail.put("detail" + i, content.get(i).html());
 			}
 			System.out.println("detail ===== " +detail.get("detail1"));
 			mv.addObject("detail", detail);

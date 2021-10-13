@@ -41,13 +41,13 @@ td img {
 <script type="text/javascript">
 
 function linkPage(pageNo){
-/* 	var searchOption = getParameterByName('searchOption');
-	var search = getParameterByName('search'); */
-	/* if(!searchOption && !search){
+/*  	var searchOption = getParameterByName('searchOption');
+	var search = getParameterByName('search');
+	 if(!searchOption && !search){
 		location.href="./ebookMain.do?pageNo="+pageNo;
 	}else{ */
 		location.href="./home.do?pageNo="+pageNo;
-	//}
+//	}
 }
 $(function(){
 	var chkObj = document.getElementsByName("RowCheck");
