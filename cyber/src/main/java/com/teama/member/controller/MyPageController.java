@@ -42,89 +42,92 @@ public class MyPageController {
 	private ModelAndView ebookLoanList(HttpServletRequest request, CommandMap map) {
 		ModelAndView mv = new ModelAndView("ebook/ebookLoanList");
 		
-		PaginationInfo paginationInfo = new PaginationInfo();
-		
 		int pageNo = 1;
-		
 		if (map.containsKey("pageNo")) {
 			pageNo= Integer.parseInt(String.valueOf(map.get("pageNo")));
 		}
-		
 		int listScale = 4;
-		int pageScale = 4;
-		
-		paginationInfo.setCurrentPageNo(pageNo);
-		paginationInfo.setRecordCountPerPage(listScale);
-		paginationInfo.setPageSize(pageScale);
-		
-		
-		int startPage = paginationInfo.getFirstRecordIndex();
-		int lastPage = paginationInfo.getRecordCountPerPage();
-		
-		System.out.println(startPage);
-		System.out.println(lastPage);
-		
-		map.put("startPage", startPage);
-		map.put("lastPage", lastPage);
-		
+		int pageScale = 10;
+
 		HttpSession session = request.getSession();
 		Object memberNoObj = session.getAttribute("memberNo");
 		if (memberNoObj != null) {
 			int memberNo = Util.parseInt(memberNoObj);
-
-			List<LoanViewDTO> loanViewDTOList = loanService.getViewListByMemberNo(memberNo);
-			List<LoanViewDTO> loanPagingViewDTOList = loanService.getViewPagingListByMemberNo(map.getMap());
+			map.put("memberNo", memberNo);
+			int totalCount = loanService.totalCount(map.getMap());
+			//System.out.println(totalCount + "개가 있습니다.");
+			
+			PaginationInfo paginationInfo = new PaginationInfo();
+			
+			paginationInfo.setCurrentPageNo(pageNo);
+			paginationInfo.setRecordCountPerPage(listScale);
+			paginationInfo.setPageSize(pageScale);
+			paginationInfo.setTotalRecordCount(totalCount);//
+			
+			int startPage = paginationInfo.getFirstRecordIndex();
+			int lastPage = paginationInfo.getRecordCountPerPage();
+			
+			//System.out.println(startPage);
+			//System.out.println(lastPage);
+			
+			map.put("startPage", startPage);
+			map.put("lastPage", lastPage);
+			
+			List<LoanViewDTO> loanViewDTOList = loanService.getViewPagingListByMemberNo(map.getMap());
 			
 			mv.addObject("loanViewDTOList", loanViewDTOList);
-			mv.addObject("loanPagingViewDTOList", loanPagingViewDTOList);
 			mv.addObject("paginationInfo", paginationInfo);
 			mv.addObject("pageNo", pageNo);
+			mv.addObject("totalCount", totalCount);
 			
 		}
-		
+		//System.out.println("last Map : "+map.getMap());
 		return mv;
 	}
 	
-	@GetMapping("doReturn.do")
+	@GetMapping("doReturn.do") //?
 	private ModelAndView doReturn(HttpServletRequest request, CommandMap map) {
 		ModelAndView mv = new ModelAndView("ebook/ebookLoanList");
 		
 		int bookNo = map.getIntValue("bookNo");
 		
-		PaginationInfo paginationInfo = new PaginationInfo();
-		
 		int pageNo = 1;
-		
 		if (map.containsKey("pageNo")) {
 			pageNo= Integer.parseInt(String.valueOf(map.get("pageNo")));
 		}
-		
 		int listScale = 4;
-		int pageScale = 4;
-		
-		paginationInfo.setCurrentPageNo(pageNo);
-		paginationInfo.setRecordCountPerPage(listScale);
-		paginationInfo.setPageSize(pageScale);
-		
-		
-		int startPage = paginationInfo.getFirstRecordIndex();
-		int lastPage = paginationInfo.getRecordCountPerPage();
-		
-		map.put("startPage", startPage);
-		map.put("lastPage", lastPage);
-		
+		int pageScale = 10;
+
 		HttpSession session = request.getSession();
 		Object memberNoObj = session.getAttribute("memberNo");
 		if (memberNoObj != null) {
 			int memberNo = Util.parseInt(memberNoObj);
-
-			List<LoanViewDTO> loanViewDTOList = loanService.getViewListByMemberNo(memberNo);
-			List<LoanViewDTO> loanPagingViewDTOList = loanService.getViewPagingListByMemberNo(map.getMap());
+			map.put("memberNo", memberNo);
+			int totalCount = loanService.totalCount(map.getMap());
+			//System.out.println(totalCount + "개가 있습니다.");
+			
+			PaginationInfo paginationInfo = new PaginationInfo();
+			
+			paginationInfo.setCurrentPageNo(pageNo);
+			paginationInfo.setRecordCountPerPage(listScale);
+			paginationInfo.setPageSize(pageScale);
+			paginationInfo.setTotalRecordCount(totalCount);//
+			
+			int startPage = paginationInfo.getFirstRecordIndex();
+			int lastPage = paginationInfo.getRecordCountPerPage();
+			
+			//System.out.println(startPage);
+			//System.out.println(lastPage);
+			
+			map.put("startPage", startPage);
+			map.put("lastPage", lastPage);
+			
+			List<LoanViewDTO> loanViewDTOList = loanService.getViewPagingListByMemberNo(map.getMap());
 			
 			mv.addObject("loanViewDTOList", loanViewDTOList);
-			mv.addObject("loanPagingViewDTOList", loanPagingViewDTOList);
 			mv.addObject("paginationInfo", paginationInfo);
 			mv.addObject("pageNo", pageNo);
+			mv.addObject("totalCount", totalCount);
 			
 			loanService.doReturn(bookNo, memberNo);
 		}

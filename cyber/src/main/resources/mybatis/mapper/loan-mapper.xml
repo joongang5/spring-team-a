@@ -25,15 +25,16 @@
 	<select id="getViewListByMemberNo" resultType="loanViewDTO" parameterType="hashmap">
 		SELECT * FROM book_loan_view WHERE member_no=#{memberNo}
 		<if test="state != null">
-			AND state=#{state}
+			AND state=#{state} 
 		</if>
 	</select>
 	
 	<select id="getViewPagingListByMemberNo" resultType="loanViewDTO" parameterType="hashmap">
 		SELECT * FROM book_loan_view WHERE member_no=#{memberNo}
-		<if test="startPage != null and lastPage != null">
-			LIMIT #{startPage}, #{lastPage}
+		<if test="state != null">
+			AND state=#{state} 
 		</if>
+		LIMIT #{startPage}, #{lastPage}
 	</select>
 	
 	<select id="getViewMapListByMemberNo" resultType="hashmap" parameterType="int">
@@ -62,4 +63,9 @@
 	<select id="getNeedAutoReturnList" resultType="loanDTO">
 		SELECT * FROM book_loan WHERE state=0 AND return_date <![CDATA[<=]]> NOW()
 	</select>
+	
+	<select id="totalCount" parameterType="HashMap" resultType="HashMap">
+		SELECT count(*) as totalCount FROM book_loan_view WHERE member_no=#{memberNo}
+	</select>
+	
 </mapper>

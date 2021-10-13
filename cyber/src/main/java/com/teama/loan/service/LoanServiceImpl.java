@@ -21,12 +21,21 @@ public class LoanServiceImpl implements LoanService {
 	private LoanDAO loanDAO;
 	@Autowired
 	private BookStorageDAO bookStorageDAO;
-
+	
+	public int totalCount(Map<String, Object> map) {
+		return loanDAO.totalCount(map);
+	}
+	
+	@Override
+	public List<LoanViewDTO> getViewListByMemberNo(Map<String, Object> map) {
+		return loanDAO.getViewListByMemberNo(map);
+	}
+	
 	@Override
 	public List<LoanViewDTO> getViewListByMemberNo(int memberNo) {
 		return loanDAO.getViewListByMemberNo(memberNo);
 	}
-
+	
 	@Override
 	public List<LoanViewDTO> getViewListByMemberNo(int memberNo, int state) {
 		return loanDAO.getViewListByMemberNo(memberNo, state);

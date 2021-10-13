@@ -7,6 +7,7 @@ import com.teama.loan.dto.LoanViewDTO;
 
 public interface LoanService {
 
+	public List<LoanViewDTO> getViewListByMemberNo(Map<String, Object> map);
 	public List<LoanViewDTO> getViewListByMemberNo(int memberNo);
 	public List<LoanViewDTO> getViewListByMemberNo(int memberNo, int state);
 	public List<LoanViewDTO> getViewPagingListByMemberNo(Map<String, Object> map);
@@ -17,4 +18,6 @@ public interface LoanService {
 	public String doReturn(int bookNo, int memberNo);
 	public String autoLoan();
 	public String autoReturn();
+	public int totalCount(Map<String, Object> map);
+
 }

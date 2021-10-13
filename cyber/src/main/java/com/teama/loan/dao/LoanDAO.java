@@ -12,13 +12,17 @@ import com.teama.loan.dto.LoanViewDTO;
 @Repository
 public class LoanDAO extends AbstractDAO {
 
+	public List<LoanViewDTO> getViewListByMemberNo(Map<String, Object> map) {
+		return sqlSession.selectList("loan.getViewListByMemberNo", map);
+	}
+	
 	public List<LoanViewDTO> getViewListByMemberNo(int memberNo) {
 		Map<String, Object> map = Map.of(
 				"memberNo", memberNo);
 		
 		return sqlSession.selectList("loan.getViewListByMemberNo", map);
 	}
-
+	
 	public List<LoanViewDTO> getViewListByMemberNo(int memberNo, int state) {
 		Map<String, Object> map = Map.of(
 				"memberNo", memberNo,
@@ -28,7 +32,7 @@ public class LoanDAO extends AbstractDAO {
 	}
 
 	public List<LoanViewDTO> getViewPagingListByMemberNo(Map<String, Object> map) {
-		return sqlSession.selectList("loan.getViewListByMemberNo", map);
+		return sqlSession.selectList("loan.getViewPagingListByMemberNo", map);
 	}
 	
 	public List<Map<String, Object>> getViewMapListByMemberNo(int memberNo) {
@@ -97,8 +101,12 @@ public class LoanDAO extends AbstractDAO {
 		return sqlSession.selectList("loan.getLoanByBookNo", map);
 	}
 
-
 	public List<LoanDTO> getNeedAutoReturnList() {
 		return sqlSession.selectList("loan.getNeedAutoReturnList");
 	}
+	
+	public int totalCount(Map<String, Object> map) {
+		return Integer.parseInt(String.valueOf (selectOne("loan.totalCount", map).get("totalCount")));
+	}
+
 }
