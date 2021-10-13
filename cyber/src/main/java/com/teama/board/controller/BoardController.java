@@ -74,7 +74,7 @@ public class BoardController {
 		//memberNo -> session
 		
 		HttpSession session = request.getSession();
-		map.put("member_no", session.getAttribute("memberNo"));
+		map.put("id", session.getAttribute("id"));
 		
 		int result = boardService.write(map.getMap());
 		System.out.println(result);
@@ -86,7 +86,9 @@ public class BoardController {
 	
 	//게시글 삭제
 	@RequestMapping("/boardDelete.do")
-	public String delete(CommandMap map) {
+	public String delete(CommandMap map, HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		map.put("id", session.getAttribute("id"));
 		int result = boardService.delete(map.getMap());
 		System.out.println("delete = " + result);
 
@@ -104,7 +106,9 @@ public class BoardController {
 	
 	//값 받아서 수정하기
 	@PostMapping("/boardUpdate.do")
-	public String postUpdate(CommandMap map) {
+	public String postUpdate(CommandMap map, HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		map.put("id", session.getAttribute("id"));
 		int result = boardService.update(map.getMap());
 		System.out.println("update = " + result);
 		return "redirect:boardDetail.do?no="+map.get("no");

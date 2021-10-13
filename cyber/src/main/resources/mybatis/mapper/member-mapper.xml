@@ -4,7 +4,7 @@
 
 <mapper namespace="member">
 	<select id="login" resultType="HashMap">
-		SELECT no, name, id
+		SELECT no, name, id, grade <!-- 1013 소영 grade 추가 -->
 		FROM loginview
 		WHERE
 		id=#{id} AND pw=#{pw}

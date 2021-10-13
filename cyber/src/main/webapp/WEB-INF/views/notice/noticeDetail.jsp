@@ -111,7 +111,8 @@ button {
 			<div id="detailBoard">
 				<b>번호 |</b> ${detail.no } <b>제목 |</b> ${detail.title } <b>작성자 |</b>
 				${detail.id }(${detail.name }) <b>등록일 |</b> ${detail.date }
-				<c:if test="${sessionScope.id ne null }">
+				<!-- 삭제, 수정 버튼 관리자(9등급)만 보이게 -->
+				<c:if test="${sessionScope.grade eq 9 }">
 					<button onclick="noticeDelete()">삭제하기</button>
 					<button onclick="noticeUpdate()">수정하기</button>
 				</c:if>

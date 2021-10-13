@@ -173,11 +173,10 @@ a {
 						</c:forEach>
 					</tbody>
 				</table>
-			</div>
-			<!-- end of noticeBoard -->
+			</div> <!-- end of noticeBoard -->
 			
-			<!-- 글쓰기 버튼 관리자만 보이게 -->
-			<c:if test="${sessionScope.id ne null }">
+			<!-- 글쓰기 버튼 관리자(9등급)만 보이게 -->
+			<c:if test="${sessionScope.grade eq 9 }">
 				<a href="./noticeWrite.do"><button id="writebutton">글쓰기</button></a>
 			</c:if>
 			

@@ -31,9 +31,6 @@ public class NoticeController {
 	public ModelAndView noticeList(CommandMap map) {
 		ModelAndView mv = new ModelAndView("notice/listNotice");
 		
-		//검색 출력해보기
-		System.out.println(map.getMap()); //search값이 오는지 확인하려고
-		
 		//검색값을 jsp로 넘기기
 		if(map.containsKey("searchKeyword")) {
 			mv.addObject("searchKeyword", map.get("searchKeyword"));
@@ -72,9 +69,8 @@ public class NoticeController {
 		//title content -> jsp에서 form으로 받아온 값
 		//member_no -> db
 		//memberNo -> session
-		
 		HttpSession session = request.getSession();
-		map.put("member_no", session.getAttribute("memberNo"));
+		map.put("id", session.getAttribute("id"));
 		
 		int result = noticeService.write(map.getMap());
 		System.out.println(result);
@@ -86,7 +82,11 @@ public class NoticeController {
 	
 	//게시글 삭제
 	@RequestMapping("/noticeDelete.do")
-	public String delete(CommandMap map) {
+	public String delete(CommandMap map, HttpServletRequest request) {
+		
+		HttpSession session = request.getSession();
+		map.put("id", session.getAttribute("id"));
+		
 		int result = noticeService.delete(map.getMap());
 		System.out.println("delete = " + result);
 
@@ -104,7 +104,11 @@ public class NoticeController {
 	
 	//값 받아서 수정하기
 	@PostMapping("/noticeUpdate.do")
-	public String postUpdate(CommandMap map) {
+	public String postUpdate(CommandMap map, HttpServletRequest request) {
+		
+		HttpSession session = request.getSession();
+		map.put("id", session.getAttribute("id"));
+		
 		int result = noticeService.update(map.getMap());
 		System.out.println("update = " + result);
 		return "redirect:noticeDetail.do?no="+map.get("no");

@@ -50,6 +50,7 @@ public class LoginController {
 		session.setAttribute("name", login.get("name"));
 		session.setAttribute("id", login.get("id"));
 		session.setAttribute("memberNo", login.get("no"));
+		session.setAttribute("grade", login.get("grade")); //1013 소영 grade 세션 추가
 
 		return "redirect:/index.do";
 	}
