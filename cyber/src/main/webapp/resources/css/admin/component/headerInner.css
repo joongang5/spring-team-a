@@ -1,0 +1,36 @@
+@charset "UTF-8";
+
+.container {
+	width: 1200px;
+	margin: 0 auto;
+	background: rgba(0, 0, 0, 0.3);
+}
+
+.header {
+	height: 50px;
+}
+
+.header .headerMenu {
+	text-align: center;
+}
+
+.header .headerMenu a {
+	color: #fff;
+	padding: 8px 0 6px 10px;
+	display: inline-block;
+	transition: color 0.3s ease;
+}
+
+.header .headerMenu a:hover {
+	color: #ccc;
+}
+
+@media (max-width: 1220px) {
+	.container {
+		width: 100%;
+	}
+	
+	.row {
+		padding: 0 15px; 
+	}
+}

@@ -7,14 +7,10 @@
 <head>
 	<meta charset="UTF-8">
 	<title>대출현황</title>
-	<style>
-		body { margin: 0; padding: 0; }
-		ul { margin: 0; }
-		table { border: 1px solid black; }
-		th, td { border: 1px solid black; }
-	</style>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 	<script src='<c:url value="/resources/js/admin/loanPopup.js"/>'></script>
+	<link rel="stylesheet" href="<c:url value="/resources/css/reset.css"/>">
+	<link rel="stylesheet" href="<c:url value="/resources/css/admin/loanPopup.css"/>">
 </head>
 <body>
 	<div id="wrap">

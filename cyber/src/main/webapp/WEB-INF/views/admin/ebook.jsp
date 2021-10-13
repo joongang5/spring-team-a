@@ -9,32 +9,7 @@
 <meta charset="UTF-8">
 <title>관리자</title>
 <style>
-body {
-	margin: 0;
-	padding: 0;
-}
 
-ul {
-	margin: 0;
-}
-
-table {
-	border: 1px solid black;
-}
-
-th, td {
-	border: 1px solid black;
-}
-
-td img {
-	width: 60px;
-}
-
-.content {
-	white-space: nowrap;
-	overflow: hidden;
-	text-overflow: ellipsis;
-}
 </style>
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
@@ -92,7 +67,8 @@ function bookAdd(){
 	}
 }
 </script>
-
+<link rel="stylesheet" href="<c:url value="/resources/css/reset.css"/>">
+<link rel="stylesheet" href="<c:url value="/resources/css/admin/ebook.css"/>">
 </head>
 <body>
 	<div id="wrap">

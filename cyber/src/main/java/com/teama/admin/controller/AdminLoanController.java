@@ -7,7 +7,6 @@ import javax.annotation.Resource;
 
 import org.json.simple.JSONObject;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -27,19 +26,6 @@ public class AdminLoanController {
 	private LoanService loanService;
 	@Resource(name="bookStorageService")
 	private BookStorageService bookStorageService;
-	
-	@GetMapping("showPopup.do")
-	public ModelAndView showPopup(CommandMap commandMap) {
-		ModelAndView mv = new ModelAndView("admin/loanPopup");
-
-		int memberNo = commandMap.getIntValue("memberNo");
-		mv.addObject("memberNo", memberNo);
-
-		List<LoanViewDTO> loanViewDTOList = loanService.getViewListByMemberNo(memberNo);
-		mv.addObject("loanViewDTOList", loanViewDTOList);
-		
-		return mv;
-	}
 	
 	@SuppressWarnings("unchecked")
 	@PostMapping(value="searchBookAJAX.do", produces="text/plain;charset=utf-8")

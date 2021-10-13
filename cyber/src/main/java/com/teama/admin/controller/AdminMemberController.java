@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.teama.common.CommandMap;
+import com.teama.loan.dto.LoanViewDTO;
+import com.teama.loan.service.LoanService;
 import com.teama.member.dto.MemberDTO;
 import com.teama.member.service.MemberService;
 
@@ -20,6 +22,8 @@ public class AdminMemberController {
 
 	@Resource(name="memberService")
 	private MemberService memberService;
+	@Resource(name="loanService")
+	private LoanService loanService;
 	
 	@GetMapping("home.do")
 	public ModelAndView home(CommandMap commandMap) {
@@ -42,6 +46,19 @@ public class AdminMemberController {
 		
 		List<MemberDTO> memberDTOList = memberService.getMemberList(searchType, searchValue);
 		mv.addObject("memberDTOList", memberDTOList);
+		
+		return mv;
+	}
+
+	@GetMapping("showPopup.do")
+	public ModelAndView showPopup(CommandMap commandMap) {
+		ModelAndView mv = new ModelAndView("admin/loanPopup");
+
+		int memberNo = commandMap.getIntValue("memberNo");
+		mv.addObject("memberNo", memberNo);
+
+		List<LoanViewDTO> loanViewDTOList = loanService.getViewListByMemberNo(memberNo);
+		mv.addObject("loanViewDTOList", loanViewDTOList);
 		
 		return mv;
 	}
