@@ -123,6 +123,10 @@ button {
 		location.href="./doReturn.do?bookNo="+bookNo;
 	}
 	
+	function extfunction(bookNo) {
+		location.href="./doExtend.do?bookNo="+bookNo;
+	}
+	
 	function linkPage(pageNo){
 		location.href="./ebookLoanList.do?pageNo="+pageNo;
 	}
@@ -171,8 +175,12 @@ button {
 									<td>${l.return_date }</td>
 									<td>
 									<button class="lobtn">보기</button><br>
-									<button class="rebtn" onclick="retfunction(${l.book_no})">반납하기</button><br>
-									<button class="extbtn">연장하기</button>
+									<c:if test="${l.state == 0 }">
+										<button class="rebtn" onclick="retfunction(${l.book_no})">반납하기</button><br>
+									</c:if>
+									<c:if test="${l.state == 0 }">
+										<button class="extbtn" onclick="extfunction(${l.book_no})">연장하기</button>
+									</c:if>
 									</td>
 								</tr>
 								</c:forEach>

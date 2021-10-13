@@ -118,27 +118,32 @@ footer {
 						<h2>나의 서비스 이용현황</h2>
 						<b>${sessionScope.name }</b>님은 <b>전자책</b> 서비스를 이용하실 수 있습니다.
 					</div>
+				
 					<div class="ewqBox">
 						<div class="ebBox">
-							<a href="ebookLoanList.do"
-								style="text-decoration: none; color: black;"> <img
-								src="../resources/img/monitor.png"><br> 전자책 대출현황<br>
-								대출권수<br> 예약권수
+							<a href="ebookLoanList.do" style="text-decoration: none; color: black;">
+							<img src="../resources/img/monitor.png"><br>
+								전자책 대출현황<br>
+								대출권수 권<br>
+								예약권수 권
 							</a>
 						</div>
 						<div class="wbBox">
-							<a href="" style="text-decoration: none; color: black;"> <img
-								src="../resources/img/book2.png"><br> 희망전자책 신청현황<br>
-								신청권수
+							<a href="" style="text-decoration: none; color: black;">
+							<img src="../resources/img/book2.png"><br>
+								희망전자책 신청현황<br>
+								신청권수 권
 							</a>
 						</div>
 						<div class="qtBox">
-							<a href="" style="text-decoration: none; color: black;"> <img
-								src="../resources/img/qna.png"><br> 묻고답하기 문의현황<br>
-								문의건수
+							<a href="" style="text-decoration: none; color: black;">
+							<img src="../resources/img/qna.png"><br>
+								묻고답하기 문의현황<br>
+								문의건수 건
 							</a>
 						</div>
 					</div>
+					
 				</c:when>
 				<c:otherwise>
 					<h2>

@@ -160,6 +160,24 @@ public class LoanServiceImpl implements LoanService {
 		return "";
 	}
 	
+	// 연장 기본 로직
+	@Override
+	public String doExtend(int bookNo, int memberNo) {
+		LoanDTO loanDTO = loanDAO.getLoanByMemberNoAndBookNo(bookNo, memberNo, LoanState.loan.getValue());
+		if (loanDTO == null)
+			return "대출 정보를 찾을 수 없습니다.";
+		  
+		int additiveDay = 1;
+		loanDTO.setReturn_date(Util.getStrAdditiveTime(loanDTO.getReturn_date(), additiveDay));
+
+		int result = 0;
+		result = loanDAO.updateLoanByNo(loanDTO);
+		if (result <= 0)
+			return "연장 처리에 실패했습니다.";
+
+		return "";
+	}
+		
 	@Override
 	public String autoLoan() {
 		List<BookStorageDTO> needAutoLoanList = bookStorageDAO.getNeedAutoLoanList();

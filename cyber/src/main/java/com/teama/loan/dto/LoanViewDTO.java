@@ -11,6 +11,7 @@ public class LoanViewDTO {
 	private String loan_date;
 	private String reserve_date;
 	private String return_date;
+	
 	private int member_no;
 
 	public int getBook_no() {

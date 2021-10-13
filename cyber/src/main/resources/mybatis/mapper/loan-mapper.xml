@@ -10,7 +10,7 @@
 	
 	<update id="extendLoan" parameterType="hashmap">
 		INSERT INTO book_loan (book_no, member_no, state, return_date)
-		VALUES (#{bookNo}, #{memberNo}, 0, DATE_ADD(return_date, INTERVAL 5 DAY))
+		VALUES (#{bookNo}, #{memberNo}, 0, DATE_ADD(return_date, INTERVAL 1 DAY))
 	</update>
 	
 	<insert id="insertReserve" parameterType="hashmap">

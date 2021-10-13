@@ -62,6 +62,10 @@ public class LoanDAO extends AbstractDAO {
 				
 		return insert("loan.insertLoan", map);
 	}
+	
+	public int extendLoan(LoanDTO dto) {
+		return sqlSession.update("loan.extendLoan", dto);
+	}
 
 	public int insertReserve(int bookNo, int memberNo, String reservedLoanDate) {
 		Map<String, Object> map = Map.of(
