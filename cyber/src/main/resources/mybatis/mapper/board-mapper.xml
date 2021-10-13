@@ -64,4 +64,20 @@
 		UPDATE board SET count = count + 1 WHERE no=#{no}
 	</update>
 	
+	<!-- 게시물 댓글 불러오기 -->
+	<select id="boardCommentList" parameterType="HashMap" resultType="HashMap">
+		SELECT * FROM board_comment_view WHERE no=#{no}
+	</select>
+	
+	<!-- 게시물 댓글쓰기 -->
+	<insert id="commentWrite" parameterType="HashMap">
+		INSERT INTO board_comment (comment, no, member_no) 
+		VALUES (#{comment}, #{no}, (SELECT no FROM member WHERE id=#{id}))
+	</insert>
+	
+	<!-- 게시물 댓글 삭제 -->
+	<delete id="commentDelete" parameterType="HashMap">
+		DELETE FROM board_comment WHERE no=#{no} AND member_no=(SELECT no FROM member WHERE id=#{id})
+	</delete>
+	
 </mapper>

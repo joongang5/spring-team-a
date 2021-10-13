@@ -54,4 +54,22 @@ public class BoardServiceImpl implements BoardService {
 		return boardDAO.count(map);
 	}
 	
+	//게시물 댓글 불러오기
+	@Override
+	public List<Map<String, Object>> boardCommentList(Map<String, Object> map) {
+		return boardDAO.boardCommentList(map);
+	}
+	
+	//게시물 댓글쓰기
+	@Override
+	public int commentWrite(Map<String, Object> map) {
+		return boardDAO.commentWrite(map);
+	}
+	
+	//게시물 댓글 삭제
+	@Override
+	public int commentDelete(Map<String, Object> map) {
+		return boardDAO.commentDelete(map);
+	}
+	
 }

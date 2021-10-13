@@ -54,7 +54,10 @@ public class BoardController {
 		boardService.count(map.getMap());
 		
 		Map<String, Object> detail = boardService.detail(map.getMap());
+		List<Map<String, Object>> commentList = boardService.boardCommentList(map.getMap());
+		System.out.println("댓글 넘어오는 값은? = " + map.getMap());
 		mv.addObject("detail", detail);
+		mv.addObject("commentList", commentList);
 		return mv;
 	}
 	
@@ -151,4 +154,30 @@ public class BoardController {
 		mv.addObject("pageNo", pageNo);
 		mv.addObject("totalCount", totalCount);
 	}
+	
+	//게시물 댓글쓰기
+	@PostMapping("/commentWrite.do")
+	public String postCommentWrite(CommandMap map, HttpServletRequest request) {
+		
+		HttpSession session = request.getSession();
+		map.put("id", session.getAttribute("id"));
+		
+		int result = boardService.commentWrite(map.getMap());
+		System.out.println("commentWrite = " + result);
+		
+		return "redirect:boardDetail.do?no="+map.get("no");
+	}
+	
+	//게시물 댓글 삭제
+	@RequestMapping("/commentDelete.do")
+	public String commentDelete(CommandMap map, HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		map.put("id", session.getAttribute("id"));
+		int result = boardService.commentDelete(map.getMap());
+		System.out.println("delete = " + result);
+
+		return "redirect:boardDetail.do?no="+map.get("no");
+	}
+	
+	
 }

@@ -118,17 +118,55 @@ button {
 			<c:import url="/WEB-INF/views/component/lnbNav.jsp" />
 		</aside>
 		<main>
+			<!-- 게시글 상세보기 -->
 			<div id="detailBoard">
 				<b>번호 |</b> ${detail.no } <b>제목 |</b> ${detail.title } <b>작성자 |</b>
 				${detail.id }(${detail.name }) <b>등록일 |</b> ${detail.date }
 				<c:if test="${sessionScope.id ne null }">
-					<button onclick="boardDelete()">삭제하기</button>
-					<button onclick="boardUpdate()">수정하기</button>
+					<c:if test="${sessionScope.id eq detail.id }">
+						<button onclick="boardDelete()">삭제하기</button>
+						<button onclick="boardUpdate()">수정하기</button>
+					</c:if>
 				</c:if>
 				<hr>
 				${detail.content }
-			</div>
+			</div> 
 			<!-- end of detailBoard -->
+			
+			<hr>
+			
+			<!-- 댓글 불러오기 -->
+			<div id="commentBoard">
+				<c:forEach items="${commentList }" var="c">
+					<tr>
+						<td>${c.no }</td>
+						<td>${c.id }(${c.name })</td>
+						<td>${c.comment }</td>
+						<td>${c.date }</td>
+					</tr>
+					<br>
+				</c:forEach>
+			</div> 
+			<!-- end of commentBoard -->
+			
+			<!-- 댓글쓰기 -->
+			<c:choose>
+				<c:when test="${sessionScope.id ne null }">
+					<form action="commentWrite.do" method="post">
+						<textarea class="commentTitle" id="commentTitle" name="comment"
+							placeholder="댓글을 입력하세요."></textarea>
+						<input type="hidden" name="no" value="${detail.no}">
+						<br>
+						<button type="submit" class="commetWriteBtn">댓글쓰기</button>
+					</form>
+				</c:when>
+				<c:otherwise>
+					로그인 후 이용해주세요.
+				</c:otherwise>
+			</c:choose>
+			<!-- end of 댓글쓰기 -->
+			
+			<hr>
 			
 			<!-- 이전글, 다음글 -->
 			<c:if test="${detail.preTitle != null }">

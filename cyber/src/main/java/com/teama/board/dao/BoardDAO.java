@@ -44,5 +44,20 @@ public class BoardDAO extends AbstractDAO {
 	public int count(Map<String, Object> map) {
 		return update("board.count", map);
 	}
+	
+	//게시물 댓글 불러오기
+	public List<Map<String, Object>> boardCommentList(Map<String, Object> map) {
+		return (List<Map<String, Object>>) selectList("board.boardCommentList", map);
+	}
+	
+	//게시물 댓글쓰기
+	public int commentWrite(Map<String, Object> map) {
+		return insert("board.commentWrite", map);
+	}
+	
+	//게시물 댓글 삭제
+	public int commentDelete(Map<String, Object> map) {
+		return delete("board.commentDelete", map);
+	}
 
 }

@@ -25,4 +25,13 @@ public interface BoardService {
 	
 	//게시글 조회수
 	public int count(Map<String, Object> map);
+	
+	//게시물 댓글 불러오기
+	List<Map<String, Object>> boardCommentList(Map<String, Object> map);
+	
+	//게시물 댓글쓰기
+	public int commentWrite(Map<String, Object> map);
+	
+	//게시물 댓글 삭제
+	public int commentDelete(Map<String, Object> map);
 }
