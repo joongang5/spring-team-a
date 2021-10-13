@@ -66,7 +66,7 @@ public class BookStorageDAO extends AbstractDAO {
 	public int reserveToLoanByBookNo(int bookNo) {
 		return sqlSession.update("bookStorage.reserveToLoanByBookNo", bookNo);
 	}
-	
+
 	public List<BookStorageViewDTO> getUnregisteredViewList() {
 		return sqlSession.selectList("bookStorage.getUnregisteredBookList");
 	}

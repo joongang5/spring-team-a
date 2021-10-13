@@ -153,8 +153,6 @@ public class LoanServiceImpl implements LoanService {
 	
 	@Override
 	public String autoLoan() {
-		int result = 0;
-		
 		List<BookStorageDTO> needAutoLoanList = bookStorageDAO.getNeedAutoLoanList();
 		for (BookStorageDTO bookStorageDTO : needAutoLoanList) {
 			int tryCount = bookStorageDTO.getMax_count() - bookStorageDTO.getLoan_count();
@@ -168,7 +166,8 @@ public class LoanServiceImpl implements LoanService {
 				reservedLoanDTO.setState(LoanState.loan.getValue());
 				reservedLoanDTO.setLoan_date(Util.getStrCurrentTime());
 				reservedLoanDTO.setReturn_date(Util.getStrCurrentTime(5));
-
+				
+				int result = 0;
 				result = loanDAO.updateLoanByNo(reservedLoanDTO);
 				if (result <= 0)
 					return "자동 대출 처리에 실패했습니다.";
@@ -177,6 +176,26 @@ public class LoanServiceImpl implements LoanService {
 				if (result <= 0)
 					return "자동 대출 처리에 실패했습니다.";
 			}	
+		}
+		
+		return "";
+	}
+
+	@Override
+	public String autoReturn() {
+		List<LoanDTO> needAutoReturnList = loanDAO.getNeedAutoReturnList();
+		for (LoanDTO loanDTO : needAutoReturnList) {
+			loanDTO.setState(LoanState.returned.getValue());
+			loanDTO.setReturn_date(Util.getStrCurrentTime());
+			
+			int result = 0;
+			result = loanDAO.updateLoanByNo(loanDTO);
+			if (result <= 0)
+				return "자동 반납 처리에 실패했습니다.";
+			
+			result = bookStorageDAO.decreaseReserveCountByBookNo(loanDTO.getBook_no());
+			if (result <= 0)
+				return "자동 반납 처리에 실패했습니다.";
 		}
 		
 		return "";

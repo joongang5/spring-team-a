@@ -177,4 +177,13 @@ public class AdminBookStorageController {
 		
 		return errorMessage;
 	}
+	
+
+	@PostMapping(value="autoReturn.do", produces="text/plain;charset=utf-8")
+	@ResponseBody
+	public String autoReturn(CommandMap commandMap) {
+		String errorMessage = loanService.autoReturn(); 
+		
+		return errorMessage;
+	}
 }

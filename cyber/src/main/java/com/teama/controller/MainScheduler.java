@@ -17,6 +17,7 @@ public class MainScheduler {
 	public void autoLoan() {
 //		System.out.println("scheduled-autoLoan");
 		
+		//loanService.autoReturn();
 		//loanService.autoLoan();
 	}
 }

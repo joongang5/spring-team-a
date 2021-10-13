@@ -96,5 +96,9 @@ public class LoanDAO extends AbstractDAO {
 		
 		return sqlSession.selectList("loan.getLoanByBookNo", map);
 	}
-	
+
+
+	public List<LoanDTO> getNeedAutoReturnList() {
+		return sqlSession.selectList("loan.getNeedAutoReturnList");
+	}
 }

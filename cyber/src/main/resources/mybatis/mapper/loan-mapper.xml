@@ -58,4 +58,8 @@
 	<select id="getReserveByBookNo" resultType="loanDTO" parameterType="int">
 		SELECT * FROM book_loan WHERE book_no=#{bookNo} AND state=1
 	</select>
+	
+	<select id="getNeedAutoReturnList" resultType="loanDTO">
+		SELECT * FROM book_loan WHERE state=0 AND return_date <![CDATA[<=]]> NOW()
+	</select>
 </mapper>
