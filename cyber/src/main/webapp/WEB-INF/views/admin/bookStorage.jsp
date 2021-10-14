@@ -19,62 +19,66 @@
 			<c:import url="/WEB-INF/views/admin/component/headerInner.jsp" />
 		</header>
 		<main>
-			<h3>도서 재고 관리</h3>
-			<table>
-				<tr>
-					<th>book_no</th>
-					<td>
-						<input type="text" name="bookNo" value="${bookNo }">
-					</td>
-					<td>
-						<input type="button" id="searchBtn" value="검색" onclick="onclickSearchBtn()">
-					</td>
-				</tr>
-			</table>
-			<input type="button" value="미등록 데이터 검색" onclick="onclickSearchUnregisteredBtn()">
-			<input type="button" value="자동 대출 실행" onclick="onclickAutoLoanBtn()">
-			<input type="button" value="자동 반납 실행" onclick="onclickAutoReturnBtn()">
-			<hr>	
-		
-			<h3>검색 결과</h3>
-			<table>
-				<thead>
-					<tr>
-						<th>책번호</th>
-						<th>표제</th>
-						<th>저자</th>
-						<th>ISBN</th>
-						<th>보유</th>
-						<th>대출</th>
-						<th>예약</th>
-						<th></th>
-					</tr>
-				</thead>
-				<tbody id="tbody">
-					<c:forEach items="${bookStorageViewDTOList }" var="l">
-					<tr>
-						<td>${l.book_no}</td>
-						<td>${l.title}</td>
-						<td>${l.author}</td>
-						<td>${l.isbn}</td>
-						<td>
-							<input type="text" id="maxCount${l.book_no }" value="${l.max_count }">
-						</td>
-						<td>
-							<input type="text" id="loanCount${l.book_no }" value="${l.loan_count }">
-						</td>
-						<td>
-							<input type="text" id="reserveCount${l.book_no }" value="${l.reserve_count }">
-						</td>
-						<td>
-							<input type="button" value="수정" onclick="onclickUpdateBtn(${l.book_no })">
-						</td>
-					</tr>
-					</c:forEach>
-				</tbody>
-			</table>
-			<div id="pagination">
-				<ui:pagination paginationInfo="${paginationInfo }" type="text" jsFunction="linkPageAJAX"/>
+			<div class="container">
+				<div class="row">
+					<h3>도서 재고 관리</h3>
+					<table>
+						<tr>
+							<th>book_no</th>
+							<td>
+								<input type="text" name="bookNo" value="${bookNo }">
+							</td>
+							<td>
+								<input type="button" id="searchBtn" value="검색" onclick="onclickSearchBtn()">
+							</td>
+						</tr>
+					</table>
+					<input type="button" value="미등록 데이터 검색" onclick="onclickSearchUnregisteredBtn()">
+					<input type="button" value="자동 대출 실행" onclick="onclickAutoLoanBtn()">
+					<input type="button" value="자동 반납 실행" onclick="onclickAutoReturnBtn()">
+					<hr>	
+				
+					<h3>검색 결과</h3>
+					<table>
+						<thead>
+							<tr>
+								<th>책번호</th>
+								<th>표제</th>
+								<th>저자</th>
+								<th>ISBN</th>
+								<th>보유</th>
+								<th>대출</th>
+								<th>예약</th>
+								<th></th>
+							</tr>
+						</thead>
+						<tbody id="tbody">
+							<c:forEach items="${bookStorageViewDTOList }" var="l">
+							<tr>
+								<td>${l.book_no}</td>
+								<td>${l.title}</td>
+								<td>${l.author}</td>
+								<td>${l.isbn}</td>
+								<td>
+									<input type="text" id="maxCount${l.book_no }" value="${l.max_count }">
+								</td>
+								<td>
+									<input type="text" id="loanCount${l.book_no }" value="${l.loan_count }">
+								</td>
+								<td>
+									<input type="text" id="reserveCount${l.book_no }" value="${l.reserve_count }">
+								</td>
+								<td>
+									<input type="button" value="수정" onclick="onclickUpdateBtn(${l.book_no })">
+								</td>
+							</tr>
+							</c:forEach>
+						</tbody>
+					</table>
+					<div id="pagination">
+						<ui:pagination paginationInfo="${paginationInfo }" type="text" jsFunction="linkPageAJAX"/>
+					</div>
+				</div>
 			</div>
 		</main>
 	</div>

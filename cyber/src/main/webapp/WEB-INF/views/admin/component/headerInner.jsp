@@ -24,29 +24,16 @@
 						<h3>
 							<a href="/cyber/admin/ebook/home.do">신규 도서 검색/등록</a>
 						</h3>
-						<ol>
-							<li><a href="#">검색</a></li>
-							<li><a href="#">등록</a></li>
-						</ol>
 					</div>
 					<div>
 						<h3>
 							<a href="/cyber/admin/storage/home.do">도서 재고 관리</a>
 						</h3>
-						<ol>
-							<li><a href="#">검색</a></li>
-							<li><a href="#">등록</a></li>
-						</ol>
 					</div>
 					<div class="last">
 						<h3>
 							<a href="/cyber/admin/member/home.do">회원 관리</a>
 						</h3>
-						<ol>
-							<li><a href="#">검색</a></li>
-							<li><a href="#">등록</a></li>
-							<li><a href="#">대출/반납/예약</a></li>
-						</ol>
 					</div>
 				</div>
 			</div>
