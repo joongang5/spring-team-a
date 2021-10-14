@@ -39,18 +39,7 @@ function rewriteTbody(data) {
 }
 
 function onclickSearchUnregisteredBtn() {
-	$.ajax({
-		url : "unregisteredBookAJAX.do",
-		type : "POST",
-		dataType : "json",
-		success : function(data) {
-			rewriteTbody(data);
-			rewritePagination(data);
-		},
-		error : function(request, status, error) {
-			alert("error : " + error);
-		}
-	});
+	location.href = "unregisteredBook.do";
 }
 
 function onclickUpdateBtn(bookNo) {
@@ -110,7 +99,7 @@ function rewritePagination(data) {
 
 function onclickAutoLoanBtn() {
 	$.ajax({
-		url : "/cyber/admin/storage/autoLoan.do",
+		url : "autoLoan.do",
 		type : "POST",
 		dataType : "html",
 		success : function(errorMessage) {
@@ -119,6 +108,7 @@ function onclickAutoLoanBtn() {
 				return;
 			}
 			alert("자동 대출에 성공했습니다.");
+			location.href = "home.do";
 		},
 		error : function(request, status, error) {
 			alert("error : " + error);
@@ -128,7 +118,7 @@ function onclickAutoLoanBtn() {
 
 function onclickAutoReturnBtn() {
 	$.ajax({
-		url : "/cyber/admin/storage/autoReturn.do",
+		url : "autoReturn.do",
 		type : "POST",
 		dataType : "html",
 		success : function(errorMessage) {
@@ -137,6 +127,7 @@ function onclickAutoReturnBtn() {
 				return;
 			}
 			alert("자동 반납에 성공했습니다.");
+			location.href = "home.do";
 		},
 		error : function(request, status, error) {
 			alert("error : " + error);

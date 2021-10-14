@@ -5,6 +5,8 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
+import egovframework.rte.ptl.mvc.tags.ui.pagination.PaginationInfo;
+
 public class Util {
 
 	public static int parseInt(Object obj) {
@@ -52,5 +54,15 @@ public class Util {
 		}
 		
 		return result;	
+	}
+	
+	public static PaginationInfo newPaginationInfo(int currentPageNo, int totalRecordCount) {
+		PaginationInfo paginationInfo = new PaginationInfo();
+		paginationInfo.setCurrentPageNo(currentPageNo);
+		paginationInfo.setRecordCountPerPage(10);
+		paginationInfo.setPageSize(10);
+		paginationInfo.setTotalRecordCount(totalRecordCount);
+		
+		return paginationInfo;
 	}
 }

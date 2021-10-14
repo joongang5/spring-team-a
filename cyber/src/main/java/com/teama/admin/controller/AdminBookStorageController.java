@@ -7,6 +7,7 @@ import javax.annotation.Resource;
 
 import org.json.simple.JSONObject;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -18,6 +19,7 @@ import com.teama.storage.dto.BookStorageDTO;
 import com.teama.storage.dto.BookStorageViewDTO;
 import com.teama.storage.service.BookStorageService;
 import com.teama.util.PaginationTagServlet;
+import com.teama.util.Util;
 
 import egovframework.rte.ptl.mvc.tags.ui.pagination.PaginationInfo;
 
@@ -37,11 +39,7 @@ public class AdminBookStorageController {
 		int currentPageNo = commandMap.getIntValue("pageNo", 1);
 		int totalRecordCount = bookStorageService.getTotalCount();
 		
-		PaginationInfo paginationInfo = new PaginationInfo();
-		paginationInfo.setCurrentPageNo(currentPageNo);
-		paginationInfo.setRecordCountPerPage(10);
-		paginationInfo.setPageSize(10);
-		paginationInfo.setTotalRecordCount(totalRecordCount);
+		PaginationInfo paginationInfo = Util.newPaginationInfo(currentPageNo, totalRecordCount);
 		
 		int firstRecordIndex = paginationInfo.getFirstRecordIndex();
 		int recordCountPerPage = paginationInfo.getRecordCountPerPage();
@@ -59,12 +57,8 @@ public class AdminBookStorageController {
 	public String homeAJAX(CommandMap commandMap) {
 		int currentPageNo = commandMap.getIntValue("pageNo", 1);
 		int totalRecordCount = bookStorageService.getTotalCount();
-		
-		PaginationInfo paginationInfo = new PaginationInfo();
-		paginationInfo.setCurrentPageNo(currentPageNo);
-		paginationInfo.setRecordCountPerPage(10);
-		paginationInfo.setPageSize(10);
-		paginationInfo.setTotalRecordCount(totalRecordCount);
+
+		PaginationInfo paginationInfo = Util.newPaginationInfo(currentPageNo, totalRecordCount);
 		
 		int firstRecordIndex = paginationInfo.getFirstRecordIndex();
 		int recordCountPerPage = paginationInfo.getRecordCountPerPage();
@@ -88,12 +82,28 @@ public class AdminBookStorageController {
 	public ModelAndView getBook(CommandMap commandMap) {
 		ModelAndView mv = new ModelAndView("admin/bookStorage");
 
-		int bookNo = commandMap.getIntValue("bookNo");
+		String searchType = commandMap.getStrValue("searchType");
+		String searchValue = commandMap.getStrValue("searchValue");
 		
-		BookStorageViewDTO bookStorageViewDTO = bookStorageService.getView(bookNo);
-		List<BookStorageViewDTO> bookStorageViewDTOList = List.of(bookStorageViewDTO);
+		if (searchType.equals("title")) {
+
+			PaginationInfo paginationInfo = Util.newPaginationInfo(1, 1);
+			
+			mv.addObject("paginationInfo", paginationInfo);
+		} else if (searchType.equals("book_no")) {
+			int bookNo = Integer.parseInt(searchValue);
+			
+			BookStorageViewDTO bookStorageViewDTO = bookStorageService.getView(bookNo);
+			List<BookStorageViewDTO> bookStorageViewDTOList = List.of(bookStorageViewDTO);
+			
+			PaginationInfo paginationInfo = Util.newPaginationInfo(1, 1);
+			
+			mv.addObject("bookStorageViewDTOList", bookStorageViewDTOList);
+			mv.addObject("paginationInfo", paginationInfo);
+		}
 		
-		mv.addObject("bookStorageViewDTOList", bookStorageViewDTOList);
+		mv.addObject("searchType", searchType);
+		mv.addObject("searchValue", searchValue);
 		
 		return mv;
 	}
@@ -113,12 +123,21 @@ public class AdminBookStorageController {
 		return jsonObj.toString();
 	}
 	
-	@PostMapping("unregisteredBook.do")
+	@GetMapping("unregisteredBook.do")
 	public ModelAndView unregisteredBook() {
 		ModelAndView mv = new ModelAndView("admin/bookStorage");
+
+		int currentPageNo = 1;
+		int totalRecordCount = bookStorageService.getTotalUnregisteredCount();
 		
-		List<BookStorageViewDTO> bookStorageViewDTOList = bookStorageService.getUnregisteredViewList();
+		PaginationInfo paginationInfo = Util.newPaginationInfo(currentPageNo, totalRecordCount);
+
+		int firstRecordIndex = paginationInfo.getFirstRecordIndex();
+		int recordCountPerPage = paginationInfo.getRecordCountPerPage();
+		
+		List<Map<String, Object>> bookStorageViewDTOList = bookStorageService.getUnregisteredViewMapList(firstRecordIndex, recordCountPerPage);
 		mv.addObject("bookStorageViewDTOList", bookStorageViewDTOList);
+		mv.addObject("paginationInfo", paginationInfo);
 		
 		return mv;
 	}
@@ -129,12 +148,8 @@ public class AdminBookStorageController {
 	public String unregisteredBookAJAX(CommandMap commandMap) {
 		int currentPageNo = commandMap.getIntValue("pageNo", 1);
 		int totalRecordCount = bookStorageService.getTotalUnregisteredCount();
-		
-		PaginationInfo paginationInfo = new PaginationInfo();
-		paginationInfo.setCurrentPageNo(currentPageNo);
-		paginationInfo.setRecordCountPerPage(10);
-		paginationInfo.setPageSize(10);
-		paginationInfo.setTotalRecordCount(totalRecordCount);
+
+		PaginationInfo paginationInfo = Util.newPaginationInfo(currentPageNo, totalRecordCount);
 		
 		int firstRecordIndex = paginationInfo.getFirstRecordIndex();
 		int recordCountPerPage = paginationInfo.getRecordCountPerPage();
