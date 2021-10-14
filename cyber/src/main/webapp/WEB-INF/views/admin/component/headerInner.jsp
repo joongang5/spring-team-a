@@ -9,11 +9,8 @@
 		<div class="container">
 			<div class="row">
 				<div class="siteMenu">
-					<a href="/cyber/index.do">홈으로(index)</a>
+					<a href="/cyber/index.do">도서관 홈</a>
 					<a href="/cyber/admin/home.do">관리자 홈</a>
-					<a href="/cyber/admin/ebook/home.do">신규 도서 검색/등록</a>
-					<a href="/cyber/admin/storage/home.do">도서 재고 관리</a>
-					<a href="/cyber/admin/member/home.do">회원 관리</a>
 				</div>
 			</div>
 		</div>
@@ -24,21 +21,27 @@
 				<div class="nav">
 					<h2 class="ir_su">반응형 사이트 전체 메뉴</h2>
 					<div>
-						<h3>신규 도서 검색/등록</h3>
+						<h3>
+							<a href="/cyber/admin/ebook/home.do">신규 도서 검색/등록</a>
+						</h3>
 						<ol>
 							<li><a href="#">검색</a></li>
 							<li><a href="#">등록</a></li>
 						</ol>
 					</div>
 					<div>
-						<h3>도서 재고 관리</h3>
+						<h3>
+							<a href="/cyber/admin/storage/home.do">도서 재고 관리</a>
+						</h3>
 						<ol>
 							<li><a href="#">검색</a></li>
 							<li><a href="#">등록</a></li>
 						</ol>
 					</div>
 					<div class="last">
-						<h3>회원 관리</h3>
+						<h3>
+							<a href="/cyber/admin/member/home.do">회원 관리</a>
+						</h3>
 						<ol>
 							<li><a href="#">검색</a></li>
 							<li><a href="#">등록</a></li>

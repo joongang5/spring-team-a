@@ -10,15 +10,16 @@
 	margin: 0 auto;
 }
 
-#siteMenu .siteMenu {
-	text-align: center;
-}
-
 #siteMenu .siteMenu a {
 	color: #fff;
 	padding: 8px 0 6px 10px;
 	display: inline-block;
 	transition: color 0.3s ease;
+}
+
+#siteMenu .siteMenu a:first-child {
+	font-size: 22px;
+	font-weight: bold;
 }
 
 #siteMenu .siteMenu a:hover {
@@ -58,7 +59,7 @@
 	top: 6px;
 }
 
-.nav > div h3 {
+.nav > div h3 a {
 	font-size: 18px;
 	color: #25a2d0;
 	font-weight: bold;
