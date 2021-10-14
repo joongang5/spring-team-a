@@ -5,10 +5,10 @@
 <link rel="stylesheet" href="<c:url value="/resources/css/admin/component/headerInner.css"/>">
 
 <div id="headerInner">
-	<div class="container">
-		<div class="row">
-			<div class="header">
-				<div class="headerMenu">
+	<div id="siteMenu">
+		<div class="container">
+			<div class="row">
+				<div class="siteMenu">
 					<a href="/cyber/index.do">홈으로(index)</a>
 					<a href="/cyber/admin/home.do">관리자 홈</a>
 					<a href="/cyber/admin/ebook/home.do">신규 도서 검색/등록</a>
@@ -18,4 +18,35 @@
 			</div>
 		</div>
 	</div>
+	<nav id="nav">
+		<div class="container">
+			<div class="row">
+				<div class="nav">
+					<h2 class="ir_su">반응형 사이트 전체 메뉴</h2>
+					<div>
+						<h3>신규 도서 검색/등록</h3>
+						<ol>
+							<li><a href="#">검색</a></li>
+							<li><a href="#">등록</a></li>
+						</ol>
+					</div>
+					<div>
+						<h3>도서 재고 관리</h3>
+						<ol>
+							<li><a href="#">검색</a></li>
+							<li><a href="#">등록</a></li>
+						</ol>
+					</div>
+					<div class="last">
+						<h3>회원 관리</h3>
+						<ol>
+							<li><a href="#">검색</a></li>
+							<li><a href="#">등록</a></li>
+							<li><a href="#">대출/반납/예약</a></li>
+						</ol>
+					</div>
+				</div>
+			</div>
+		</div>
+	</nav>
 </div>

@@ -23,3 +23,29 @@ body, input, textarea, select, button, table {
 	font-size: 13px;
 	line-height: 1.5;
 }
+
+/* 폰트 스타일 초기화 */
+em, address {
+	font-style: normal;
+}
+
+/* 블릿기호 초기화 */
+ul, li, ol {
+	list-style: none;
+}
+
+/* 제목 태그 초기화 */
+h1, h2, h3, h4, h5, h6 {
+	font-size: 13px;
+	font-weight: normal;
+}
+
+/* 대체 텍스트가 아닌 접근성을 위한 숨김 텍스트를 제공할 때 */
+.ir_su {
+	overflow: hidden;
+	position: absolute;
+	width: 0;
+	height: 0;
+	line-height: 0;
+	text-indent: -9999px;
+}
