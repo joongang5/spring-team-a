@@ -12,6 +12,7 @@ import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -158,6 +159,11 @@ public class ListEbookController {
 		}
 		mv.addObject("ebookDetail", EbookDetail);
 		return mv;
+	}
+	@PostMapping("/ebookRating")
+	public String ebookRating(CommandMap mpa) {
+		System.out.println(mpa.get("rating"));
+		return null;
 	}
 
 }
