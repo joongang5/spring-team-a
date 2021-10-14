@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>게시판 수정하기</title>
+<title>소통마당 수정하기</title>
 <style type="text/css">
 #detailBoard {
 	width: 600px;

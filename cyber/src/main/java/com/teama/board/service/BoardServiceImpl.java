@@ -66,10 +66,16 @@ public class BoardServiceImpl implements BoardService {
 		return boardDAO.commentWrite(map);
 	}
 	
-	//게시물 댓글 삭제
+	//게시물 댓글삭제
 	@Override
 	public int commentDelete(Map<String, Object> map) {
 		return boardDAO.commentDelete(map);
+	}
+	
+	//게시물 댓글수정
+	@Override
+	public int commentUpdate(Map<String, Object> map) {
+		return boardDAO.commentUpdate(map);
 	}
 	
 }

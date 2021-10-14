@@ -32,6 +32,9 @@ public interface BoardService {
 	//게시물 댓글쓰기
 	public int commentWrite(Map<String, Object> map);
 	
-	//게시물 댓글 삭제
+	//게시물 댓글삭제
 	public int commentDelete(Map<String, Object> map);
+	
+	//게시물 댓글수정
+	public int commentUpdate(Map<String, Object> map);
 }

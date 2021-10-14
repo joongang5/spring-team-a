@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>게시판 글쓰기</title>
+<title>소통마당 글쓰기</title>
 <style type="text/css">
 #detailBoard {
 	width: 600px;

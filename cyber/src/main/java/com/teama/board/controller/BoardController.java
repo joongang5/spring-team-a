@@ -31,15 +31,13 @@ public class BoardController {
 	public ModelAndView boardList(CommandMap map) {
 		ModelAndView mv = new ModelAndView("board/listBoard");
 		
-		//검색 출력해보기
-		System.out.println(map.getMap()); //search값이 오는지 확인하려고
-		
 		//검색값을 jsp로 넘기기
 		if(map.containsKey("searchKeyword")) {
 			mv.addObject("searchKeyword", map.get("searchKeyword"));
 			mv.addObject("searchCondition", map.get("searchCondition"));
 		}
 		
+		//페이징 불러오기
 		setPagination(map, mv);
 		
 		return mv;
@@ -55,7 +53,6 @@ public class BoardController {
 		
 		Map<String, Object> detail = boardService.detail(map.getMap());
 		List<Map<String, Object>> commentList = boardService.boardCommentList(map.getMap());
-		System.out.println("댓글 넘어오는 값은? = " + map.getMap());
 		mv.addObject("detail", detail);
 		mv.addObject("commentList", commentList);
 		return mv;
@@ -168,14 +165,25 @@ public class BoardController {
 		return "redirect:boardDetail.do?no="+map.get("no");
 	}
 	
-	//게시물 댓글 삭제
+	//게시물 댓글삭제
 	@RequestMapping("/commentDelete.do")
 	public String commentDelete(CommandMap map, HttpServletRequest request) {
 		HttpSession session = request.getSession();
 		map.put("id", session.getAttribute("id"));
 		int result = boardService.commentDelete(map.getMap());
-		System.out.println("delete = " + result);
+		System.out.println("commentDelete = " + result);
 
+		return "redirect:boardDetail.do?no="+map.get("no");
+	}
+	
+	//게시물 댓글수정
+	@PostMapping("/commentUpdate.do")
+	public String postCommentUpdate(CommandMap map, HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		map.put("id", session.getAttribute("id"));
+		int result = boardService.commentUpdate(map.getMap());
+		System.out.println("commentUpdate = " + result);
+		
 		return "redirect:boardDetail.do?no="+map.get("no");
 	}
 	
