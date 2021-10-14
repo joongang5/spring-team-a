@@ -7,13 +7,12 @@
 <meta charset="UTF-8">
 <title>소통마당 수정하기</title>
 <style type="text/css">
-#detailBoard {
-	width: 600px;
-	height: 300px;
-}
+@import
+	url('https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap')
+	;
 
 html {
-	font-family: 'NanumSquare', serif;
+	font-family: 'Nanum Gothic', sans-serif;
 	color: #black;
 }
 
@@ -58,11 +57,16 @@ button {
 	width: 100px;
 	height: 35px;
 	text-align: center;
-	font-family: 'NanumSquare', serif;
+	font-family: 'Nanum Gothic', sans-serif;
 	background-color: white;
 	border-color: #e3f0ff;
 	border-radius: 10px;
 	margin-bottom: 10px;
+}
+
+#detailBoard {
+	width: 600px;
+	height: 300px;
 }
 </style>
 <script type="text/javascript">

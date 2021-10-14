@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<link rel="stylesheet"
+	href="<c:url value="/resources/css/headerInner.css"/>">
 <style type="text/css">
 #headerInner {
 	height: 100%;
@@ -22,7 +24,7 @@ li {
 
 #gnbNav li a {
 	display: block;
-	width: 240px;
+	width: 246px;
 	height: 40px;
 	background: #c9f3c6;
 	color: #black;
@@ -91,6 +93,10 @@ li {
 a {
 	color: black;
 }
+
+img {
+	vertical-align: middle;
+}
 </style>
 <div id="headerInner">
 	<div id="siteMenu">
@@ -110,8 +116,9 @@ a {
 	</div>
 	<div>
 		<h1 id="logo">
-			<img alt="임시로고" src="./resources/img/book.png"> <a
-				href="/cyber/index.do">사이버 도서관</a>
+			<img alt="임시로고" src="./resources/img/book.png"
+				onerror="this.src='../resources/img/book.png'"> <a
+				href="/cyber/index.do">&nbsp;사이버 도서관</a>
 		</h1>
 	</div>
 </div>

@@ -10,9 +10,13 @@
 <meta charset="UTF-8">
 <title>일반전자책</title>
 <style>
+@import
+	url('https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap')
+	;
+
 html {
-	font-family: 'NanumSquare', serif;
-	color: #003857;
+	font-family: 'Nanum Gothic', sans-serif;
+	color: #black;
 }
 
 body {
@@ -212,19 +216,20 @@ td img {
 					<hr>
 					목차<br> ${detail.detail2 }
 				</div>
-				<form name="myform" id="myform" method="post" action="./ebookRating.do">
+				<form name="myform" id="myform" method="post"
+					action="./ebookRating.do">
 					<fieldset>
 						<legend>별점</legend>
-					<div>
-						<input type="radio" name="rating" value="5" id="rate1"><label
-							for="rate1">★</label> <input type="radio" name="rating" value="4"
-							id="rate2"><label for="rate2">★</label> <input
-							type="radio" name="rating" value="3" id="rate3"><label
-							for="rate3">★</label> <input type="radio" name="rating" value="2"
-							id="rate4"><label for="rate4">★</label> <input
-							type="radio" name="rating" value="1" id="rate5"><label
-							for="rate5">★</label>
-					</div>
+						<div>
+							<input type="radio" name="rating" value="5" id="rate1"><label
+								for="rate1">★</label> <input type="radio" name="rating"
+								value="4" id="rate2"><label for="rate2">★</label> <input
+								type="radio" name="rating" value="3" id="rate3"><label
+								for="rate3">★</label> <input type="radio" name="rating"
+								value="2" id="rate4"><label for="rate4">★</label> <input
+								type="radio" name="rating" value="1" id="rate5"><label
+								for="rate5">★</label>
+						</div>
 					</fieldset>
 					<button type="submit">제출</button>
 				</form>

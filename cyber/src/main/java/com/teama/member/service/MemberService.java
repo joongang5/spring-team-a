@@ -11,10 +11,14 @@ import com.teama.member.dto.MemberDTO;
 public interface MemberService {
 
 	public void join(Map<String, Object> map);
-	
+
 	public String isUsableId(String id);
-	
+
 	public String isUsableEmail(String email);
+
+	public String findId(String email);
+
+	public String findPw(String id);
 
 	public MemberDTO getMemberByNo(int memberNo);
 

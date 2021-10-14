@@ -12,8 +12,12 @@
 	height: 300px;
 }
 
+@import
+	url('https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap')
+	;
+
 html {
-	font-family: 'NanumSquare', serif;
+	font-family: 'Nanum Gothic', sans-serif;
 	color: #black;
 }
 
@@ -58,7 +62,7 @@ button {
 	width: 100px;
 	height: 35px;
 	text-align: center;
-	font-family: 'NanumSquare', serif;
+	font-family: 'Nanum Gothic', sans-serif;
 	background-color: white;
 	border-color: #e3f0ff;
 	border-radius: 10px;

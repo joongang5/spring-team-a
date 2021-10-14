@@ -4,12 +4,13 @@
 #lnbNav {
 	text-decoration: none;
 	background-color: #e3f0ff;
+	width: 200px;
 }
 
 #lnb {
 	list-style: none;
-	margin: 0;
-	padding: 0;
+	margin: 0 auto;
+	padding: 0 auto;
 	background: #e3f0ff;
 	text-decoration: none;
 }

@@ -19,8 +19,12 @@ function linkPage(pageNo) {
 }
 </script>
 <style>
+@import
+	url('https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap')
+	;
+
 html {
-	font-family: 'NanumSquare', serif;
+	font-family: 'Nanum Gothic', sans-serif;
 	color: #black;
 }
 
@@ -52,6 +56,9 @@ main {
 	width: 760px;
 	height: 600px;
 	background: #white;
+	position: relative;
+	left: 10px;
+	top: 10px;
 }
 
 footer {
@@ -106,11 +113,13 @@ a {
 	width: 100px;
 	height: 35px;
 	text-align: center;
-	font-family: 'NanumSquare', serif;
+	font-family: 'Nanum Gothic', sans-serif;
 	background-color: white;
 	border-color: #e3f0ff;
 	border-radius: 10px;
-	margin-bottom: 10px;
+	position: relative;
+	left: 280px;
+	top: 10px;
 }
 </style>
 <script
@@ -173,15 +182,16 @@ a {
 						</c:forEach>
 					</tbody>
 				</table>
-			</div> <!-- end of noticeBoard -->
-			
-			<!-- 글쓰기 버튼 관리자(9등급)만 보이게 -->
-			<c:if test="${sessionScope.grade eq 9 }">
-				<a href="./noticeWrite.do"><button id="writebutton">글쓰기</button></a>
-			</c:if>
-			
+
+				<!-- 글쓰기 버튼 관리자(9등급)만 보이게 -->
+				<c:if test="${sessionScope.grade eq 9 }">
+					<a href="./noticeWrite.do"><button id="writebutton">글쓰기</button></a>
+				</c:if>
+			</div>
+			<!-- end of noticeBoard -->
+
 			<!-- 페이징-->
-			<div id="pagination">
+			<div id="pagination" style="position: relative; left: 35px;">
 				<ui:pagination paginationInfo="${paginationInfo }" type="text"
 					jsFunction="linkPage" />
 			</div>
