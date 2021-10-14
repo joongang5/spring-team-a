@@ -174,7 +174,7 @@ button {
 									<td>${l.loan_date }</td>
 									<td>${l.return_date }</td>
 									<td>
-									<button class="lobtn">보기</button><br>
+									<button class="lobtn" onclick="location.href='/cyber/ebook/ebookDetail.do?isbn=${l.isbn}'">보기</button><br>
 									<c:if test="${l.state == 0 }">
 										<button class="rebtn" onclick="retfunction(${l.book_no})">반납하기</button><br>
 									</c:if>

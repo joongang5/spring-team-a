@@ -68,4 +68,12 @@
 		SELECT count(*) as totalCount FROM book_loan_view WHERE member_no=#{memberNo}
 	</select>
 	
+	<select id="ltotalCount" parameterType="HashMap" resultType="HashMap">
+		SELECT count(*) as ltotalCount FROM book_loan_view WHERE member_no=#{memberNo} AND state=0
+	</select>
+	
+	<select id="reserveCount" parameterType="HashMap" resultType="HashMap">
+		SELECT count(*) as reserveCount FROM book_loan_view WHERE member_no=#{memberNo} AND state=1
+	</select>
+	
 </mapper>

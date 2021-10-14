@@ -32,9 +32,23 @@ public class MyPageController {
 	private EbookService ebookService;
 	
 	@GetMapping("myPage.do")
-	private ModelAndView myPage(HttpServletRequest request) {
+	private ModelAndView myPage(HttpServletRequest request, CommandMap map) {
 		ModelAndView mv = new ModelAndView("member/myPage");
 		
+		HttpSession session = request.getSession();
+		Object memberNoObj = session.getAttribute("memberNo");
+		if (memberNoObj != null) {
+			int memberNo = Util.parseInt(memberNoObj);
+			map.put("memberNo", memberNo);
+			int ltotalCount = loanService.ltotalCount(map.getMap());
+			int reserveCount = loanService.reserveCount(map.getMap());
+			
+			List<LoanViewDTO> loanViewList = loanService.getViewListByMemberNo(map.getMap());
+			
+			mv.addObject("loanViewList", loanViewList);
+			mv.addObject("ltotalCount", ltotalCount);
+			mv.addObject("reserveCount", reserveCount);
+		}
 		return mv;
 	}
 	
@@ -43,6 +57,7 @@ public class MyPageController {
 		ModelAndView mv = new ModelAndView("ebook/ebookLoanList");
 		
 		int pageNo = 1;
+		
 		if (map.containsKey("pageNo")) {
 			pageNo= Integer.parseInt(String.valueOf(map.get("pageNo")));
 		}

@@ -71,18 +71,7 @@ footer {
 
 .ebBox {
 	float: left;
-	width: 30%;
-	height: 200px;
-	box-sizing: border-box;
-	border: 1px solid #e1e1e1;
-	background-color: #FFFFFF;
-	text-align: center;
-}
-
-.wbBox {
-	float: left;
-	margin-left: 5%;
-	width: 30%;
+	width: 45%;
 	height: 200px;
 	box-sizing: border-box;
 	border: 1px solid #e1e1e1;
@@ -92,7 +81,7 @@ footer {
 
 .qtBox {
 	float: right;
-	width: 30%;
+	width: 45%;
 	height: 200px;
 	box-sizing: border-box;
 	border: 1px solid #e1e1e1;
@@ -118,21 +107,13 @@ footer {
 						<h2>나의 서비스 이용현황</h2>
 						<b>${sessionScope.name }</b>님은 <b>전자책</b> 서비스를 이용하실 수 있습니다.
 					</div>
-				
 					<div class="ewqBox">
 						<div class="ebBox">
 							<a href="ebookLoanList.do" style="text-decoration: none; color: black;">
 							<img src="../resources/img/monitor.png"><br>
 								전자책 대출현황<br>
-								대출권수 권<br>
-								예약권수 권
-							</a>
-						</div>
-						<div class="wbBox">
-							<a href="" style="text-decoration: none; color: black;">
-							<img src="../resources/img/book2.png"><br>
-								희망전자책 신청현황<br>
-								신청권수 권
+								대출권수 ${ltotalCount }권<br>
+								예약권수 ${reserveCount }권
 							</a>
 						</div>
 						<div class="qtBox">
@@ -143,7 +124,6 @@ footer {
 							</a>
 						</div>
 					</div>
-					
 				</c:when>
 				<c:otherwise>
 					<h2>

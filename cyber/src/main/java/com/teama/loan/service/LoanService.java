@@ -20,4 +20,6 @@ public interface LoanService {
 	public String autoLoan();
 	public String autoReturn();
 	public int totalCount(Map<String, Object> map);
+	public int ltotalCount(Map<String, Object> map);
+	public int reserveCount(Map<String, Object> map);
 }

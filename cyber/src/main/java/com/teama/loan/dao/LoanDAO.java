@@ -112,5 +112,13 @@ public class LoanDAO extends AbstractDAO {
 	public int totalCount(Map<String, Object> map) {
 		return Integer.parseInt(String.valueOf (selectOne("loan.totalCount", map).get("totalCount")));
 	}
+	
+	public int ltotalCount(Map<String, Object> map) {
+		return Integer.parseInt(String.valueOf (selectOne("loan.ltotalCount", map).get("ltotalCount")));
+	}
+
+	public int reserveCount(Map<String, Object> map) {
+		return Integer.parseInt(String.valueOf (selectOne("loan.reserveCount", map).get("reserveCount")));
+	}
 
 }

@@ -7,6 +7,7 @@ public class LoanViewDTO {
 	private String author;
 	private String publisher;
 	private String title_url;
+	private String isbn;
 	private int state;
 	private String loan_date;
 	private String reserve_date;
@@ -52,6 +53,14 @@ public class LoanViewDTO {
 
 	public void setTitle_url(String title_url) {
 		this.title_url = title_url;
+	}
+
+	public String getIsbn() {
+		return isbn;
+	}
+
+	public void setIsbn(String isbn) {
+		this.isbn = isbn;
 	}
 
 	public int getState() {

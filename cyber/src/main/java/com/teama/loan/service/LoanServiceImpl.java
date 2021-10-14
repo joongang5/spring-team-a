@@ -26,6 +26,14 @@ public class LoanServiceImpl implements LoanService {
 		return loanDAO.totalCount(map);
 	}
 	
+	public int ltotalCount(Map<String, Object> map) {
+		return loanDAO.ltotalCount(map);
+	}
+	
+	public int reserveCount(Map<String, Object> map) {
+		return loanDAO.reserveCount(map);
+	}
+	
 	@Override
 	public List<LoanViewDTO> getViewListByMemberNo(Map<String, Object> map) {
 		return loanDAO.getViewListByMemberNo(map);
