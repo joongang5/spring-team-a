@@ -21,6 +21,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.teama.common.CommandMap;
 import com.teama.ebook.dto.EbookDTO;
 import com.teama.ebook.dto.EbookReviewDTO;
+import com.teama.ebook.service.EbookAPIService;
 import com.teama.ebook.service.EbookAPIServiceImpl;
 import com.teama.ebook.service.EbookServiceImpl;
 
@@ -119,7 +120,7 @@ public class ListEbookController {
 		System.out.println(map.get("pageNo"));
 		// System.out.println(map.getMap().get("searchTarget"));
 		// System.out.println(map.getMap().get("searchValue"));
-		List<EbookDTO> EbookList = ebookService.ebookSearch(map.getMap());
+		List<EbookDTO> EbookList = ((EbookAPIService) ebookService).ebookSearch(map.getMap());
 //		if(map.getMap().get("searchValue")!=null) {
 //			EbookList.put("searchTarget", map.getMap().get("searchTarget"));
 //			EbookList.put("searchValue", map.getMap().get("searchValue"));

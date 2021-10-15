@@ -17,25 +17,17 @@ public class EbookServiceImpl implements EbookService {
 	private EbookDAO ebookDAO;
 	
 	@Override
-	public List<EbookDTO> ebookSearch(Map<String, Object> map) throws Exception {
-		return ebookDAO.getEbookSearch(map);
-	}
-	
-	@Override
 	public int ebookAdd(Map<String, Object> map) throws Exception {
 		return ebookDAO.ebookAdd(map);
 	}
-	
 	@Override
 	public List<EbookDTO> getEbookList(Map<String, Object> map) {
 		return ebookDAO.getEbookList(map);
 	}
-
 	@Override
 	public int insertBook(EbookDTO map) {
-		return ebookDAO.insertEbook("ebook.insertBook", map);
+		return ebookDAO.insertBook(map);
 	}
-	
 	@Override
 	public EbookDTO getEbook(int bookNo) {
 		return ebookDAO.getEbook(bookNo);
@@ -52,6 +44,4 @@ public class EbookServiceImpl implements EbookService {
 	public List<EbookReviewDTO> ebookReviewList(int bookno) {
 		return ebookDAO.ebookReviewList(bookno);
 	}
-
-
 }

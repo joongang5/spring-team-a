@@ -81,7 +81,6 @@ td img {
 				/\+/g, " "));
 	}
 	function linkPage(pageNo) {
-		alert(getParameterByName('searchTraget'));
 		var searchTarget = getParameterByName('searchTraget');
 		var searchValue = getParameterByName('searchValue');
 		if (!searchTarget && !searchValue) {

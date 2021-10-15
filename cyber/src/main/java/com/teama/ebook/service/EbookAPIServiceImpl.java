@@ -44,7 +44,7 @@ public class EbookAPIServiceImpl implements EbookAPIService {
 		params.put("result_style", "json");
 		params.put("page_size", "10");
 		params.put("page_no", String.valueOf(map.get("pageNo")));
-
+		//System.out.println(String.valueOf(map.get("pageNo")));
 		if (map.get("searchValue") != null) {
 			params.put((String) map.get("searchType"), (String) map.get("searchValue"));
 		}
@@ -58,7 +58,6 @@ public class EbookAPIServiceImpl implements EbookAPIService {
 			List<EbookDTO> info = new ArrayList<EbookDTO>();
 			for (int i = 0; i < docsMap.size(); i++) {
 				EbookDTO docs = new EbookDTO();
-				if (!docsMap.get(i).get("EA_ISBN").equals("")) {
 					docs.setIsbn((String) docsMap.get(i).get("EA_ISBN"));
 					docs.setTitle((String) docsMap.get(i).get("TITLE"));
 					docs.setTitle_url((String) docsMap.get(i).get("TITLE_URL"));
@@ -69,14 +68,10 @@ public class EbookAPIServiceImpl implements EbookAPIService {
 					docs.setPage((String) docsMap.get(i).get("PAGE"));
 					docs.setBook_size((String) docsMap.get(i).get("BOOK_SIZE"));
 					info.add(docs);
-					//System.out.println("등록");
-				} else {
-					//System.out.println("ISBN 없음 미등록");
-				}
 			}
-			
-			jsonObject.remove("docs");
-			jsonObject.put("docs", info);
+			info.get(0).setTotalCount(Integer.valueOf((String)jsonObject.get("TOTAL_COUNT")));
+			//jsonObject.remove("docs");
+			//jsonObject.put("docs", info);
 			return info;
 		}
 		return null;
@@ -120,4 +115,5 @@ public class EbookAPIServiceImpl implements EbookAPIService {
 	public int ebookAdd(Map<String, Object> map) {
 		return ebookDAO.ebookAdd(map);
 	}
+
 }

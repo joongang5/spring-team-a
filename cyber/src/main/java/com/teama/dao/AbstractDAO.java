@@ -60,7 +60,4 @@ public class AbstractDAO {
 	public int delete(String queryId, Map<String, Object> map) {
 		return sqlSession.delete(queryId, map);
 	}
-	public int insertEbook(String queryId, EbookDTO map) {
-		return sqlSession.insert(queryId, map);
-	}
 }

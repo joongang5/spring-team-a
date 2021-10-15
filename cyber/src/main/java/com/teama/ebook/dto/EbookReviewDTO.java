@@ -1,7 +1,19 @@
 package com.teama.ebook.dto;
 
 public class EbookReviewDTO {
-	private int review_no, book_no, member_no, rating;
+	private int review_no, book_no, member_no, rating, ratingSum, reviewCount;
+	public int getReviewCount() {
+		return reviewCount;
+	}
+	public int getRatingSum() {
+		return ratingSum;
+	}
+	public void setRatingSum(int ratingSum) {
+		this.ratingSum = ratingSum;
+	}
+	public void setReviewCount(int reviewCount) {
+		this.reviewCount = reviewCount;
+	}
 	private String id, name, reviewCmt, date;
 	public int getReview_no() {
 		return review_no;

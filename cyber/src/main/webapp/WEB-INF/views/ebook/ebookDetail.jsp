@@ -215,6 +215,7 @@ td img {
 				제목 : ${ebookDetail.title}<br> 저자 : ${ebookDetail.author}<br>
 				출판사 : ${ebookDetail.publisher}<br> ISBN : ${ebookDetail.isbn}<br>
 				출판일 : ${ebookDetail.datetime}<br> 가격 : ${ebookDetail.price}<br>
+				별점 : <img alt="star" src="/cyber/resources/img/star${ebookReview.get(0).ratingSum }.png"> 리뷰(${ebookReview.get(0).reviewCount })<br>
 				페이지 : ${ebookDetail.page}<br> 책 크기 : ${ebookDetail.book_size }
 
 				<div class="btnGroup">

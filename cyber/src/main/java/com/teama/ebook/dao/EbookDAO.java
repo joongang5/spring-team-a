@@ -35,15 +35,15 @@ public class EbookDAO extends AbstractDAO{
 		return sqlSession.selectOne("ebook.getEbookDetail", isbn);
 	}
 
-	public List<EbookDTO> getEbookSearch(Map<String, Object> map) {
-		return null;
-	}
-
 	public int ebookInsertReview(EbookReviewDTO dto) {
 		return sqlSession.insert("ebook.insertReview", dto);
 	}
 
 	public List<EbookReviewDTO> ebookReviewList(int bookno) {
 		return sqlSession.selectList("ebook.reviewList", bookno);
+	}
+
+	public int insertBook(EbookDTO map) {
+		return sqlSession.insert("ebook.insertBook", map);
 	}
 }

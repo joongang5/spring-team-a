@@ -8,8 +8,6 @@ import com.teama.ebook.dto.EbookReviewDTO;
 
 public interface EbookService {
 	//도서 검색
-	public List<EbookDTO> ebookSearch(Map<String, Object> map) throws Exception;
-	
 	public int ebookAdd(Map<String, Object> map) throws Exception;
  	
 	public List<EbookDTO> getEbookList(Map<String, Object> map);
