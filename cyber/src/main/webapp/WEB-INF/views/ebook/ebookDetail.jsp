@@ -102,37 +102,45 @@ td img {
 	margin-left: 3px
 }
 
-#myform fieldset {
+#review fieldset {
 	display: inline-block; /* 하위 별점 이미지들이 있는 영역만 자리를 차지함.*/
 	direction: rtl; /* 이모지 순서 반전 */
 	border: 0; /* 필드셋 테두리 제거 */
+
 }
 
-#myform fieldset legend {
+#review fieldset legend {
 	text-align: left;
 }
 
-#myform input[type=radio] {
+#review input[type=radio] {
 	display: none; /* 라디오박스 감춤 */
 }
 
-#myform label {
+#review label {
 	font-size: 1.5em; /* 이모지 크기 */
 	color: transparent; /* 기존 이모지 컬러 제거 */
 	text-shadow: 0 0 0 #f0f0f0; /* 새 이모지 색상 부여 */
+
 }
 
-#myform label:hover {
-	text-shadow: 0 0 0 #cee5fe; /* 마우스 호버 */
+#review label:hover {
+	text-shadow: 0 0 0 #ffed00; /* 마우스 호버 */
 }
 
-#myform label:hover ~ label {
-	text-shadow: 0 0 0 #cee5fe; /* 마우스 호버 뒤에오는 이모지들 */
+#review label:hover ~ label {
+	text-shadow: 0 0 0 #ffed00; /* 마우스 호버 뒤에오는 이모지들 */
 }
 
-#myform input[type=radio]:checked ~ label {
-	text-shadow: 0 0 0 #cee5fe; /* 마우스 클릭 체크 */
+#review input[type=radio]:checked ~ label {
+
+	text-shadow: 0 0 0 #ffed00; /* 마우스 클릭 체크 */
 }
+#reviewArea{width:100%;margin:0 auto;overflow:hidden;}
+					#reviewArea div{float:left;}
+						#reviewText{width:90%;text-align:left;}
+							#reviewText textarea{width:97%;height:75px;overflow:auto;resize: none; margin-left: 8px;}
+							#reviewBtn{width:100%;height:80px;line-height:80px;cursor:pointer;}
 </style>
 </head>
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
@@ -176,6 +184,18 @@ td img {
 		document.getElementById("content2").style.display = "";
 		document.getElementById("content1").style.display = "none";
 	}
+	function checkReview() {
+	    var rating = document.review.rating;
+	    if(rating.value == '' ) {
+	        alert("별점을 클릭하세요.");
+	       	return false;
+	    }
+	    var review = document.getElementById('reviewCmt');
+	    if(document.review.reviewCmt.value == ''){
+	        alert('내용을 입력하세요.');
+	        return false;
+	    }
+	}
 </script>
 <body>
 	<div id="wrap">
@@ -212,9 +232,11 @@ td img {
 					<hr>
 					목차<br> ${detail.detail2 }
 				</div>
-				<form name="myform" id="myform" method="post" action="./ebookRating.do">
+				<div id="reviewArea">
+				<form name="review" id="review" method="post" action="./ebookReview.do" onsubmit="return checkReview()">
+
 					<fieldset>
-						<legend>별점</legend>
+						<legend>별점/리뷰</legend>
 					<div>
 						<input type="radio" name="rating" value="5" id="rate1"><label
 							for="rate1">★</label> <input type="radio" name="rating" value="4"
@@ -226,8 +248,28 @@ td img {
 							for="rate5">★</label>
 					</div>
 					</fieldset>
-					<button type="submit">제출</button>
+					<div id="reviewText">
+					<textarea id="reviewCmt" name="reviewCmt"<c:if test="${sessionScope.id eq null }">placeholder="  로그인 후 작성 가능합니다."</c:if>></textarea>
+					<input type="hidden" name="book_no" value="${ebookDetail.no }">
+					<input type="hidden" name="isbn" value="${ebookDetail.isbn }">
+					</div>
+					<div id="reviewSend">
+					<input type="submit" id="reviewBtn" value = "댓글 작성"></input>
+					</div>							
 				</form>
+				</div>
+				<div id = reviewList>
+					<hr>
+					<c:forEach items="${ebookReview }" var="review" >
+					<img alt="star" src="/cyber/resources/img/star${review.rating }.png">
+					${review.reviewCmt }
+					${review.date }
+					${review.id }
+					${review.name }
+					<hr>
+					</c:forEach>
+				</div>
+				
 			</div>
 		</main>
 		<footer>footer</footer>

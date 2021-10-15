@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 
 import com.teama.dao.AbstractDAO;
 import com.teama.ebook.dto.EbookDTO;
+import com.teama.ebook.dto.EbookReviewDTO;
 
 @Repository
 public class EbookDAO extends AbstractDAO{
@@ -36,5 +37,13 @@ public class EbookDAO extends AbstractDAO{
 
 	public List<EbookDTO> getEbookSearch(Map<String, Object> map) {
 		return null;
+	}
+
+	public int ebookInsertReview(EbookReviewDTO dto) {
+		return sqlSession.insert("ebook.insertReview", dto);
+	}
+
+	public List<EbookReviewDTO> ebookReviewList(int bookno) {
+		return sqlSession.selectList("ebook.reviewList", bookno);
 	}
 }

@@ -10,6 +10,7 @@
 		<typeAlias type="com.teama.storage.dto.BookStorageDTO" alias="bookStorageDTO"/>
 		<typeAlias type="com.teama.storage.dto.BookStorageViewDTO" alias="bookStorageViewDTO"/>
 		<typeAlias type="com.teama.ebook.dto.EbookDTO" alias="ebookDTO"/>
+		<typeAlias type="com.teama.ebook.dto.EbookReviewDTO" alias="ebookReviewDTO"/>
 		<typeAlias type="com.teama.member.dto.MemberDTO" alias="memberDTO"/>
 	</typeAliases>
 

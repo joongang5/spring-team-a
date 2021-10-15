@@ -20,6 +20,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.teama.common.CommandMap;
 import com.teama.ebook.dto.EbookDTO;
+import com.teama.ebook.dto.EbookReviewDTO;
 import com.teama.ebook.service.EbookAPIServiceImpl;
 import com.teama.ebook.service.EbookServiceImpl;
 
@@ -107,7 +108,6 @@ public class ListEbookController {
 	}
 
 	@RequestMapping(value = "/ebookSearch.do", method = RequestMethod.POST, produces = "text/plain;charset=utf-8")
-	@ResponseBody
 	public List<EbookDTO> ebookSearch(CommandMap map) throws Exception {
 		System.out.println(map.getMap().get("pageNo"));
 		if (!map.containsKey("pageNo")) {
@@ -157,13 +157,22 @@ public class ListEbookController {
 			System.out.println("detail ===== " +detail.get("detail1"));
 			mv.addObject("detail", detail);
 		}
+		//System.out.println(EbookDetail.getNo());
+		List<EbookReviewDTO> review = ebookService.ebookReviewList(EbookDetail.getNo());
+		if(!review.isEmpty()) {
+			mv.addObject("ebookReview", review);
+		}
 		mv.addObject("ebookDetail", EbookDetail);
 		return mv;
 	}
-	@PostMapping("/ebookRating")
-	public String ebookRating(CommandMap mpa) {
-		System.out.println(mpa.get("rating"));
-		return null;
+	@PostMapping("/ebookReview")
+	public String ebookReview(EbookReviewDTO dto, HttpServletRequest request) {
+		dto.setId((String) request.getSession().getAttribute("id"));
+		int result = ebookService.ebookInsertReview(dto);
+		System.out.println(result);
+		System.out.println(request.getParameter("isbn"));
+		System.out.println(request.getSession().getAttribute("id"));
+		return "redirect:ebookDetail.do?isbn="+request.getParameter("isbn");
 	}
 
 }

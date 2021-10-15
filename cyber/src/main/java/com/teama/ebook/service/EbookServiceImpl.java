@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.teama.ebook.dao.EbookDAO;
 import com.teama.ebook.dto.EbookDTO;
+import com.teama.ebook.dto.EbookReviewDTO;
 
 @Service("ebookService")
 public class EbookServiceImpl implements EbookService {
@@ -42,6 +43,14 @@ public class EbookServiceImpl implements EbookService {
 	@Override
 	public EbookDTO ebookDetail(String isbn) {
 		return ebookDAO.ebookDetail(isbn);
+	}
+	@Override
+	public int ebookInsertReview(EbookReviewDTO dto) {
+		return ebookDAO.ebookInsertReview(dto);
+	}
+	@Override
+	public List<EbookReviewDTO> ebookReviewList(int bookno) {
+		return ebookDAO.ebookReviewList(bookno);
 	}
 
 

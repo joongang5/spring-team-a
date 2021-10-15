@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.teama.ebook.dto.EbookDTO;
+import com.teama.ebook.dto.EbookReviewDTO;
 
 public interface EbookService {
 	//도서 검색
@@ -19,6 +20,7 @@ public interface EbookService {
 	
 	public EbookDTO ebookDetail(String isbn);
 
-
-
+	public int ebookInsertReview(EbookReviewDTO dto);
+	
+	public List<EbookReviewDTO> ebookReviewList(int bookno);
 }
