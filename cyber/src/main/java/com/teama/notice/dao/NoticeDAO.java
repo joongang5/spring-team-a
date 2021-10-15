@@ -25,6 +25,11 @@ public class NoticeDAO extends AbstractDAO {
 		return (Map<String, Object>) selectOne("notice.detail", map);
 	}
 	
+	//이전글 다음글
+	public Map<String, Object> preNextPage(Map<String, Object> map) {
+		return (Map<String, Object>) selectOne("notice.preNextPage", map);
+	}
+	
 	//게시글 글쓰기
 	public int write(Map<String, Object> map) {
 		return insert("notice.write", map);

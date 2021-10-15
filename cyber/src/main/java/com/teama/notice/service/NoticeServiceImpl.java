@@ -30,6 +30,12 @@ public class NoticeServiceImpl implements NoticeService {
 		return noticeDAO.detail(map);
 	}
 	
+	//이전글 다음글
+	@Override
+	public Map<String, Object> preNextPage(Map<String, Object> map) {
+		return noticeDAO.preNextPage(map);
+	}
+	
 	//게시글 글쓰기
 	@Override
 	public int write(Map<String, Object> map) {

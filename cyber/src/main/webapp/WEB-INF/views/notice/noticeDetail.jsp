@@ -85,22 +85,12 @@ button {
 <script type="text/javascript">	
 	//이전글
 	function preMove() {
-		<c:if test="${detail.preNum != null}">
-			location.href='./noticeDetail.do?no=${detail.preNum }';
-		</c:if>
-		<c:if test="${detail.preNum == null}">
-			location.href='./noticeDetail.do?no=${detail.no }';
-		</c:if>
+		location.href='./noticeDetail.do?no=${preNextPage.preNum }';
 	}
-	
+
 	//다음글
 	function nextMove() {
-		<c:if test="${detail.nextNum != null}">
-			location.href='./noticeDetail.do?no=${detail.nextNum }';
-		</c:if>
-		<c:if test="${detail.nextNum == null}">
-			location.href='./noticeDetail.do?no=${detail.no }';
-		</c:if>
+		location.href='./noticeDetail.do?no=${preNextPage.nextNum }';
 	}
 	
 	//삭제 확인
@@ -133,13 +123,19 @@ button {
 			<c:import url="/WEB-INF/views/component/lnbNav.jsp" />
 		</aside>
 		<main>
+			
+			<!-- 공지사항 상세보기 list -->
 			<div id="detailBoard">
 				<b>번호 |</b> ${detail.no } <b>제목 |</b> ${detail.title } <b>작성자 |</b>
 				${detail.id }(${detail.name }) <b>등록일 |</b> ${detail.date }<br>
+				
 				<!-- 삭제, 수정 버튼 관리자(9등급)만 보이게 -->
 				<c:if test="${sessionScope.grade eq 9 }">
-					<button id="writebtn" onclick="noticeDelete()">삭제하기</button>
-					<button id="writebtn" onclick="noticeUpdate()">수정하기</button>
+					<!-- 삭제, 수정 버튼 본인글은 본인만 보이게 -->
+					<c:if test="${sessionScope.id eq detail.id }">
+						<button id="writebtn" onclick="noticeDelete()">삭제하기</button>
+						<button id="writebtn" onclick="noticeUpdate()">수정하기</button>
+					</c:if>
 				</c:if>
 				<hr>
 				${detail.content }
@@ -148,21 +144,29 @@ button {
 
 			<!-- 이전글, 다음글 -->
 			<div style="margin-bottom: 5px;">
-				<c:if test="${detail.preTitle != null }">
-				이전글 | <button onclick="preMove()">${detail.preTitle }</button>
-					<br>
+				<c:if test="${preNextPage.preNum != null }">
+					<c:if test="${preNextPage.preTitle != null }">
+						이전글 | <button onclick="preMove()">${preNextPage.preTitle }</button>
+						<br>
 				</c:if>
-				<c:if test="${detail.preTitle == null }">
-				이전글이 없습니다.<br>
+					</c:if>
+				<c:if test="${preNextPage.preNum == null }">
+					<c:if test="${preNextPage.preTitle == null }">
+						이전글이 없습니다.<br>
+					</c:if>
 				</c:if>
 			</div>
 			<div>
-				<c:if test="${detail.nextTitle != null }">
-				다음글 | <button onclick="nextMove()">${detail.nextTitle }</button>
+				<c:if test="${preNextPage.nextNum != null }">
+					<c:if test="${preNextPage.nextTitle != null }">
+						다음글 | <button onclick="nextMove()">${preNextPage.nextTitle }</button>
+					</c:if>
 				</c:if>
-				<c:if test="${detail.nextTitle == null }">
-				다음글이 없습니다.
-			</c:if>
+				<c:if test="${preNextPage.nextNum == null }">
+					<c:if test="${preNextPage.nextTitle == null }">
+						다음글이 없습니다.
+					</c:if>
+				</c:if>
 			</div>
 			<!-- end of 이전글, 다음글 -->
 

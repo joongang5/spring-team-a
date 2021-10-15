@@ -14,6 +14,9 @@ public interface BoardService {
 	//게시글 상세보기
 	public Map<String, Object> detail(Map<String, Object> map);
 	
+	//이전글 다음글
+	public Map<String, Object> preNextPage(Map<String, Object> map);
+	
 	//게시글 글쓰기
 	public int write(Map<String, Object> map);
 	
@@ -28,6 +31,9 @@ public interface BoardService {
 	
 	//게시물 댓글 불러오기
 	List<Map<String, Object>> boardCommentList(Map<String, Object> map);
+	
+	//페이징 totalCount(댓글)
+	public int commentTotalCount(Map<String, Object> map);
 	
 	//게시물 댓글쓰기
 	public int commentWrite(Map<String, Object> map);

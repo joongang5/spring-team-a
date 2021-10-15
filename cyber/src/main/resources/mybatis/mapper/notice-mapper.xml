@@ -19,6 +19,7 @@
 		LIMIT #{startPage }, #{lastPage }
 	</select>
 	
+	<!-- 페이징 totalCount -->
 	<select id="totalCount" parameterType="HashMap" resultType="HashMap">
 		SELECT count(*) as totalCount FROM notice_view
 		
@@ -33,8 +34,13 @@
 	
 	<!-- 게시글 상세보기 -->
 	<select id="detail" parameterType="HashMap" resultType="HashMap">
+		SELECT * FROM notice_view WHERE no=#{no}
+	</select>
+	
+	<!-- 이전글 다음글 -->
+	<select id="preNextPage" parameterType="HashMap" resultType="HashMap">
 		SELECT n.* FROM (
-		SELECT no, title, content, date, count, file, id, name, member_no, 
+		SELECT no, title, 
 		LAG(no) OVER(ORDER BY no) AS preNum, 
 		LAG(title) OVER(ORDER BY title) AS preTitle, 
 		LEAD(no) OVER(ORDER BY no) AS nextNum, 
@@ -43,18 +49,18 @@
 		WHERE n.no = #{no}
 	</select>
 	
-	<!-- 게시글 글쓰기 (로그인한 사람만) -->
+	<!-- 게시글 글쓰기 -->
 	<insert id="write" parameterType="HashMap">
 		INSERT INTO notice (title, content, member_no) 
 		VALUES (#{title}, #{content}, (SELECT no FROM member WHERE id=#{id}))
 	</insert>
 	
-	<!-- 게시글 삭제 (본인글만 삭제) -->
+	<!-- 게시글 삭제 -->
 	<delete id="delete" parameterType="HashMap">
 		DELETE FROM notice WHERE no=#{no} AND member_no=(SELECT no FROM member WHERE id=#{id})
 	</delete>
 	
-	<!-- 게시글 수정 (본인글만 수정) -->
+	<!-- 게시글 수정 -->
 	<update id="update" parameterType="HashMap">
 		UPDATE notice SET title=#{title}, content=#{content} WHERE no=#{no} AND member_no=(SELECT no FROM member WHERE id=#{id})
 	</update>

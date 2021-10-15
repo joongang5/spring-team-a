@@ -8,6 +8,7 @@
 <meta charset="UTF-8">
 <title>소통마당</title>
 <script type="text/javascript">
+//페이징, 검색
 function linkPage(pageNo) {
 	<c:if test="${searchKeyword != null}">
 		var search = "&searchCondition=${searchCondition}&searchKeyword=${searchKeyword}";
@@ -158,7 +159,7 @@ a {
 				<button type="submit" id="searchBtn">검색</button>
 			</form>
 
-			<!-- 공지사항 list -->
+			<!-- 소통마당 list -->
 			<div id="board">
 				<table>
 					<thead>
@@ -183,7 +184,7 @@ a {
 					</tbody>
 				</table>
 
-				<!-- 글쓰기 버튼 관리자만 보이게 -->
+				<!-- 글쓰기 버튼 로그인한 사람만 보이게 -->
 				<c:if test="${sessionScope.id ne null }">
 					<a href="./boardWrite.do"><button id="writebutton">글쓰기</button></a>
 				</c:if>

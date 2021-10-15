@@ -37,7 +37,6 @@ public class BoardController {
 			mv.addObject("searchCondition", map.get("searchCondition"));
 		}
 		
-		//페이징 불러오기
 		setPagination(map, mv);
 		
 		return mv;
@@ -48,13 +47,51 @@ public class BoardController {
 	public ModelAndView detail(CommandMap map) {
 		ModelAndView mv = new ModelAndView("board/boardDetail");
 		
+		//댓글 페이징
+		int commentPageNo = 1; //첫 페이지 보여주세요.
+		if(map.containsKey("commentPageNo")) {
+			commentPageNo = Integer.parseInt( String.valueOf (map.get("commentPageNo")) );
+		}
+		
+		int commentListScale = 5;
+		int commentPageScale = 5;
+		
+		//totalCount
+		int commentTotalCount = boardService.commentTotalCount(map.getMap());
+		System.out.println("댓글이" + commentTotalCount + "개가 있습니다.");
+		
+		//전자정부 페이징 불러오기
+		PaginationInfo commentPaginationInfo = new PaginationInfo(); //이 객체에 값을 넣어주어야 한다.
+		commentPaginationInfo.setCurrentPageNo(commentPageNo);
+		commentPaginationInfo.setRecordCountPerPage(commentListScale);
+		commentPaginationInfo.setPageSize(commentPageScale);
+		commentPaginationInfo.setTotalRecordCount(commentTotalCount);
+		
+		//계산하기
+		int commentStartPage = commentPaginationInfo.getFirstRecordIndex(); //시작페이지
+		int commentLastPage = commentPaginationInfo.getRecordCountPerPage(); //마지막페이지
+		
+		//DB로 보내기 위해서 map에 담아주세요.
+		map.put("commentStartPage", commentStartPage);
+		map.put("commentLastPage", commentLastPage);
+		
+		//질의
 		//조회수
 		boardService.count(map.getMap());
-		
+		//상세보기
 		Map<String, Object> detail = boardService.detail(map.getMap());
+		//댓글 불러오기
 		List<Map<String, Object>> commentList = boardService.boardCommentList(map.getMap());
-		mv.addObject("detail", detail);
+		//이전글 다음글
+		Map<String, Object> preNextPage = boardService.preNextPage(map.getMap());
+
+		mv.addObject("detail", detail); //앞엔 호출이름, 뒤는 값
 		mv.addObject("commentList", commentList);
+		mv.addObject("commentPaginationInfo", commentPaginationInfo);
+		mv.addObject("commentPageNo", commentPageNo);
+		mv.addObject("commentTotalCount", commentTotalCount);
+		mv.addObject("preNextPage", preNextPage);
+		
 		return mv;
 	}
 	
@@ -68,16 +105,12 @@ public class BoardController {
 	@PostMapping("/boardWrite.do")
 	public ModelAndView postWrite(CommandMap map, HttpServletRequest request) {
 		ModelAndView mv = new ModelAndView("board/listBoard");
-		
-		//title content -> jsp에서 form으로 받아온 값
-		//member_no -> db
-		//memberNo -> session
-		
+
 		HttpSession session = request.getSession();
 		map.put("id", session.getAttribute("id"));
 		
 		int result = boardService.write(map.getMap());
-		System.out.println(result);
+		System.out.println("boardWrite = " + result);
 		
 		setPagination(map, mv);
 		
@@ -90,7 +123,7 @@ public class BoardController {
 		HttpSession session = request.getSession();
 		map.put("id", session.getAttribute("id"));
 		int result = boardService.delete(map.getMap());
-		System.out.println("delete = " + result);
+		System.out.println("boardDelete = " + result);
 
 		return "redirect:listBoard.do";
 	}
@@ -110,7 +143,7 @@ public class BoardController {
 		HttpSession session = request.getSession();
 		map.put("id", session.getAttribute("id"));
 		int result = boardService.update(map.getMap());
-		System.out.println("update = " + result);
+		System.out.println("boardUpdate = " + result);
 		return "redirect:boardDetail.do?no="+map.get("no");
 	}
 	
@@ -186,6 +219,5 @@ public class BoardController {
 		
 		return "redirect:boardDetail.do?no="+map.get("no");
 	}
-	
 	
 }

@@ -25,6 +25,11 @@ public class BoardDAO extends AbstractDAO {
 		return (Map<String, Object>) selectOne("board.detail", map);
 	}
 	
+	//이전글 다음글
+	public Map<String, Object> preNextPage(Map<String, Object> map) {
+		return (Map<String, Object>) selectOne("board.preNextPage", map);
+	}
+	
 	//게시글 글쓰기
 	public int write(Map<String, Object> map) {
 		return insert("board.write", map);
@@ -48,6 +53,11 @@ public class BoardDAO extends AbstractDAO {
 	//게시물 댓글 불러오기
 	public List<Map<String, Object>> boardCommentList(Map<String, Object> map) {
 		return (List<Map<String, Object>>) selectList("board.boardCommentList", map);
+	}
+	
+	//페이징 totalCount(댓글)
+	public int commentTotalCount(Map<String, Object> map) {
+		return Integer.parseInt( String.valueOf (selectOne("board.commentTotalCount", map).get("commentTotalCount")) );
 	}
 	
 	//게시물 댓글쓰기

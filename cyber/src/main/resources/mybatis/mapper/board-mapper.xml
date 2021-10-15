@@ -34,8 +34,13 @@
 	
 	<!-- 게시글 상세보기 -->
 	<select id="detail" parameterType="HashMap" resultType="HashMap">
+		SELECT * FROM board_view WHERE no=#{no}
+	</select>
+	
+	<!-- 이전글 다음글 -->
+	<select id="preNextPage" parameterType="HashMap" resultType="HashMap">
 		SELECT b.* FROM (
-		SELECT no, title, content, date, count, file, id, name, member_no, 
+		SELECT no, title, 
 		LAG(no) OVER(ORDER BY no) AS preNum, 
 		LAG(title) OVER(ORDER BY title) AS preTitle, 
 		LEAD(no) OVER(ORDER BY no) AS nextNum, 
@@ -44,18 +49,18 @@
 		WHERE b.no = #{no}
 	</select>
 	
-	<!-- 게시글 글쓰기 (로그인한 사람만) -->
+	<!-- 게시글 글쓰기 -->
 	<insert id="write" parameterType="HashMap">
 		INSERT INTO board (title, content, member_no) 
 		VALUES (#{title}, #{content}, (SELECT no FROM member WHERE id=#{id}))
 	</insert>
 	
-	<!-- 게시글 삭제 (본인 글만 삭제) -->
+	<!-- 게시글 삭제 -->
 	<delete id="delete" parameterType="HashMap">
 		DELETE FROM board WHERE no=#{no} AND member_no=(SELECT no FROM member WHERE id=#{id})
 	</delete>
 	
-	<!-- 게시글 수정 (본인 글만 수정) -->
+	<!-- 게시글 수정 -->
 	<update id="update" parameterType="HashMap">
 		UPDATE board SET title=#{title}, content=#{content} WHERE no=#{no} AND member_no=(SELECT no FROM member WHERE id=#{id})
 	</update>
@@ -67,21 +72,26 @@
 	
 	<!-- 게시물 댓글 불러오기 -->
 	<select id="boardCommentList" parameterType="HashMap" resultType="HashMap">
-		SELECT * FROM board_comment_view WHERE no=#{no}
+		SELECT * FROM board_comment_view WHERE no=#{no} LIMIT #{commentStartPage }, #{commentLastPage }
 	</select>
 	
-	<!-- 게시물 댓글쓰기 (로그인한 사람만) -->
+	<!-- 페이징 totalCount (댓글) -->
+	<select id="commentTotalCount" parameterType="HashMap" resultType="HashMap">
+		SELECT count(*) as commentTotalCount FROM board_comment_view
+	</select>
+	
+	<!-- 게시물 댓글쓰기 -->
 	<insert id="commentWrite" parameterType="HashMap">
 		INSERT INTO board_comment (comment, no, member_no) 
 		VALUES (#{comment}, #{no}, (SELECT no FROM member WHERE id=#{id}))
 	</insert>
 	
-	<!-- 게시물 댓글삭제 (본인 댓글만 삭제) -->
+	<!-- 게시물 댓글삭제 -->
 	<delete id="commentDelete" parameterType="HashMap">
 		DELETE FROM board_comment WHERE comment_no=#{comment_no} AND member_no=(SELECT no FROM member WHERE id=#{id})
 	</delete>
 	
-	<!-- 게시물 댓글수정 (본인 댓글만 수정) -->
+	<!-- 게시물 댓글수정 -->
 	<update id="commentUpdate" parameterType="HashMap">
 		UPDATE board_comment SET comment=#{comment} WHERE comment_no=#{comment_no} AND member_no=(SELECT no FROM member WHERE id=#{id})
 	</update>

@@ -14,6 +14,9 @@ public interface NoticeService {
 	//게시글 상세보기
 	public Map<String, Object> detail(Map<String, Object> map);
 	
+	//이전글 다음글
+	public Map<String, Object> preNextPage(Map<String, Object> map);
+	
 	//게시글 글쓰기
 	public int write(Map<String, Object> map);
 	

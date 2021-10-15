@@ -51,7 +51,9 @@ public class NoticeController {
 		noticeService.count(map.getMap());
 		
 		Map<String, Object> detail = noticeService.detail(map.getMap());
+		Map<String, Object> preNextPage = noticeService.preNextPage(map.getMap());
 		mv.addObject("detail", detail);
+		mv.addObject("preNextPage", preNextPage);
 		return mv;
 	}
 	
@@ -66,14 +68,11 @@ public class NoticeController {
 	public ModelAndView postWrite(CommandMap map, HttpServletRequest request) {
 		ModelAndView mv = new ModelAndView("notice/listNotice");
 		
-		//title content -> jsp에서 form으로 받아온 값
-		//member_no -> db
-		//memberNo -> session
 		HttpSession session = request.getSession();
 		map.put("id", session.getAttribute("id"));
 		
 		int result = noticeService.write(map.getMap());
-		System.out.println(result);
+		System.out.println("noticeWrite = " + result);
 		
 		setPagination(map, mv);
 		
@@ -88,7 +87,7 @@ public class NoticeController {
 		map.put("id", session.getAttribute("id"));
 		
 		int result = noticeService.delete(map.getMap());
-		System.out.println("delete = " + result);
+		System.out.println("noticeDelete = " + result);
 
 		return "redirect:listNotice.do";
 	}
@@ -110,7 +109,7 @@ public class NoticeController {
 		map.put("id", session.getAttribute("id"));
 		
 		int result = noticeService.update(map.getMap());
-		System.out.println("update = " + result);
+		System.out.println("noticeUpdate = " + result);
 		return "redirect:noticeDetail.do?no="+map.get("no");
 	}
 	

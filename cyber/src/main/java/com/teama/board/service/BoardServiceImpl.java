@@ -30,6 +30,12 @@ public class BoardServiceImpl implements BoardService {
 		return boardDAO.detail(map);
 	}
 	
+	//이전글 다음글
+	@Override
+	public Map<String, Object> preNextPage(Map<String, Object> map) {
+		return boardDAO.preNextPage(map);
+	}
+	
 	//게시글 글쓰기
 	@Override
 	public int write(Map<String, Object> map) {
@@ -58,6 +64,12 @@ public class BoardServiceImpl implements BoardService {
 	@Override
 	public List<Map<String, Object>> boardCommentList(Map<String, Object> map) {
 		return boardDAO.boardCommentList(map);
+	}
+	
+	//페이징 totalCount(댓글)
+	@Override
+	public int commentTotalCount(Map<String, Object> map) {
+		return boardDAO.commentTotalCount(map);
 	}
 	
 	//게시물 댓글쓰기

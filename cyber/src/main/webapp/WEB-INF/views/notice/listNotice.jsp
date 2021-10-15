@@ -8,6 +8,7 @@
 <meta charset="UTF-8">
 <title>공지사항</title>
 <script type="text/javascript">
+//페이징, 검색
 function linkPage(pageNo) {
 	<c:if test="${searchKeyword != null}">
 		var search = "&searchCondition=${searchCondition}&searchKeyword=${searchKeyword}";

@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="ui" uri="http://egovframework.gov/ctl/ui"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -89,22 +90,12 @@ button {
 <script type="text/javascript">
 	//이전글
 	function preMove() {
-		<c:if test="${detail.preNum != null}">
-			location.href='./boardDetail.do?no=${detail.preNum }';
-		</c:if>
-		<c:if test="${detail.preNum == null}">
-			location.href='./boardDetail.do?no=${detail.no }';
-		</c:if>
+		location.href='./boardDetail.do?no=${preNextPage.preNum }';
 	}
 
 	//다음글
 	function nextMove() {
-		<c:if test="${detail.nextNum != null}">
-			location.href='./boardDetail.do?no=${detail.nextNum }';
-		</c:if>
-		<c:if test="${detail.nextNum == null}">
-			location.href='./boardDetail.do?no=${detail.no }';
-		</c:if>
+		location.href='./boardDetail.do?no=${preNextPage.nextNum }';
 	}
 	
 	//삭제 확인
@@ -130,33 +121,40 @@ button {
 	function commentDelete(no, comment_no) {
 		if(confirm("삭제하시겠습니까?")) {
 			location.href='./commentDelete.do?no='+no+'&comment_no='+comment_no;
-			alert("게시글이 삭제되었습니다.");
+			alert("댓글이 삭제되었습니다.");
 		} else {
 			location.href='./boardDetail.do?no='+no;
 		}
 	}
-	
+
 	//댓글 수정
 	$(document).ready(function() {
-	$("button[name='commentUpdate']").click(function(e) {
-		var comment = e.target.closest(".updateInput");
-		var no = $(comment).children(".no").text();
-		var comment_no = $(comment).children(".comment_no").text();
-		$(comment).parent().html(
+		$("button[name='commentUpdate']").click(function(e) {
+		var updateInput = e.target.closest(".updateInput");
+		var comment = $(updateInput).children(".comment").text();
+		var no = $(updateInput).children(".no").text();
+		var comment_no = $(updateInput).children(".comment_no").text();
+		$(updateInput).parent().html(
 			"<form action='./commentUpdate.do' method='post'>"
-			+"<textarea name='comment'></textarea>"
+			+"<textarea name='comment'>"+comment+"</textarea>"
 			+"<input type='hidden' name='no' value='"+no+"'>"
 			+"<input type='hidden' name='comment_no' value='"+comment_no+"'>"
 			+"<button>수정하기</button>"
 			+"</form>"
-			+"<div class='cancle'>"
+			+"<div class='clear'>"
 			+"<button name='updateCancle'>수정취소</button>"
 			+"</div>");
-		$("button[name='updateCancle']").click(function(){ //수정취소를 하면
+		$("button[name='updateCancle']").click(function(){ //댓글 수정 취소
 			location.reload();
 		});
 	});
 });
+	
+	//댓글 페이징
+	function commentLinkPage(commentPageNo) {
+		location.href="./boardDetail.do?no=${detail.no}&commentPageNo="+commentPageNo;
+	}
+	
 </script>
 </head>
 <body>
@@ -168,16 +166,14 @@ button {
 			<c:import url="/WEB-INF/views/component/lnbNav.jsp" />
 		</aside>
 		<main>
-			<!-- 게시글 상세보기 -->
+			<!-- 소통마당 상세보기 list -->
 			<div id="detailBoard">
 				<b>번호 |</b> ${detail.no } <b>제목 |</b> ${detail.title } <b>작성자 |</b>
 				${detail.id }(${detail.name }) <b>등록일 |</b> ${detail.date }
-				<c:if test="${sessionScope.id ne null }">
 					<c:if test="${sessionScope.id eq detail.id }">
 						<button id="writebtn" onclick="boardDelete()">삭제하기</button>
 						<button id="writebtn" onclick="boardUpdate()">수정하기</button>
 					</c:if>
-				</c:if>
 				<hr>
 				${detail.content }
 			</div>
@@ -205,7 +201,7 @@ button {
 								<div class="comment_no" style="display: none;">${c.comment_no }</div>
 
 								<c:choose>
-									<c:when test="${c.id eq sessionScope.id }">
+									<c:when test="${sessionScope.id eq c.id }">
 										<button onclick="commentDelete(${c.no }, ${c.comment_no })"
 											id="commentDeleteBtn">삭제하기</button>
 										<button name="commentUpdate" id="commentUpdateBtn">수정하기</button>
@@ -220,8 +216,8 @@ button {
 					</c:forEach>
 				</c:when>
 				<c:otherwise>
-								댓글이 없습니다.
-							</c:otherwise>
+					댓글이 없습니다.
+				</c:otherwise>
 			</c:choose>
 
 			<!-- 댓글쓰기 -->
@@ -239,26 +235,41 @@ button {
 				</c:otherwise>
 			</c:choose>
 			<!-- end of 댓글쓰기 -->
+			
+			<!-- 댓글 페이징-->
+			<div id="commentPagination">
+				<ui:pagination paginationInfo="${commentPaginationInfo }" type="text"
+					jsFunction="commentLinkPage" />
+			</div>
+			<!-- end of 댓글 paging -->
 
 			<hr>
 
 			<!-- 이전글, 다음글 -->
 			<div style="margin-bottom: 5px;">
-				<c:if test="${detail.preTitle != null }">
-				이전글 | <button onclick="preMove()">${detail.preTitle }</button>
-					<br>
+				<c:if test="${preNextPage.preNum != null }">
+					<c:if test="${preNextPage.preTitle != null }">
+						이전글 | <button onclick="preMove()">${preNextPage.preTitle }</button>
+						<br>
 				</c:if>
-				<c:if test="${detail.preTitle == null }">
-				이전글이 없습니다.<br>
+					</c:if>
+				<c:if test="${preNextPage.preNum == null }">
+					<c:if test="${preNextPage.preTitle == null }">
+						이전글이 없습니다.<br>
+					</c:if>
 				</c:if>
 			</div>
 			<div>
-				<c:if test="${detail.nextTitle != null }">
-				다음글 | <button onclick="nextMove()">${detail.nextTitle }</button>
+				<c:if test="${preNextPage.nextNum != null }">
+					<c:if test="${preNextPage.nextTitle != null }">
+						다음글 | <button onclick="nextMove()">${preNextPage.nextTitle }</button>
+					</c:if>
 				</c:if>
-				<c:if test="${detail.nextTitle == null }">
-				다음글이 없습니다.
-			</c:if>
+				<c:if test="${preNextPage.nextNum == null }">
+					<c:if test="${preNextPage.nextTitle == null }">
+						다음글이 없습니다.
+					</c:if>
+				</c:if>
 			</div>
 			<!-- end of 이전글, 다음글 -->
 
