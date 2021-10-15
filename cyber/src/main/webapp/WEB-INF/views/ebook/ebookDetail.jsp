@@ -10,9 +10,13 @@
 <meta charset="UTF-8">
 <title>일반전자책</title>
 <style>
+@import
+	url('https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap')
+	;
+
 html {
-	font-family: 'NanumSquare', serif;
-	color: #003857;
+	font-family: 'Nanum Gothic', sans-serif;
+	color: #black;
 }
 
 body {
@@ -255,7 +259,7 @@ td img {
 					</div>
 					<div id="reviewSend">
 					<input type="submit" id="reviewBtn" value = "댓글 작성"></input>
-					</div>							
+					</div>
 				</form>
 				</div>
 				<div id = reviewList>
@@ -269,7 +273,7 @@ td img {
 					<hr>
 					</c:forEach>
 				</div>
-				
+
 			</div>
 		</main>
 		<footer>footer</footer>

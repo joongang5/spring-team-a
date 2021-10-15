@@ -9,9 +9,13 @@
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <style>
+@import
+	url('https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap')
+	;
+
 html {
-	font-family: 'NanumSquare', serif;
-	color: #003857;
+	font-family: 'Nanum Gothic', sans-serif;
+	color: #black;
 }
 
 body {
@@ -66,11 +70,12 @@ input {
 	height: 30px;
 	width: 200px;
 	border-radius: 10px;
-	font-family: 'NanumSquare', serif;
+	font-family: 'Nanum Gothic', sans-serif;
 }
 
 #buttonbox {
 	margin-top: 35px;
+	padding-bottom: 18px;
 	text-align: center;
 }
 
@@ -78,7 +83,7 @@ button {
 	width: 130px;
 	height: 35px;
 	text-align: center;
-	font-family: 'NanumSquare', serif;
+	font-family: 'Nanum Gothic', sans-serif;
 	/*font-weight: bold;*/
 	background-color: white;
 	border-radius: 10px;
@@ -88,7 +93,7 @@ button {
 #check {
 	width: 80px;
 	height: 25px;
-	font-family: 'NanumSquare', serif;
+	font-family: 'Nanum Gothic', sans-serif;
 	font-size: 14px;
 }
 </style>
@@ -212,10 +217,10 @@ button {
 								required="required" placeholder="비밀번호 확인"
 								style="margin-bottom: 10px;">
 							<div class="alert alert-success" id="alert-success"
-								style="font-family: 'NanumSquare', serif; margin-bottom: 10px;">비밀번호가
+								style="font-family: 'Nanum Gothic', sans-serif; margin-bottom: 10px;">비밀번호가
 								일치합니다.</div>
 							<div class="alert alert-danger" id="alert-danger"
-								style="font-family: 'NanumSquare', serif; margin-bottom: 10px;">비밀번호가
+								style="font-family: 'Nanum Gothic', sans-serif; margin-bottom: 10px;">비밀번호가
 								일치하지 않습니다.</div>
 							<input type="text" id="email" name="email" required="required"
 								placeholder="Email" onchange="emailCheck()">

@@ -58,25 +58,23 @@ public class MemberController {
 	public String memberFindId() {
 		return "member/memberFindId";
 	}
-	
+
 	@PostMapping("memberFindId.do")
 	public @ResponseBody String findId(CommandMap map) {
-		String id = String.valueOf(map.get("id"));
-		String check = "1";
-		check = memberService.isUsableId(id);
-		return check;
+		String email = String.valueOf(map.get("email"));
+		String result = memberService.findId(email);
+		return result;
 	}
 
 	@GetMapping("memberFindPw.do")
 	public String memberFindPw() {
 		return "member/memberFindPw";
 	}
-	
+
 	@PostMapping("memberFindPw.do")
 	public @ResponseBody String findPw(CommandMap map) {
-		String pw = String.valueOf(map.get("pw"));
-		String check = "1";
-		check = memberService.isUsableId(pw);
-		return check;
+		String id = String.valueOf(map.get("id"));
+		String result = memberService.findPw(id);
+		return result;
 	}
 }

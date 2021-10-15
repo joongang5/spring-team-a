@@ -7,6 +7,15 @@
 <meta charset="UTF-8">
 <title>demo</title>
 <style>
+@import
+	url('https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap')
+	;
+
+html {
+	font-family: 'Nanum Gothic', sans-serif;
+	color: #black;
+}
+
 body {
 	margin: 0;
 	padding: 0;

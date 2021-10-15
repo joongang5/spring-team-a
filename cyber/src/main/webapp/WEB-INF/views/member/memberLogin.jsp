@@ -8,8 +8,12 @@
 <meta charset="UTF-8">
 <title>로그인</title>
 <style>
+@import
+	url('https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap')
+	;
+
 html {
-	font-family: 'NanumSquare', serif;
+	font-family: 'Nanum Gothic', sans-serif;
 	color: #003857;
 }
 
@@ -64,8 +68,7 @@ footer {
 input {
 	height: 30px;
 	width: 200px;
-	border-radius: 10px;
-	font-family: 'NanumSquare', serif;
+	border-radius: 10px;	
 }
 
 #buttonbox {
@@ -76,20 +79,18 @@ input {
 button {
 	width: 130px;
 	height: 35px;
-	text-align: center;
-	font-family: 'NanumSquare', serif;
+	text-align: center;	
 	/*font-weight: bold;*/
 	background-color: white;
 	border-radius: 10px;
-	margin-bottom: 10px;
+	margin-bottom: 10px;	
 }
 
 #idSaveCheck {
 	width: 15px;
 	height: 15px;
 	margin-left: 100px;
-	margin-top: 10px;
-	font-family: 'NanumSquare', serif;
+	margin-top: 10px;	
 	vertical-align: -3px;
 }
 </style>

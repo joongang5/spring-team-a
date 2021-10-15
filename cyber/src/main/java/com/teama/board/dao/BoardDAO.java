@@ -55,9 +55,14 @@ public class BoardDAO extends AbstractDAO {
 		return insert("board.commentWrite", map);
 	}
 	
-	//게시물 댓글 삭제
+	//게시물 댓글삭제
 	public int commentDelete(Map<String, Object> map) {
 		return delete("board.commentDelete", map);
+	}
+	
+	//게시물 댓글수정
+	public int commentUpdate(Map<String, Object> map) {
+		return update("board.commentUpdate", map);
 	}
 
 }

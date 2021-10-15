@@ -7,9 +7,13 @@
 <meta charset="UTF-8">
 <title>공지사항 상세보기</title>
 <style type="text/css">
+@import
+	url('https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap')
+	;
+
 html {
-	font-family: 'NanumSquare', serif;
-	color: #003857;
+	font-family: 'Nanum Gothic', sans-serif;
+	color: #black;
 }
 
 body {
@@ -40,6 +44,9 @@ main {
 	width: 760px;
 	height: 600px;
 	background: #white;
+	position: relative;
+	left: 10px;
+	top: 10px;
 }
 
 footer {
@@ -54,17 +61,25 @@ footer {
 	height: 300px;
 }
 
-button {
+#writebtn {
 	width: 100px;
 	height: 30px;
 	text-align: center;
-	font-family: 'NanumSquare', serif;
-	background-color: white; border-color : #e3f0ff; border-radius : 10px;
-	margin-bottom: 10px;
-	border-radius: 10px;
-	border-radius: 10px;
+	font-family: 'Nanum Gothic', sans-serif;
+	background-color: white;
 	border-color: #e3f0ff;
 	border-radius: 10px;
+	margin-top: 10px;
+}
+
+button {
+	width: 400px;
+	height: 30;
+	font-family: 'Nanum Gothic', sans-serif;
+	text-align: left;
+	background-color: white;
+	border: none;
+	font-size: 15px;
 }
 </style>
 <script type="text/javascript">	
@@ -120,32 +135,37 @@ button {
 		<main>
 			<div id="detailBoard">
 				<b>번호 |</b> ${detail.no } <b>제목 |</b> ${detail.title } <b>작성자 |</b>
-				${detail.id }(${detail.name }) <b>등록일 |</b> ${detail.date }
+				${detail.id }(${detail.name }) <b>등록일 |</b> ${detail.date }<br>
 				<!-- 삭제, 수정 버튼 관리자(9등급)만 보이게 -->
 				<c:if test="${sessionScope.grade eq 9 }">
-					<button onclick="noticeDelete()">삭제하기</button>
-					<button onclick="noticeUpdate()">수정하기</button>
+					<button id="writebtn" onclick="noticeDelete()">삭제하기</button>
+					<button id="writebtn" onclick="noticeUpdate()">수정하기</button>
 				</c:if>
 				<hr>
 				${detail.content }
 			</div>
 			<!-- end of detailBoard -->
-			
+
 			<!-- 이전글, 다음글 -->
-			<c:if test="${detail.preTitle != null }">
-				이전글 | <button onclick="preMove()">${detail.preTitle }</button><br>
-			</c:if>
-			<c:if test="${detail.preTitle == null }">
+			<div style="margin-bottom: 5px;">
+				<c:if test="${detail.preTitle != null }">
+				이전글 | <button onclick="preMove()">${detail.preTitle }</button>
+					<br>
+				</c:if>
+				<c:if test="${detail.preTitle == null }">
 				이전글이 없습니다.<br>
-			</c:if>
-			<c:if test="${detail.nextTitle != null }">
+				</c:if>
+			</div>
+			<div>
+				<c:if test="${detail.nextTitle != null }">
 				다음글 | <button onclick="nextMove()">${detail.nextTitle }</button>
-			</c:if>
-			<c:if test="${detail.nextTitle == null }">
+				</c:if>
+				<c:if test="${detail.nextTitle == null }">
 				다음글이 없습니다.
 			</c:if>
+			</div>
 			<!-- end of 이전글, 다음글 -->
-			
+
 		</main>
 		<footer>footer</footer>
 	</div>

@@ -32,6 +32,20 @@
 		email=#{email}
 	</select>
 
+	<select id="findId" parameterType="String" resultType="String">
+		SELECT id
+		FROM member
+		WHERE
+		email=#{email}
+	</select>
+
+	<select id="findPw" parameterType="String" resultType="String">
+		SELECT pw
+		FROM member
+		WHERE
+		id=#{id}
+	</select>
+
 	<select id="getMemberList" resultType="memberDTO">
 		SELECT * FROM member
 	</select>

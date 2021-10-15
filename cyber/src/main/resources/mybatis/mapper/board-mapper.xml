@@ -19,6 +19,7 @@
 		LIMIT #{startPage }, #{lastPage }
 	</select>
 	
+	<!-- 페이징 totalCount -->
 	<select id="totalCount" parameterType="HashMap" resultType="HashMap">
 		SELECT count(*) as totalCount FROM board_view
 		
@@ -49,12 +50,12 @@
 		VALUES (#{title}, #{content}, (SELECT no FROM member WHERE id=#{id}))
 	</insert>
 	
-	<!-- 게시글 삭제 (본인글만 삭제) -->
+	<!-- 게시글 삭제 (본인 글만 삭제) -->
 	<delete id="delete" parameterType="HashMap">
 		DELETE FROM board WHERE no=#{no} AND member_no=(SELECT no FROM member WHERE id=#{id})
 	</delete>
 	
-	<!-- 게시글 수정 (본인글만 수정) -->
+	<!-- 게시글 수정 (본인 글만 수정) -->
 	<update id="update" parameterType="HashMap">
 		UPDATE board SET title=#{title}, content=#{content} WHERE no=#{no} AND member_no=(SELECT no FROM member WHERE id=#{id})
 	</update>
@@ -69,15 +70,21 @@
 		SELECT * FROM board_comment_view WHERE no=#{no}
 	</select>
 	
-	<!-- 게시물 댓글쓰기 -->
+	<!-- 게시물 댓글쓰기 (로그인한 사람만) -->
 	<insert id="commentWrite" parameterType="HashMap">
 		INSERT INTO board_comment (comment, no, member_no) 
 		VALUES (#{comment}, #{no}, (SELECT no FROM member WHERE id=#{id}))
 	</insert>
 	
-	<!-- 게시물 댓글 삭제 -->
+	<!-- 게시물 댓글삭제 (본인 댓글만 삭제) -->
 	<delete id="commentDelete" parameterType="HashMap">
-		DELETE FROM board_comment WHERE no=#{no} AND member_no=(SELECT no FROM member WHERE id=#{id})
+		DELETE FROM board_comment WHERE comment_no=#{comment_no} AND member_no=(SELECT no FROM member WHERE id=#{id})
 	</delete>
+	
+	<!-- 게시물 댓글수정 (본인 댓글만 수정) -->
+	<update id="commentUpdate" parameterType="HashMap">
+		UPDATE board_comment SET comment=#{comment} WHERE comment_no=#{comment_no} AND member_no=(SELECT no FROM member WHERE id=#{id})
+	</update>
+	
 	
 </mapper>

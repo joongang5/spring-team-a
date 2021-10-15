@@ -6,11 +6,15 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>나만의도서관</title>
+<title>내 도서관</title>
 <style>
+@import
+	url('https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap')
+	;
+
 html {
-	font-family: 'NanumSquare', serif;
-	color: #003857;
+	font-family: 'Nanum Gothic', sans-serif;
+	color: #black;
 }
 
 body {
@@ -104,22 +108,24 @@ footer {
 			<c:choose>
 				<c:when test="${sessionScope.id ne null}">
 					<div class="serviceBox">
-						<h2>나의 서비스 이용현황</h2>
-						<b>${sessionScope.name }</b>님은 <b>전자책</b> 서비스를 이용하실 수 있습니다.
+						<h2 style="position: relative; left: 10px; top: 10px;">나의 서비스
+							이용현황</h2>
+						<div style="position: relative; left: 10px;">
+							<b>${sessionScope.name }</b>님은 <b>전자책</b> 서비스를 이용하실 수 있습니다.
+						</div>
 					</div>
 					<div class="ewqBox">
 						<div class="ebBox">
-							<a href="ebookLoanList.do" style="text-decoration: none; color: black;">
-							<img src="../resources/img/monitor.png"><br>
-								전자책 대출현황<br>
-								대출권수 ${ltotalCount }권<br>
-								예약권수 ${reserveCount }권
+							<a href="ebookLoanList.do"
+								style="text-decoration: none; color: black; position: relative; top: 10px;">
+								<img src="../resources/img/monitor.png"><br> 전자책 대출현황<br>
+								대출권수 ${ltotalCount }권<br> 예약권수 ${reserveCount }권
 							</a>
 						</div>
 						<div class="qtBox">
-							<a href="" style="text-decoration: none; color: black;">
-							<img src="../resources/img/qna.png"><br>
-								묻고답하기 문의현황<br>
+							<a href=""
+								style="text-decoration: none; color: black; position: relative; top: 10px;">
+								<img src="../resources/img/qna.png"><br> 나의 문의사항 현황<br>
 								문의건수 건
 							</a>
 						</div>
@@ -127,7 +133,8 @@ footer {
 				</c:when>
 				<c:otherwise>
 					<h2>
-						<a class="noLogin" href="/cyber/member/memberLogin.do">&nbsp;로그인해주세요.</a>
+						<a class="noLogin" href="/cyber/member/memberLogin.do">&nbsp;로그인이
+							필요합니다.</a>
 					</h2>
 				</c:otherwise>
 			</c:choose>

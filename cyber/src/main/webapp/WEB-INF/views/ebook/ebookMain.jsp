@@ -9,9 +9,13 @@
 <meta charset="UTF-8">
 <title>일반 전자책</title>
 <style>
+@import
+	url('https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap')
+	;
+
 html {
-	font-family: 'NanumSquare', serif;
-	color: #003857;
+	font-family: 'Nanum Gothic', sans-serif;
+	color: #black;
 }
 
 body {
@@ -69,20 +73,22 @@ td img {
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script type="text/javascript">
-function getParameterByName(name) {
-    name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
-    var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
-        results = regex.exec(location.search);
-    return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
-}
+	function getParameterByName(name) {
+		name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+		var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"), results = regex
+				.exec(location.search);
+		return results === null ? "" : decodeURIComponent(results[1].replace(
+				/\+/g, " "));
+	}
 	function linkPage(pageNo) {
 		alert(getParameterByName('searchTraget'));
-		 var searchTarget = getParameterByName('searchTraget');
-		 var searchValue = getParameterByName('searchValue');
-		 if(!searchTarget && !searchValue){
-			location.href="./ebookMain.do?pageNo="+pageNo;
-		}else{ 
-		location.href = "./ebookMain.do?pageNo=" + pageNo + '&searchTarge=' + searchTarget + '&searchValue=' + searchValue;
+		var searchTarget = getParameterByName('searchTraget');
+		var searchValue = getParameterByName('searchValue');
+		if (!searchTarget && !searchValue) {
+			location.href = "./ebookMain.do?pageNo=" + pageNo;
+		} else {
+			location.href = "./ebookMain.do?pageNo=" + pageNo + '&searchTarge='
+					+ searchTarget + '&searchValue=' + searchValue;
 		}
 	}
 </script>
@@ -98,67 +104,68 @@ function getParameterByName(name) {
 		<main>
 			<div id="SearchTarget">
 				<form action="./ebookMain.do" method="GET">
-				<select name="searchTarget">
-					<option value='title'
-						<c:if test="${searchTarget eq 'title'}">selected="selected"</c:if>>서명</option>
-					<option value='author'
-						<c:if test="${searchTarget eq 'author'}">selected="selected"</c:if>>저자</option>
-					<option value='publisher'
-						<c:if test="${searchTarget eq 'publisher'}">selected="selected"</c:if>>출판사</option>
-					<option value='isbn'
-						<c:if test="${searchTarget eq 'isbn'}">selected="selected"</c:if>>ISBN</option>
-				</select> <input name="searchValue" value="${searchValue}" />
-				 <button id = "search" type="submit">검색</button>
-				 </form>
+					<select name="searchTarget">
+						<option value='title'
+							<c:if test="${searchTarget eq 'title'}">selected="selected"</c:if>>서명</option>
+						<option value='author'
+							<c:if test="${searchTarget eq 'author'}">selected="selected"</c:if>>저자</option>
+						<option value='publisher'
+							<c:if test="${searchTarget eq 'publisher'}">selected="selected"</c:if>>출판사</option>
+						<option value='isbn'
+							<c:if test="${searchTarget eq 'isbn'}">selected="selected"</c:if>>ISBN</option>
+					</select> <input name="searchValue" value="${searchValue}" />
+					<button id="search" type="submit">검색</button>
+				</form>
 			</div>
 			<c:choose>
-			<c:when test="${fn:length(EbookList) gt 0 }">
-			<div id="mainTable">
-				<c:if test="${searchValue ne null }">
-				<h2>도서 수 : ${EbookList.get(0).totalCount }</h2>
-				<h3>페이지 번호 : ${pageNo}</h3>
-				<h3>검색어 : ${searchValue }</h3>
-				</c:if>
-				
-				<table>
-					<tr>
-						<td>서명</td>
-						<td>표지</td>
-						<td>출판사</td>
-						<td>저자</td>
-						<td>ISBN</td>
+				<c:when test="${fn:length(EbookList) gt 0 }">
+					<div id="mainTable">
+						<c:if test="${searchValue ne null }">
+							<h2>도서 수 : ${EbookList.get(0).totalCount }</h2>
+							<h3>페이지 번호 : ${pageNo}</h3>
+							<h3>검색어 : ${searchValue }</h3>
+						</c:if>
 
-					</tr>
-					<c:forEach items="${EbookList }" var="l">
-						<tr>
-							<td><a href="/cyber/ebook/ebookDetail.do?isbn=${l.isbn }">${l.title}
-									<c:if test="${l.title eq null }">
+						<table>
+							<tr>
+								<td>서명</td>
+								<td>표지</td>
+								<td>출판사</td>
+								<td>저자</td>
+								<td>ISBN</td>
+
+							</tr>
+							<c:forEach items="${EbookList }" var="l">
+								<tr>
+									<td><a href="/cyber/ebook/ebookDetail.do?isbn=${l.isbn }">${l.title}
+											<c:if test="${l.title eq null }">
 						제목없음
 						</c:if>
-							</a></td>
-							<td><img src="${l.title_url}"> <c:if
-									test="${l.title_url eq null }">
-									<img src="/cyber/resources/img/thumbnail.gif">
-								</c:if></td>
-							<td>${l.publisher}
-							<td>${l.author}</td>
-							<td>${l.isbn}</td>
-						</tr>
-					</c:forEach>
-				</table>
-			</div>
-			<div>
-				<ul id="paging">
-					<ui:pagination paginationInfo="${paginationInfo }" type="text"
-						jsFunction="linkPage" />
-				</ul>
-			</div>
-			</c:when>
-			<c:otherwise>
+									</a></td>
+									<td><img src="${l.title_url}"> <c:if
+											test="${l.title_url eq null }">
+											<img src="/cyber/resources/img/thumbnail.gif">
+										</c:if></td>
+									<td>${l.publisher}
+									<td>${l.author}</td>
+									<td>${l.isbn}</td>
+								</tr>
+							</c:forEach>
+						</table>
+					</div>
+					<div>
+						<ul id="paging">
+							<ui:pagination paginationInfo="${paginationInfo }" type="text"
+								jsFunction="linkPage" />
+						</ul>
+					</div>
+				</c:when>
+				<c:otherwise>
 			검색된 도서가 없습니다.<br>
 			잠시후 전자책 페이지로 이동합니다.
-			<meta http-equiv="refresh" content="3; url='/cyber/ebook/ebookMain.do'"> 
-			</c:otherwise>
+			<meta http-equiv="refresh"
+						content="3; url='/cyber/ebook/ebookMain.do'">
+				</c:otherwise>
 			</c:choose>
 		</main>
 		<footer>footer</footer>
