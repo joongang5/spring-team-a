@@ -15,6 +15,8 @@ public interface MemberService {
 	public String isUsableId(String id);
 
 	public String isUsableEmail(String email);
+	
+	public int todayJoinCount();
 
 	public String findId(String email);
 

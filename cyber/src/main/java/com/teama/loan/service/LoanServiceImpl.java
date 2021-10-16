@@ -22,16 +22,24 @@ public class LoanServiceImpl implements LoanService {
 	@Autowired
 	private BookStorageDAO bookStorageDAO;
 	
+	@Override
 	public int totalCount(Map<String, Object> map) {
 		return loanDAO.totalCount(map);
 	}
 	
+	@Override
 	public int ltotalCount(Map<String, Object> map) {
 		return loanDAO.ltotalCount(map);
 	}
 	
+	@Override
 	public int reserveCount(Map<String, Object> map) {
 		return loanDAO.reserveCount(map);
+	}
+	
+	@Override
+	public int todayLoanCount(int state) {
+		return loanDAO.todayLoanCount(state);
 	}
 	
 	@Override

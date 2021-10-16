@@ -30,6 +30,11 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
+	public int todayJoinCount() {
+		return memberDAO.todayJoinCount();
+	}
+	
+	@Override
 	public String findId(String email) {
 		return memberDAO.findId(email);
 	}

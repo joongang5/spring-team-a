@@ -80,4 +80,21 @@
 		SELECT count(*) as reserveCount FROM book_loan_view WHERE member_no=#{memberNo} AND state=1
 	</select>
 	
+	<select id="todayLoanCount" parameterType="int" resultType="int">
+		SELECT COUNT(*) FROM book_loan WHERE state=#{state} AND
+		<choose>
+			<when test="state == 0">
+				loan_date >= CURDATE()
+			</when>
+			<when test="state == 1">
+				reserve_date >= CURDATE()
+			</when>
+			<when test="state == 2">
+				return_date >= CURDATE()
+			</when>
+			<otherwise>
+				loan_date >= CURDATE()
+			</otherwise>
+		</choose>
+	</select>
 </mapper>

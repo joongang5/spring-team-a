@@ -32,6 +32,10 @@
 		email=#{email}
 	</select>
 
+	<select id="todayJoinCount" resultType="int">
+		SELECT COUNT(*) FROM member WHERE join_date >= CURDATE();
+	</select>
+
 	<select id="findId" parameterType="String" resultType="String">
 		SELECT id
 		FROM member

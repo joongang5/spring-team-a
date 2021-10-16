@@ -125,4 +125,7 @@ public class LoanDAO extends AbstractDAO {
 		return Integer.parseInt(String.valueOf (selectOne("loan.reserveCount", map).get("reserveCount")));
 	}
 
+	public int todayLoanCount(int state) {
+		return sqlSession.selectOne("loan.todayLoanCount", state);
+	}
 }

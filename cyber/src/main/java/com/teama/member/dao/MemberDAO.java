@@ -27,6 +27,10 @@ public class MemberDAO extends AbstractDAO {
 		return sqlSession.selectOne("emailCheck", email);
 	}
 
+	public int todayJoinCount() {
+		return sqlSession.selectOne("member.todayJoinCount");
+	}
+	
 	public String findId(String email) {
 		return sqlSession.selectOne("member.findId", email);
 	}

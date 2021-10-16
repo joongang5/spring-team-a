@@ -23,4 +23,5 @@ public interface LoanService {
 	public int totalCount(Map<String, Object> map);
 	public int ltotalCount(Map<String, Object> map);
 	public int reserveCount(Map<String, Object> map);
+	public int todayLoanCount(int state);
 }
