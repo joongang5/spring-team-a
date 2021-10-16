@@ -89,6 +89,11 @@
 
 /* 화면 너비 0 ~ 960px */
 @media (max-width: 960px) {
+	
+}
+
+/* 화면 너비 0 ~ 768px */
+@media (max-width: 768px) {
 	.nav > div {
 		float: none;
 		width: 100%;

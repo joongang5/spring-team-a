@@ -1,29 +1,5 @@
 @charset "UTF-8";
 
-table { 
-	width: 100%;
-	border: 1px solid #ccc;
-	border-collapse: collapse;
-}
-
-th {
-	padding: 5px 10px;
-	background-color: #f1f4fb;
-}
-
-td {
-	padding: 0 5px;
-}
-
-th, td { 
-	border: 1px solid #ccc;
-	border-collapse: collapse;
-}
-
-button {
-	cursor: pointer;
-}
-
 .table_search th {
 	height: 40px;
 }
@@ -44,12 +20,7 @@ button {
 	text-align: center;
 }
 
-.search_btns > button {
-	padding: 5px 10px;
-}
-
 .search_btns > button:first-child {
-	border: none;
 	background-color: #525f78;
 	color: #fff;
 }
@@ -58,15 +29,6 @@ button {
 	text-align: right;
 }
 
-.util_btns > button {
-	padding: 5px 10px;
-}
-
 .table_list input {
 	width: 100%;
-}
-
-#pagination {
-	margin-top: 10px;
-	text-align: center;
 }

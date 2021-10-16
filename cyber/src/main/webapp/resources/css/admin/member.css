@@ -37,6 +37,14 @@ th, td {
 	border: 1px solid #ccc;
 }
 
+.table_search select {
+	width: 10%;
+}
+
+.table_search input {
+	width: 85%;
+}
+
 .table_basic {
 	width: 100%;
 	border-collapse: collapse;
@@ -66,6 +74,10 @@ th, td {
 	min-width: 85px;
 }
 
+.search_btn button {
+	padding: 5px 10px;
+}
+
 .search_submit {
 	border: 1px solid #525f78;
 	background: #525f78;
@@ -91,4 +103,9 @@ th, td {
 	border-left: 1px solid #d7d6db;
 	color: #000;
 	text-align: center;
+}
+
+.popup_btn {
+	padding: 0px 5px;
+	width: 100%;
 }

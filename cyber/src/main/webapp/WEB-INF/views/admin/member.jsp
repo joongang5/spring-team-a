@@ -20,37 +20,28 @@
 		<main>
 			<div class="container">
 				<div class="row">
-					<h3>회원 목록</h3>
 					<form action="searchMember.do" method="post">
 						<table class="table_search">
 							<tbody>
 								<tr>
-									<th>
-										<label class="" style="display: none;">
-											<input type="checkbox" name="" value="">
-										</label>
-										검색어
-									</th>
+									<th>검색어</th>
 									<td>
-									<select name="searchType" class="">
-										<option value="all">전체</option>
-										<option value="id">아이디</option>
-										<option value="name">이름</option>
-										<option value="email">이메일</option>
-										<option value="join_date">가입일</option>
-									</select>
-									<input type="text" name="keyword" value="" size="80">
+										<select name="searchType">
+											<option value="all">전체</option>
+											<option value="id">아이디</option>
+											<option value="name">이름</option>
+											<option value="email">이메일</option>
+											<option value="join_date">가입일</option>
+										</select>
+										<input type="text" name="keyword" value="" size="80">
 									</td>
 								</tr>
 								<tr>
 									<th>
 										<span>등급</span>
-										<label class="" style="display: none;">
-											<input type="checkbox" name="" value="">
-										</label>
 									</th>
 									<td>
-										<select name="grade" class="">
+										<select name="grade">
 											<option value="gall">전체</option>
 											<option value="5">일반</option>
 											<option value="9">관리자</option>
@@ -90,7 +81,7 @@
 								<td>${l.join_date }</td>
 								<td>${l.grade }</td>
 								<td>
-									<button onclick="openLoanPopup(${l.no })">보기</button>
+									<button class="popup_btn" onclick="openLoanPopup(${l.no })">보기</button>
 								</td>
 							</tr>
 							</c:forEach>
