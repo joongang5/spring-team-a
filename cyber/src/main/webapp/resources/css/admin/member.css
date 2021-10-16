@@ -1,20 +1,8 @@
 @charset "UTF-8";
 
-table {
-	margin: 0 auto;
-	border: 1px solid #ccc;
-}
-
-th, td {
-	border: 1px solid #ccc;
-}
-
 .table_search {
-	border: 1px solid #ccc;
 	width: 100%;
-	border-collapse: collapse;
 	line-height: 2.5;
-	border-top: 1px solid #828282;
 	table-layout: fixed;
 }
 
@@ -22,10 +10,6 @@ th, td {
 	width: 150px;
 	text-align: left;
 	padding: 7px 10px;
-	background: #f1f4fb;
-	border-bottom: 1px solid #ccc;
-	border-right: 1px solid #ccc;
-	border-left: 1px solid #ccc;
 	font-weight: 400;
 }
 
@@ -47,16 +31,11 @@ th, td {
 
 .table_basic {
 	width: 100%;
-	border-collapse: collapse;
 	line-height: 1.5;
-	border-bottom: 1px solid #d7d6db;
-	border-right: 1px solid #d7d6db;
 	color: #000;
-	border-top: 1px solid #828282;
 }
 
 .table_basic > thead > tr > th {
-	background: #f1f4fb;
 	padding: 12px 15px;
 }
 
@@ -80,16 +59,14 @@ th, td {
 
 .search_submit {
 	border: 1px solid #525f78;
-	background: #525f78;
+	background-color: #525f78;
 	color: #fff;
-	cursor: pointer;
 }
 
 .search_reset {
 	border: 1px solid #dcdcde;
 	background: #FFFFFF;
 	color: $666666;
-	cursor: pointer;
 }
 
 .nomember {
@@ -106,6 +83,5 @@ th, td {
 }
 
 .popup_btn {
-	padding: 0px 5px;
 	width: 100%;
 }

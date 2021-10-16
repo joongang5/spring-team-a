@@ -12,7 +12,7 @@
 	<script src="<c:url value="/resources/js/admin/bookStorage.js"/>"></script>
 	<link rel="stylesheet" href="<c:url value="/resources/css/reset.css"/>">
 	<link rel="stylesheet" href="<c:url value="/resources/css/admin/base.css"/>">
-	<link rel="stylesheet" href="<c:url value="/resources/css/admin/bookStorage.css"/>">
+	<link rel="stylesheet" href="<c:url value="/resources/css/admin/bookStorage.css?1"/>">
 </head>
 <body>
 	<div id="wrap">

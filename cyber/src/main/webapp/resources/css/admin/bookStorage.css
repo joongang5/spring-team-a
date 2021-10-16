@@ -21,8 +21,15 @@
 }
 
 .search_btns > button:first-child {
+	border: 1px solid #525f78;
 	background-color: #525f78;
 	color: #fff;
+}
+
+.search_btns > button:last-child {
+	border: 1px solid #dcdcde;
+	background-color: #FFFFFF;
+	color: $666666;
 }
 
 .util_btns {

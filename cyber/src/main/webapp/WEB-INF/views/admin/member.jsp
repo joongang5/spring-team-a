@@ -10,7 +10,8 @@
 	<title>관리자</title>
 	<script src="<c:url value="/resources/js/admin/member.js"/>"></script>
 	<link rel="stylesheet" href="<c:url value="/resources/css/reset.css"/>">
-	<link rel="stylesheet" href="<c:url value="/resources/css/admin/member.css"/>">
+	<link rel="stylesheet" href="<c:url value="/resources/css/admin/base.css"/>">
+	<link rel="stylesheet" href="<c:url value="/resources/css/admin/member.css?1"/>">
 </head>
 <body>
 	<div id="wrap">
