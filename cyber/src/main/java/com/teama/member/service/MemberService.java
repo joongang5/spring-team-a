@@ -24,6 +24,8 @@ public interface MemberService {
 
 	public List<MemberDTO> getMemberList();
 
+	public List<MemberDTO> getRecentlyMemberList(int limitCount);
+
 	public List<MemberDTO> getMemberList(String searchType, String searchValue);
 
 	public List<MemberDTO> getMemberListByNo(int memberNo);

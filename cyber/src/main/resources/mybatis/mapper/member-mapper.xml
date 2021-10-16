@@ -50,6 +50,10 @@
 		SELECT * FROM member
 	</select>
 
+	<select id="getRecentlyMemberList" parameterType="int" resultType="memberDTO">
+		SELECT * FROM member ORDER BY join_date DESC LIMIT #{limitCount}
+	</select>	
+
 	<select id="getMemberByNo" parameterType="Integer"
 		resultType="memberDTO">
 		SELECT * FROM member WHERE no=#{no}

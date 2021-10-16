@@ -41,6 +41,10 @@
 		SELECT * FROM book_loan_view WHERE member_no=#{memberNo}
 	</select>
 	
+	<select id="getRecentlyViewList" resultType="loanViewDTO" parameterType="int">
+		SELECT * FROM book_loan_view ORDER BY loan_date DESC LIMIT #{limitCount}
+	</select>
+	
 	<select id="getLoanListByBookNo" resultType="loanDTO" parameterType="hashmap">
 		SELECT * FROM book_loan WHERE book_no=#{bookNo} AND state=#{state}
 	</select>

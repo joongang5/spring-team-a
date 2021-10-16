@@ -31,6 +31,10 @@ public class LoanDAO extends AbstractDAO {
 		return sqlSession.selectList("loan.getViewListByMemberNo", map);
 	}
 
+	public List<LoanViewDTO> getRecentlyViewList(int limitCount) {
+		return sqlSession.selectList("loan.getRecentlyViewList", limitCount);
+	}
+	
 	public List<LoanViewDTO> getViewPagingListByMemberNo(Map<String, Object> map) {
 		return sqlSession.selectList("loan.getViewPagingListByMemberNo", map);
 	}

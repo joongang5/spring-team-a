@@ -30,10 +30,19 @@ public class AdminController {
 	public ModelAndView home() {
 		ModelAndView mv = new ModelAndView("admin/admin");
 		
-		List<MemberDTO> memberDTOList = memberService.getMemberList();
+		int todayLoanCount = 0;
+		mv.addObject("todayLoanCount", todayLoanCount);
+		int todayReserveCount = 0;
+		mv.addObject("todayReserveCount", todayReserveCount);
+		int todayReturnCount = 0;
+		mv.addObject("todayReturnCount", todayReturnCount);
+		int todayJoinCount = 0;
+		mv.addObject("todayJoinCount", todayJoinCount);
+		
+		List<MemberDTO> memberDTOList = memberService.getRecentlyMemberList(5);
 		mv.addObject("memberDTOList", memberDTOList);
 		
-		List<LoanViewDTO> loanViewDTOList = loanService.getViewListByMemberNo(1);
+		List<LoanViewDTO> loanViewDTOList = loanService.getRecentlyViewList(5);
 		mv.addObject("loanViewDTOList", loanViewDTOList);
 		
 		return mv;

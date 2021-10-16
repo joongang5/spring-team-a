@@ -48,6 +48,11 @@ public class LoanServiceImpl implements LoanService {
 	public List<LoanViewDTO> getViewListByMemberNo(int memberNo, int state) {
 		return loanDAO.getViewListByMemberNo(memberNo, state);
 	}
+	
+	@Override
+	public List<LoanViewDTO> getRecentlyViewList(int limitCount) {
+		return loanDAO.getRecentlyViewList(limitCount);
+	}
 
 	@Override
 	public List<LoanViewDTO> getViewPagingListByMemberNo(Map<String, Object> map) {

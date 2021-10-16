@@ -50,6 +50,11 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
+	public List<MemberDTO> getRecentlyMemberList(int limitCount) {
+		return memberDAO.getRecentlyMemberList(limitCount);
+	}
+
+	@Override
 	public List<MemberDTO> getMemberListByNo(int memberNo) {
 		return memberDAO.getMemberListByNo(memberNo);
 	}
