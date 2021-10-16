@@ -56,7 +56,7 @@
 							<th>book_no</th>
 							<th>표제</th>
 							<th>저자</th>
-							<th>반납일</th>
+							<th>대출일</th>
 							<th>상태</th>
 						</tr>
 						<c:if test="${fn:length(loanViewDTOList) gt 0 }">
@@ -65,8 +65,18 @@
 								<td>${l.book_no }</td>
 								<td>${l.title }</td>
 								<td>${l.author }</td>
-								<td>${l.return_date }</td>
-								<td>${l.state }</td>
+								<td>${l.loan_date }</td>
+								<td>
+									<c:if test="${l.state eq 0 }">
+										대출
+									</c:if>
+									<c:if test="${l.state eq 1 }">
+										예약
+									</c:if>
+									<c:if test="${l.state eq 2 }">
+										반납
+									</c:if>
+								</td>
 							</tr>
 							</c:forEach>
 						</c:if>

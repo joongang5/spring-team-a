@@ -42,7 +42,7 @@
 	</select>
 	
 	<select id="getRecentlyViewList" resultType="loanViewDTO" parameterType="int">
-		SELECT * FROM book_loan_view ORDER BY loan_date DESC LIMIT #{limitCount}
+		SELECT * FROM book_loan_view WHERE state!=1 ORDER BY loan_date DESC LIMIT #{limitCount}
 	</select>
 	
 	<select id="getLoanListByBookNo" resultType="loanDTO" parameterType="hashmap">
