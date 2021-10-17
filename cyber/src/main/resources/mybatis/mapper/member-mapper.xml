@@ -10,7 +10,7 @@
 		id=#{id} AND pw=#{pw}
 	</select>
 
-	<insert id="join" parameterType="hashMap">
+	<insert id="join" parameterType="hashmap">
 		INSERT INTO member (name, id,
 		pw, email)
 		VALUES(#{name}, #{id}, #{pw}, #{email})

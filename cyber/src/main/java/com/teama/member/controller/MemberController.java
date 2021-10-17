@@ -1,6 +1,9 @@
 package com.teama.member.controller;
 
+import java.io.IOException;
+
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.teama.common.CommandMap;
 import com.teama.member.service.MemberService;
+import com.teama.util.ScriptUtil;
 
 @Controller
 @RequestMapping("/member")
@@ -24,18 +28,13 @@ public class MemberController {
 	}
 
 	@PostMapping("memberJoinRegist.do")
-	public String join(CommandMap map) {
-		String name = String.valueOf(map.get("name"));
-		String id = String.valueOf(map.get("value"));
-		;
-		String pw = String.valueOf(map.get("pw"));
-		;
-		String email = String.valueOf(map.get("email"));
-		;
+	public void join(CommandMap map, HttpServletResponse response) throws IOException {
+		int result = memberService.join(map.getMap());
 
-		memberService.join(map.getMap());
-
-		return "redirect:index.do";
+		if (result > 0)
+			ScriptUtil.alertAndMovePage(response, "회원 가입에 성공했습니다.", "/cyber/index.do");
+		else
+			ScriptUtil.alert(response, "회원 가입에 실패했습니다.");
 	}
 
 	@PostMapping("idCheck.do")

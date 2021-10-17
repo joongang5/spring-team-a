@@ -10,7 +10,7 @@ import com.teama.member.dto.MemberDTO;
 @Service
 public interface MemberService {
 
-	public void join(Map<String, Object> map);
+	public int join(Map<String, Object> map);
 
 	public String isUsableId(String id);
 

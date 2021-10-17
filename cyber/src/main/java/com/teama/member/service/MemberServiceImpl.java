@@ -15,8 +15,8 @@ public class MemberServiceImpl implements MemberService {
 	@Autowired
 	private MemberDAO memberDAO;
 
-	public void join(Map<String, Object> map) {
-		memberDAO.join(map);
+	public int join(Map<String, Object> map) {
+		return memberDAO.join(map);
 	}
 
 	@Override
