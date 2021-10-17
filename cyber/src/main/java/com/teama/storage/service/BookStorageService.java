@@ -14,12 +14,14 @@ public interface BookStorageService {
 	public List<BookStorageDTO> getBookList();
 	public List<BookStorageDTO> getNeedAutoLoanList();
 	public List<BookStorageViewDTO> getViewList();
+	public List<BookStorageViewDTO> getViewList(String title, int firstIndex, int recordCountPerPage);
 	public List<Map<String, Object>> getViewMapList();
 	public List<Map<String, Object>> getViewMapList(int firstIndex, int recordCountPerPage);
 	public List<BookStorageViewDTO> getUnregisteredViewList();
 	public List<Map<String, Object>> getUnregisteredViewMapList();
 	public List<Map<String, Object>> getUnregisteredViewMapList(int firstIndex, int recordCountPerPage);
 	public int getTotalCount();
+	public int getTotalCount(String title);
 	public int getTotalUnregisteredCount();
 	public int insertBook(BookStorageDTO dto);
 	public int updateMaxCount(BookStorageDTO dto);

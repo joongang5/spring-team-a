@@ -86,9 +86,14 @@ public class AdminBookStorageController {
 		String searchValue = commandMap.getStrValue("searchValue");
 		
 		if (searchType.equals("title")) {
+			int totalRecordCount = bookStorageService.getTotalCount(searchValue); 
 
-			PaginationInfo paginationInfo = Util.newPaginationInfo(1, 1);
+			PaginationInfo paginationInfo = Util.newPaginationInfo(1, totalRecordCount);
 			
+			List<BookStorageViewDTO> bookStorageViewDTOList = bookStorageService.getViewList(
+					searchValue, paginationInfo.getFirstRecordIndex(), paginationInfo.getRecordCountPerPage());
+			
+			mv.addObject("bookStorageViewDTOList", bookStorageViewDTOList);
 			mv.addObject("paginationInfo", paginationInfo);
 		} else if (searchType.equals("book_no")) {
 			int bookNo = Integer.parseInt(searchValue);

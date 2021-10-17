@@ -42,6 +42,11 @@ public class BookStorageServiceImpl implements BookStorageService {
 	}
 
 	@Override
+	public List<BookStorageViewDTO> getViewList(String title, int firstIndex, int recordCountPerPage) {
+		return bookStorageDAO.getViewList(title, firstIndex, recordCountPerPage);
+	}
+	
+	@Override
 	public List<Map<String, Object>> getViewMapList() {
 		return bookStorageDAO.getViewMapList();
 	}
@@ -71,6 +76,11 @@ public class BookStorageServiceImpl implements BookStorageService {
 		return bookStorageDAO.getTotalCount();
 	}
 
+	@Override
+	public int getTotalCount(String title) {
+		return bookStorageDAO.getTotalCount(title);
+	}
+	
 	@Override
 	public int getTotalUnregisteredCount() {
 		return bookStorageDAO.getTotalUnregisteredCount();

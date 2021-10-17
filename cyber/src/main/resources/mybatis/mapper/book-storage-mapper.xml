@@ -17,6 +17,11 @@
 		SELECT * FROM
 		book_storage_view
 	</select>
+	
+	<select id="getViewListByTitle" resultType="bookStorageViewDTO">
+		SELECT * FROM book_storage_view WHERE title LIKE CONCAT('%', #{title}, '%')
+	</select>
+	
 	<select id="getViewMapList" resultType="hashmap"
 		parameterType="hashmap">
 		SELECT * FROM book_storage_view
@@ -30,6 +35,10 @@
 		book_storage
 	</select>
 
+	<select id="getTotalCountByTitle" resultType="int" parameterType="string">
+		SELECT COUNT(*) FROM book_storage_view WHERE title LIKE CONCAT('%', #{title}, '%')
+	</select>
+	
 	<select id="getViewByBookNo" resultType="bookStorageViewDTO"
 		parameterType="int">
 		SELECT * FROM book_storage_view WHERE book_no=#{bookNo}
