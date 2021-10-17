@@ -123,6 +123,11 @@ button {
 		});
 	});
 
+	$(document).keydown(function(event) {
+		if (event.keyCode == 13)
+			onclickLoginBtn();
+	});
+	
 	function setCookie(cookieName, value, exdays) {
 		var exdate = new Date();
 		exdate.setDate(exdate.getDate() + exdays);
