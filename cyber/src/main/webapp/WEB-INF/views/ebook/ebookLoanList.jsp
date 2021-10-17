@@ -123,12 +123,51 @@ button {
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script>
-	function retfunction(bookNo) {
-		location.href="./doReturn.do?bookNo="+bookNo;
+	function retfunction(no) {
+		$.ajax({
+			url : "doReturn.do",
+			type : "POST",
+			dataType : "html",
+			data : { "no" : no },
+			success : function(errorMessage) {
+				if (errorMessage != "") {
+					alert(errorMessage);
+					return;
+				}
+				var rebtnId = "#rebtn" + no;
+				$(rebtnId).hide();
+				
+				var extbtnId = "#extbtn" + no;
+				$(extbtnId).hide();
+				
+				alert("반납에 성공했습니다.");
+			},
+			error : function(request, status, error) {
+				alert("error : " + error);
+			}
+		});
 	}
 	
-	function extfunction(bookNo) {
-		location.href="./doExtend.do?bookNo="+bookNo;
+	function extfunction(no) {
+		$.ajax({
+			url : "doExtend.do",
+			type : "POST",
+			dataType : "json",
+			data : { "no" : no },
+			success : function(data) {
+				if (data.errorMessage != "") {
+					alert(data.errorMessage);
+					return;
+				}
+				var redateId = "#redate" + no;
+				$(redateId).text(data.redate);
+				
+				alert("연장에 성공했습니다.");
+			},
+			error : function(request, status, error) {
+				alert("error : " + error);
+			}
+		});
 	}
 	
 	function linkPage(pageNo){
@@ -178,15 +217,16 @@ button {
 											<td>${l.author }</td>
 											<td>${l.publisher }</td>
 											<td>${l.loan_date }</td>
-											<td>${l.return_date }</td>
+											<td id="redate${l.no }">${l.return_date }</td>
 											<td>
-												<button class="lobtn"
-													onclick="location.href='/cyber/ebook/ebookDetail.do?isbn=${l.isbn}'">보기</button>
-												<br> <c:if test="${l.state == 0 }">
-													<button class="rebtn" onclick="retfunction(${l.book_no})">반납하기</button>
+												<button class="lobtn" onclick="location.href='/cyber/ebook/ebookDetail.do?isbn=${l.isbn}'">보기</button>
+												<br> 
+												<c:if test="${l.state == 0 }">
+													<button id="rebtn${l.no }" class="rebtn" onclick="retfunction(${l.no})">반납하기</button>
 													<br>
-												</c:if> <c:if test="${l.state == 0 }">
-													<button class="extbtn" onclick="extfunction(${l.book_no})">연장하기</button>
+												</c:if> 
+												<c:if test="${l.state == 0 }">
+													<button id="extbtn${l.no }" class="extbtn" onclick="extfunction(${l.no})">연장하기</button>
 												</c:if>
 											</td>
 										</tr>

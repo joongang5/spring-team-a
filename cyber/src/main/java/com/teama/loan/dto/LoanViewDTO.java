@@ -2,6 +2,7 @@ package com.teama.loan.dto;
 
 public class LoanViewDTO {
 
+	private int no;
 	private int book_no;
 	private String title;
 	private String author;
@@ -12,8 +13,15 @@ public class LoanViewDTO {
 	private String loan_date;
 	private String reserve_date;
 	private String return_date;
-	
 	private int member_no;
+
+	public int getNo() {
+		return no;
+	}
+
+	public void setNo(int no) {
+		this.no = no;
+	}
 
 	public int getBook_no() {
 		return book_no;

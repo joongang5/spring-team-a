@@ -6,13 +6,17 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.json.simple.JSONObject;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.teama.common.CommandMap;
 import com.teama.ebook.service.EbookService;
+import com.teama.loan.dto.LoanDTO;
 import com.teama.loan.dto.LoanViewDTO;
 import com.teama.loan.service.LoanService;
 import com.teama.member.service.MyPageService;
@@ -99,94 +103,56 @@ public class MyPageController {
 		//System.out.println("last Map : "+map.getMap());
 		return mv;
 	}
-	
-	@GetMapping("doReturn.do")
-	private ModelAndView doReturn(HttpServletRequest request, CommandMap map) {
-		ModelAndView mv = new ModelAndView("ebook/ebookLoanList");
-		
-		int bookNo = map.getIntValue("bookNo");
-		
-		int pageNo = 1;
-		if (map.containsKey("pageNo")) {
-			pageNo= Integer.parseInt(String.valueOf(map.get("pageNo")));
-		}
-		int listScale = 4;
-		int pageScale = 10;
 
+	@PostMapping(value="doReturn.do", produces="text/plain;charset=utf-8")
+	@ResponseBody
+	private String doReturn(HttpServletRequest request, CommandMap map) {
+		String errorMessage = "";
+		
 		HttpSession session = request.getSession();
 		Object memberNoObj = session.getAttribute("memberNo");
-		if (memberNoObj != null) {
-			int memberNo = Util.parseInt(memberNoObj);
-			map.put("memberNo", memberNo);
-			int totalCount = loanService.totalCount(map.getMap());
-			
-			PaginationInfo paginationInfo = new PaginationInfo();
-			
-			paginationInfo.setCurrentPageNo(pageNo);
-			paginationInfo.setRecordCountPerPage(listScale);
-			paginationInfo.setPageSize(pageScale);
-			paginationInfo.setTotalRecordCount(totalCount);//
-			
-			int startPage = paginationInfo.getFirstRecordIndex();
-			int lastPage = paginationInfo.getRecordCountPerPage();
-			
-			map.put("startPage", startPage);
-			map.put("lastPage", lastPage);
-			
-			List<LoanViewDTO> loanViewDTOList = loanService.getViewPagingListByMemberNo(map.getMap());
-			
-			mv.addObject("loanViewDTOList", loanViewDTOList);
-			mv.addObject("paginationInfo", paginationInfo);
-			mv.addObject("pageNo", pageNo);
-			mv.addObject("totalCount", totalCount);
-			
-			loanService.doReturn(bookNo, memberNo);
+		if (memberNoObj == null) {
+			errorMessage = "세션이 만료되었습니다."; 
+			return errorMessage;
 		}
-		return mv;
+		else {
+			int no = map.getIntValue("no");
+			errorMessage = loanService.doReturn(no);
+		}
+		
+		return errorMessage;
 	}
-	
-	@GetMapping("doExtend.do")
-	private ModelAndView doExtend(HttpServletRequest request, CommandMap map) {
-		ModelAndView mv = new ModelAndView("ebook/ebookLoanList");
-		
-		int bookNo = map.getIntValue("bookNo");
-		
-		int pageNo = 1;
-		if (map.containsKey("pageNo")) {
-			pageNo= Integer.parseInt(String.valueOf(map.get("pageNo")));
-		}
-		int listScale = 4;
-		int pageScale = 10;
 
+	@SuppressWarnings("unchecked")
+	@PostMapping(value="doExtend.do", produces="text/plain;charset=utf-8")
+	@ResponseBody
+	private String doExtend(HttpServletRequest request, CommandMap map) {
+		String errorMessage = "";
+		String redate = "";
+		
 		HttpSession session = request.getSession();
 		Object memberNoObj = session.getAttribute("memberNo");
-		if (memberNoObj != null) {
-			int memberNo = Util.parseInt(memberNoObj);
-			map.put("memberNo", memberNo);
-			int totalCount = loanService.totalCount(map.getMap());
+		if (memberNoObj == null) {
+			errorMessage = "세션이 만료되었습니다."; 
+			return errorMessage;			
+		} else {
+			int no = map.getIntValue("no");
+			errorMessage = loanService.doExtend(no);
 			
-			PaginationInfo paginationInfo = new PaginationInfo();
-			
-			paginationInfo.setCurrentPageNo(pageNo);
-			paginationInfo.setRecordCountPerPage(listScale);
-			paginationInfo.setPageSize(pageScale);
-			paginationInfo.setTotalRecordCount(totalCount);//
-			
-			int startPage = paginationInfo.getFirstRecordIndex();
-			int lastPage = paginationInfo.getRecordCountPerPage();
-			
-			map.put("startPage", startPage);
-			map.put("lastPage", lastPage);
-			
-			List<LoanViewDTO> loanViewDTOList = loanService.getViewPagingListByMemberNo(map.getMap());
-			
-			mv.addObject("loanViewDTOList", loanViewDTOList);
-			mv.addObject("paginationInfo", paginationInfo);
-			mv.addObject("pageNo", pageNo);
-			mv.addObject("totalCount", totalCount);
-			
-			loanService.doExtend(bookNo, memberNo);
+			if (errorMessage.isEmpty()) {
+				LoanDTO loanDTO = loanService.getLoan(no);
+				if (loanDTO == null) {
+					errorMessage = "대출 정보를 찾을 수 없습니다.";
+				} else {
+					redate = loanDTO.getReturn_date();
+				}
+			}
 		}
-		return mv;
+
+		JSONObject jsonObj = new JSONObject();
+		jsonObj.put("errorMessage", errorMessage);
+		jsonObj.put("redate", redate);
+		
+		return jsonObj.toString();
 	}
 }

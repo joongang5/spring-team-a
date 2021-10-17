@@ -43,6 +43,11 @@ public class LoanServiceImpl implements LoanService {
 	}
 	
 	@Override
+	public LoanDTO getLoan(int no) {
+		return loanDAO.getLoan(no);
+	}
+	
+	@Override
 	public List<LoanViewDTO> getViewListByMemberNo(Map<String, Object> map) {
 		return loanDAO.getViewListByMemberNo(map);
 	}
@@ -154,11 +159,21 @@ public class LoanServiceImpl implements LoanService {
 		
 		return "";
 	}
+
+	@Override
+	public String doReturn(int no) {
+		LoanDTO loanDTO = loanDAO.getLoan(no);
+		return doReturnProc(loanDTO);
+	}
 	
-	// 반납 기본 로직
 	@Override
 	public String doReturn(int bookNo, int memberNo) {
 		LoanDTO loanDTO = loanDAO.getLoanByMemberNoAndBookNo(bookNo, memberNo, LoanState.loan.getValue());
+		return doReturnProc(loanDTO);
+	}
+
+	// 반납 기본 로직
+	private String doReturnProc(LoanDTO loanDTO) {
 		if (loanDTO == null)
 			return "대출 정보를 찾을 수 없습니다.";
 		
@@ -174,17 +189,27 @@ public class LoanServiceImpl implements LoanService {
 			return "반납 처리에 실패했습니다.";
 
 		// 반납된 책에 대한 대출 카운트를 감소시킵니다.
-		result = bookStorageDAO.decreaseLoanCountByBookNo(bookNo);
+		result = bookStorageDAO.decreaseLoanCountByBookNo(loanDTO.getBook_no());
 		if (result <= 0)
 			return "반납 처리에 실패했습니다.";
 		
 		return "";
 	}
 	
-	// 연장 기본 로직
+	@Override
+	public String doExtend(int no) {
+		LoanDTO loanDTO = loanDAO.getLoan(no);
+		return doExtendProc(loanDTO);
+	}
+	
 	@Override
 	public String doExtend(int bookNo, int memberNo) {
 		LoanDTO loanDTO = loanDAO.getLoanByMemberNoAndBookNo(bookNo, memberNo, LoanState.loan.getValue());
+		return doExtendProc(loanDTO);
+	}
+
+	// 연장 기본 로직
+	private String doExtendProc(LoanDTO loanDTO) {
 		if (loanDTO == null)
 			return "대출 정보를 찾을 수 없습니다.";
 		  
@@ -198,7 +223,7 @@ public class LoanServiceImpl implements LoanService {
 
 		return "";
 	}
-		
+	
 	@Override
 	public String autoLoan() {
 		List<BookStorageDTO> needAutoLoanList = bookStorageDAO.getNeedAutoLoanList();

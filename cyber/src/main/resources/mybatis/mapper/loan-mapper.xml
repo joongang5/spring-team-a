@@ -22,6 +22,10 @@
 		UPDATE book_loan SET state=#{state}, loan_date=#{loan_date}, reserve_date=#{reserve_date}, return_date=#{return_date} WHERE no=#{no}
 	</update>
 	
+	<select id="getLoanByNo" resultType="loanDTO" parameterType="int">
+		SELECT * FROM book_loan WHERE no=#{no}
+	</select>
+	
 	<select id="getViewListByMemberNo" resultType="loanViewDTO" parameterType="hashmap">
 		SELECT * FROM book_loan_view WHERE member_no=#{memberNo}
 		<if test="state != null">
