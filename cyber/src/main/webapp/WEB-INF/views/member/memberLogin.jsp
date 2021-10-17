@@ -152,6 +152,29 @@ button {
 		}
 		return unescape(cookieValue);
 	}
+	
+	function onclickLoginBtn() {
+		var id = $("input[name=id]").val();
+		var pw = $("input[name=pw]").val();
+		
+		$.ajax({
+			url : "memberLogin.do",
+			type : "POST",
+			dataType : "html",
+			data : { "id" : id, "pw" : pw },
+			success : function(errorMessage) {
+				if (errorMessage != "") {
+					alert(errorMessage);
+					return;
+				}
+				location.href = "/cyber/index.do";
+			},
+			error : function(request, status, error) {
+				alert("error : " + error);
+			}
+		});
+	}
+
 </script>
 </head>
 <body>
@@ -167,21 +190,18 @@ button {
 				<img alt="book" src="../resources/img/book.png"
 					style="margin-left: 170px; margin-top: 10px; margin-bottom: 20px;">
 				<div id="inputbox">
-					<form class="login-form" action="/cyber/member/memberLogin.do"
-						method="post">
-						<div>
-							<input type="text" name="id" placeholder="아이디"
-								style="margin-bottom: 10px;" value="${rememberId.getValue() }">
-							<br> <input type="password" name="pw" placeholder="비밀번호">
-						</div>
+					<div>
+						<input type="text" name="id" placeholder="아이디"
+							style="margin-bottom: 10px;" value="${rememberId.getValue() }">
+						<br> <input type="password" name="pw" placeholder="비밀번호">
+					</div>
 				</div>
 				<div style="font-family: 'NanumSquare', serif; font-size: 12px;">
 					<input type="checkbox" id="idSaveCheck"> 아이디 기억하기
 				</div>
 				<div id="buttonbox">
-					<button type="submit">로그인</button>
+					<button type="button" onclick="onclickLoginBtn()">로그인</button>
 					<br>
-					</form>
 					<a href="/cyber/member/memberJoinRegist.do"><button
 							type="submit">회원 가입</button></a> <br> <a
 						href="/cyber/member/memberFindId.do"><button type="submit"

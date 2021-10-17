@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
@@ -42,17 +43,33 @@ public class LoginController {
 	public String login() {
 		return "member/memberLogin";
 	}
-
-	@PostMapping("memberLogin.do")
+	
+	@PostMapping(value="memberLogin.do", produces="text/plain;charset=utf-8")
+	@ResponseBody
 	public String login(CommandMap commandMap, HttpServletRequest request) {
-		Map<String, Object> login = loginService.login(commandMap.getMap());
-		HttpSession session = request.getSession();
-		session.setAttribute("name", login.get("name"));
-		session.setAttribute("id", login.get("id"));
-		session.setAttribute("memberNo", login.get("no"));
-		session.setAttribute("grade", login.get("grade")); //1013 소영 grade 세션 추가
+		String errorMessage = "";
+		
+		String id = commandMap.getStrValue("id");
+		String pw = commandMap.getStrValue("pw");
+		if (id.isEmpty())
+			errorMessage = "아이디를 입력해주세요.";
+		else if (pw.isEmpty())
+			errorMessage = "비밀번호를 입력해주세요.";
+		
+		if (errorMessage.isEmpty()) {
+			Map<String, Object> login = loginService.login(commandMap.getMap());
+			if (login != null) {
+				HttpSession session = request.getSession();
+				session.setAttribute("name", login.get("name"));
+				session.setAttribute("id", login.get("id"));
+				session.setAttribute("memberNo", login.get("no"));
+				session.setAttribute("grade", login.get("grade")); //1013 소영 grade 세션 추가	
+			} else {
+				errorMessage = "일치하는 회원정보가 없습니다.";
+			}
+		}
 
-		return "redirect:/index.do";
+		return errorMessage;
 	}
 
 	@GetMapping("/logout")
