@@ -69,6 +69,23 @@ button {
 	height: 300px;
 }
 </style>
+<script type="text/javascript">
+function check() {
+	var title = document.getElementById("boardTitle");
+	var content = document.getElementById("boardContent");
+	
+	if (title.value.length < 5 || title.value == "") {
+		alert("제목을 5글자 이상 적어주세요.");
+		title.focus();
+		return false;
+	}
+	if (content.value == "" || content.value.length < 5) {
+		alert("내용을 5글자 이상 적어주세요.");
+		content.focus();
+		return false;
+	}
+}
+</script>
 </head>
 <body>
 	<div id="wrap">
@@ -79,13 +96,11 @@ button {
 			<c:import url="/WEB-INF/views/component/lnbNav.jsp" />
 		</aside>
 		<main>
-			<form action="boardWrite.do" method="post">
-				<p>제목</p>
+			<form action="boardWrite.do" method="post" onsubmit="return check();">
 				<textarea class="boardTitle" id="boardTitle" name="title"
-					placeholder="제목을 입력하세요."></textarea>
-				<p>내용</p>
+					placeholder="제목을 입력하세요."></textarea><br>
 				<textarea class="boardContent" id="boardContent" name="content"
-					rows="10"></textarea>
+					rows="10" placeholder="내용을 입력하세요."></textarea>
 				<br>
 				<button type="submit" class="writeBtn">글쓰기</button>
 			</form>

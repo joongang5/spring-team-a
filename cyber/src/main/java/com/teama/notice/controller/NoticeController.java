@@ -1,20 +1,25 @@
 package com.teama.notice.controller;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.teama.common.CommandMap;
 import com.teama.notice.service.NoticeServiceImpl;
+import com.teama.util.FileSave;
 
 import egovframework.rte.ptl.mvc.tags.ui.pagination.PaginationInfo;
 
@@ -25,6 +30,11 @@ public class NoticeController {
 
 	@Resource(name="noticeService")
 	private NoticeServiceImpl noticeService;
+	
+	@Autowired
+	private FileSave fileSave; 
+	@Autowired
+	private ServletContext servletContext;
 	
 	//게시글 불러오기
 	@RequestMapping("/listNotice.do")
@@ -65,11 +75,16 @@ public class NoticeController {
 	
 	//값 받아서 글쓰기
 	@PostMapping("/noticeWrite.do")
-	public ModelAndView postWrite(CommandMap map, HttpServletRequest request) {
+	public ModelAndView postWrite(CommandMap map, HttpServletRequest request, MultipartFile file) throws IOException {
 		ModelAndView mv = new ModelAndView("notice/listNotice");
 		
 		HttpSession session = request.getSession();
 		map.put("id", session.getAttribute("id"));
+		map.put("originalfile", file.getOriginalFilename());
+		
+		String realPath = servletContext.getRealPath("resources/upfile/");
+		String upfile = fileSave.save2(realPath, file);
+		map.put("file", upfile);
 		
 		int result = noticeService.write(map.getMap());
 		System.out.println("noticeWrite = " + result);

@@ -138,12 +138,16 @@ button {
 					</c:if>
 				</c:if>
 				<hr>
+				<c:if test="${detail.file != null }">
+					<img alt="이미지" src="../resources/upfile/${detail.file }">
+				</c:if>
+				<hr>
 				${detail.content }
 			</div>
 			<!-- end of detailBoard -->
 
 			<!-- 이전글, 다음글 -->
-			<div style="margin-bottom: 5px;">
+			<div style="margin-top: 5px;">
 				<c:if test="${preNextPage.preNum != null }">
 					<c:if test="${preNextPage.preTitle != null }">
 						이전글 | <button onclick="preMove()">${preNextPage.preTitle }</button>
