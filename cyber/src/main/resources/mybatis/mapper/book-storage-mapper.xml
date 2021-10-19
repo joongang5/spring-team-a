@@ -39,6 +39,13 @@
 		SELECT COUNT(*) FROM book_storage_view WHERE title LIKE CONCAT('%', #{title}, '%')
 	</select>
 	
+	<select id="getBookByBookNo" resultType="bookStorageDTO" parameterType="int">
+		SELECT * FROM book_storage WHERE book_no=#{bookNo}
+	</select>
+	<select id="getBookMapByBookNo" resultType="hashmap" parameterType="int">
+		SELECT * FROM book_storage WHERE book_no=#{bookNo}
+	</select>
+	
 	<select id="getViewByBookNo" resultType="bookStorageViewDTO"
 		parameterType="int">
 		SELECT * FROM book_storage_view WHERE book_no=#{bookNo}

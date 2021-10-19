@@ -51,6 +51,14 @@ public class BookStorageDAO extends AbstractDAO {
 	public int getTotalCount(String title) {
 		return sqlSession.selectOne("bookStorage.getTotalCountByTitle", title);
 	}
+
+	public BookStorageDTO getBook(int bookNo) {
+		return sqlSession.selectOne("bookStorage.getBookByBookNo", bookNo);	
+	}
+	
+	public Map<String, Object> getBookMap(int bookNo) {
+		return sqlSession.selectOne("bookStorage.getBookMapByBookNo", bookNo);	
+	}
 	
 	public BookStorageViewDTO getViewByBookNo(int bookNo) {
 		return sqlSession.selectOne("bookStorage.getViewByBookNo", bookNo);

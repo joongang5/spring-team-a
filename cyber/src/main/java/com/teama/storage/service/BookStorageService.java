@@ -8,7 +8,8 @@ import com.teama.storage.dto.BookStorageViewDTO;
 
 public interface BookStorageService {
 
-	
+	public BookStorageDTO getBook(int bookNo);
+	public Map<String, Object> getBookMap(int bookNo);
 	public BookStorageViewDTO getView(int bookNo);
 	public Map<String, Object> getViewMap(int bookNo);
 	public List<BookStorageDTO> getBookList();

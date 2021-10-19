@@ -6,7 +6,9 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
+import org.json.simple.JSONObject;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
@@ -24,6 +26,9 @@ import com.teama.ebook.dto.EbookReviewDTO;
 import com.teama.ebook.service.EbookAPIService;
 import com.teama.ebook.service.EbookAPIServiceImpl;
 import com.teama.ebook.service.EbookServiceImpl;
+import com.teama.loan.service.LoanService;
+import com.teama.storage.service.BookStorageService;
+import com.teama.util.Util;
 
 import egovframework.rte.ptl.mvc.tags.ui.pagination.PaginationInfo;
 
@@ -35,7 +40,11 @@ public class ListEbookController {
 	private EbookServiceImpl ebookService;
 	@Resource(name = "ebookAPIService")
 	private EbookAPIServiceImpl ebookAPIService;
-
+	@Resource(name="loanService")
+	private LoanService loanService;
+	@Resource(name="bookStorageService")
+	private BookStorageService bookStorageService;
+	
 	@GetMapping("ebookMain.do")
 	public ModelAndView ebookMain(CommandMap map) throws Exception {
 		ModelAndView mv = new ModelAndView("ebook/ebookMain");
@@ -163,6 +172,10 @@ public class ListEbookController {
 		if(!review.isEmpty()) {
 			mv.addObject("ebookReview", review);
 		}
+		
+		Map<String, Object> bookStorageDTO = bookStorageService.getBookMap(EbookDetail.getNo());
+		mv.addObject("bookStorageDTO", bookStorageDTO);
+		
 		mv.addObject("ebookDetail", EbookDetail);
 		return mv;
 	}
@@ -176,4 +189,32 @@ public class ListEbookController {
 		return "redirect:ebookDetail.do?isbn="+request.getParameter("isbn");
 	}
 
+
+	@SuppressWarnings("unchecked")
+	@PostMapping(value="loanAJAX.do", produces="text/plain;charset=utf-8")
+	@ResponseBody
+	public String loanAJAX(CommandMap commandMap, HttpServletRequest request) {
+		JSONObject jsonObj = new JSONObject();
+		String errorMessage = ""; 
+				
+		HttpSession session = request.getSession();
+		Object memberNoObj = session.getAttribute("memberNo");
+		if (memberNoObj == null) {
+			errorMessage = "로그인 후 이용 가능합니다.";
+		} else {
+			int memberNo = Util.parseInt(memberNoObj);
+			int bookNo = commandMap.getIntValue("bookNo");
+			
+			errorMessage = loanService.loan(bookNo, memberNo);
+			if (errorMessage.isEmpty()) {
+				Map<String, Object> bookStorageDTO = bookStorageService.getBookMap(bookNo);
+		
+				jsonObj.put("bookStorageDTO", bookStorageDTO);
+			}
+		}
+		
+		jsonObj.put("errorMessage", errorMessage);
+		
+		return jsonObj.toString();
+	}
 }
