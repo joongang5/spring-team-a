@@ -38,6 +38,21 @@ function rewriteTbody(data) {
 	$("#tbody").append(html);
 }
 
+function onclickRegistUnregisteredBtn() {
+	$.ajax({
+		url : "registUnregisteredBook.do",
+		type : "POST",
+		dataType : "html",
+		success : function(resultMessage) {
+			alert(resultMessage);
+			location.href = "home.do";
+		},
+		error : function(request, status, error) {
+			alert("error : " + error);
+		}
+	});	
+}
+
 function onclickSearchUnregisteredBtn() {
 	location.href = "unregisteredBook.do";
 }

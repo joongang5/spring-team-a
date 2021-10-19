@@ -12,7 +12,7 @@
 	<script src="<c:url value="/resources/js/admin/bookStorage.js"/>"></script>
 	<link rel="stylesheet" href="<c:url value="/resources/css/reset.css"/>">
 	<link rel="stylesheet" href="<c:url value="/resources/css/admin/base.css"/>">
-	<link rel="stylesheet" href="<c:url value="/resources/css/admin/bookStorage.css?1"/>">
+	<link rel="stylesheet" href="<c:url value="/resources/css/admin/bookStorage.css"/>">
 </head>
 <body>
 	<header>
@@ -39,8 +39,12 @@
 						<button type="reset">초기화</button>
 					</div>
 				</form>
-				<div class="util_btns">
+				
+				<div class="util_left_btns">
 					<button type="button" onclick="onclickSearchUnregisteredBtn()">미등록 데이터 검색</button>
+					<button type="button" onclick="onclickRegistUnregisteredBtn()">미등록 데이터 일괄 등록</button>
+				</div>
+				<div class="util_right_btns">
 					<button type="button" onclick="onclickAutoLoanBtn()">자동 대출 실행</button>
 					<button type="button" onclick="onclickAutoReturnBtn()">자동 반납 실행</button>
 				</div>

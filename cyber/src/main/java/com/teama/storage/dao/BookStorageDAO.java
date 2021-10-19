@@ -111,6 +111,10 @@ public class BookStorageDAO extends AbstractDAO {
 		return sqlSession.insert("bookStorage.insertBook", dto);
 	}
 
+	public int insertBookList(List<Map<String, Object>> list) {
+		return sqlSession.insert("bookStorage.insertBookList", list);
+	}
+	
 	public int updateMaxCount(int bookNo, int maxCount) {
 		Map<String, Object> map = Map.of(
 				"bookNo", bookNo,

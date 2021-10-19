@@ -25,6 +25,7 @@ public interface BookStorageService {
 	public int getTotalCount(String title);
 	public int getTotalUnregisteredCount();
 	public int insertBook(BookStorageDTO dto);
+	public int insertBookList(List<Map<String, Object>> dtoList);
 	public int updateMaxCount(BookStorageDTO dto);
 	public int updateMaxCount(int bookNo, int maxCount);
 	public int increaseLoanCount(int bookNo);

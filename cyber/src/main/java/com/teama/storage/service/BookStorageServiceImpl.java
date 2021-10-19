@@ -101,6 +101,11 @@ public class BookStorageServiceImpl implements BookStorageService {
 	}
 
 	@Override
+	public int insertBookList(List<Map<String, Object>> dtoList) {
+		return bookStorageDAO.insertBookList(dtoList);
+	}
+	
+	@Override
 	public int updateMaxCount(BookStorageDTO dto) {
 		int result = 0;
 

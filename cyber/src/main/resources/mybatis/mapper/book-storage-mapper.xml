@@ -62,6 +62,13 @@
 		#{max_count}, #{loan_count}, #{reserve_count})
 	</insert>
 
+	<insert id="insertBookList" parameterType="hashmap">
+		INSERT INTO book_storage (book_no, max_count) VALUES
+		<foreach collection="list" item="i" separator=",">
+			(#{i.book_no}, 5)
+		</foreach>  
+	</insert>
+
 	<update id="increaseLoanCountByBookNo" parameterType="int">
 		UPDATE
 		book_storage SET loan_count=loan_count+1 WHERE book_no=#{bookNo}
