@@ -97,6 +97,13 @@ a {
 img {
 	vertical-align: middle;
 }
+
+@media ( max-width : 760px) {
+	#wrap div {
+		width: 500px;
+		float: none;
+	}
+}
 </style>
 <div id="headerInner">
 	<div id="siteMenu">
@@ -118,7 +125,7 @@ img {
 		<h1 id="logo">
 			<img alt="임시로고" src="./resources/img/book.png"
 				onerror="this.src='../resources/img/book.png'"> <a
-				href="/cyber/index.do">&nbsp;사이버 도서관</a>
+				href="/cyber/index.do">&nbsp;A book</a>
 		</h1>
 	</div>
 </div>

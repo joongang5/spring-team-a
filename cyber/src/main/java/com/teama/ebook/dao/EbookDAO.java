@@ -10,11 +10,11 @@ import com.teama.ebook.dto.EbookDTO;
 import com.teama.ebook.dto.EbookReviewDTO;
 
 @Repository
-public class EbookDAO extends AbstractDAO{
-	public int ebookAdd(Map<String, Object> map) {		
+public class EbookDAO extends AbstractDAO {
+	public int ebookAdd(Map<String, Object> map) {
 		return insert("ebook.ebookAdd", map);
 	}
-	
+
 	public List<EbookDTO> getEbookList(Map<String, Object> map) {
 		return sqlSession.selectList("ebook.getEbookList", map);
 	}
@@ -22,7 +22,7 @@ public class EbookDAO extends AbstractDAO{
 	public EbookDTO getEbookListByTitle(String title) {
 		return sqlSession.selectOne("ebook.getEbookListByTitle", title);
 	}
-	
+
 	public EbookDTO getEbookByISBN(String isbn) {
 		return sqlSession.selectOne("ebook.getEbookByISBN", isbn);
 	}
@@ -45,5 +45,9 @@ public class EbookDAO extends AbstractDAO{
 
 	public int insertBook(EbookDTO map) {
 		return sqlSession.insert("ebook.insertBook", map);
+	}
+
+	public List<EbookDTO> getNewList() {
+		return sqlSession.selectList("ebook.getNewList");
 	}
 }

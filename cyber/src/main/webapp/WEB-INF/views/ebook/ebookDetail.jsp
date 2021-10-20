@@ -45,7 +45,7 @@ aside {
 main {
 	float: left;
 	width: 760px;
-	height: 600px;
+	height: 1600px;
 	background: #white;
 }
 
@@ -110,7 +110,6 @@ td img {
 	display: inline-block; /* 하위 별점 이미지들이 있는 영역만 자리를 차지함.*/
 	direction: rtl; /* 이모지 순서 반전 */
 	border: 0; /* 필드셋 테두리 제거 */
-
 }
 
 #review fieldset legend {
@@ -125,7 +124,6 @@ td img {
 	font-size: 1.5em; /* 이모지 크기 */
 	color: transparent; /* 기존 이모지 컬러 제거 */
 	text-shadow: 0 0 0 #f0f0f0; /* 새 이모지 색상 부여 */
-
 }
 
 #review label:hover {
@@ -137,14 +135,41 @@ td img {
 }
 
 #review input[type=radio]:checked ~ label {
-
 	text-shadow: 0 0 0 #ffed00; /* 마우스 클릭 체크 */
 }
-#reviewArea{width:100%;margin:0 auto;overflow:hidden;}
-					#reviewArea div{float:left;}
-						#reviewText{width:90%;text-align:left;}
-							#reviewText textarea{width:97%;height:75px;overflow:auto;resize: none; margin-left: 8px;}
-							#reviewBtn{width:100%;height:80px;line-height:80px;cursor:pointer;}
+
+#reviewArea {
+	width: 100%;
+	margin: 0 auto;
+	overflow: hidden;
+}
+
+#reviewArea div {
+	float: left;
+}
+
+#reviewText {
+	width: 90%;
+	text-align: left;
+}
+
+#reviewText textarea {
+	width: 97%;
+	height: 75px;
+	overflow: auto;
+	resize: none;
+	margin-left: 8px;
+}
+
+#reviewBtn {
+	width: 100%;
+	height: 50px;
+	line-height: 50px;
+	cursor: pointer;
+	background-color: #666;
+	color: #fff;
+	margin-top: 10px;
+}
 </style>
 </head>
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
@@ -247,15 +272,19 @@ td img {
 				제목 : ${ebookDetail.title}<br> 저자 : ${ebookDetail.author}<br>
 				출판사 : ${ebookDetail.publisher}<br> ISBN : ${ebookDetail.isbn}<br>
 				출판일 : ${ebookDetail.datetime}<br> 가격 : ${ebookDetail.price}<br>
-				별점 : <img alt="star" src="/cyber/resources/img/star${ebookReview.get(0).ratingSum }.png"> 리뷰(<c:if test="${ebookReview.get(0).reviewCount eq null }">0</c:if>${ebookReview.get(0).reviewCount })<br>
+				별점 : <img alt="star"
+					src="/cyber/resources/img/star${ebookReview.get(0).ratingSum }.png">
+				리뷰(
+				<c:if test="${ebookReview.get(0).reviewCount eq null }">0</c:if>${ebookReview.get(0).reviewCount })<br>
 				페이지 : ${ebookDetail.page}<br> 책 크기 : ${ebookDetail.book_size }<br>
-				<div id="bookStorage">
-					도서현황 : 대출(${bookStorageDTO.loan_count }/${bookStorageDTO.max_count }), 예약(${bookStorageDTO.reserve_count }/${bookStorageDTO.max_count })
-				</div>
+				<div id="bookStorage">도서현황 : 대출(${bookStorageDTO.loan_count }/${bookStorageDTO.max_count }),
+					예약(${bookStorageDTO.reserve_count }/${bookStorageDTO.max_count })</div>
 
 				<div class="btnGroup">
-					<button class="btn list" id="listBtn" onclick="location.href='/cyber/ebook/ebookMain.do';">목록</button>
-					<button class="btn themeBtn" onclick="onclickLoanBtn(${ebookDetail.no})">대여</button>
+					<button class="btn list" id="listBtn"
+						onclick="location.href='/cyber/ebook/ebookMain.do';">목록</button>
+					<button class="btn themeBtn"
+						onclick="onclickLoanBtn(${ebookDetail.no})">대여</button>
 					<button class="btn themeBtn2" onclick="">관심목록 담기</button>
 				</div>
 				<input type="button" onclick="content1()" value="책소개" /> <input
@@ -273,35 +302,38 @@ td img {
 					<b>목차</b><br> ${detail.detail2 }
 				</div>
 				<div id="reviewArea">
-				<form name="review" id="review" method="post" action="./ebookReview.do" onsubmit="return checkReview()">
+					<form name="review" id="review" method="post"
+						action="./ebookReview.do" onsubmit="return checkReview()">
 
-					<fieldset>
-						<legend>별점/리뷰</legend>
-					<div>
-						<input type="radio" name="rating" value="5" id="rate1"><label
-							for="rate1">★</label> <input type="radio" name="rating" value="4"
-							id="rate2"><label for="rate2">★</label> <input
-							type="radio" name="rating" value="3" id="rate3"><label
-							for="rate3">★</label> <input type="radio" name="rating" value="2"
-							id="rate4"><label for="rate4">★</label> <input
-							type="radio" name="rating" value="1" id="rate5"><label
-							for="rate5">★</label>
-					</div>
-					</fieldset>
-					<div id="reviewText">
-					<textarea id="reviewCmt" name="reviewCmt"<c:if test="${sessionScope.id eq null }">placeholder="  로그인 후 작성 가능합니다."</c:if>></textarea>
-					<input type="hidden" name="book_no" value="${ebookDetail.no }">
-					<input type="hidden" name="isbn" value="${ebookDetail.isbn }">
-					</div>
-					<div id="reviewSend">
-					<input type="submit" id="reviewBtn" value = "댓글 작성"></input>
-					</div>
-				</form>
+						<fieldset>
+							<legend>별점/리뷰</legend>
+							<div>
+								<input type="radio" name="rating" value="5" id="rate1"><label
+									for="rate1">★</label> <input type="radio" name="rating"
+									value="4" id="rate2"><label for="rate2">★</label> <input
+									type="radio" name="rating" value="3" id="rate3"><label
+									for="rate3">★</label> <input type="radio" name="rating"
+									value="2" id="rate4"><label for="rate4">★</label> <input
+									type="radio" name="rating" value="1" id="rate5"><label
+									for="rate5">★</label>
+							</div>
+						</fieldset>
+						<div id="reviewText">
+							<textarea id="reviewCmt" name="reviewCmt"
+								<c:if test="${sessionScope.id eq null }">placeholder="  로그인 후 작성 가능합니다."</c:if>></textarea>
+							<input type="hidden" name="book_no" value="${ebookDetail.no }">
+							<input type="hidden" name="isbn" value="${ebookDetail.isbn }">
+						</div>
+						<div id="reviewSend">
+							<input type="submit" id="reviewBtn" value="댓글 작성"></input>
+						</div>
+					</form>
 				</div>
-				<div id = reviewList>
+				<div id=reviewList>
 					<hr>
-					<c:forEach items="${ebookReview }" var="review" >
-					<img alt="star" src="/cyber/resources/img/star${review.rating }.png">
+					<c:forEach items="${ebookReview }" var="review">
+						<img alt="star"
+							src="/cyber/resources/img/star${review.rating }.png">
 					${review.reviewCmt }
 					${review.date }
 					${review.id }

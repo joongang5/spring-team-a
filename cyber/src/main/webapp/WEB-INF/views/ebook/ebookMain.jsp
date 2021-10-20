@@ -44,7 +44,7 @@ aside {
 main {
 	float: left;
 	width: 760px;
-	height: 600px;
+	height: auto;
 	background: #white;
 }
 
@@ -67,8 +67,12 @@ th, td {
 td img {
 	width: 100px
 }
-</style>
 
+#paging {
+	text-align: center;
+	margin-top: 10px;
+}
+</style>
 </head>
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
@@ -91,7 +95,6 @@ td img {
 		}
 	}
 </script>
-
 <body>
 	<div id="wrap">
 		<header>

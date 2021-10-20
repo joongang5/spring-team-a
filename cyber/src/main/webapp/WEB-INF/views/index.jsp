@@ -6,6 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Index</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <style type="text/css">
@@ -16,11 +17,13 @@
 html {
 	font-family: 'Nanum Gothic', sans-serif;
 	color: #black;
+	width: 100%;
 }
 
 body {
 	margin: 0;
 	padding: 0;
+	width: 100%;
 }
 
 #wrap {
@@ -36,7 +39,7 @@ header {
 
 main {
 	width: 1000px;
-	height: 600px;
+	height: 900px;
 	background: #white;
 }
 
@@ -47,128 +50,261 @@ footer {
 	background: #cee5fe;
 }
 
-@media ( max-width : 960px) {
-	.header {
+@media ( max-width : 760px) {
+	#wrap div {
+		width: 500px;
 		float: none;
-		width: 100%;
-	}
-	.main>div {
-		width: width:calc(50% - 10px);
-	}
-	.footer {
-		width: width:calc(50% - 10px);
 	}
 }
 
-.section input[id*="slide"] {
+.slider {
+	width: 640px;
+	height: 400px;
+	position: relative;
+	margin: 0 auto;
+}
+
+.slider input[type=radio] {
 	display: none;
 }
 
-.section .slidewrap {
-	max-width: 1000px;
-	margin: 0 auto;
-	overflow: hidden;
-}
-
-.section .slidelist {
-	white-space: nowrap;
-	font-size: 0;
-}
-
-.section .slidelist>li {
-	display: inline-block;
-	vertical-align: middle;
-	width: 100%;
-	transition: all .5s;
-}
-
-.section .slidelist>li>a {
-	display: block;
-	position: relative;
-}
-
-.section .slidelist>li>a img {
-	width: 100%;
-}
-
-.section .slidelist label {
+ul.imgs {
+	padding: 0;
+	margin: 0;
 	position: absolute;
-	z-index: 10;
-	top: 50%;
-	transform: translateY(-50%);
-	padding: 50px;
+	top: 100px;
+	left: 35%;
+}
+
+ul.imgs li {
+	position: absolute;
+	opacity: 0;
+	list-style: none;
+	padding: 0;
+	margin: 0;
+	transition-delay: 0.01s;
+	width: 200px;
+}
+
+.bullets {
+	position: absolute;
+	left: 50%;
+	transform: translateX(-50%);
+	bottom: 20px;
+	z-index: 2;
+	top: 350px;
+}
+
+.bullets label {
+	display: inline-block;
+	border-radius: 50%;
+	background-color: rgba(0, 0, 0, 0.55);
+	width: 20px;
+	height: 20px;
 	cursor: pointer;
 }
 
-.section .slidelist .left {
-	left: 30px;
-	background: url("./resources/img/left.png") center center/100% no-repeat;
+.slider input[type=radio]:nth-child(1):checked ~.bullets>label:nth-child(1)
+	{
+	background-color: #d3dae3;
 }
 
-.section .slidelist .right {
-	right: 30px;
-	background: url("./resources/img/right.png") center center/100%
-		no-repeat;
+.slider input[type=radio]:nth-child(2):checked ~.bullets>label:nth-child(2)
+	{
+	background-color: #d3dae3;
 }
 
-.section [id="slide01"]:checked ~ .slidewrap .slidelist>li {
-	transform: translateX(0%);
+.slider input[type=radio]:nth-child(3):checked ~.bullets>label:nth-child(3)
+	{
+	background-color: #d3dae3;
 }
 
-.section [id="slide02"]:checked ~ .slidewrap .slidelist>li {
-	transform: translateX(-100%);
+.slider input[type=radio]:nth-child(4):checked ~.bullets>label:nth-child(4)
+	{
+	background-color: #d3dae3;
 }
 
-.section [id="slide03"]:checked ~ .slidewrap .slidelist>li {
-	transform: translateX(-200%);
+.slider input[type=radio]:nth-child(5):checked ~.bullets>label:nth-child(5)
+	{
+	background-color: #d3dae3;
 }
 
-.section [id="slide04"]:checked ~ .slidewrap .slidelist>li {
-	transform: translateX(-300%);
+.slider input[type=radio]:nth-child(1):checked ~ul.imgs>li:nth-child(1)
+	{
+	opacity: 1;
+	transition: 0.1s;
+	z-index: 1;
 }
 
-.section [id="slide05"]:checked ~ .slidewrap .slidelist>li {
-	transform: translateX(-400%);
+.slider input[type=radio]:nth-child(2):checked ~ul.imgs>li:nth-child(2)
+	{
+	opacity: 1;
+	transition: 0.1s;
+	z-index: 1;
+}
+
+.slider input[type=radio]:nth-child(3):checked ~ul.imgs>li:nth-child(3)
+	{
+	opacity: 1;
+	transition: 0.1s;
+	z-index: 1;
+}
+
+.slider input[type=radio]:nth-child(4):checked ~ul.imgs>li:nth-child(4)
+	{
+	opacity: 1;
+	transition: 0.1s;
+	z-index: 1;
+}
+
+.slider input[type=radio]:nth-child(5):checked ~ul.imgs>li:nth-child(5)
+	{
+	opacity: 1;
+	transition: 0.1s;
+	z-index: 1;
+}
+
+ul.newImgs {
+	padding: 0;
+	margin: 0;
+	position: absolute;
+}
+
+ul.newImgs li {
+	position: relative;
+	top: 100px;
+	width: 200px;
+	padding: 0;
+	margin: 0;
+	list-style: none;
+}
+
+li {
+	text-align: center;
+}
+
+main img {
+	width: 100px;
 }
 </style>
 </head>
 <body>
 	<div id="wrap">
-		<div class="header clearfix">
+		<div>
 			<header>
 				<c:import url="/WEB-INF/views/component/headerInner.jsp" />
 			</header>
 		</div>
-		<div class="main clearfix">
+		<div>
 			<main>
-				<div id="newList">
-					<h2>이 달의 신작</h2>
-				</div>
 				<div id="bestList">
-					<h2>많이 본 책</h2>
-					<c:forEach items="${bookStorageViewDTOList }" var="l">
-						<div class="section">
-							<input type="radio" name="slide" id="slide01" checked> <input
-								type="radio" name="slide" id="slide02"> <input
-								type="radio" name="slide" id="slide03"> <input
-								type="radio" name="slide" id="slide04"> <input
-								type="radio" name="slide" id="slide05">
+					<div id="title">
+						<h1
+							style="text-align: center; margin-bottom: -80px; margin-top: 120px;">Best</h1>
+					</div>
+					<div class="slider">
+						<input type="radio" name="slide" id="slide1" checked> <input
+							type="radio" name="slide" id="slide2"> <input
+							type="radio" name="slide" id="slide3"> <input
+							type="radio" name="slide" id="slide4"> <input
+							type="radio" name="slide" id="slide5">
+
+						<ul id="imgholder" class="imgs" style="float: left">
+							<li><img src="${bookStorageViewDTOList[0].title_url }"
+								style="width: 100px"><br> <c:if
+									test="${bookStorageViewDTOList[0].title_url eq '' }">
+									<img src="/cyber/resources/img/thumbnail.gif">
+									<br>
+								</c:if> ${bookStorageViewDTOList[0].title }&nbsp;
+								<p>|&nbsp;${bookStorageViewDTOList[0].author }</p></li>
+
+							<li><img src="${bookStorageViewDTOList[1].title_url }"
+								style="width: 100px"><br> <c:if
+									test="${bookStorageViewDTOList[1].title_url eq '' }">
+									<img src="/cyber/resources/img/thumbnail.gif">
+									<br>
+								</c:if> ${bookStorageViewDTOList[1].title }&nbsp;
+								<p>|&nbsp;${bookStorageViewDTOList[1].author }</p></li>
+
+							<li><img src="${bookStorageViewDTOList[2].title_url }"
+								style="width: 100px"><br> <c:if
+									test="${bookStorageViewDTOList[2].title_url eq '' }">
+									<img src="/cyber/resources/img/thumbnail.gif">
+									<br>
+								</c:if> ${bookStorageViewDTOList[2].title }&nbsp;
+								<p>|&nbsp;${bookStorageViewDTOList[2].author }</p></li>
+
+							<li><img src="${bookStorageViewDTOList[3].title_url }"
+								style="width: 100px"><br> <c:if
+									test="${bookStorageViewDTOList[3].title_url eq '' }">
+									<img src="/cyber/resources/img/thumbnail.gif">
+									<br>
+								</c:if> ${bookStorageViewDTOList[3].title }&nbsp;
+								<p>|&nbsp;${bookStorageViewDTOList[3].author }</p></li>
+
+							<li><img src="${bookStorageViewDTOList[4].title_url }"
+								style="width: 100px"><br> <c:if
+									test="${bookStorageViewDTOList[4].title_url eq '' }">
+									<img src="/cyber/resources/img/thumbnail.gif">
+									<br>
+								</c:if> ${bookStorageViewDTOList[4].title }&nbsp;
+								<p>|&nbsp;${bookStorageViewDTOList[4].author }</p></li>
+						</ul>
+
+						<div class="bullets">
+							<label for="slide1">&nbsp;</label> <label for="slide2">&nbsp;</label>
+							<label for="slide3">&nbsp;</label> <label for="slide4">&nbsp;&nbsp;</label>
+							<label for="slide5">&nbsp;</label>
 						</div>
-						<div class="slidewrap">
-							<ul class="slidelist">
-								<li><a> <label for="slide05" class="left"></label> <img
-										src="${EbookList.title_url }" style="width: 100px"> <c:if
-											test="${EbookList.title_url eq null }">
-											<img src="/cyber/resources/img/thumbnail.gif">
-										</c:if> ${l.title }&nbsp;|&nbsp;${l.author } <label for="slide04"
-										class="right"></label></a></li>
-							</ul>
-						</div>
-					</c:forEach>
+					</div>
+				</div>
+				<div id="newList" style="width: 1000px;">
+					<div id="title">
+						<h1
+							style="text-align: center; margin-bottom: -60px; margin-top: 90px;">New</h1>
+					</div>
+					<div id="newImgList">
+						<ul id="imgholder" class="newImgs" style="float: left">
+							<li><img src="${ebookList[0].title_url }"><br> <c:if
+									test="${ebookList[0].title_url eq '' }">
+									<img src="/cyber/resources/img/thumbnail.gif">
+									<br>
+								</c:if> ${ebookList[0].title }&nbsp;
+								<p>|&nbsp;${ebookList[0].author }</p></li>
+
+							<li><img src="${ebookList[1].title_url }"><br> <c:if
+									test="${ebookList[1].title_url eq '' }">
+									<img src="/cyber/resources/img/thumbnail.gif">
+									<br>
+								</c:if> ${ebookList[1].title }&nbsp;
+								<p>|&nbsp;${ebookList[1].author }</p></li>
+
+							<li><img src="${ebookList[2].title_url }"><br> <c:if
+									test="${ebookList[2].title_url eq '' }">
+									<img src="/cyber/resources/img/thumbnail.gif">
+									<br>
+								</c:if> ${ebookList[2].title }&nbsp;
+								<p>|&nbsp;${ebookList[2].author }</p></li>
+
+							<li><img src="${ebookList[3].title_url }"><br> <c:if
+									test="${ebookList[3].title_url eq '' }">
+									<img src="/cyber/resources/img/thumbnail.gif">
+									<br>
+								</c:if> ${ebookList[3].title }&nbsp;
+								<p>|&nbsp;${ebookList[3].author }</p></li>
+
+							<li><img src="${ebookList[4].title_url }"><br> <c:if
+									test="${ebookList[4].title_url eq '' }">
+									<img src="/cyber/resources/img/thumbnail.gif">
+									<br>
+								</c:if> ${ebookList[4].title }&nbsp;
+								<p>|&nbsp;${ebookList[4].author }</p></li>
+						</ul>
+					</div>
 				</div>
 			</main>
 		</div>
-		<div class="footer clearfix">
+		<div style="position: relative; bottom: 0;">
 			<footer>이용약관</footer>
 		</div>
 	</div>

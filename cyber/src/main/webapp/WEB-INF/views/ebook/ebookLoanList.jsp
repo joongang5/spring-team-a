@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>나만의도서관</title>
+<title>내 도서관</title>
 <style>
 @import
 	url('https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap')
@@ -56,10 +56,13 @@ footer {
 }
 
 .libtn {
-	background-color: #0066b3;
+	background-color: #74adea;
 	font-family: sans-serif;
 	font: bold;
 	color: white;
+	position: relative;
+	left: 10px;
+	margin-bottom: 10px;
 }
 
 .infoBox {
@@ -67,6 +70,8 @@ footer {
 	padding: 0;
 	background-color: #f2f2f2;
 	font-family: sans-serif;
+	margin-left: 10px;
+	margin-top: 10px;
 }
 
 table {
@@ -118,6 +123,11 @@ button {
 	background-color: #fbfbfb;;
 	border: #fbfbfb;;
 	color: #555;
+}
+
+#paging {
+	text-align: center;
+	margin-top: 10px;
 }
 </style>
 <script
@@ -187,9 +197,9 @@ button {
 			<div>
 				<c:choose>
 					<c:when test="${sessionScope.id ne null}">
-						<a class="libtn" href="ebookLoanList.do">내서재</a>
+						<a class="libtn" href="ebookLoanList.do">내 서재</a>
 						<a class="libtn" href="">나의별점/리뷰</a>
-						<a class="libtn" href="">관심목록</a>
+						<a class="libtn" href="">관심 목록</a>
 						<div class="infoBox">
 							- 현재 대출중인 전자책을 확인하고, 전자책을 보거나 반납할 수 있습니다.<br> - 대출한 책은
 							반납예정일이 지나면 자동 반납되며, [반납하기]를 눌러서 미리 반납도 가능합니다.
@@ -219,14 +229,15 @@ button {
 											<td>${l.loan_date }</td>
 											<td id="redate${l.no }">${l.return_date }</td>
 											<td>
-												<button class="lobtn" onclick="location.href='/cyber/ebook/ebookDetail.do?isbn=${l.isbn}'">보기</button>
-												<br> 
-												<c:if test="${l.state == 0 }">
-													<button id="rebtn${l.no }" class="rebtn" onclick="retfunction(${l.no})">반납하기</button>
+												<button class="lobtn"
+													onclick="location.href='/cyber/ebook/ebookDetail.do?isbn=${l.isbn}'">보기</button>
+												<br> <c:if test="${l.state == 0 }">
+													<button id="rebtn${l.no }" class="rebtn"
+														onclick="retfunction(${l.no})">반납하기</button>
 													<br>
-												</c:if> 
-												<c:if test="${l.state == 0 }">
-													<button id="extbtn${l.no }" class="extbtn" onclick="extfunction(${l.no})">연장하기</button>
+												</c:if> <c:if test="${l.state == 0 }">
+													<button id="extbtn${l.no }" class="extbtn"
+														onclick="extfunction(${l.no})">연장하기</button>
 												</c:if>
 											</td>
 										</tr>

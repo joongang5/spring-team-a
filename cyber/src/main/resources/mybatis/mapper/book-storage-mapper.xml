@@ -17,11 +17,12 @@
 		SELECT * FROM
 		book_storage_view
 	</select>
-	
+
 	<select id="getViewListByTitle" resultType="bookStorageViewDTO">
-		SELECT * FROM book_storage_view WHERE title LIKE CONCAT('%', #{title}, '%')
+		SELECT * FROM
+		book_storage_view WHERE title LIKE CONCAT('%', #{title}, '%')
 	</select>
-	
+
 	<select id="getViewMapList" resultType="hashmap"
 		parameterType="hashmap">
 		SELECT * FROM book_storage_view
@@ -35,17 +36,21 @@
 		book_storage
 	</select>
 
-	<select id="getTotalCountByTitle" resultType="int" parameterType="string">
-		SELECT COUNT(*) FROM book_storage_view WHERE title LIKE CONCAT('%', #{title}, '%')
+	<select id="getTotalCountByTitle" resultType="int"
+		parameterType="string">
+		SELECT COUNT(*) FROM book_storage_view WHERE title LIKE
+		CONCAT('%', #{title}, '%')
 	</select>
-	
-	<select id="getBookByBookNo" resultType="bookStorageDTO" parameterType="int">
+
+	<select id="getBookByBookNo" resultType="bookStorageDTO"
+		parameterType="int">
 		SELECT * FROM book_storage WHERE book_no=#{bookNo}
 	</select>
-	<select id="getBookMapByBookNo" resultType="hashmap" parameterType="int">
+	<select id="getBookMapByBookNo" resultType="hashmap"
+		parameterType="int">
 		SELECT * FROM book_storage WHERE book_no=#{bookNo}
 	</select>
-	
+
 	<select id="getViewByBookNo" resultType="bookStorageViewDTO"
 		parameterType="int">
 		SELECT * FROM book_storage_view WHERE book_no=#{bookNo}
@@ -65,8 +70,9 @@
 	<insert id="insertBookList" parameterType="hashmap">
 		INSERT INTO book_storage (book_no, max_count) VALUES
 		<foreach collection="list" item="i" separator=",">
-			(#{i.book_no}, 5)
-		</foreach>  
+			(#{i.book_no},
+			5)
+		</foreach>
 	</insert>
 
 	<update id="increaseLoanCountByBookNo" parameterType="int">
@@ -117,7 +123,8 @@
 	</select>
 
 	<select id="getPopularViewList" resultType="bookStorageViewDTO">
-		SELECT * FROM book_loan_view GROUP BY book_no ORDER BY
+		SELECT * FROM
+		book_loan_view GROUP BY book_no ORDER BY
 		COUNT(*) DESC
 		LIMIT 5
 	</select>

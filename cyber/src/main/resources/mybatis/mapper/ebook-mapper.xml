@@ -3,89 +3,107 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="ebook">
-	<select id="getEbookList" resultType="ebookDTO" parameterType="HashMap">
-		SELECT 
+	<select id="getEbookList" resultType="ebookDTO"
+		parameterType="HashMap">
+		SELECT
 		(SELECT count(1) FROM book
 		<if test="searchValue != null"> WHERE ${searchTarget} LIKE '%${searchValue}%'
 		</if>
 		) AS totalCount,
-		title, 
-		title_url, 
-		author, 
+		title,
+		title_url,
+		author,
 		publisher,
 		isbn
-		FROM book 
+		FROM book
 		<if test="searchValue != null"> WHERE ${searchTarget} LIKE '%${searchValue}%'
 		</if>
 		LIMIT #{startPage}, #{lastPage}
 	</select>
-	
+
 	<select id="getEbookListByTitle" resultType="ebookDTO">
-		SELECT * FROM book WHERE title=#{title}
+		SELECT * FROM book
+		WHERE title=#{title}
 	</select>
-	
+
 	<select id="getEbookByISBN" resultType="ebookDTO">
-		SELECT * FROM book WHERE isbn=#{isbn}
+		SELECT * FROM book WHERE
+		isbn=#{isbn}
 	</select>
-	
+
 	<insert id="insertBook" parameterType="ebookDTO">
 		INSERT INTO book (
-			title,
-			title_url,
-			author,
-			publisher,
-			isbn,
-			datetime,
-			price,
-			page,
-			book_size
+		title,
+		title_url,
+		author,
+		publisher,
+		isbn,
+		datetime,
+		price,
+		page,
+		book_size
 		)
 		VALUES (
-			#{title},
-			#{title_url},
-			#{author},
-			#{publisher},
-			#{isbn},
-			#{datetime},
-			#{price},
-			#{page},
-			#{book_size}
+		#{title},
+		#{title_url},
+		#{author},
+		#{publisher},
+		#{isbn},
+		#{datetime},
+		#{price},
+		#{page},
+		#{book_size}
 		)
 	</insert>
-	
-	<select id="getEbookByNo" resultType="ebookDTO" parameterType="int">
+
+	<select id="getEbookByNo" resultType="ebookDTO"
+		parameterType="int">
 		SELECT * FROM book WHERE no=#{bookNo}
 	</select>
-	
-	<select id="getEbookDetail" resultType="ebookDTO" parameterType="String">
-		SELECT 
-			no,
-			title, 
-			title_url, 
-			author, 
-			publisher, 
-			isbn, 
-			datetime, 
-			price, 
-			page, 
-			book_size 
-			FROM book WHERE isbn=#{isbn}
+
+	<select id="getEbookDetail" resultType="ebookDTO"
+		parameterType="String">
+		SELECT
+		no,
+		title,
+		title_url,
+		author,
+		publisher,
+		isbn,
+		datetime,
+		price,
+		page,
+		book_size
+		FROM book WHERE isbn=#{isbn}
 	</select>
 	<insert id="insertReview" parameterType="ebookReviewDTO">
-		INSERT INTO book_review (
-			book_no,
-			member_no,
-			rating,
-			reviewCmt			
+		INSERT INTO book_review
+		(
+		book_no,
+		member_no,
+		rating,
+		reviewCmt
 		)
 		VALUES (
-			#{book_no},
-			(SELECT no FROM member WHERE id=#{id}),
-			#{rating},
-			#{reviewCmt}
+		#{book_no},
+		(SELECT no FROM
+		member WHERE id=#{id}),
+		#{rating},
+		#{reviewCmt}
 		)
 	</insert>
-	<select id="reviewList" resultType="EbookReviewDTO" parameterType="Integer">
-		SELECT reviewCount, ratingSum, review_no, book_no, rating, reviewCmt, date, id, name FROM book_reviewview WHERE book_no=#{bookno}
+	<select id="reviewList" resultType="EbookReviewDTO"
+		parameterType="Integer">
+		SELECT reviewCount, ratingSum, review_no, book_no,
+		rating, reviewCmt, date, id, name FROM book_reviewview WHERE
+		book_no=#{bookno}
+	</select>
+
+	<select id="getNewList" resultType="EbookDTO"
+		parameterType="String">
+		SELECT * FROM book_view GROUP
+		BY datetime ORDER BY
+		COUNT(*) DESC
+		LIMIT 5
 	</select>
 </mapper>
