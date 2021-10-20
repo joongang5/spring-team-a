@@ -204,6 +204,34 @@ td img {
 	        return false;
 	    }
 	}
+
+	function onclickLoanBtn(bookNo) {
+		var result = confirm("대출한 전자책은 대출일로부터 5일 후 자정까지 가능하합니다.\n계속하시겠습니까?");
+		if (result == false)
+			return;
+
+		$.ajax({
+			url : "loanAJAX.do",
+			type : "POST",
+			dataType : "json",
+			data : { "bookNo" : bookNo },
+			success : function(data) {
+				if (data.errorMessage != "") {
+					alert(data.errorMessage);
+					return;
+				}
+
+				$("#bookStorage").text("도서현황 : 대출(" +
+						data.bookStorageDTO.loan_count + "/" + data.bookStorageDTO.max_count + "), 예약(" +
+						data.bookStorageDTO.reserve_count + "/" + data.bookStorageDTO.max_count + ")");
+
+				alert("대출에 성공했습니다.");
+			},
+			error : function(request, status, error) {
+				alert("error : " + error);
+			}
+		});
+	}
 </script>
 <body>
 	<div id="wrap">
@@ -220,12 +248,15 @@ td img {
 				출판사 : ${ebookDetail.publisher}<br> ISBN : ${ebookDetail.isbn}<br>
 				출판일 : ${ebookDetail.datetime}<br> 가격 : ${ebookDetail.price}<br>
 				별점 : <img alt="star" src="/cyber/resources/img/star${ebookReview.get(0).ratingSum }.png"> 리뷰(<c:if test="${ebookReview.get(0).reviewCount eq null }">0</c:if>${ebookReview.get(0).reviewCount })<br>
-				페이지 : ${ebookDetail.page}<br> 책 크기 : ${ebookDetail.book_size }
+				페이지 : ${ebookDetail.page}<br> 책 크기 : ${ebookDetail.book_size }<br>
+				<div id="bookStorage">
+					도서현황 : 대출(${bookStorageDTO.loan_count }/${bookStorageDTO.max_count }), 예약(${bookStorageDTO.reserve_count }/${bookStorageDTO.max_count })
+				</div>
 
 				<div class="btnGroup">
-					<a href="/cyber/ebook/ebookMain.do" class="btn list" id="listBtn">목록</a>
-					<a href="" class="btn themeBtn">대여</a> <a href=""
-						class="btn themeBtn2">관심목록 담기</a>
+					<button class="btn list" id="listBtn" onclick="location.href='/cyber/ebook/ebookMain.do';">목록</button>
+					<button class="btn themeBtn" onclick="onclickLoanBtn(${ebookDetail.no})">대여</button>
+					<button class="btn themeBtn2" onclick="">관심목록 담기</button>
 				</div>
 				<input type="button" onclick="content1()" value="책소개" /> <input
 					type="button" onclick="content2()" value="목차" /> <input

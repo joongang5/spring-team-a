@@ -17,6 +17,15 @@ public class BookStorageServiceImpl implements BookStorageService {
 	private BookStorageDAO bookStorageDAO;
 
 	@Override
+	public BookStorageDTO getBook(int bookNo) {
+		return bookStorageDAO.getBook(bookNo);
+	}
+	
+	public Map<String, Object> getBookMap(int bookNo) {
+		return bookStorageDAO.getBookMap(bookNo);
+	}
+	
+	@Override
 	public BookStorageViewDTO getView(int bookNo) {
 		return bookStorageDAO.getViewByBookNo(bookNo);
 	}
@@ -91,6 +100,11 @@ public class BookStorageServiceImpl implements BookStorageService {
 		return bookStorageDAO.insertBook(dto);
 	}
 
+	@Override
+	public int insertBookList(List<Map<String, Object>> dtoList) {
+		return bookStorageDAO.insertBookList(dtoList);
+	}
+	
 	@Override
 	public int updateMaxCount(BookStorageDTO dto) {
 		int result = 0;

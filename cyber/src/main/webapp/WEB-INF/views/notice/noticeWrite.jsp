@@ -69,6 +69,23 @@ button {
 	margin-bottom: 10px;
 }
 </style>
+<script type="text/javascript">
+function check() {
+	var title = document.getElementById("noticeTitle");
+	var content = document.getElementById("noticeContent");
+	
+	if (title.value.length < 5 || title.value == "") {
+		alert("제목을 5글자 이상 적어주세요.");
+		title.focus();
+		return false;
+	}
+	if (content.value == "" || content.value.length < 5) {
+		alert("내용을 5글자 이상 적어주세요.");
+		content.focus();
+		return false;
+	}
+}
+</script>
 </head>
 <body>
 	<div id="wrap">
@@ -79,14 +96,12 @@ button {
 			<c:import url="/WEB-INF/views/component/lnbNav.jsp" />
 		</aside>
 		<main>
-			<form action="noticeWrite.do" method="post">
-				<p>제목</p>
+			<form action="noticeWrite.do" method="post" enctype="multipart/form-data" onsubmit="return check();">
 				<textarea class="noticeTitle" id="noticeTitle" name="title"
-					placeholder="제목을 입력하세요."></textarea>
-				<p>내용</p>
+					placeholder="제목을 입력하세요."></textarea><br>
 				<textarea class="noticeContent" id="noticeContent" name="content"
-					rows="10"></textarea>
-				<br>
+					rows="10" placeholder="내용을 입력하세요."></textarea><br>
+				<input type="file" name="file" accept=".gif, .png, .jpg">
 				<button type="submit" class="writeBtn">글쓰기</button>
 			</form>
 		</main>

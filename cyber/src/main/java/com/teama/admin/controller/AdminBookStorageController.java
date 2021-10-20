@@ -127,7 +127,26 @@ public class AdminBookStorageController {
 		
 		return jsonObj.toString();
 	}
-	
+
+	@PostMapping(value="registUnregisteredBook.do", produces="text/plain;charset=utf-8")
+	@ResponseBody
+	public String registUnregisteredBook() {
+		String resultMessage = "";
+		
+		List<Map<String, Object>> newBookStorageViewDTOList = bookStorageService.getUnregisteredViewMapList();
+		if (newBookStorageViewDTOList.size() > 0) {
+			int result = bookStorageService.insertBookList(newBookStorageViewDTOList);
+			if (result > 0)
+				resultMessage = "일괄 등록에 성공했습니다.";
+			else 
+				resultMessage = "일괄 등록에 실패했습니다.";
+		} else {
+			resultMessage = "등록할 데이터가 없습니다.";
+		}
+
+		return resultMessage;
+	}
+		
 	@GetMapping("unregisteredBook.do")
 	public ModelAndView unregisteredBook() {
 		ModelAndView mv = new ModelAndView("admin/bookStorage");

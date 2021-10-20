@@ -69,9 +69,21 @@ button {
 	margin-bottom: 10px;
 }
 </style>
-<script type="text/javascript">
-	function updateBtn() {
-		alert("게시글이 수정되었습니다.");
+<script type="text/javascript">	
+	function check() {
+		var title = document.getElementById("noticeTitle");
+		var content = document.getElementById("noticeContent");
+		
+		if (title.value.length < 5 || title.value == "") {
+			alert("제목을 5글자 이상 적어주세요.");
+			title.focus();
+			return false;
+		}
+		if (content.value == "" || content.value.length < 5) {
+			alert("내용을 5글자 이상 적어주세요.");
+			content.focus();
+			return false;
+		}
 	}
 </script>
 </head>
@@ -84,15 +96,14 @@ button {
 			<c:import url="/WEB-INF/views/component/lnbNav.jsp" />
 		</aside>
 		<main>
-			<form action="noticeUpdate.do" method="post">
-				<p>제목</p>
+			<form action="noticeUpdate.do" method="post" onsubmit="return check();">
 				<input class="noticeTitle" id="noticeTitle" name="title"
-					value="${detail.title}" placeholder="제목을 입력하세요.">
-				<p>내용</p>
+					value="${detail.title}"><br>
 				<textarea class="noticeContent" id="noticeContent" name="content"
 					rows="10">${detail.content}</textarea>
 				<br> <input type="hidden" name="no" value="${detail.no}">
-				<button onclick="updateBtn()" type="submit" class="writeBtn">수정하기</button>
+				<input type="file" name="file" accept=".gif, .png, .jpg">
+				<button type="submit" class="writeBtn">수정하기</button>
 			</form>
 		</main>
 	</div>

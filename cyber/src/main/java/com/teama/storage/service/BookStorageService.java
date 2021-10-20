@@ -8,7 +8,8 @@ import com.teama.storage.dto.BookStorageViewDTO;
 
 public interface BookStorageService {
 
-	
+	public BookStorageDTO getBook(int bookNo);
+	public Map<String, Object> getBookMap(int bookNo);
 	public BookStorageViewDTO getView(int bookNo);
 	public Map<String, Object> getViewMap(int bookNo);
 	public List<BookStorageDTO> getBookList();
@@ -24,6 +25,7 @@ public interface BookStorageService {
 	public int getTotalCount(String title);
 	public int getTotalUnregisteredCount();
 	public int insertBook(BookStorageDTO dto);
+	public int insertBookList(List<Map<String, Object>> dtoList);
 	public int updateMaxCount(BookStorageDTO dto);
 	public int updateMaxCount(int bookNo, int maxCount);
 	public int increaseLoanCount(int bookNo);
