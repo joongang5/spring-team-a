@@ -1,9 +1,11 @@
 package com.teama.member.controller;
 
+import java.io.IOException;
 import java.util.List;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.json.simple.JSONObject;
@@ -19,7 +21,10 @@ import com.teama.ebook.service.EbookService;
 import com.teama.loan.dto.LoanDTO;
 import com.teama.loan.dto.LoanViewDTO;
 import com.teama.loan.service.LoanService;
+import com.teama.member.dto.MemberDTO;
+import com.teama.member.service.MemberService;
 import com.teama.member.service.MyPageService;
+import com.teama.util.ScriptUtil;
 import com.teama.util.Util;
 
 import egovframework.rte.ptl.mvc.tags.ui.pagination.PaginationInfo;
@@ -34,6 +39,8 @@ public class MyPageController {
 	private LoanService loanService;
 	@Resource(name="ebookService")
 	private EbookService ebookService;
+	@Resource(name = "memberService")
+	private MemberService memberService;
 	
 	@GetMapping("myPage.do")
 	private ModelAndView myPage(HttpServletRequest request, CommandMap map) {
@@ -154,5 +161,43 @@ public class MyPageController {
 		jsonObj.put("redate", redate);
 		
 		return jsonObj.toString();
+	}
+
+	@GetMapping("memberModify.do")
+	public String memberModify(HttpServletRequest request) {
+		String viewPath;
+		
+		HttpSession session = request.getSession();
+		Object memberNoObj = session.getAttribute("memberNo");
+		if (memberNoObj == null) {
+			viewPath = "redirect:/member/memberLogin.do";
+		} else {
+			viewPath = "member/pwCheck";
+		}
+		
+		return viewPath;
+	}
+
+	@PostMapping("memberModify.do")
+	public ModelAndView memberModify(CommandMap commandMap, HttpServletRequest request, HttpServletResponse response) throws IOException {
+		ModelAndView mv = new ModelAndView();
+		
+		String pw = commandMap.getStrValue("pw");
+		
+		HttpSession session = request.getSession();
+		Object memberNoObj = session.getAttribute("memberNo");
+		if (memberNoObj != null) {
+			int memberNo = Util.parseInt(memberNoObj);
+			
+			MemberDTO memberDTO = memberService.getMemberByNo(memberNo);
+			if (pw.equals(memberDTO.getPw())) {
+				mv.addObject("memberDTO", memberDTO);
+				mv.setViewName("member/memberModify");
+			} else {
+				ScriptUtil.alert(response, "비밀번호가 일치하지 않습니다.");
+				mv.setViewName("member/pwCheck");
+			}
+		}
+		return mv;
 	}
 }

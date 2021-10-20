@@ -43,6 +43,10 @@ public class MemberDAO extends AbstractDAO {
 		return sqlSession.selectOne("member.getMemberByNo", no);
 	}
 
+	public MemberDTO getMemberById(int id) {
+		return sqlSession.selectOne("member.getMemberById", id);
+	}
+	
 	public List<MemberDTO> getMemberList() {
 		return sqlSession.selectList("member.getMemberList");
 	}

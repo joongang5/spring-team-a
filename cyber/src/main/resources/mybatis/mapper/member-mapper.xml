@@ -65,7 +65,7 @@
 
 	<select id="getMemberById" parameterType="String"
 		resultType="memberDTO">
-		SELECT * FROM member WHERE id=#{no}
+		SELECT * FROM member WHERE id=#{id}
 	</select>
 
 	<select id="getMemberByName" parameterType="String"

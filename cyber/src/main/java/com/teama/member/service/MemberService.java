@@ -23,6 +23,8 @@ public interface MemberService {
 	public String findPw(String id);
 
 	public MemberDTO getMemberByNo(int memberNo);
+	
+	public MemberDTO getMemberById(int memberId);
 
 	public List<MemberDTO> getMemberList();
 

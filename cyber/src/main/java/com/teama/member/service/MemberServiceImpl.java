@@ -50,6 +50,11 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
+	public MemberDTO getMemberById(int id) {
+		return memberDAO.getMemberById(id);
+	}
+	
+	@Override
 	public List<MemberDTO> getMemberList() {
 		return memberDAO.getMemberList();
 	}

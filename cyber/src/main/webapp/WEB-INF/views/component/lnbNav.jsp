@@ -90,7 +90,7 @@ a:visited {
 			"/cyber/myPage/myPage.do" : "&nbsp;서비스 이용현황",
 			"/cyber/myPage/ebookLoanList.do" : "&nbsp;전자책",
 			"/cyber/myPage/myBbsPostList.do" : "&nbsp;문의사항",
-			"/cyber/myPage/pwdCheck.do" : "&nbsp;회원정보수정"
+			"/cyber/myPage/memberModify.do" : "&nbsp;회원정보수정"
 		};
 		return map;
 	}
