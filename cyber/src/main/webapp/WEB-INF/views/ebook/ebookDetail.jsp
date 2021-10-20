@@ -188,6 +188,10 @@ td img {
 		document.getElementById("content2").style.display = "";
 		document.getElementById("content1").style.display = "none";
 	}
+	function content3() {
+		document.getElementById("content1").style.display = "none";
+		document.getElementById("content2").style.display = "none";
+	}
 	function checkReview() {
 	    var rating = document.review.rating;
 	    if(rating.value == '' ) {
@@ -215,7 +219,7 @@ td img {
 				제목 : ${ebookDetail.title}<br> 저자 : ${ebookDetail.author}<br>
 				출판사 : ${ebookDetail.publisher}<br> ISBN : ${ebookDetail.isbn}<br>
 				출판일 : ${ebookDetail.datetime}<br> 가격 : ${ebookDetail.price}<br>
-				별점 : <img alt="star" src="/cyber/resources/img/star${ebookReview.get(0).ratingSum }.png"> 리뷰(${ebookReview.get(0).reviewCount })<br>
+				별점 : <img alt="star" src="/cyber/resources/img/star${ebookReview.get(0).ratingSum }.png"> 리뷰(<c:if test="${ebookReview.get(0).reviewCount eq null }">0</c:if>${ebookReview.get(0).reviewCount })<br>
 				페이지 : ${ebookDetail.page}<br> 책 크기 : ${ebookDetail.book_size }
 
 				<div class="btnGroup">
@@ -225,17 +229,17 @@ td img {
 				</div>
 				<input type="button" onclick="content1()" value="책소개" /> <input
 					type="button" onclick="content2()" value="목차" /> <input
-					type="button" id="content3" class="content3" value="별점/리뷰" />
+					type="button" onclick="content3()" value="별점/리뷰" />
 				<div id="content1" class="content2" style="">
 					<hr>
-					책소개<br> ${detail.detail0 }<br>
+					<b>책소개</b><br> ${detail.detail0 }<br>
 					<hr>
-					저자<br> ${detail.detail1 }<br>
+					<b>저자</b><br> ${detail.detail1 }<br>
 					<hr>
 				</div>
 				<div id="content2" class="content2" style="display: none;">
 					<hr>
-					목차<br> ${detail.detail2 }
+					<b>목차</b><br> ${detail.detail2 }
 				</div>
 				<div id="reviewArea">
 				<form name="review" id="review" method="post" action="./ebookReview.do" onsubmit="return checkReview()">
