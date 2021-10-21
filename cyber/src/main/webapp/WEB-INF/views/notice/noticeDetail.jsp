@@ -42,11 +42,12 @@ aside {
 main {
 	float: left;
 	width: 760px;
-	height: 600px;
+	height: auto; /* 수정 */
 	background: #white;
 	position: relative;
 	left: 10px;
 	top: 10px;
+	padding-bottom: 100px;
 }
 
 footer {
@@ -54,12 +55,8 @@ footer {
 	width: 1000px;
 	height: 100px;
 	background: #cee5fe;
-}
-
-#detailBoard {
-	width: 600px;
-	height: 300px;
-	margin: 10px;
+	position: relative;
+	margin-top: -100px;
 }
 
 #writebtn {
@@ -81,6 +78,75 @@ button {
 	background-color: white;
 	border: none;
 	font-size: 15px;
+}
+
+/* 본문 */
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+	background-color: white;
+	height: 100px;
+}
+
+th {
+	border-bottom: 1px solid #dfe2e6;
+	background-color: #e3f0ff;
+	padding: 10px;
+	width: 100px;
+}
+
+td {
+	border-bottom: 1px solid #dfe2e6;
+	text-align: left;
+	width: 500px;
+}
+
+#detailNo {
+	border-top: 2px solid #534f4f;
+}
+
+#detailFile {
+	margin-top: 20px;
+	padding: 10px;
+}
+
+#detailContent {
+	margin-top: 30px;
+}
+
+#prePage {
+	border-top: 1px solid #dfe2e6;
+	border-bottom: 1px solid #dfe2e6;
+	padding: 10px;
+}
+
+#nextPage {
+	border-bottom: 1px solid #dfe2e6;
+	padding: 10px;
+}
+
+button:hover {
+	text-decoration: underline;
+	cursor: pointer;
+}
+
+#backList {
+	width: 50px;
+	height: 30px;
+	background-color: #534f4f;
+	color: white;
+	border: 0;
+	outline: 0;
+	padding: 10px;
+}
+
+#backListBox {
+	text-align: center;
+	margin-top: 20px;
+}
+
+h2 {
+	color: #4c85d6;
 }
 </style>
 <script type="text/javascript">
@@ -122,12 +188,38 @@ button {
 		<aside>
 			<c:import url="/WEB-INF/views/component/lnbNav.jsp" />
 		</aside>
+
 		<main>
+
+			<div id="naviandtitle">
+				<div id="navi">
+					<a href="../index.do">Home</a>><strong>공지사항</strong>
+				</div>
+				<!-- end of navi -->
+				<h2>공지사항</h2>
+			</div>
+			<!-- end of naviandtitle -->
 
 			<!-- 공지사항 상세보기 list -->
 			<div id="detailBoard">
-				<b>번호 |</b> ${detail.no } <b>제목 |</b> ${detail.title } <b>작성자 |</b>
-				${detail.id }(${detail.name }) <b>등록일 |</b> ${detail.date }<br>
+				<table>
+					<tr id="detailNo">
+						<th>번호</th>
+						<td>${detail.no }</td>
+					</tr>
+					<tr>
+						<th>제목</th>
+						<td>${detail.title }</td>
+					</tr>
+					<tr>
+						<th>작성자</th>
+						<td>${detail.id }<small>(${detail.name })</small></td>
+					</tr>
+					<tr>
+						<th>등록일</th>
+						<td>${detail.date }</td>
+					</tr>
+				</table>
 
 				<!-- 삭제, 수정 버튼 관리자(9등급)만 보이게 -->
 				<c:if test="${sessionScope.grade eq 9 }">
@@ -137,43 +229,53 @@ button {
 						<button id="writebtn" onclick="noticeUpdate()">수정하기</button>
 					</c:if>
 				</c:if>
-				<hr>
-				<c:if test="${detail.file != null }">
-					<img alt="이미지" src="../resources/upfile/${detail.file }">
-				</c:if>
-				<hr>
-				${detail.content }
-			</div>
-			<!-- end of detailBoard -->
 
-			<!-- 이전글, 다음글 -->
-			<div style="margin-top: 5px;">
-				<c:if test="${preNextPage.preNum != null }">
-					<c:if test="${preNextPage.preTitle != null }">
-						이전글 | <button onclick="preMove()">${preNextPage.preTitle }</button>
-						<br>
+				<div id="detailFile">
+					<c:if test="${detail.file != null }">
+						<img alt="이미지" src="../resources/upfile/${detail.file }">
 					</c:if>
-				</c:if>
-				<c:if test="${preNextPage.preNum == null }">
-					<c:if test="${preNextPage.preTitle == null }">
+					<div id="detailContent">${detail.content }</div>
+					<!-- end of detailContent -->
+				</div>
+				<!-- end of detailFile -->
+
+				<!-- 이전글, 다음글 -->
+				<div id="prePage" style="margin-top: 30px;">
+					<c:if test="${preNextPage.preNum != null }">
+						<c:if test="${preNextPage.preTitle != null }">
+							<b>이전글 |</b>
+							<button onclick="preMove()">${preNextPage.preTitle }</button>
+							<br>
+						</c:if>
+					</c:if>
+					<c:if test="${preNextPage.preNum == null }">
+						<c:if test="${preNextPage.preTitle == null }">
 						이전글이 없습니다.<br>
+						</c:if>
 					</c:if>
-				</c:if>
-			</div>
-			<div>
-				<c:if test="${preNextPage.nextNum != null }">
-					<c:if test="${preNextPage.nextTitle != null }">
-						다음글 | <button onclick="nextMove()">${preNextPage.nextTitle }</button>
+				</div>
+				<div id="nextPage">
+					<c:if test="${preNextPage.nextNum != null }">
+						<c:if test="${preNextPage.nextTitle != null }">
+							<b>다음글 |</b>
+							<button onclick="nextMove()">${preNextPage.nextTitle }</button>
+						</c:if>
 					</c:if>
-				</c:if>
-				<c:if test="${preNextPage.nextNum == null }">
-					<c:if test="${preNextPage.nextTitle == null }">
+					<c:if test="${preNextPage.nextNum == null }">
+						<c:if test="${preNextPage.nextTitle == null }">
 						다음글이 없습니다.
 					</c:if>
-				</c:if>
-			</div>
-			<!-- end of 이전글, 다음글 -->
+					</c:if>
+				</div>
+				<!-- end of 이전글, 다음글 -->
 
+				<div id="backListBox">
+					<a href="./listNotice.do" id="backList">목록</a>
+				</div>
+				<!-- end of backListBox -->
+
+			</div>
+			<!-- end of detailBoard -->
 		</main>
 		<footer>
 			<c:import url="/WEB-INF/views/component/footer.jsp" />

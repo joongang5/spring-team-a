@@ -44,6 +44,7 @@ main {
 	width: 760px;
 	height: 600px;
 	background: #white;
+	padding-bottom: 100px;
 }
 
 footer {
@@ -51,6 +52,8 @@ footer {
 	width: 1000px;
 	height: 100px;
 	background: #cee5fe;
+	position: relative;
+	margin-top: -100px;
 }
 
 button {
@@ -62,12 +65,38 @@ button {
 	border-color: #e3f0ff;
 	border-radius: 10px;
 	margin-bottom: 10px;
-	margin-left: 10px;
 }
 
-#detailBoard {
+/* 본문 */
+table {
+	margin: 0 auto;
+	margin-top: 10px;
+}
+
+#boardTitle {
 	width: 600px;
-	height: 300px;
+	height: 30px;
+}
+
+#boardContent {
+	width: 600px;
+	height: 500px;
+}
+
+th {
+	background-color: #e3f0ff;
+	padding: 10px;
+}
+
+#writeBtnBox {
+	text-align: center;
+}
+
+h2 {
+	color: #4c85d6;
+}
+
+#naviandtitle {
 	margin: 10px;
 }
 </style>
@@ -98,16 +127,34 @@ button {
 			<c:import url="/WEB-INF/views/component/lnbNav.jsp" />
 		</aside>
 		<main>
+
+			<div id="naviandtitle">
+				<div id="navi">
+					<a href="../index.do">Home</a>><strong>소통마당</strong>
+				</div>
+				<!-- end of navi -->
+				<h2>수정하기</h2>
+			</div>
+			<!-- end of naviandtitle -->
+
 			<form action="boardUpdate.do" method="post"
 				onsubmit="return check();">
-				<input class="boardTitle" id="boardTitle" name="title"
-					style="font-family: 'Nanum Gothic', sans-serif; margin: 10px;"
-					value="${detail.title}"><br>
-				<textarea class="boardContent" id="boardContent" name="content"
-					rows="10"
-					style="font-family: 'Nanum Gothic', sans-serif; margin-left: 10px;">${detail.content}</textarea>
-				<br> <input type="hidden" name="no" value="${detail.no}">
-				<button type="submit" class="writeBtn">수정하기</button>
+				<table>
+					<tr>
+						<th>제목</th>
+						<td><input class="boardTitle" id="boardTitle" name="title"
+							value="${detail.title}"></td>
+					</tr>
+					<tr>
+						<th>내용</th>
+						<td><textarea class="boardContent" id="boardContent"
+								name="content" rows="10">${detail.content}</textarea></td>
+					</tr>
+				</table>
+				<input type="hidden" name="no" value="${detail.no}">
+				<div id="writeBtnBox">
+					<button type="submit" class="writeBtn">수정하기</button>
+				</div>
 			</form>
 		</main>
 		<footer>
