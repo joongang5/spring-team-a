@@ -156,7 +156,9 @@ button {
 				</div>
 			</div>
 		</main>
-		<footer>footer</footer>
+		<footer>
+			<c:import url="/WEB-INF/views/component/footer.jsp" />
+		</footer>
 	</div>
 </body>
 </html>

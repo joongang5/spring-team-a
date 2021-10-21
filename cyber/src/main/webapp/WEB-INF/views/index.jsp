@@ -9,184 +9,66 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<style type="text/css">
-@import
-	url('https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap')
-	;
+<link href='https://fonts.googleapis.com/css?family=Lato'
+	rel='stylesheet' type='text/css'>
+<link rel="stylesheet" href="<c:url value="/resources/css/index.css"/>">
+<script type="text/javascript" src="./resources/js/calendar.js"></script>
+<script type="text/javascript">
+	$(document).ready(function() {
+		$(".slideDiv").not(".active").hide();
+		setInterval(nextSlide, 3200); //슬라이드 넘어가는 속도 : 3.2초
+	});
 
-html {
-	font-family: 'Nanum Gothic', sans-serif;
-	color: #black;
-	width: 100%;
-}
+	function prevSlide() {
+		$(".slideDiv").hide();
+		var allSlide = $(".slideDiv");
+		var currentIndex = 0;
 
-body {
-	margin: 0;
-	padding: 0;
-	width: 100%;
-}
+		$(".slideDiv").each(function(index, item) {
+			if ($(this).hasClass("active")) {
+				currentIndex = index;
+			}
+		});
 
-#wrap {
-	width: 1000px;
-	margin: 0 auto;
-}
+		var newIndex = 0;
 
-header {
-	width: 1000px;
-	height: 130px;
-	background: white;
-}
+		if (currentIndex <= 0) {
+			newIndex = allSlide.length - 1;
 
-main {
-	width: 1000px;
-	height: 900px;
-	background: #white;
-}
+		} else {
+			newIndex = currentIndex - 1;
+		} //무한 루프 구간
 
-footer {
-	clear: both;
-	width: 1000px;
-	height: 100px;
-	background: #cee5fe;
-}
-
-@media ( max-width : 760px) {
-	#wrap div {
-		width: 500px;
-		float: none;
+		$(".slideDiv").removeClass("active");
+		$(".slideDiv").eq(newIndex).addClass("active");
+		$(".slideDiv").eq(newIndex).show();
 	}
-}
 
-.slider {
-	width: 640px;
-	height: 400px;
-	position: relative;
-	margin: 0 auto;
-}
+	function nextSlide() {
+		$(".slideDiv").hide();
+		var allSlide = $(".slideDiv");
+		var currentIndex = 0;
 
-.slider input[type=radio] {
-	display: none;
-}
+		$(".slideDiv").each(function(index, item) {
+			if ($(this).hasClass("active")) {
+				currentIndex = index;
+			}
+		});
 
-ul.imgs {
-	padding: 0;
-	margin: 0;
-	position: absolute;
-	top: 100px;
-	left: 35%;
-}
+		var newIndex = 0;
 
-ul.imgs li {
-	position: absolute;
-	opacity: 0;
-	list-style: none;
-	padding: 0;
-	margin: 0;
-	transition-delay: 0.01s;
-	width: 200px;
-}
+		if (currentIndex >= allSlide.length - 1) {
+			newIndex = 0;
 
-.bullets {
-	position: absolute;
-	left: 50%;
-	transform: translateX(-50%);
-	bottom: 20px;
-	z-index: 2;
-	top: 350px;
-}
+		} else {
+			newIndex = currentIndex + 1;
+		}
 
-.bullets label {
-	display: inline-block;
-	border-radius: 50%;
-	background-color: rgba(0, 0, 0, 0.55);
-	width: 20px;
-	height: 20px;
-	cursor: pointer;
-}
-
-.slider input[type=radio]:nth-child(1):checked ~.bullets>label:nth-child(1)
-	{
-	background-color: #d3dae3;
-}
-
-.slider input[type=radio]:nth-child(2):checked ~.bullets>label:nth-child(2)
-	{
-	background-color: #d3dae3;
-}
-
-.slider input[type=radio]:nth-child(3):checked ~.bullets>label:nth-child(3)
-	{
-	background-color: #d3dae3;
-}
-
-.slider input[type=radio]:nth-child(4):checked ~.bullets>label:nth-child(4)
-	{
-	background-color: #d3dae3;
-}
-
-.slider input[type=radio]:nth-child(5):checked ~.bullets>label:nth-child(5)
-	{
-	background-color: #d3dae3;
-}
-
-.slider input[type=radio]:nth-child(1):checked ~ul.imgs>li:nth-child(1)
-	{
-	opacity: 1;
-	transition: 0.1s;
-	z-index: 1;
-}
-
-.slider input[type=radio]:nth-child(2):checked ~ul.imgs>li:nth-child(2)
-	{
-	opacity: 1;
-	transition: 0.1s;
-	z-index: 1;
-}
-
-.slider input[type=radio]:nth-child(3):checked ~ul.imgs>li:nth-child(3)
-	{
-	opacity: 1;
-	transition: 0.1s;
-	z-index: 1;
-}
-
-.slider input[type=radio]:nth-child(4):checked ~ul.imgs>li:nth-child(4)
-	{
-	opacity: 1;
-	transition: 0.1s;
-	z-index: 1;
-}
-
-.slider input[type=radio]:nth-child(5):checked ~ul.imgs>li:nth-child(5)
-	{
-	opacity: 1;
-	transition: 0.1s;
-	z-index: 1;
-}
-
-ul.newImgs {
-	padding: 0;
-	margin: 0;
-	position: absolute;
-}
-
-ul.newImgs li {
-	position: relative;
-	top: 100px;
-	width: 200px;
-	padding: 0;
-	margin: 0;
-	list-style: none;
-}
-
-li {
-	text-align: center;
-}
-
-main img {
-	width: 100px;
-}
-</style>
+		$(".slideDiv").removeClass("active");
+		$(".slideDiv").eq(newIndex).addClass("active");
+		$(".slideDiv").eq(newIndex).show();
+	}
+</script>
 </head>
 <body>
 	<div id="wrap">
@@ -197,17 +79,43 @@ main img {
 		</div>
 		<div>
 			<main>
+				<div class="slideshow-container">
+					<div class="slideImg">
+						<div class="slideDiv fade active">
+							<img src="./resources/img/request.jpg">
+						</div>
+						<div class="slideDiv fade">
+							<img src="./resources/img/report.jpg">
+						</div>
+						<div class="slideDiv fade">
+							<img src="./resources/img/survey.jpg">
+						</div>
+						<div class="slideDiv fade">
+							<img src="./resources/img/notice.jpg">
+						</div>
+					</div>
+					<span></span>
+				</div>
+
+				<div style="position: relative; left: 800px; top: -300px;">
+					<img src="./resources/img/calender.png"> <br>추가 예정...
+				</div>
+
 				<div id="bestList">
 					<div id="title">
 						<h1
-							style="text-align: center; margin-bottom: -80px; margin-top: 120px;">Best</h1>
+							style="text-align: center; margin-bottom: -70px; margin-top: -90px;">Best</h1>
 					</div>
 					<div class="slider">
 						<input type="radio" name="slide" id="slide1" checked> <input
 							type="radio" name="slide" id="slide2"> <input
 							type="radio" name="slide" id="slide3"> <input
 							type="radio" name="slide" id="slide4"> <input
-							type="radio" name="slide" id="slide5">
+							type="radio" name="slide" id="slide5"> <span
+							style="float: left; position: relative; top: 140px;"><img
+							src="/cyber/resources/img/left.png" height="70px;" width="10px;"></span><span
+							style="float: right; position: relative; top: 140px;"><img
+							src="/cyber/resources/img/right.png" height="70px;" width="10px;"></span>
 
 						<ul id="imgholder" class="imgs" style="float: left">
 							<li><img src="${bookStorageViewDTOList[0].title_url }"
@@ -258,10 +166,10 @@ main img {
 						</div>
 					</div>
 				</div>
-				<div id="newList" style="width: 1000px;">
+				<div id="newList">
 					<div id="title">
 						<h1
-							style="text-align: center; margin-bottom: -60px; margin-top: 90px;">New</h1>
+							style="text-align: center; margin-bottom: -60px; margin-top: 30px;">New</h1>
 					</div>
 					<div id="newImgList">
 						<ul id="imgholder" class="newImgs" style="float: left">
@@ -305,7 +213,9 @@ main img {
 			</main>
 		</div>
 		<div style="position: relative; bottom: 0;">
-			<footer>이용약관</footer>
+			<footer>
+				<c:import url="/WEB-INF/views/component/footer.jsp" />
+			</footer>
 		</div>
 	</div>
 </body>

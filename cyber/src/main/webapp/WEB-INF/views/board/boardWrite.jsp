@@ -42,8 +42,12 @@ aside {
 main {
 	float: left;
 	width: 760px;
-	height: 600px;
+	height: auto; /* 수정 */
 	background: #white;
+	position: relative;
+	left: 10px;
+	top: 10px;
+	padding-bottom: 100px;
 }
 
 footer {
@@ -51,6 +55,8 @@ footer {
 	width: 1000px;
 	height: 100px;
 	background: #cee5fe;
+	position: relative;
+	margin-top: -100px;
 }
 
 button {
@@ -65,7 +71,6 @@ button {
 }
 
 /* 본문 */
-
 table {
 	margin: 0 auto;
 	margin-top: 10px;
@@ -103,21 +108,21 @@ h2 {
 }
 </style>
 <script type="text/javascript">
-function check() {
-	var title = document.getElementById("boardTitle");
-	var content = document.getElementById("boardContent");
-	
-	if (title.value.length < 5 || title.value == "") {
-		alert("제목을 5글자 이상 적어주세요.");
-		title.focus();
-		return false;
+	function check() {
+		var title = document.getElementById("boardTitle");
+		var content = document.getElementById("boardContent");
+
+		if (title.value.length < 5 || title.value == "") {
+			alert("제목을 5글자 이상 적어주세요.");
+			title.focus();
+			return false;
+		}
+		if (content.value == "" || content.value.length < 5) {
+			alert("내용을 5글자 이상 적어주세요.");
+			content.focus();
+			return false;
+		}
 	}
-	if (content.value == "" || content.value.length < 5) {
-		alert("내용을 5글자 이상 적어주세요.");
-		content.focus();
-		return false;
-	}
-}
 </script>
 </head>
 <body>
@@ -129,7 +134,7 @@ function check() {
 			<c:import url="/WEB-INF/views/component/lnbNav.jsp" />
 		</aside>
 		<main>
-		
+
 			<div id="naviandtitle">
 				<div id="navi">
 					<a href="../index.do">Home</a>><strong>소통마당</strong>
@@ -138,29 +143,28 @@ function check() {
 				<h2>글쓰기</h2>
 			</div>
 			<!-- end of naviandtitle -->
-			
+
 			<form action="boardWrite.do" method="post" onsubmit="return check();">
 				<table>
-					 <tr>
-				 		<th>제목</th>
-				 		<td>
-						<textarea class="boardTitle" id="boardTitle" name="title"
-						placeholder="제목을 입력하세요."></textarea>
-						</td>
+					<tr>
+						<th>제목</th>
+						<td><textarea class="boardTitle" id="boardTitle" name="title"
+								placeholder="제목을 입력하세요."></textarea></td>
 					</tr>
 					<tr>
 						<th>내용</th>
-						<td>
-						<textarea class="boardContent" id="boardContent" name="content"
-						rows="10" placeholder="내용을 입력하세요."></textarea>
-						</td>
+						<td><textarea class="boardContent" id="boardContent"
+								name="content" rows="10" placeholder="내용을 입력하세요."></textarea></td>
 					</tr>
 				</table>
 				<div id="writeBtnBox">
-				<button type="submit" class="writeBtn">글쓰기</button>
+					<button type="submit" class="writeBtn">글쓰기</button>
 				</div>
 			</form>
 		</main>
+		<footer>
+			<c:import url="/WEB-INF/views/component/footer.jsp" />
+		</footer>
 	</div>
 </body>
 </html>

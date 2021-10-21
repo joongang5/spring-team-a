@@ -67,29 +67,29 @@ footer {
 input {
 	height: 30px;
 	width: 200px;
-	border-radius: 10px;	
+	border-radius: 10px;
 }
 
 #buttonbox {
-	margin-top: 40px;
+	margin-top: 30px;
 	text-align: center;
 }
 
 button {
 	width: 130px;
 	height: 35px;
-	text-align: center;	
+	text-align: center;
 	/*font-weight: bold;*/
 	background-color: white;
 	border-radius: 10px;
-	margin-bottom: 10px;	
+	margin-bottom: 10px;
 }
 
 #idSaveCheck {
 	width: 15px;
 	height: 15px;
 	margin-left: 100px;
-	margin-top: 10px;	
+	margin-top: 10px;
 	vertical-align: -3px;
 }
 </style>
@@ -126,7 +126,7 @@ button {
 		if (event.keyCode == 13)
 			onclickLoginBtn();
 	});
-	
+
 	function setCookie(cookieName, value, exdays) {
 		var exdate = new Date();
 		exdate.setDate(exdate.getDate() + exdays);
@@ -156,16 +156,19 @@ button {
 		}
 		return unescape(cookieValue);
 	}
-	
+
 	function onclickLoginBtn() {
 		var id = $("input[name=id]").val();
 		var pw = $("input[name=pw]").val();
-		
+
 		$.ajax({
 			url : "memberLogin.do",
 			type : "POST",
 			dataType : "html",
-			data : { "id" : id, "pw" : pw },
+			data : {
+				"id" : id,
+				"pw" : pw
+			},
 			success : function(errorMessage) {
 				if (errorMessage != "") {
 					alert(errorMessage);
@@ -178,7 +181,6 @@ button {
 			}
 		});
 	}
-
 </script>
 </head>
 <body>
@@ -205,13 +207,12 @@ button {
 				</div>
 				<div id="buttonbox">
 					<button type="button" onclick="onclickLoginBtn()">로그인</button>
-					<br>
-					<a href="/cyber/member/memberJoinRegist.do"><button
+					<br> <a href="/cyber/member/memberJoinRegist.do"><button
 							type="submit">회원 가입</button></a> <br> <a
 						href="/cyber/member/memberFindId.do"><button type="submit"
-							style="width: 100px;">ID찾기</button></a><a
+							style="width: 100px; margin-right: 1px;">ID찾기</button></a><a
 						href="/cyber/member/memberFindPw.do"><button type="submit"
-							style="width: 100px;">PW 찾기</button></a>
+							style="width: 100px; margin-left: 1px;">PW 찾기</button></a>
 				</div>
 				<div id="naverLogin"
 					style="text-align: center; padding-bottom: 10px;">
@@ -229,7 +230,9 @@ button {
 				</div>
 			</div>
 		</main>
-		<footer>footer</footer>
+		<footer>
+			<c:import url="/WEB-INF/views/component/footer.jsp" />
+		</footer>
 	</div>
 </body>
 </html>

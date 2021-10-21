@@ -47,8 +47,12 @@ aside {
 main {
 	float: left;
 	width: 760px;
-	height: 600px;
+	height: auto; /* 수정 */
 	background: #white;
+	position: relative;
+	left: 10px;
+	top: 10px;
+	padding-bottom: 100px;
 }
 
 footer {
@@ -56,6 +60,8 @@ footer {
 	width: 1000px;
 	height: 100px;
 	background: #cee5fe;
+	position: relative;
+	margin-top: -100px;
 }
 
 button {
@@ -70,7 +76,6 @@ button {
 }
 
 /* 본문 */
-
 table {
 	margin: 0 auto;
 	margin-top: 10px;
@@ -103,11 +108,11 @@ h2 {
 	margin: 10px;
 }
 </style>
-<script type="text/javascript">	
+<script type="text/javascript">
 	function check() {
 		var title = document.getElementById("noticeTitle");
 		var content = document.getElementById("noticeContent");
-		
+
 		if (title.value.length < 5 || title.value == "") {
 			alert("제목을 5글자 이상 적어주세요.");
 			title.focus();
@@ -130,7 +135,7 @@ h2 {
 			<c:import url="/WEB-INF/views/component/lnbNav.jsp" />
 		</aside>
 		<main>
-		
+
 			<div id="naviandtitle">
 				<div id="navi">
 					<a href="../index.do">Home</a>><strong>공지사항</strong>
@@ -139,21 +144,20 @@ h2 {
 				<h2>수정하기</h2>
 			</div>
 			<!-- end of naviandtitle -->
-			
-			<form action="noticeUpdate.do" method="post" onsubmit="return check();">
+
+			<form action="noticeUpdate.do" method="post"
+				onsubmit="return check();">
 				<table>
 					<tr>
 						<th>제목</th>
 						<td><input class="noticeTitle" id="noticeTitle" name="title"
-						value="${detail.title}">
-						</td>
+							value="${detail.title}"></td>
 					</tr>
 					<tr>
-						<th>내용</th>	
-						<td><textarea class="noticeContent" id="noticeContent" name="content"
-						rows="10">${detail.content}</textarea>
-						</td>
-					</tr>		
+						<th>내용</th>
+						<td><textarea class="noticeContent" id="noticeContent"
+								name="content" rows="10">${detail.content}</textarea></td>
+					</tr>
 				</table>
 				<input type="hidden" name="no" value="${detail.no}">
 				<div id="writeBtnBox">
@@ -161,6 +165,9 @@ h2 {
 				</div>
 			</form>
 		</main>
+		<footer>
+			<c:import url="/WEB-INF/views/component/footer.jsp" />
+		</footer>
 	</div>
 </body>
 </html>

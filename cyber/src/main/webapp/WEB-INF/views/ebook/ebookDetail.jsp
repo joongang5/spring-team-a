@@ -45,7 +45,7 @@ aside {
 main {
 	float: left;
 	width: 760px;
-	height: 1600px;
+	height: auto;
 	background: #white;
 }
 
@@ -169,6 +169,11 @@ td img {
 	background-color: #666;
 	color: #fff;
 	margin-top: 10px;
+}
+
+#mainTable {
+	margin-left: 12px;
+	margin-top: 5px;
 }
 </style>
 </head>
@@ -344,7 +349,9 @@ td img {
 
 			</div>
 		</main>
-		<footer>footer</footer>
+		<footer>
+			<c:import url="/WEB-INF/views/component/footer.jsp" />
+		</footer>
 	</div>
 </body>
 </html>

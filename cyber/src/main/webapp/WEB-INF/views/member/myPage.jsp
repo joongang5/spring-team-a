@@ -69,8 +69,8 @@ footer {
 .ewqBox {
 	margin: 0 auto;
 	margin-top: 30px;
-	padding: 0;
 	width: 90%;
+	padding: 0;
 }
 
 .ebBox {
@@ -143,7 +143,9 @@ img {
 				</c:otherwise>
 			</c:choose>
 		</main>
-		<footer>footer</footer>
+		<footer>
+			<c:import url="/WEB-INF/views/component/footer.jsp" />
+		</footer>
 	</div>
 </body>
 </html>
