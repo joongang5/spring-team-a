@@ -55,7 +55,7 @@ aside {
 main {
 	float: left;
 	width: 760px;
-	height: 600px;
+	height: 700px; /* 수정 */
 	background: #white;
 	position: relative;
 	left: 10px;
@@ -69,35 +69,72 @@ footer {
 	background: #cee5fe;
 }
 
-#pageSearch {
-	margin-left: 10px;
+#writebutton {
+	width: 100px;
+	height: 35px;
+	text-align: center;
+	font-family: 'Nanum Gothic', sans-serif;
+	background-color: white;
+	border-color: #e3f0ff;
+	border-radius: 10px;
+	position: relative;
+	left: 280px;
+	top: 10px;
+	margin-top: 20px;
 }
 
-#pageCategory {
-	margin-left: 10px;
+/* 본문 */
+
+h1 {
+	color: #4c85d6;
+}
+
+#searchBox {
+	background-color: #f2f4f7;
+	padding: 10px;
+	text-align: center;
+}
+
+#searchCondition {
+	width: 50px;
+	height: 30px;
+}
+
+#searchKeyword {
+	width: 300px;
+	height: 25px;
+}
+
+#searchBtn {
+	width: 50px;
+	height: 30px;
+	background-color: #534f4f;
+	color: white;
+	border: 0;
+	outline: 0;
 }
 
 #board {
 	margin: 10px;
-	width: 600px;
-	height: 300px;
 }
 
 table {
 	border-collapse: collapse;
 	border-spacing: 0;
 	background-color: white;
+	width: 700px;
+	height: 400px;
 }
 
 th {
+	border-top: 2px solid #534f4f;
+	border-bottom: 1px solid #534f4f;
 	background-color: #e3f0ff;
-}
-
-tr {
-	border-bottom: 1px solid gray;
+	padding: 10px;
 }
 
 td {
+	border-bottom: 1px solid #dfe2e6;
 	text-align: center;
 }
 
@@ -110,18 +147,10 @@ a {
 	color: black;
 }
 
-#writebutton {
-	width: 100px;
-	height: 35px;
-	text-align: center;
-	font-family: 'Nanum Gothic', sans-serif;
-	background-color: white;
-	border-color: #e3f0ff;
-	border-radius: 10px;
-	position: relative;
-	left: 280px;
-	top: 10px;
+#title:hover {
+	text-decoration: underline;
 }
+
 </style>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
@@ -138,7 +167,7 @@ a {
 		<main>
 			<div id="naviandtitle">
 				<div id="navi">
-					<a href="./index.do">Home</a>>소통마당
+					<a href="../index.do">Home</a>><strong>소통마당</strong>
 				</div>
 				<!-- end of navi -->
 				<h1>소통마당</h1>
@@ -146,6 +175,7 @@ a {
 			<!-- end of naviandtitle -->
 
 			<!-- 검색 기능 -->
+			<div id="searchBox">
 			<form action="./listBoard.do" id="pageSearch" method="get">
 				<select name="searchCondition" id="searchCondition" title="검색방법 선택">
 					<option value="title"
@@ -158,6 +188,7 @@ a {
 					id="searchKeyword" title="검색어 입력" placeholder="검색어를 입력해주세요.">
 				<button type="submit" id="searchBtn">검색</button>
 			</form>
+			</div> <!-- end of searchBox -->
 
 			<!-- 소통마당 list -->
 			<div id="board">
@@ -171,11 +202,11 @@ a {
 							<th>작성자</th>
 						</tr>
 					</thead>
-					<tbody id="nbody">
+					<tbody id="bbody">
 						<c:forEach items="${list }" var="l">
 							<tr>
 								<td>${l.no }</td>
-								<td><a href="./boardDetail.do?no=${l.no }">${l.title }</a></td>
+								<td id="title"><a href="./boardDetail.do?no=${l.no }">${l.title }</a></td>
 								<td>${l.date }</td>
 								<td>${l.count }</td>
 								<td>${l.id }(${l.name })</td>
@@ -183,20 +214,22 @@ a {
 						</c:forEach>
 					</tbody>
 				</table>
-
-				<!-- 글쓰기 버튼 로그인한 사람만 보이게 -->
-				<c:if test="${sessionScope.id ne null }">
-					<a href="./boardWrite.do"><button id="writebutton">글쓰기</button></a>
-				</c:if>
-			</div>
-			<!-- end of board -->
-
+				
 			<!-- 페이징-->
-			<div id="pagination" style="position: relative; left: 35px;">
+			<div id="pagination" style="position: relative; left: 180px; top: 20px;">
 				<ui:pagination paginationInfo="${paginationInfo }" type="text"
 					jsFunction="linkPage" />
 			</div>
 			<!-- end of paging -->
+			
+			<!-- 글쓰기 버튼 로그인한 사람만 보이게 -->
+			<c:if test="${sessionScope.id ne null }">
+				<a href="./boardWrite.do"><button id="writebutton">글쓰기</button></a>
+			</c:if>
+			
+			</div>
+			<!-- end of board -->
+			
 		</main>
 		<footer>footer</footer>
 	</div>
