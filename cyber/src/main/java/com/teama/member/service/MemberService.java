@@ -34,4 +34,6 @@ public interface MemberService {
 
 	public List<MemberDTO> getMemberListByNo(int memberNo);
 
+	public int memberUpdate(MemberDTO memberDTO);
+
 }

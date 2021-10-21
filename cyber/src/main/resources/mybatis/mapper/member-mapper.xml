@@ -4,7 +4,7 @@
 
 <mapper namespace="member">
 	<select id="login" resultType="HashMap">
-		SELECT no, name, id, grade <!-- 1013 소영 grade 추가 -->
+		SELECT * <!-- 1021 성능 신경 안쓰고 모두 반환 -->
 		FROM loginview
 		WHERE
 		id=#{id} AND pw=#{pw}
@@ -12,8 +12,8 @@
 
 	<insert id="join" parameterType="hashmap">
 		INSERT INTO member (name, id,
-		pw, email)
-		VALUES(#{name}, #{id}, #{pw}, #{email})
+		pw, email, platform)
+		VALUES(#{name}, #{id}, #{pw}, #{email}, #{platform})
 	</insert>
 
 	<select id="idCheck" parameterType="String" resultType="String">
@@ -82,5 +82,9 @@
 		resultType="memberDTO">
 		SELECT * FROM member WHERE join_date=#{joinDate}
 	</select>
+	
+	<update id="memberUpdate" parameterType="memberDTO">
+		UPDATE member SET pw=#{pw}, email=#{email} WHERE no=#{no}
+	</update>
 </mapper>
 	

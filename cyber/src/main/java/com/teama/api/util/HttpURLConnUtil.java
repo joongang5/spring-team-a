@@ -56,10 +56,12 @@ public class HttpURLConnUtil {
             URL url = new URL(baseUrl);
             HttpURLConnection con = (HttpURLConnection)url.openConnection();
             con.setRequestMethod("POST");
-            
-            for (Map.Entry<String, String> entry : properties.entrySet()) {
-				con.setRequestProperty(entry.getKey(), entry.getValue());
-			}
+
+            if (properties != null) {
+            	for (Map.Entry<String, String> entry : properties.entrySet()) {
+            		con.setRequestProperty(entry.getKey(), entry.getValue());
+            	}
+            }
             
             String strParams = parseParams(params);
             if (strParams.isEmpty() == false) {

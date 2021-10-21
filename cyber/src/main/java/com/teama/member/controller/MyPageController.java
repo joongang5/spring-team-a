@@ -200,4 +200,26 @@ public class MyPageController {
 		}
 		return mv;
 	}
+	
+	@PostMapping("memberUpdate.do")
+	public ModelAndView memberUpdate(HttpServletRequest request, HttpServletResponse response, CommandMap commandMap) throws IOException {
+		ModelAndView mv = new ModelAndView("member/pwCheck");
+		HttpSession session = request.getSession();
+		Object memberNoObj = session.getAttribute("memberNo");
+		if (memberNoObj != null) {
+			int memberNo = Util.parseInt(memberNoObj);
+			
+			MemberDTO memberDTO = memberService.getMemberByNo(memberNo);
+			
+			String pw = commandMap.getStrValue("pw");
+			memberDTO.setPw(pw);
+			String email = commandMap.getStrValue("email");
+			memberDTO.setEmail(email);
+			
+			memberService.memberUpdate(memberDTO);
+			
+			ScriptUtil.alert(response, "정보 수정에 성공했습니다.");
+		}
+		return mv;
+	}
 }

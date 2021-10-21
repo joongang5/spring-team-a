@@ -85,4 +85,9 @@ public class MemberServiceImpl implements MemberService {
 
 		return result;
 	}
+	
+	@Override
+	public int memberUpdate(MemberDTO memberDTO) {
+		return memberDAO.memberUpdate(memberDTO);
+	}
 }

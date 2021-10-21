@@ -16,12 +16,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.teama.common.CommandMap;
-import com.teama.member.dto.MemberDTO;
-import com.teama.member.service.LoginAPIService;
+import com.teama.member.service.KakaoAPIServiceImpl;
 import com.teama.member.service.LoginService;
 import com.teama.member.service.MemberService;
+import com.teama.member.service.NaverAPIServiceImpl;
+import com.teama.util.Util;
 
 @Controller
 @RequestMapping("/member")
@@ -31,14 +31,14 @@ public class LoginController {
 	private LoginService loginService;
 
 	@Resource(name = "naverAPIService")
-	private LoginAPIService naverAPIService;
+	private NaverAPIServiceImpl naverAPIService;
 
+	@Resource(name = "kakaoAPIService")
+	private KakaoAPIServiceImpl kakaoAPIService;
+	
 	@Resource(name = "memberService")
 	private MemberService memberService;
 	
-	// @Resource(name = "kakaoAPIService")
-	// private LoginAPIService kakaoAPIService;
-
 	@GetMapping("memberLogin.do")
 	public String login() {
 		return "member/memberLogin";
@@ -57,13 +57,15 @@ public class LoginController {
 			errorMessage = "비밀번호를 입력해주세요.";
 		
 		if (errorMessage.isEmpty()) {
-			Map<String, Object> login = loginService.login(commandMap.getMap());
-			if (login != null) {
+			// loginViewDTO 클래스는 존재하지 않지만 로그인 결과 값이 무엇인지 명시하기 위해 사용
+			Map<String, Object> loginViewDTO = loginService.login(commandMap.getMap());
+			if (loginViewDTO != null) {
 				HttpSession session = request.getSession();
-				session.setAttribute("name", login.get("name"));
-				session.setAttribute("id", login.get("id"));
-				session.setAttribute("memberNo", login.get("no"));
-				session.setAttribute("grade", login.get("grade")); //1013 소영 grade 세션 추가	
+				session.setAttribute("name", loginViewDTO.get("name"));
+				session.setAttribute("id", loginViewDTO.get("id"));
+				session.setAttribute("memberNo", loginViewDTO.get("no"));
+				session.setAttribute("grade", loginViewDTO.get("grade")); //1013 소영 grade 세션 추가
+				session.setAttribute("platform", loginViewDTO.get("platform"));
 			} else {
 				errorMessage = "일치하는 회원정보가 없습니다.";
 			}
@@ -72,20 +74,26 @@ public class LoginController {
 		return errorMessage;
 	}
 
-	@GetMapping("/logout")
-	public String logout(HttpServletRequest request) {
+	@GetMapping("/logout.do")
+	public String logout(HttpServletRequest request) throws JsonMappingException, JsonProcessingException, UnsupportedEncodingException {
 		HttpSession session = request.getSession();
 
+		// 세션에 로그인 관련 정보가 남아있다면 로그인 상태이다.
 		if (session.getAttribute("id") != null) {
+			// 기본 로그인 정보를 제거한다.
 			session.removeAttribute("id");
-		}
-
-		if (session.getAttribute("name") != null) {
 			session.removeAttribute("name");
+			session.removeAttribute("memberNo");
+			session.removeAttribute("grade"); //1013 소영 grade 세션 추가
+
+			Object platformObj = session.getAttribute("platform");
+			if (Util.parseInt(platformObj) == 2)
+				return "redirect:" + kakaoAPIService.requestLogoutAuth();
 		}
+		
 		return "redirect:/index.do";
 	}
-
+	
 	@GetMapping("naverAuth.do")
 	public String naverAuth() {
 		return "member/memberLogin";
@@ -96,7 +104,6 @@ public class LoginController {
 		return "redirect:" + naverAPIService.requestAuth(request);
 	}
 
-	@SuppressWarnings("unchecked")
 	@GetMapping("onNaverLoginCallback.do")
 	public String onNaverLoginCallback(HttpServletRequest request, @RequestParam Map<String, String> params)
 			throws JsonMappingException, JsonProcessingException {
@@ -105,14 +112,62 @@ public class LoginController {
 		String storedState = (String) request.getSession().getAttribute("state");
 
 		if (state.equals(storedState)) {
-			MemberDTO memberDTO = naverAPIService.requestToken(code, state);
+			String accessToken = naverAPIService.requestToken(code, state);
 			
-			ObjectMapper mapper = new ObjectMapper();
-			Map<String, Object> memberDTOMap = mapper.convertValue(memberDTO, Map.class);
+			Map<String, Object> memberDTOMap = naverAPIService.requestProfile(accessToken);
 			
 			memberService.join(memberDTOMap);
 		}
 
+		return "redirect:/index.do";
+	}
+	
+	@PostMapping("kakaoAuth.do")
+	public String kakaoAuth(HttpServletRequest request) throws UnsupportedEncodingException {
+		return "redirect:" + kakaoAPIService.requestAuth(request);
+	}
+	
+	@GetMapping("onKakaoLoginCallback.do")
+	public String onKakaoLoginCallback(@RequestParam Map<String, String> params, HttpServletRequest request)
+			throws JsonMappingException, JsonProcessingException {
+		String code = params.get("code");
+
+		String accessToken = kakaoAPIService.requestToken(code);
+
+		Map<String, Object> profileMap = kakaoAPIService.requestProfile(accessToken);
+		System.out.println("컨트롤러 출력" + profileMap.get("id"));
+		
+		// 회원 정보가 있으면
+		// 로그인처리 (session에 등록)
+		Map<String, Object> loginViewDTO = loginService.login(profileMap);
+		if (loginViewDTO == null) {
+			// 회원 정보가 없으면
+			memberService.join(profileMap);
+			
+			loginViewDTO = profileMap;
+		}
+		
+		if (loginViewDTO != null) {
+			HttpSession session = request.getSession();
+			session.setAttribute("name", loginViewDTO.get("name"));
+			session.setAttribute("id", loginViewDTO.get("id"));
+			session.setAttribute("memberNo", loginViewDTO.get("no"));
+			session.setAttribute("grade", loginViewDTO.get("grade"));
+			session.setAttribute("platform", loginViewDTO.get("platform"));
+		}
+		
+		return "redirect:/index.do";
+	}
+	
+	@PostMapping("kakaoLogoutAuth.do")
+    public String kakaoLogoutAuth(HttpServletRequest request) throws UnsupportedEncodingException {
+        return "redirect:" + kakaoAPIService.requestLogoutAuth();
+    }
+	
+	@GetMapping("onKakaoLogout.do")
+	public String onKakaoLogout(@RequestParam Map<String, String> params, HttpServletRequest request) 
+			throws JsonMappingException, JsonProcessingException {
+		
 		return "redirect:/index.do";
 	}
 }

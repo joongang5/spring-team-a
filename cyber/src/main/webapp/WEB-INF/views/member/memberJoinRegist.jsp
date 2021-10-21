@@ -213,6 +213,7 @@ button {
 							<div class="alert alert-success" id="alert-success"	style="font-family: 'Nanum Gothic', sans-serif; margin-bottom: 10px;">비밀번호가 일치합니다.</div>
 							<div class="alert alert-danger" id="alert-danger" style="font-family: 'Nanum Gothic', sans-serif; margin-bottom: 10px;">비밀번호가 일치하지 않습니다.</div>
 							<input type="text" id="email" name="email" required="required" placeholder="Email" onchange="emailCheck()">
+							<input type="hidden" name="platform" value="0">
 						</div>
 						<div id="buttonbox">
 							<button type="submit">가입하기</button>

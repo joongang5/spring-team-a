@@ -9,6 +9,7 @@ public class MemberDTO {
 	private String email;
 	private String join_date;
 	private int grade;
+	private int platform;
 
 	public int getNo() {
 		return no;
@@ -64,5 +65,13 @@ public class MemberDTO {
 
 	public void setGrade(int grade) {
 		this.grade = grade;
+	}
+
+	public int getPlatform() {
+		return platform;
+	}
+
+	public void setPlatform(int platform) {
+		this.platform = platform;
 	}
 }

@@ -16,10 +16,9 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.teama.api.util.HttpURLConnUtil;
-import com.teama.member.dto.MemberDTO;
 
 @Service("naverAPIService")
-public class NaverAPIServiceImpl implements LoginAPIService {
+public class NaverAPIServiceImpl{
 
 	private final String CLIENT_ID = "wn_m3HL4uolGFA5Fudbr";
 	private final String CLIENT_SECRET = "VPT8CIEF4K";
@@ -28,7 +27,6 @@ public class NaverAPIServiceImpl implements LoginAPIService {
 	private final String BASE_URL_PROFILE = "https://openapi.naver.com/v1/nid/me";
 	private final String REDIRECT_URI_AUTH = "http://localhost:8080/cyber/member/onNaverLoginCallback.do";
 
-	@Override
 	public String requestAuth(HttpServletRequest request) throws UnsupportedEncodingException {
 		String redirectUri = URLEncoder.encode(REDIRECT_URI_AUTH, "UTF-8");
 		String state = new BigInteger(130, new SecureRandom()).toString();
@@ -45,7 +43,7 @@ public class NaverAPIServiceImpl implements LoginAPIService {
 	}
 
 	@SuppressWarnings("unchecked")
-	public MemberDTO requestToken(String code, String state) throws JsonMappingException, JsonProcessingException {
+	public String requestToken(String code, String state) throws JsonMappingException, JsonProcessingException {
 
 		HashMap<String, String> params = new HashMap<String, String>();
 		params.put("client_id", CLIENT_ID);
@@ -58,9 +56,23 @@ public class NaverAPIServiceImpl implements LoginAPIService {
 		String tokenResponse = HttpURLConnUtil.doGetRequest(BASE_URL_TOKEN, null, params);
 		Map<String, String> tokenMap = tokenMapper.readValue(tokenResponse, Map.class);
 		String accessToken = tokenMap.get("access_token");
-		String refreshToken = tokenMap.get("refresh_token");
-		String tokenType = tokenMap.get("token_type");
-		String expiresIn = tokenMap.get("expires_in");
+//		String refreshToken = tokenMap.get("refresh_token");
+//		String tokenType = tokenMap.get("token_type");
+//		String expiresIn = tokenMap.get("expires_in");
+
+		return accessToken;
+	}
+	
+	@SuppressWarnings("unused")
+	private String getStrValueFromJsonNode(JsonNode parentNode, String key) {
+		JsonNode node = parentNode.get(key);
+		if (node == null)
+			return "";
+		
+		return node.asText();
+	}
+
+	public Map<String, Object> requestProfile(String accessToken) throws JsonMappingException, JsonProcessingException {
 
 		String header = "Bearer " + accessToken;
 		Map<String, String> headers = new HashMap<String, String>();
@@ -77,21 +89,13 @@ public class NaverAPIServiceImpl implements LoginAPIService {
 		String nickname = getStrValueFromJsonNode(responseNode, "nickname");
 		String birthday = getStrValueFromJsonNode(responseNode, "birthday");
 		
-		MemberDTO memberDTO = new MemberDTO();
-		memberDTO.setId(id);
-		memberDTO.setPw("");
-		memberDTO.setEmail(email);
-		memberDTO.setName(name);
+		Map<String, Object> profileMap = new HashMap<String, Object>();
+		profileMap.put("id", id);
+		profileMap.put("pw", "");
+		profileMap.put("email", email);
+		profileMap.put("name", name);
+		profileMap.put("platform", 1);
 		
-		return memberDTO;
-	}
-	
-	@SuppressWarnings("unused")
-	private String getStrValueFromJsonNode(JsonNode parentNode, String key) {
-		JsonNode node = parentNode.get(key);
-		if (node == null)
-			return "";
-		
-		return node.asText();
+		return profileMap;
 	}
 }

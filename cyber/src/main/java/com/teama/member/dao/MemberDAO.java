@@ -74,4 +74,8 @@ public class MemberDAO extends AbstractDAO {
 	public List<MemberDTO> memberListByJoinDate(String joinDate) {
 		return sqlSession.selectList("member.getMemberByJoinDate", joinDate);
 	}
+
+	public int memberUpdate(MemberDTO memberDTO) {
+		return sqlSession.update("member.memberUpdate", memberDTO);
+	}
 }

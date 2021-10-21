@@ -1,4 +1,3 @@
-<%@page import="com.teama.member.service.LoginAPIService"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
@@ -223,9 +222,9 @@ button {
 				</div>
 				<div id="kakaoLogin"
 					style="text-align: center; padding-bottom: 10px;">
-					<form action="kakakoAuth.do" method="post">
-						<img alt="kakaoLogin" src="../resources/img/kakaoLogin.png"
-							width="190px;" height="40px;" />
+					<form action="kakaoAuth.do" method="post">
+						<input type="image" src="../resources/img/kakaoLogin.png"
+							style="width: 190px; height: 40px;">
 					</form>
 				</div>
 			</div>

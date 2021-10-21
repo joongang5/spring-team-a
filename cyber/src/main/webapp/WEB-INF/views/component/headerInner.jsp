@@ -108,14 +108,15 @@ img {
 <div id="headerInner">
 	<div id="siteMenu">
 		<ul>
-			<li class="login"><c:choose>
-					<c:when test="${sessionScope.name ne null}">
+			<li class="login">
+			<c:choose>
+				<c:when test="${sessionScope.name ne null}">
 						<a href="/cyber/member/logout.do">&nbsp;로그아웃&nbsp;</a>
-					</c:when>
-					<c:otherwise>
+				</c:when>
+				<c:otherwise>
 						<a href="/cyber/member/memberLogin.do">&nbsp;로그인&nbsp;</a>
-					</c:otherwise>
-				</c:choose></li>
+				</c:otherwise>
+			</c:choose></li>
 			<li class="join"><a href="/cyber/member/memberJoinRegist.do">회원가입&nbsp;</a>
 			</li>
 			<li class="admin"><a href="/cyber/admin/home.do">관리자</a></li>
