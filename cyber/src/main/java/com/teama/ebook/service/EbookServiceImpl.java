@@ -55,4 +55,8 @@ public class EbookServiceImpl implements EbookService {
 	public List<EbookDTO> getNewList() {
 		return ebookDAO.getNewList();
 	}
+
+	public void setEbookThumbnail(EbookDTO list) {
+		ebookDAO.setEbookThumbnail(list);
+	}
 }

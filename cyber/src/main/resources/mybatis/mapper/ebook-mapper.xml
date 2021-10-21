@@ -10,6 +10,7 @@
 		<if test="searchValue != null"> WHERE ${searchTarget} LIKE '%${searchValue}%'
 		</if>
 		) AS totalCount,
+		no,
 		title,
 		title_url,
 		author,
@@ -106,4 +107,7 @@
 		COUNT(*) DESC
 		LIMIT 5
 	</select>
+	<update id="setEbookThumbnail" parameterType="ebookDTO">
+		UPDATE book SET title_url=#{title_url} WHERE no=#{no}
+	</update>
 </mapper>

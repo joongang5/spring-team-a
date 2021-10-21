@@ -1,6 +1,7 @@
 package com.teama.admin.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -27,6 +28,7 @@ public class AdminEbookController {
 	private EbookService ebookService;
 	@Resource(name="ebookAPIService")
 	private EbookAPIServiceImpl ebookAPIService;
+	
 	
 	@GetMapping("home.do")
 	public ModelAndView home(CommandMap map) throws Exception {
@@ -99,12 +101,25 @@ public class AdminEbookController {
 
 	@PostMapping("registBook.do")
 	@ResponseBody
-	public String registBook(CommandMap commandMap, HttpServletRequest request) {
+	public String registBook(CommandMap commandMap, HttpServletRequest request) throws Exception {
 		
 		String searchType = "isbn";
 		String[] valueArr = request.getParameterValues("valueArr");
 		for (String searchValue : valueArr) {
 			List<EbookDTO> bookInfo = ebookAPIService.searchEbook(searchType, searchValue, 1);
+
+			for (EbookDTO list : bookInfo) {
+				if (list.getTitle_url().equals("")) {
+					List<Map<String, Object>> kakao = ebookAPIService.ebookSearchKakao(list.getIsbn());
+					// 도서 썸네일 없을시 카카오에서 가져와서 저장
+					if (kakao != null) {
+						list.setTitle_url((String) kakao.get(0).get("thumbnail"));
+					} else {
+						list.setTitle_url(null);
+					}
+				}
+			}
+			
 			ebookService.insertBook(bookInfo.get(0));
 		}
 		String result = String.valueOf(valueArr.length);

@@ -23,4 +23,6 @@ public interface EbookService {
 	public List<EbookReviewDTO> ebookReviewList(int bookno);
 
 	public List<EbookDTO> getNewList();
+	
+	public void setEbookThumbnail(EbookDTO list);
 }
