@@ -61,6 +61,7 @@ footer {
 #detailBoard {
 	width: 600px;
 	height: 300px;
+	margin: 10px;
 }
 
 #writebtn {
@@ -169,11 +170,11 @@ button {
 			<!-- 소통마당 상세보기 list -->
 			<div id="detailBoard">
 				<b>번호 |</b> ${detail.no } <b>제목 |</b> ${detail.title } <b>작성자 |</b>
-				${detail.id }(${detail.name }) <b>등록일 |</b> ${detail.date }
-					<c:if test="${sessionScope.id eq detail.id }">
-						<button id="writebtn" onclick="boardDelete()">삭제하기</button>
-						<button id="writebtn" onclick="boardUpdate()">수정하기</button>
-					</c:if>
+				${detail.id }(${detail.name }) <b>등록일 |</b> ${detail.date }<br>
+				<c:if test="${sessionScope.id eq detail.id }">
+					<button id="writebtn" onclick="boardDelete()">삭제하기</button>
+					<button id="writebtn" onclick="boardUpdate()">수정하기</button>
+				</c:if>
 				<hr>
 				${detail.content }
 			</div>
@@ -216,7 +217,7 @@ button {
 					</c:forEach>
 				</c:when>
 				<c:otherwise>
-					댓글이 없습니다.
+					<div style="margin: 5px;">댓글이 없습니다.</div>
 				</c:otherwise>
 			</c:choose>
 
@@ -225,9 +226,12 @@ button {
 				<c:when test="${sessionScope.id ne null }">
 					<form action="commentWrite.do" method="post">
 						<textarea class="commentTitle" id="commentTitle" name="comment"
-							placeholder="댓글을 입력하세요."></textarea>
-						<input type="hidden" name="no" value="${detail.no}"> <br>
-						<button type="submit" class="commetWriteBtn">댓글쓰기</button>
+							placeholder="댓글을 입력하세요."
+							style="font-family: 'Nanum Gothic', sans-serif; margin: 4px;"></textarea>
+						<input type="hidden" name="no" value="${detail.no}"
+							style="margin: 2px;"> <br>
+						<button type="submit" class="commetWriteBtn"
+							style="margin-bottom: 5px;">댓글쓰기</button>
 					</form>
 				</c:when>
 				<c:otherwise>
@@ -235,11 +239,11 @@ button {
 				</c:otherwise>
 			</c:choose>
 			<!-- end of 댓글쓰기 -->
-			
+
 			<!-- 댓글 페이징-->
-			<div id="commentPagination">
-				<ui:pagination paginationInfo="${commentPaginationInfo }" type="text"
-					jsFunction="commentLinkPage" />
+			<div id="commentPagination" style="margin: 4px;">
+				<ui:pagination paginationInfo="${commentPaginationInfo }"
+					type="text" jsFunction="commentLinkPage" />
 			</div>
 			<!-- end of 댓글 paging -->
 
@@ -251,8 +255,8 @@ button {
 					<c:if test="${preNextPage.preTitle != null }">
 						이전글 | <button onclick="preMove()">${preNextPage.preTitle }</button>
 						<br>
-				</c:if>
 					</c:if>
+				</c:if>
 				<c:if test="${preNextPage.preNum == null }">
 					<c:if test="${preNextPage.preTitle == null }">
 						이전글이 없습니다.<br>
@@ -274,7 +278,9 @@ button {
 			<!-- end of 이전글, 다음글 -->
 
 		</main>
-		<footer>footer</footer>
+		<footer>
+			<c:import url="/WEB-INF/views/component/footer.jsp" />
+		</footer>
 	</div>
 </body>
 </html>

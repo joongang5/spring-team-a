@@ -62,29 +62,31 @@ button {
 	border-color: #e3f0ff;
 	border-radius: 10px;
 	margin-bottom: 10px;
+	margin-left: 10px;
 }
 
 #detailBoard {
 	width: 600px;
 	height: 300px;
+	margin: 10px;
 }
 </style>
 <script type="text/javascript">
-function check() {
-	var title = document.getElementById("boardTitle");
-	var content = document.getElementById("boardContent");
-	
-	if (title.value.length < 5 || title.value == "") {
-		alert("제목을 5글자 이상 적어주세요.");
-		title.focus();
-		return false;
+	function check() {
+		var title = document.getElementById("boardTitle");
+		var content = document.getElementById("boardContent");
+
+		if (title.value.length < 5 || title.value == "") {
+			alert("제목을 5글자 이상 적어주세요.");
+			title.focus();
+			return false;
+		}
+		if (content.value == "" || content.value.length < 5) {
+			alert("내용을 5글자 이상 적어주세요.");
+			content.focus();
+			return false;
+		}
 	}
-	if (content.value == "" || content.value.length < 5) {
-		alert("내용을 5글자 이상 적어주세요.");
-		content.focus();
-		return false;
-	}
-}
 </script>
 </head>
 <body>
@@ -98,13 +100,19 @@ function check() {
 		<main>
 			<form action="boardWrite.do" method="post" onsubmit="return check();">
 				<textarea class="boardTitle" id="boardTitle" name="title"
-					placeholder="제목을 입력하세요."></textarea><br>
+					placeholder="제목을 입력하세요."
+					style="font-family: 'Nanum Gothic', sans-serif; margin-top: 5px; margin-left: 10px;"></textarea>
+				<br>
 				<textarea class="boardContent" id="boardContent" name="content"
-					rows="10" placeholder="내용을 입력하세요."></textarea>
+					rows="10" placeholder="내용을 입력하세요."
+					style="font-family: 'Nanum Gothic', sans-serif; margin-left: 10px;"></textarea>
 				<br>
 				<button type="submit" class="writeBtn">글쓰기</button>
 			</form>
 		</main>
+		<footer>
+			<c:import url="/WEB-INF/views/component/footer.jsp" />
+		</footer>
 	</div>
 </body>
 </html>

@@ -59,6 +59,7 @@ footer {
 #detailBoard {
 	width: 600px;
 	height: 300px;
+	margin: 10px;
 }
 
 #writebtn {
@@ -82,36 +83,35 @@ button {
 	font-size: 15px;
 }
 </style>
-<script type="text/javascript">	
+<script type="text/javascript">
 	//이전글
 	function preMove() {
-		location.href='./noticeDetail.do?no=${preNextPage.preNum }';
+		location.href = './noticeDetail.do?no=${preNextPage.preNum }';
 	}
 
 	//다음글
 	function nextMove() {
-		location.href='./noticeDetail.do?no=${preNextPage.nextNum }';
+		location.href = './noticeDetail.do?no=${preNextPage.nextNum }';
 	}
-	
+
 	//삭제 확인
 	function noticeDelete() {
-		if(confirm("삭제하시겠습니까?")) {
-			location.href='./noticeDelete.do?no=${detail.no }';
+		if (confirm("삭제하시겠습니까?")) {
+			location.href = './noticeDelete.do?no=${detail.no }';
 			alert("게시글이 삭제되었습니다.");
 		} else {
-			location.href='./noticeDetail.do?no=${detail.no }';
+			location.href = './noticeDetail.do?no=${detail.no }';
 		}
 	}
-	
+
 	//수정 확인
 	function noticeUpdate() {
-		if(confirm("수정하시겠습니까?")) {
-			location.href='./noticeUpdate.do?no=${detail.no }';
+		if (confirm("수정하시겠습니까?")) {
+			location.href = './noticeUpdate.do?no=${detail.no }';
 		} else {
-			location.href='./noticeDetail.do?no=${detail.no }';
+			location.href = './noticeDetail.do?no=${detail.no }';
 		}
 	}
-	
 </script>
 </head>
 <body>
@@ -123,12 +123,12 @@ button {
 			<c:import url="/WEB-INF/views/component/lnbNav.jsp" />
 		</aside>
 		<main>
-			
+
 			<!-- 공지사항 상세보기 list -->
 			<div id="detailBoard">
 				<b>번호 |</b> ${detail.no } <b>제목 |</b> ${detail.title } <b>작성자 |</b>
 				${detail.id }(${detail.name }) <b>등록일 |</b> ${detail.date }<br>
-				
+
 				<!-- 삭제, 수정 버튼 관리자(9등급)만 보이게 -->
 				<c:if test="${sessionScope.grade eq 9 }">
 					<!-- 삭제, 수정 버튼 본인글은 본인만 보이게 -->
@@ -152,8 +152,8 @@ button {
 					<c:if test="${preNextPage.preTitle != null }">
 						이전글 | <button onclick="preMove()">${preNextPage.preTitle }</button>
 						<br>
-				</c:if>
 					</c:if>
+				</c:if>
 				<c:if test="${preNextPage.preNum == null }">
 					<c:if test="${preNextPage.preTitle == null }">
 						이전글이 없습니다.<br>
@@ -175,7 +175,9 @@ button {
 			<!-- end of 이전글, 다음글 -->
 
 		</main>
-		<footer>footer</footer>
+		<footer>
+			<c:import url="/WEB-INF/views/component/footer.jsp" />
+		</footer>
 	</div>
 </body>
 </html>

@@ -62,18 +62,20 @@ button {
 	border-color: #e3f0ff;
 	border-radius: 10px;
 	margin-bottom: 10px;
+	margin-left: 10px;
 }
 
 #detailBoard {
 	width: 600px;
 	height: 300px;
+	margin: 10px;
 }
 </style>
 <script type="text/javascript">
 	function check() {
 		var title = document.getElementById("boardTitle");
 		var content = document.getElementById("boardContent");
-		
+
 		if (title.value.length < 5 || title.value == "") {
 			alert("제목을 5글자 이상 적어주세요.");
 			title.focus();
@@ -96,15 +98,21 @@ button {
 			<c:import url="/WEB-INF/views/component/lnbNav.jsp" />
 		</aside>
 		<main>
-			<form action="boardUpdate.do" method="post" onsubmit="return check();">
+			<form action="boardUpdate.do" method="post"
+				onsubmit="return check();">
 				<input class="boardTitle" id="boardTitle" name="title"
+					style="font-family: 'Nanum Gothic', sans-serif; margin: 10px;"
 					value="${detail.title}"><br>
 				<textarea class="boardContent" id="boardContent" name="content"
-					rows="10">${detail.content}</textarea>
+					rows="10"
+					style="font-family: 'Nanum Gothic', sans-serif; margin-left: 10px;">${detail.content}</textarea>
 				<br> <input type="hidden" name="no" value="${detail.no}">
 				<button type="submit" class="writeBtn">수정하기</button>
 			</form>
 		</main>
+		<footer>
+			<c:import url="/WEB-INF/views/component/footer.jsp" />
+		</footer>
 	</div>
 </body>
 </html>

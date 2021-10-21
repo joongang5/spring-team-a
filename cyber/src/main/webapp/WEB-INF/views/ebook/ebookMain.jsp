@@ -72,6 +72,15 @@ td img {
 	text-align: center;
 	margin-top: 10px;
 }
+
+#SearchTarget {
+	margin-left: 12px;
+	margin-bottom: 10px;
+}
+
+#mainTable {
+	margin-left: 12px;
+}
 </style>
 </head>
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
@@ -170,7 +179,9 @@ td img {
 				</c:otherwise>
 			</c:choose>
 		</main>
-		<footer>footer</footer>
+		<footer>
+			<c:import url="/WEB-INF/views/component/footer.jsp" />
+		</footer>
 	</div>
 </body>
 </html>

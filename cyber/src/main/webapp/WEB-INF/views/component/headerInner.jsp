@@ -46,7 +46,7 @@ li {
 }
 
 #siteMenu {
-	height: 30px;
+	height: 40px;
 	background-color: #cee5fe;
 }
 
@@ -107,16 +107,15 @@ img {
 </style>
 <div id="headerInner">
 	<div id="siteMenu">
-		<ul>
-			<li class="login">
-			<c:choose>
-				<c:when test="${sessionScope.name ne null}">
+		<ul style="position: relative; top: 8px; left: 790px;">
+			<li class="login"><c:choose>
+					<c:when test="${sessionScope.name ne null}">
 						<a href="/cyber/member/logout.do">&nbsp;로그아웃&nbsp;</a>
-				</c:when>
-				<c:otherwise>
+					</c:when>
+					<c:otherwise>
 						<a href="/cyber/member/memberLogin.do">&nbsp;로그인&nbsp;</a>
-				</c:otherwise>
-			</c:choose></li>
+					</c:otherwise>
+				</c:choose></li>
 			<li class="join"><a href="/cyber/member/memberJoinRegist.do">회원가입&nbsp;</a>
 			</li>
 			<li class="admin"><a href="/cyber/admin/home.do">관리자</a></li>
@@ -124,8 +123,8 @@ img {
 	</div>
 	<div>
 		<h1 id="logo">
-			<img alt="임시로고" src="./resources/img/book.png"
-				onerror="this.src='../resources/img/book.png'"> <a
+			<img alt="임시로고" src="./resources/img/library.png"
+				onerror="this.src='../resources/img/library.png'"> <a
 				href="/cyber/index.do">&nbsp;A book</a>
 		</h1>
 	</div>

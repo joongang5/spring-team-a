@@ -66,25 +66,26 @@ button {
 	background-color: white;
 	border-color: #e3f0ff;
 	border-radius: 10px;
-	margin-bottom: 10px;
+	margin-left: 10px;
+	margin-top: 10px;
 }
 </style>
 <script type="text/javascript">
-function check() {
-	var title = document.getElementById("noticeTitle");
-	var content = document.getElementById("noticeContent");
-	
-	if (title.value.length < 5 || title.value == "") {
-		alert("제목을 5글자 이상 적어주세요.");
-		title.focus();
-		return false;
+	function check() {
+		var title = document.getElementById("noticeTitle");
+		var content = document.getElementById("noticeContent");
+
+		if (title.value.length < 5 || title.value == "") {
+			alert("제목을 5글자 이상 적어주세요.");
+			title.focus();
+			return false;
+		}
+		if (content.value == "" || content.value.length < 5) {
+			alert("내용을 5글자 이상 적어주세요.");
+			content.focus();
+			return false;
+		}
 	}
-	if (content.value == "" || content.value.length < 5) {
-		alert("내용을 5글자 이상 적어주세요.");
-		content.focus();
-		return false;
-	}
-}
 </script>
 </head>
 <body>
@@ -96,15 +97,23 @@ function check() {
 			<c:import url="/WEB-INF/views/component/lnbNav.jsp" />
 		</aside>
 		<main>
-			<form action="noticeWrite.do" method="post" enctype="multipart/form-data" onsubmit="return check();">
+			<form action="noticeWrite.do" method="post"
+				enctype="multipart/form-data" onsubmit="return check();">
 				<textarea class="noticeTitle" id="noticeTitle" name="title"
-					placeholder="제목을 입력하세요."></textarea><br>
+					placeholder="제목을 입력하세요."
+					style="font-family: 'Nanum Gothic', sans-serif; margin: 10px;"></textarea>
+				<br>
 				<textarea class="noticeContent" id="noticeContent" name="content"
-					rows="10" placeholder="내용을 입력하세요."></textarea><br>
-				<input type="file" name="file" accept=".gif, .png, .jpg">
+					rows="10" placeholder="내용을 입력하세요."
+					style="font-family: 'Nanum Gothic', sans-serif; margin-left: 10px;"></textarea>
+				<br> <input type="file" name="file" accept=".gif, .png, .jpg"
+					style="margin-left: 10px;"><br>
 				<button type="submit" class="writeBtn">글쓰기</button>
 			</form>
 		</main>
+		<footer>
+			<c:import url="/WEB-INF/views/component/footer.jsp" />
+		</footer>
 	</div>
 </body>
 </html>

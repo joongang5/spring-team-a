@@ -66,15 +66,17 @@ button {
 	background-color: white;
 	border-color: #e3f0ff;
 	border-radius: 10px;
-	margin-bottom: 10px;
+	margin-left: 10px;
+	margin-top: 10px;
 }
 </style>
-<script type="text/javascript">	
+<script type="text/javascript">
 	function check() {
 		var title = document.getElementById("noticeTitle");
 		var content = document.getElementById("noticeContent");
-		
-		if (title.value.length < 5 || title.value == "") {
+
+		if (title.value.length < 5 || title.valu
+	e == "") {
 			alert("제목을 5글자 이상 적어주세요.");
 			title.focus();
 			return false;
@@ -96,16 +98,23 @@ button {
 			<c:import url="/WEB-INF/views/component/lnbNav.jsp" />
 		</aside>
 		<main>
-			<form action="noticeUpdate.do" method="post" onsubmit="return check();">
+			<form action="noticeUpdate.do" method="post"
+				onsubmit="return check();">
 				<input class="noticeTitle" id="noticeTitle" name="title"
+					style="font-family: 'Nanum Gothic', sans-serif; margin: 10px;"
 					value="${detail.title}"><br>
 				<textarea class="noticeContent" id="noticeContent" name="content"
-					rows="10">${detail.content}</textarea>
+					rows="10"
+					style="font-family: 'Nanum Gothic', sans-serif; margin-left: 10px;">${detail.content}</textarea>
 				<br> <input type="hidden" name="no" value="${detail.no}">
-				<input type="file" name="file" accept=".gif, .png, .jpg">
+				<input type="file" name="file" accept=".gif, .png, .jpg"
+					style="margin-left: 10px;"><br>
 				<button type="submit" class="writeBtn">수정하기</button>
 			</form>
 		</main>
+		<footer>
+			<c:import url="/WEB-INF/views/component/footer.jsp" />
+		</footer>
 	</div>
 </body>
 </html>

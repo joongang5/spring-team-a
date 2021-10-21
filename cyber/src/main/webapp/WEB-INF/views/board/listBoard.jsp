@@ -122,6 +122,10 @@ a {
 	left: 280px;
 	top: 10px;
 }
+
+#naviandtitle {
+	margin-left: 10px;
+}
 </style>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
@@ -198,7 +202,9 @@ a {
 			</div>
 			<!-- end of paging -->
 		</main>
-		<footer>footer</footer>
+		<footer>
+			<c:import url="/WEB-INF/views/component/footer.jsp" />
+		</footer>
 	</div>
 	<!-- end of wrap -->
 </body>
