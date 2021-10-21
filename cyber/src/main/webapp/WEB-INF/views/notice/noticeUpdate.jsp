@@ -68,40 +68,6 @@ button {
 	border-radius: 10px;
 	margin-bottom: 10px;
 }
-
-/* 본문 */
-
-table {
-	margin: 0 auto;
-	margin-top: 10px;
-}
-
-#noticeTitle {
-	width: 600px;
-	height: 30px;
-}
-
-#noticeContent {
-	width: 600px;
-	height: 500px;
-}
-
-th {
-	background-color: #e3f0ff;
-	padding: 10px;
-}
-
-#writeBtnBox {
-	text-align: center;
-}
-
-h2 {
-	color: #4c85d6;
-}
-
-#naviandtitle {
-	margin: 10px;
-}
 </style>
 <script type="text/javascript">	
 	function check() {
@@ -130,35 +96,14 @@ h2 {
 			<c:import url="/WEB-INF/views/component/lnbNav.jsp" />
 		</aside>
 		<main>
-		
-			<div id="naviandtitle">
-				<div id="navi">
-					<a href="../index.do">Home</a>><strong>공지사항</strong>
-				</div>
-				<!-- end of navi -->
-				<h2>수정하기</h2>
-			</div>
-			<!-- end of naviandtitle -->
-			
 			<form action="noticeUpdate.do" method="post" onsubmit="return check();">
-				<table>
-					<tr>
-						<th>제목</th>
-						<td><input class="noticeTitle" id="noticeTitle" name="title"
-						value="${detail.title}">
-						</td>
-					</tr>
-					<tr>
-						<th>내용</th>	
-						<td><textarea class="noticeContent" id="noticeContent" name="content"
-						rows="10">${detail.content}</textarea>
-						</td>
-					</tr>		
-				</table>
-				<input type="hidden" name="no" value="${detail.no}">
-				<div id="writeBtnBox">
-					<button type="submit" class="writeBtn">수정하기</button>
-				</div>
+				<input class="noticeTitle" id="noticeTitle" name="title"
+					value="${detail.title}"><br>
+				<textarea class="noticeContent" id="noticeContent" name="content"
+					rows="10">${detail.content}</textarea>
+				<br> <input type="hidden" name="no" value="${detail.no}">
+				<input type="file" name="file" accept=".gif, .png, .jpg">
+				<button type="submit" class="writeBtn">수정하기</button>
 			</form>
 		</main>
 	</div>
