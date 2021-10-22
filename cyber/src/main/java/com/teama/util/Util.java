@@ -4,6 +4,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Random;
 
 import egovframework.rte.ptl.mvc.tags.ui.pagination.PaginationInfo;
 
@@ -65,4 +66,20 @@ public class Util {
 		
 		return paginationInfo;
 	}
+	
+	public static String generateSalt() {
+		Random random = new Random();
+		
+		byte[] salt = new byte[8];
+		random.nextBytes(salt);
+		
+		StringBuffer sb = new StringBuffer();
+		for (int i = 0; i < salt.length; i++) {
+			// byte 값을 Hex 값으로 바꾸기.
+			sb.append(String.format("%02x",salt[i]));
+		}
+		
+		return sb.toString();
+	}
+	
 }

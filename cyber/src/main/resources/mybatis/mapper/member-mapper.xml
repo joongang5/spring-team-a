@@ -7,13 +7,13 @@
 		SELECT * <!-- 1021 성능 신경 안쓰고 모두 반환 -->
 		FROM loginview
 		WHERE
-		id=#{id} AND pw=#{pw}
+		id=#{id} AND HEX(AES_ENCRYPT(#{salt},SHA2(#{pw},512)))
 	</select>
 
 	<insert id="join" parameterType="hashmap">
 		INSERT INTO member (name, id,
-		pw, email, platform)
-		VALUES(#{name}, #{id}, #{pw}, #{email}, #{platform})
+		pw, email, platform, salt)
+		VALUES(#{name}, #{id}, HEX(AES_ENCRYPT(#{salt},SHA2(#{pw},512))), #{email}, #{platform}, #{salt})
 	</insert>
 
 	<select id="idCheck" parameterType="String" resultType="String">
@@ -86,5 +86,9 @@
 	<update id="memberUpdate" parameterType="memberDTO">
 		UPDATE member SET pw=#{pw}, email=#{email} WHERE no=#{no}
 	</update>
+	
+	<select id="getSalt" parameterType="String" resultType="String">
+		SELECT salt FROM member WHERE id=#{id}
+	</select>
 </mapper>
 	

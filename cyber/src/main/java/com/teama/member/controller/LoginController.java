@@ -58,6 +58,9 @@ public class LoginController {
 		
 		if (errorMessage.isEmpty()) {
 			// loginViewDTO 클래스는 존재하지 않지만 로그인 결과 값이 무엇인지 명시하기 위해 사용
+			//salt 값 가져오기
+			String salt = loginService.getSalt(id);
+			commandMap.put("salt", salt);
 			Map<String, Object> loginViewDTO = loginService.login(commandMap.getMap());
 			if (loginViewDTO != null) {
 				HttpSession session = request.getSession();

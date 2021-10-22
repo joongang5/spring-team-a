@@ -78,4 +78,8 @@ public class MemberDAO extends AbstractDAO {
 	public int memberUpdate(MemberDTO memberDTO) {
 		return sqlSession.update("member.memberUpdate", memberDTO);
 	}
+
+	public String getSalt(String id) {
+		return sqlSession.selectOne("member.getSalt", id);
+	}
 }

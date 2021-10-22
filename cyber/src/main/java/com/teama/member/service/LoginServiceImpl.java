@@ -17,4 +17,9 @@ public class LoginServiceImpl implements LoginService {
 	public Map<String, Object> login(Map<String, Object> map) {
 		return memberDAO.login(map);
 	}
+
+	@Override
+	public String getSalt(String id) {
+		return memberDAO.getSalt(id);
+	}
 }

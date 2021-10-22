@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.teama.member.dao.MemberDAO;
 import com.teama.member.dto.MemberDTO;
+import com.teama.util.Util;
 
 @Service("memberService")
 public class MemberServiceImpl implements MemberService {
@@ -16,6 +17,7 @@ public class MemberServiceImpl implements MemberService {
 	private MemberDAO memberDAO;
 
 	public int join(Map<String, Object> map) {
+		map.put("salt",Util.generateSalt());
 		return memberDAO.join(map);
 	}
 
