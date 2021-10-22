@@ -94,7 +94,6 @@ public class ListEbookController {
 					if (kakao != null) {
 						list.setTitle_url((String) kakao.get(0).get("thumbnail"));
 						//썸네일 저장
-						ebookService.setEbookThumbnail(list);
 					} else {
 						list.setTitle_url(null);
 					}

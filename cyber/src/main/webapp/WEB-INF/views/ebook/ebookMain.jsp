@@ -147,12 +147,12 @@ td img {
 
 							</tr>
 							<c:forEach items="${EbookList }" var="l">
-								<tr>
-									<td><a href="/cyber/ebook/ebookDetail.do?isbn=${l.isbn }">${l.title}
+								<tr onclick="location.href='/cyber/ebook/ebookDetail.do?isbn=${l.isbn }'" style="cursor:pointer;">
+									<td>${l.title}
 											<c:if test="${l.title eq null }">
 						제목없음
 						</c:if>
-									</a></td>
+									</td>
 									<td><img src="${l.title_url}"> <c:if
 											test="${l.title_url eq null }">
 											<img src="/cyber/resources/img/thumbnail.gif">

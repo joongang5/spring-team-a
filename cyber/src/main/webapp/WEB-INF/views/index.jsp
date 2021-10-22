@@ -118,7 +118,8 @@
 							src="/cyber/resources/img/right.png" height="70px;" width="10px;"></span>
 
 						<ul id="imgholder" class="imgs" style="float: left">
-							<li><img src="${bookStorageViewDTOList[0].title_url }"
+							<li onclick="location.href='/cyber/ebook/ebookDetail.do?isbn=${bookStorageViewDTOList[0].isbn }'" style="cursor:pointer;">
+							<img src="${bookStorageViewDTOList[0].title_url }"
 								style="width: 100px"><br> <c:if
 									test="${bookStorageViewDTOList[0].title_url eq '' }">
 									<img src="/cyber/resources/img/thumbnail.gif">
@@ -126,7 +127,8 @@
 								</c:if> ${bookStorageViewDTOList[0].title }&nbsp;
 								<p>|&nbsp;${bookStorageViewDTOList[0].author }</p></li>
 
-							<li><img src="${bookStorageViewDTOList[1].title_url }"
+							<li onclick="location.href='/cyber/ebook/ebookDetail.do?isbn=${bookStorageViewDTOList[1].isbn }'" style="cursor:pointer;">
+							<img src="${bookStorageViewDTOList[1].title_url }"
 								style="width: 100px"><br> <c:if
 									test="${bookStorageViewDTOList[1].title_url eq '' }">
 									<img src="/cyber/resources/img/thumbnail.gif">
@@ -134,7 +136,8 @@
 								</c:if> ${bookStorageViewDTOList[1].title }&nbsp;
 								<p>|&nbsp;${bookStorageViewDTOList[1].author }</p></li>
 
-							<li><img src="${bookStorageViewDTOList[2].title_url }"
+							<li onclick="location.href='/cyber/ebook/ebookDetail.do?isbn=${bookStorageViewDTOList[2].isbn }'" style="cursor:pointer;">
+							<img src="${bookStorageViewDTOList[2].title_url }"
 								style="width: 100px"><br> <c:if
 									test="${bookStorageViewDTOList[2].title_url eq '' }">
 									<img src="/cyber/resources/img/thumbnail.gif">
@@ -142,7 +145,8 @@
 								</c:if> ${bookStorageViewDTOList[2].title }&nbsp;
 								<p>|&nbsp;${bookStorageViewDTOList[2].author }</p></li>
 
-							<li><img src="${bookStorageViewDTOList[3].title_url }"
+							<li onclick="location.href='/cyber/ebook/ebookDetail.do?isbn=${bookStorageViewDTOList[3].isbn }'" style="cursor:pointer;">
+							<img src="${bookStorageViewDTOList[3].title_url }"
 								style="width: 100px"><br> <c:if
 									test="${bookStorageViewDTOList[3].title_url eq '' }">
 									<img src="/cyber/resources/img/thumbnail.gif">
@@ -150,7 +154,8 @@
 								</c:if> ${bookStorageViewDTOList[3].title }&nbsp;
 								<p>|&nbsp;${bookStorageViewDTOList[3].author }</p></li>
 
-							<li><img src="${bookStorageViewDTOList[4].title_url }"
+							<li onclick="location.href='/cyber/ebook/ebookDetail.do?isbn=${bookStorageViewDTOList[4].isbn }'" style="cursor:pointer;">
+							<img src="${bookStorageViewDTOList[4].title_url }"
 								style="width: 100px"><br> <c:if
 									test="${bookStorageViewDTOList[4].title_url eq '' }">
 									<img src="/cyber/resources/img/thumbnail.gif">
@@ -173,35 +178,40 @@
 					</div>
 					<div id="newImgList">
 						<ul id="imgholder" class="newImgs" style="float: left">
-							<li><img src="${ebookList[0].title_url }"><br> <c:if
+							<li onclick="location.href='/cyber/ebook/ebookDetail.do?isbn=${ebookList[0].isbn }'" style="cursor:pointer;">
+							<img src="${ebookList[0].title_url }"><br> <c:if
 									test="${ebookList[0].title_url eq '' }">
 									<img src="/cyber/resources/img/thumbnail.gif">
 									<br>
 								</c:if> ${ebookList[0].title }&nbsp;
 								<p>|&nbsp;${ebookList[0].author }</p></li>
-
-							<li><img src="${ebookList[1].title_url }"><br> <c:if
+							
+							<li onclick="location.href='/cyber/ebook/ebookDetail.do?isbn=${ebookList[1].isbn }'" style="cursor:pointer;">
+							<img src="${ebookList[1].title_url }"><br> <c:if
 									test="${ebookList[1].title_url eq '' }">
 									<img src="/cyber/resources/img/thumbnail.gif">
 									<br>
 								</c:if> ${ebookList[1].title }&nbsp;
 								<p>|&nbsp;${ebookList[1].author }</p></li>
 
-							<li><img src="${ebookList[2].title_url }"><br> <c:if
+							<li onclick="location.href='/cyber/ebook/ebookDetail.do?isbn=${ebookList[2].isbn }'" style="cursor:pointer;">
+							<img src="${ebookList[2].title_url }"><br> <c:if
 									test="${ebookList[2].title_url eq '' }">
 									<img src="/cyber/resources/img/thumbnail.gif">
 									<br>
 								</c:if> ${ebookList[2].title }&nbsp;
 								<p>|&nbsp;${ebookList[2].author }</p></li>
 
-							<li><img src="${ebookList[3].title_url }"><br> <c:if
+							<li onclick="location.href='/cyber/ebook/ebookDetail.do?isbn=${ebookList[3].isbn }'" style="cursor:pointer;">
+							<img src="${ebookList[3].title_url }"><br> <c:if
 									test="${ebookList[3].title_url eq '' }">
 									<img src="/cyber/resources/img/thumbnail.gif">
 									<br>
 								</c:if> ${ebookList[3].title }&nbsp;
 								<p>|&nbsp;${ebookList[3].author }</p></li>
 
-							<li><img src="${ebookList[4].title_url }"><br> <c:if
+							<li onclick="location.href='/cyber/ebook/ebookDetail.do?isbn=${ebookList[4].isbn }'" style="cursor:pointer;">
+							<img src="${ebookList[4].title_url }"><br> <c:if
 									test="${ebookList[4].title_url eq '' }">
 									<img src="/cyber/resources/img/thumbnail.gif">
 									<br>

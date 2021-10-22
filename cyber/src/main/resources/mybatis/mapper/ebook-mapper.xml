@@ -107,6 +107,7 @@
 		COUNT(*) DESC
 		LIMIT 5
 	</select>
+	
 	<update id="setEbookThumbnail" parameterType="ebookDTO">
 		UPDATE book SET title_url=#{title_url} WHERE no=#{no}
 	</update>

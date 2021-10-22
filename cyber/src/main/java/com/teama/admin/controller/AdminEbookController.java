@@ -123,7 +123,7 @@ public class AdminEbookController {
 			ebookService.insertBook(bookInfo.get(0));
 		}
 		String result = String.valueOf(valueArr.length);
-		System.out.println(result);
+		//System.out.println(result);
 		return result;
 	}
 	
