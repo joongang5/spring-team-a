@@ -76,6 +76,7 @@ button {
 }
 
 /* 본문 */
+
 table {
 	margin: 0 auto;
 	margin-top: 10px;
@@ -134,19 +135,17 @@ h2 {
 		<aside>
 			<c:import url="/WEB-INF/views/component/lnbNav.jsp" />
 		</aside>
+		
 		<main>
 
 			<div id="naviandtitle">
 				<div id="navi">
 					<a href="../index.do">Home</a>><strong>공지사항</strong>
-				</div>
-				<!-- end of navi -->
+				</div> <!-- end of navi -->
 				<h2>글쓰기</h2>
-			</div>
-			<!-- end of naviandtitle -->
+			</div> <!-- end of naviandtitle -->
 
-			<form action="noticeWrite.do" method="post"
-				enctype="multipart/form-data" onsubmit="return check();">
+			<form action="noticeWrite.do" method="post" enctype="multipart/form-data" onsubmit="return check();">
 				<table>
 					<tr>
 						<th>제목</th>
@@ -159,11 +158,12 @@ h2 {
 								name="content" rows="10" placeholder="내용을 입력하세요."></textarea></td>
 					</tr>
 				</table>
-				<input type="file" name="file" id="fileSelect"
-					accept=".gif, .png, .jpg">
+				<input type="file" name="file" id="fileSelect" accept=".gif, .png, .jpg">
 				<button type="submit" class="writeBtn">글쓰기</button>
 			</form>
+			
 		</main>
+		
 		<footer>
 			<c:import url="/WEB-INF/views/component/footer.jsp" />
 		</footer>

@@ -33,6 +33,7 @@ public class NoticeController {
 	
 	@Autowired
 	private FileSave fileSave; 
+	
 	@Autowired
 	private ServletContext servletContext;
 	
@@ -86,6 +87,7 @@ public class NoticeController {
 		String upfile = fileSave.save2(realPath, file);
 		map.put("file", upfile);
 		
+		System.out.println("파일 위치는? = " + realPath);
 		int result = noticeService.write(map.getMap());
 		System.out.println("noticeWrite = " + result);
 		

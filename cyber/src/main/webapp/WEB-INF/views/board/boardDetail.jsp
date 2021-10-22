@@ -15,7 +15,7 @@
 
 html {
 	font-family: 'Nanum Gothic', sans-serif;
-	color: #003857;
+	color: #black;
 }
 
 body {
@@ -83,6 +83,7 @@ button {
 }
 
 /* 본문 */
+
 table {
 	border-collapse: collapse;
 	border-spacing: 0;
@@ -275,16 +276,15 @@ h2 {
 		<aside>
 			<c:import url="/WEB-INF/views/component/lnbNav.jsp" />
 		</aside>
+		
 		<main>
 
 			<div id="naviandtitle">
 				<div id="navi">
 					<a href="../index.do">Home</a>><strong>소통마당</strong>
-				</div>
-				<!-- end of navi -->
+				</div> <!-- end of navi -->
 				<h2>소통마당</h2>
-			</div>
-			<!-- end of naviandtitle -->
+			</div> <!-- end of naviandtitle -->
 
 			<!-- 소통마당 상세보기 list -->
 			<div id="detailBoard">
@@ -311,15 +311,15 @@ h2 {
 					<button id="writebtn" onclick="boardDelete()">삭제하기</button>
 					<button id="writebtn" onclick="boardUpdate()">수정하기</button>
 				</c:if>
-
+				
+				<!-- 파일 보이게 -->
 				<div id="detailFile">
 					<c:if test="${detail.file != null }">
-						<img alt="이미지" src="../resources/upfile/${detail.file }">
+						<img alt="이미지" src="../resources/upfile2/${detail.file }">
 					</c:if>
-					<div id="detailContent">${detail.content }</div>
-					<!-- end of detailContent -->
-				</div>
-				<!-- end of detailFile -->
+					<div id="detailContent">${detail.content }
+					</div> <!-- end of detailContent -->
+				</div> <!-- end of detailFile -->
 
 				<hr>
 				<!-- 댓글 불러오기, 삭제, 수정 -->
@@ -330,10 +330,8 @@ h2 {
 								<div id="commentId">
 									${c.comment_no } / ${c.name }(<small>${c.id }</small>) /
 									${c.date }
-								</div>
-								<!-- end of commentId -->
-							</div>
-							<!-- end of commentInfo -->
+								</div> <!-- end of commentId -->
+							</div> <!-- end of commentInfo -->
 							<div class="updateBox">
 								<div class="updateInput">
 									<div class="comment" id="comment">${c.comment }</div>
@@ -349,10 +347,8 @@ h2 {
 										<c:otherwise>
 										</c:otherwise>
 									</c:choose>
-								</div>
-								<!-- end of updateInput -->
-							</div>
-							<!-- end of updateBox -->
+								</div> <!-- end of updateInput -->
+							</div> <!-- end of updateBox -->
 						</c:forEach>
 					</c:when>
 					<c:otherwise>
@@ -364,15 +360,13 @@ h2 {
 				<div id="commentPagination"
 					style="position: relative; left: 180px; top: 20px;">
 					<ui:pagination paginationInfo="${commentPaginationInfo }"
-						type="text" jsFunction="commentLinkPage" />
-				</div>
-				<!-- end of 댓글 paging -->
+						type="text" jsFunction="commentLinkPage"/>
+				</div> <!-- end of commentPagination -->
 
 				<!-- 댓글쓰기 -->
 				<c:choose>
 					<c:when test="${sessionScope.id ne null }">
-						<form action="commentWrite.do" method="post"
-							onsubmit="return check();">
+						<form action="commentWrite.do" method="post" onsubmit="return check();">
 							<textarea class="commentTitle" id="commentTitle" name="comment"
 								placeholder="댓글을 입력하세요."
 								style="font-family: 'Nanum Gothic', sans-serif;"></textarea>
@@ -387,7 +381,6 @@ h2 {
 				<!-- end of 댓글쓰기 -->
 
 				<hr>
-
 				<!-- 이전글, 다음글 -->
 				<div id="prePage" style="margin-top: 30px;">
 					<c:if test="${preNextPage.preNum != null }">
@@ -413,18 +406,17 @@ h2 {
 						다음글이 없습니다.
 					</c:if>
 					</c:if>
-				</div>
-				<!-- end of 이전글, 다음글 -->
-
+				</div> <!-- end of 이전글, 다음글 -->
+				
+				<!-- 목록 -->
 				<div id="backListBox">
 					<a href="./listBoard.do" id="backList">목록</a>
-				</div>
-				<!-- end of backListBox -->
+				</div> <!-- end of backListBox -->
 
-			</div>
-			<!-- end of detailBoard -->
+			</div> <!-- end of detailBoard -->
 
 		</main>
+		
 		<footer>
 			<c:import url="/WEB-INF/views/component/footer.jsp" />
 		</footer>

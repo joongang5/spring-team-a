@@ -71,6 +71,7 @@ button {
 }
 
 /* 본문 */
+
 table {
 	margin: 0 auto;
 	margin-top: 10px;
@@ -102,10 +103,6 @@ h2 {
 #naviandtitle {
 	margin: 10px;
 }
-
-#writeBtnBox {
-	text-align: center;
-}
 </style>
 <script type="text/javascript">
 	function check() {
@@ -133,18 +130,17 @@ h2 {
 		<aside>
 			<c:import url="/WEB-INF/views/component/lnbNav.jsp" />
 		</aside>
+		
 		<main>
 
 			<div id="naviandtitle">
 				<div id="navi">
 					<a href="../index.do">Home</a>><strong>소통마당</strong>
-				</div>
-				<!-- end of navi -->
+				</div> <!-- end of navi -->
 				<h2>글쓰기</h2>
-			</div>
-			<!-- end of naviandtitle -->
+			</div> <!-- end of naviandtitle -->
 
-			<form action="boardWrite.do" method="post" onsubmit="return check();">
+			<form action="boardWrite.do" method="post" enctype="multipart/form-data" onsubmit="return check();">
 				<table>
 					<tr>
 						<th>제목</th>
@@ -157,11 +153,12 @@ h2 {
 								name="content" rows="10" placeholder="내용을 입력하세요."></textarea></td>
 					</tr>
 				</table>
-				<div id="writeBtnBox">
-					<button type="submit" class="writeBtn">글쓰기</button>
-				</div>
+				<input type="file" name="file" id="fileSelect" accept=".gif, .png, .jpg">
+				<button type="submit" class="writeBtn">글쓰기</button>
 			</form>
+			
 		</main>
+		
 		<footer>
 			<c:import url="/WEB-INF/views/component/footer.jsp" />
 		</footer>

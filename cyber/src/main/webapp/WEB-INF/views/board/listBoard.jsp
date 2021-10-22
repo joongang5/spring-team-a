@@ -87,6 +87,7 @@ footer {
 }
 
 /* 본문 */
+
 h1 {
 	color: #4c85d6;
 }
@@ -165,15 +166,15 @@ a {
 		<aside>
 			<c:import url="/WEB-INF/views/component/lnbNav.jsp" />
 		</aside>
+		
 		<main>
+		
 			<div id="naviandtitle">
 				<div id="navi">
 					<a href="../index.do">Home</a>><strong>소통마당</strong>
-				</div>
-				<!-- end of navi -->
+				</div> <!-- end of navi -->
 				<h1>소통마당</h1>
-			</div>
-			<!-- end of naviandtitle -->
+			</div> <!-- end of naviandtitle -->
 
 			<!-- 검색 기능 -->
 			<div id="searchBox">
@@ -189,8 +190,7 @@ a {
 						id="searchKeyword" title="검색어 입력" placeholder="검색어를 입력해주세요.">
 					<button type="submit" id="searchBtn">검색</button>
 				</form>
-			</div>
-			<!-- end of searchBox -->
+			</div> <!-- end of searchBox -->
 
 			<!-- 소통마당 list -->
 			<div id="board">
@@ -218,26 +218,22 @@ a {
 				</table>
 
 				<!-- 페이징-->
-				<div id="pagination"
-					style="position: relative; left: 180px; top: 20px;">
-					<ui:pagination paginationInfo="${paginationInfo }" type="text"
-						jsFunction="linkPage" />
-				</div>
-				<!-- end of paging -->
+				<div id="pagination" style="position: relative; left: 180px; top: 20px;">
+					<ui:pagination paginationInfo="${paginationInfo }" type="text" jsFunction="linkPage"/>
+				</div> <!-- end of paging -->
 
 				<!-- 글쓰기 버튼 로그인한 사람만 보이게 -->
 				<c:if test="${sessionScope.id ne null }">
 					<a href="./boardWrite.do"><button id="writebutton">글쓰기</button></a>
 				</c:if>
 
-			</div>
-			<!-- end of board -->
+			</div> <!-- end of board -->
 
 		</main>
+		
 		<footer>
 			<c:import url="/WEB-INF/views/component/footer.jsp" />
 		</footer>
-	</div>
-	<!-- end of wrap -->
+	</div> <!-- end of wrap -->
 </body>
 </html>

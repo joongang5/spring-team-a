@@ -81,6 +81,7 @@ button {
 }
 
 /* 본문 */
+
 table {
 	border-collapse: collapse;
 	border-spacing: 0;
@@ -194,11 +195,9 @@ h2 {
 			<div id="naviandtitle">
 				<div id="navi">
 					<a href="../index.do">Home</a>><strong>공지사항</strong>
-				</div>
-				<!-- end of navi -->
+				</div> <!-- end of navi -->
 				<h2>공지사항</h2>
-			</div>
-			<!-- end of naviandtitle -->
+			</div> <!-- end of naviandtitle -->
 
 			<!-- 공지사항 상세보기 list -->
 			<div id="detailBoard">
@@ -229,15 +228,15 @@ h2 {
 						<button id="writebtn" onclick="noticeUpdate()">수정하기</button>
 					</c:if>
 				</c:if>
-
+				
+				<!-- 파일 보이게 -->
 				<div id="detailFile">
 					<c:if test="${detail.file != null }">
 						<img alt="이미지" src="../resources/upfile/${detail.file }">
 					</c:if>
-					<div id="detailContent">${detail.content }</div>
-					<!-- end of detailContent -->
-				</div>
-				<!-- end of detailFile -->
+					<div id="detailContent">${detail.content }
+					</div> <!-- end of detailContent -->
+				</div> <!-- end of detailFile -->
 
 				<!-- 이전글, 다음글 -->
 				<div id="prePage" style="margin-top: 30px;">
@@ -266,17 +265,17 @@ h2 {
 						다음글이 없습니다.
 					</c:if>
 					</c:if>
-				</div>
-				<!-- end of 이전글, 다음글 -->
-
+				</div> <!-- end of 이전글, 다음글 -->
+				
+				<!-- 목록 -->
 				<div id="backListBox">
 					<a href="./listNotice.do" id="backList">목록</a>
-				</div>
-				<!-- end of backListBox -->
+				</div> <!-- end of backListBox -->
 
-			</div>
-			<!-- end of detailBoard -->
+			</div> <!-- end of detailBoard -->
+			
 		</main>
+		
 		<footer>
 			<c:import url="/WEB-INF/views/component/footer.jsp" />
 		</footer>

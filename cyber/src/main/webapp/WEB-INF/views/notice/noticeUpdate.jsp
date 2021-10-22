@@ -76,6 +76,7 @@ button {
 }
 
 /* 본문 */
+
 table {
 	margin: 0 auto;
 	margin-top: 10px;
@@ -134,19 +135,17 @@ h2 {
 		<aside>
 			<c:import url="/WEB-INF/views/component/lnbNav.jsp" />
 		</aside>
+		
 		<main>
 
 			<div id="naviandtitle">
 				<div id="navi">
 					<a href="../index.do">Home</a>><strong>공지사항</strong>
-				</div>
-				<!-- end of navi -->
+				</div> <!-- end of navi -->
 				<h2>수정하기</h2>
-			</div>
-			<!-- end of naviandtitle -->
+			</div> <!-- end of naviandtitle -->
 
-			<form action="noticeUpdate.do" method="post"
-				onsubmit="return check();">
+			<form action="noticeUpdate.do" method="post" onsubmit="return check();">
 				<table>
 					<tr>
 						<th>제목</th>
@@ -162,9 +161,11 @@ h2 {
 				<input type="hidden" name="no" value="${detail.no}">
 				<div id="writeBtnBox">
 					<button type="submit" class="writeBtn">수정하기</button>
-				</div>
+				</div> <!-- end of writeBtnBox -->
 			</form>
+			
 		</main>
+		
 		<footer>
 			<c:import url="/WEB-INF/views/component/footer.jsp" />
 		</footer>

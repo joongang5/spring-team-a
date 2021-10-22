@@ -51,8 +51,8 @@
 	
 	<!-- 게시글 글쓰기 -->
 	<insert id="write" parameterType="HashMap">
-		INSERT INTO board (title, content, member_no) 
-		VALUES (#{title}, #{content}, (SELECT no FROM member WHERE id=#{id}))
+		INSERT INTO board (title, content, member_no <if test="file != null" >,file, originalfile</if>) 
+		VALUES (#{title}, #{content}, (SELECT no FROM member WHERE id=#{id}) <if test="file != null" >,#{file}, #{originalfile}</if>)
 	</insert>
 	
 	<!-- 게시글 삭제 -->
