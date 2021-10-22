@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.teama.common.CommandMap;
+import com.teama.ebook.dto.EbookReviewDTO;
 import com.teama.ebook.service.EbookService;
 import com.teama.loan.dto.LoanDTO;
 import com.teama.loan.dto.LoanViewDTO;
@@ -220,6 +221,55 @@ public class MyPageController {
 			
 			ScriptUtil.alert(response, "정보 수정에 성공했습니다.");
 		}
+		return mv;
+	}
+	
+	@GetMapping("ebookReviewList.do")
+	private ModelAndView ebookReviewList(HttpServletRequest request, CommandMap map) {
+		ModelAndView mv = new ModelAndView("ebook/ebookReviewList");
+		
+		int pageNo = 1;
+		
+		if (map.containsKey("pageNo")) {
+			pageNo= Integer.parseInt(String.valueOf(map.get("pageNo")));
+		}
+		int listScale = 4;
+		int pageScale = 10;
+
+		HttpSession session = request.getSession();
+		Object memberNoObj = session.getAttribute("memberNo");
+		if (memberNoObj != null) {
+			int memberNo = Util.parseInt(memberNoObj);
+			map.put("memberNo", memberNo);
+			List<EbookReviewDTO> reviewDTOList = ebookService.getReviewListByMemberNo(map.getMap());
+			if(reviewDTOList.get(0).getReviewCount() != 0) {
+				int totalCount = reviewDTOList.get(0).getReviewCount();
+				System.out.println(totalCount);
+				PaginationInfo paginationInfo = new PaginationInfo();
+				
+				paginationInfo.setCurrentPageNo(pageNo);
+				paginationInfo.setRecordCountPerPage(listScale);
+				paginationInfo.setPageSize(pageScale);
+				paginationInfo.setTotalRecordCount(totalCount);//
+				
+				int startPage = paginationInfo.getFirstRecordIndex();
+				int lastPage = paginationInfo.getRecordCountPerPage();
+				
+				//System.out.println(startPage);
+				//System.out.println(lastPage);
+				
+				map.put("startPage", startPage);
+				map.put("lastPage", lastPage);
+				
+				mv.addObject("reviewDTOList", reviewDTOList);
+				mv.addObject("paginationInfo", paginationInfo);
+				mv.addObject("pageNo", pageNo);
+				mv.addObject("totalCount", totalCount);
+				
+			}
+			
+		}
+		//System.out.println("last Map : "+map.getMap());
 		return mv;
 	}
 }

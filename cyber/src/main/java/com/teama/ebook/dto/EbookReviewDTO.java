@@ -2,6 +2,26 @@ package com.teama.ebook.dto;
 
 public class EbookReviewDTO {
 	private int review_no, book_no, member_no, rating, ratingSum, reviewCount;
+	private String id, name, reviewCmt, date, title_url, title, author;
+	
+	public String getTitle_url() {
+		return title_url;
+	}
+	public void setTitle_url(String title_url) {
+		this.title_url = title_url;
+	}
+	public String getTitle() {
+		return title;
+	}
+	public void setTitle(String title) {
+		this.title = title;
+	}
+	public String getAuthor() {
+		return author;
+	}
+	public void setAuthor(String author) {
+		this.author = author;
+	}
 	public int getReviewCount() {
 		return reviewCount;
 	}
@@ -14,7 +34,6 @@ public class EbookReviewDTO {
 	public void setReviewCount(int reviewCount) {
 		this.reviewCount = reviewCount;
 	}
-	private String id, name, reviewCmt, date;
 	public int getReview_no() {
 		return review_no;
 	}

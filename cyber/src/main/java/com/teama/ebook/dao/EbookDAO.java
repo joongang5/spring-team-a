@@ -54,4 +54,8 @@ public class EbookDAO extends AbstractDAO {
 	public void setEbookThumbnail(EbookDTO list) {
 		sqlSession.update("ebook.setEbookThumbnail", list);
 	}
+
+	public List<EbookReviewDTO> getReviewListByMemberNo(Map<String, Object> map) {
+		return sqlSession.selectList("ebook.getReviewListByMemberNo", map);
+	}
 }

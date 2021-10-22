@@ -95,7 +95,7 @@
 	</insert>
 	<select id="reviewList" resultType="EbookReviewDTO"
 		parameterType="Integer">
-		SELECT reviewCount, ratingSum, review_no, book_no,
+		SELECT (SELECT count(1) FROM book_review WHERE book_no=#{bookno}) AS reviewCount, ratingSum, review_no, book_no,
 		rating, reviewCmt, date, id, name FROM book_reviewview WHERE
 		book_no=#{bookno}
 	</select>
@@ -111,4 +111,26 @@
 	<update id="setEbookThumbnail" parameterType="ebookDTO">
 		UPDATE book SET title_url=#{title_url} WHERE no=#{no}
 	</update>
+	
+	<select id="reviewCount" parameterType="HashMap" resultType="Integer">
+		SELECT count(1) FROM book_reviewview WHERE id=(SELECT id FROM member WHERE no=#{memberNo})
+	</select>
+	
+	<select id="getReviewListByMemberNo" resultType="EbookReviewDTO"
+		parameterType="Integer">
+		SELECT (SELECT count(1) FROM book_reviewview WHERE id=(SELECT id FROM member WHERE no=#{memberNo})) AS reviewCount, 
+		ratingSum, 
+		review_no, 
+		book_no,
+		title_url,
+		title,
+		author,
+		rating, 
+		reviewCmt, 
+		date, 
+		id, 
+		name 
+		FROM book_reviewview 
+		WHERE id=(SELECT id FROM member WHERE no=#{memberNo})
+	</select>
 </mapper>

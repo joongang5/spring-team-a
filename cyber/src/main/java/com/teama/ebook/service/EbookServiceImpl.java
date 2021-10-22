@@ -56,7 +56,13 @@ public class EbookServiceImpl implements EbookService {
 		return ebookDAO.getNewList();
 	}
 
+	@Override
 	public void setEbookThumbnail(EbookDTO list) {
 		ebookDAO.setEbookThumbnail(list);
+	}
+
+	@Override
+	public List<EbookReviewDTO> getReviewListByMemberNo(Map<String, Object> map) {
+		return ebookDAO.getReviewListByMemberNo(map);
 	}
 }

@@ -133,55 +133,8 @@ button {
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script>
-	function retfunction(no) {
-		$.ajax({
-			url : "doReturn.do",
-			type : "POST",
-			dataType : "html",
-			data : { "no" : no },
-			success : function(errorMessage) {
-				if (errorMessage != "") {
-					alert(errorMessage);
-					return;
-				}
-				var rebtnId = "#rebtn" + no;
-				$(rebtnId).hide();
-				
-				var extbtnId = "#extbtn" + no;
-				$(extbtnId).hide();
-				
-				alert("반납에 성공했습니다.");
-			},
-			error : function(request, status, error) {
-				alert("error : " + error);
-			}
-		});
-	}
-	
-	function extfunction(no) {
-		$.ajax({
-			url : "doExtend.do",
-			type : "POST",
-			dataType : "json",
-			data : { "no" : no },
-			success : function(data) {
-				if (data.errorMessage != "") {
-					alert(data.errorMessage);
-					return;
-				}
-				var redateId = "#redate" + no;
-				$(redateId).text(data.redate);
-				
-				alert("연장에 성공했습니다.");
-			},
-			error : function(request, status, error) {
-				alert("error : " + error);
-			}
-		});
-	}
-	
 	function linkPage(pageNo){
-		location.href="./ebookLoanList.do?pageNo="+pageNo;
+		location.href="./ebookReviewList.do?pageNo="+pageNo;
 	}
 </script>
 </head>
@@ -198,53 +151,39 @@ button {
 				<c:choose>
 					<c:when test="${sessionScope.id ne null}">
 						<a class="libtn" href="ebookLoanList.do">내 서재</a>
-						<a class="libtn" href="ebookReviewList.do">나의별점/리뷰</a>
+						<a class="libtn">나의별점/리뷰</a>
 						<a class="libtn" href="">관심 목록</a>
 						<div class="infoBox">
-							- 현재 대출중인 전자책을 확인하고, 전자책을 보거나 반납할 수 있습니다.<br> - 대출한 책은
-							반납예정일이 지나면 자동 반납되며, [반납하기]를 눌러서 미리 반납도 가능합니다.
+							- 올바른 리뷰 문화를 지켜주세요.<br>
 						</div>
 						<hr>
 						<table>
 							<tr>
 								<th>표지</th>
 								<th>제목</th>
-								<th>저자</th>
-								<th>출판사</th>
-								<th>대출일</th>
-								<th>반납예정일</th>
-								<th>반납/보기/연장</th>
+								<th>별점</th>
+								<th>리뷰</th>
+								<th>작성일</th>
 							</tr>
 						</table>
 						<table>
 							<c:choose>
-								<c:when test="${fn:length(loanViewDTOList) gt 0 }">
-									<c:forEach items="${loanViewDTOList }" var="l">
+								<c:when test="${fn:length(reviewDTOList) gt 0 }">
+									<c:forEach items="${reviewDTOList }" var="r">
 										<tr>
-											<td><img alt="book" src="${l.title_url }"
+											<td><img alt="book" src="${r.title_url }"
 												style="width: 50px; height: 70px; vertical-align: middle;"></td>
-											<td>${l.title }</td>
-											<td>${l.author }</td>
-											<td>${l.publisher }</td>
-											<td>${l.loan_date }</td>
-											<td id="redate${l.no }">${l.return_date }</td>
-											<td>
-												<button class="lobtn"
-													onclick="location.href='/cyber/ebook/ebookDetail.do?isbn=${l.isbn}'">보기</button>
-												<br> <c:if test="${l.state == 0 }">
-													<button id="rebtn${l.no }" class="rebtn"
-														onclick="retfunction(${l.no})">반납하기</button>
-													<br>
-												</c:if> <c:if test="${l.state == 0 }">
-													<button id="extbtn${l.no }" class="extbtn"
-														onclick="extfunction(${l.no})">연장하기</button>
-												</c:if>
-											</td>
+											<td>${r.title }</td>
+											<td>${r.author }</td>
+											<td><img alt="star"
+							src="/cyber/resources/img/star${r.rating }.png"></td>
+											<td>${r.reviewCmt }</td>
+											<td>${r.date }</td>
 										</tr>
 									</c:forEach>
 								</c:when>
 								<c:otherwise>
-								대출중인 전자책이 없습니다.
+								작성한 리뷰가 없습니다.
 							</c:otherwise>
 							</c:choose>
 						</table>

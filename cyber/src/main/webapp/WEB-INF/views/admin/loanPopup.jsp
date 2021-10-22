@@ -85,6 +85,7 @@
 					</c:forEach>
 				</tbody>
 			</table>
+			<br>
 		</div>
 	</div>
 </body>
