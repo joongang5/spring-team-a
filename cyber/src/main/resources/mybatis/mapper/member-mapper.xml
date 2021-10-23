@@ -7,7 +7,7 @@
 		SELECT * <!-- 1021 성능 신경 안쓰고 모두 반환 -->
 		FROM loginview
 		WHERE
-		id=#{id} AND HEX(AES_ENCRYPT(#{salt},SHA2(#{pw},512)))
+		id=#{id} AND pw=HEX(AES_ENCRYPT(#{salt},SHA2(#{pw},512)))
 	</select>
 
 	<insert id="join" parameterType="HashMap">
