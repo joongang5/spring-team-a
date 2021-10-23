@@ -92,4 +92,9 @@ public class MemberServiceImpl implements MemberService {
 	public int memberUpdate(MemberDTO memberDTO) {
 		return memberDAO.memberUpdate(memberDTO);
 	}
+
+	@Override
+	public String encryptPw(Map<String, Object> map) {
+		return memberDAO.encryptPw(map);
+	}
 }

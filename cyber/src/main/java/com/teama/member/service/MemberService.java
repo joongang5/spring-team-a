@@ -36,4 +36,6 @@ public interface MemberService {
 
 	public int memberUpdate(MemberDTO memberDTO);
 
+	public String encryptPw(Map<String, Object> map);
+
 }

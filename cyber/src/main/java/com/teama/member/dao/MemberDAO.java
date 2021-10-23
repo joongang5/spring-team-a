@@ -82,4 +82,8 @@ public class MemberDAO extends AbstractDAO {
 	public String getSalt(String id) {
 		return sqlSession.selectOne("member.getSalt", id);
 	}
+
+	public String encryptPw(Map<String, Object> map) {
+		return sqlSession.selectOne("member.encryptPw", map);
+	}
 }

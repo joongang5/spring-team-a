@@ -8,6 +8,7 @@ public class MemberDTO {
 	private String pw;
 	private String email;
 	private String join_date;
+	private String salt;
 	private int grade;
 	private int platform;
 
@@ -73,5 +74,13 @@ public class MemberDTO {
 
 	public void setPlatform(int platform) {
 		this.platform = platform;
+	}
+
+	public String getSalt() {
+		return salt;
+	}
+
+	public void setSalt(String salt) {
+		this.salt = salt;
 	}
 }

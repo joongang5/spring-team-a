@@ -23,6 +23,7 @@ import com.teama.loan.dto.LoanDTO;
 import com.teama.loan.dto.LoanViewDTO;
 import com.teama.loan.service.LoanService;
 import com.teama.member.dto.MemberDTO;
+import com.teama.member.service.LoginService;
 import com.teama.member.service.MemberService;
 import com.teama.member.service.MyPageService;
 import com.teama.util.ScriptUtil;
@@ -42,6 +43,8 @@ public class MyPageController {
 	private EbookService ebookService;
 	@Resource(name = "memberService")
 	private MemberService memberService;
+	@Resource(name = "loginService")
+	private LoginService loginService;
 	
 	@GetMapping("myPage.do")
 	private ModelAndView myPage(HttpServletRequest request, CommandMap map) {
@@ -183,14 +186,18 @@ public class MyPageController {
 	public ModelAndView memberModify(CommandMap commandMap, HttpServletRequest request, HttpServletResponse response) throws IOException {
 		ModelAndView mv = new ModelAndView();
 		
-		String pw = commandMap.getStrValue("pw");
-		
 		HttpSession session = request.getSession();
 		Object memberNoObj = session.getAttribute("memberNo");
 		if (memberNoObj != null) {
 			int memberNo = Util.parseInt(memberNoObj);
 			
 			MemberDTO memberDTO = memberService.getMemberByNo(memberNo);
+			//salt 값 가져오기
+			String salt = loginService.getSalt(memberDTO.getId());
+			commandMap.put("salt", salt);
+			//비밀번호 암호화 하여 비교
+			System.out.println(commandMap.getMap().get("salt"));
+			String pw = memberService.encryptPw(commandMap.getMap());
 			if (pw.equals(memberDTO.getPw())) {
 				mv.addObject("memberDTO", memberDTO);
 				mv.setViewName("member/memberModify");

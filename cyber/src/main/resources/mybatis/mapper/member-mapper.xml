@@ -10,7 +10,7 @@
 		id=#{id} AND HEX(AES_ENCRYPT(#{salt},SHA2(#{pw},512)))
 	</select>
 
-	<insert id="join" parameterType="hashmap">
+	<insert id="join" parameterType="HashMap">
 		INSERT INTO member (name, id,
 		pw, email, platform, salt)
 		VALUES(#{name}, #{id}, HEX(AES_ENCRYPT(#{salt},SHA2(#{pw},512))), #{email}, #{platform}, #{salt})
@@ -84,11 +84,15 @@
 	</select>
 	
 	<update id="memberUpdate" parameterType="memberDTO">
-		UPDATE member SET pw=#{pw}, email=#{email} WHERE no=#{no}
+		UPDATE member SET pw=HEX(AES_ENCRYPT(#{salt},SHA2(#{pw},512))), email=#{email} WHERE no=#{no}
 	</update>
 	
 	<select id="getSalt" parameterType="String" resultType="String">
 		SELECT salt FROM member WHERE id=#{id}
+	</select>
+	
+	<select id="encryptPw" parameterType="HashMap" resultType="String">
+		SELECT HEX(AES_ENCRYPT(#{salt},SHA2(#{pw},512))) FROM dual
 	</select>
 </mapper>
 	
