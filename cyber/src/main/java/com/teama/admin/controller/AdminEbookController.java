@@ -48,7 +48,9 @@ public class AdminEbookController {
 		paginationInfo.setPageSize(pageScale);	//페이지 개수
 
 		List<EbookDTO> ebookDTOList = ebookAPIService.ebookSearch(map.getMap());
-		paginationInfo.setTotalRecordCount(ebookDTOList.get(0).getTotalCount());
+		if(ebookDTOList.get(0).getTotalCount()!=0) {
+			paginationInfo.setTotalRecordCount(ebookDTOList.get(0).getTotalCount());
+		}
 		if(map.containsKey("searchValue")) {
 			mv.addObject("commandMap", map.getMap());
 		}
@@ -78,22 +80,21 @@ public class AdminEbookController {
 		paginationInfo.setCurrentPageNo(pageNo);	//현재 페이지 번호
 		paginationInfo.setRecordCountPerPage(listScale);	//한 페이지에 나올 글 수
 		paginationInfo.setPageSize(pageScale);	//페이지 개수
-
-		paginationInfo.setTotalRecordCount(ebookDTOList.get(0).getTotalCount());
+		
+		if(ebookDTOList!=null && ebookDTOList.size()!=0) {
+			paginationInfo.setTotalRecordCount(ebookDTOList.get(0).getTotalCount());
+			mv.addObject("ebookDTOList", ebookDTOList);
+			mv.addObject("bookInfo", ebookDTOList.get(0));
+		}
 		if(map.containsKey("searchValue")) {
 			mv.addObject("commandMap", map.getMap());
 		}
 		mv.addObject("pageNo", pageNo);
 		mv.addObject("paginationInfo", paginationInfo);
-		mv.addObject("ebookDTOList", ebookDTOList);
 		
-		if (ebookDTOList.size() != 0) {
-			mv.addObject("bookInfo", ebookDTOList.get(0));
-		}
 		if(!map.containsKey("pageNo")) {
 			map.put("pageNo", 1);
 		}
-		mv.addObject("ebookDTOListt", ebookDTOList);
 		mv.addObject("commandMap", map.getMap());
 		
 		return mv;

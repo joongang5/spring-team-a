@@ -88,7 +88,8 @@ public class ListEbookController {
 			paginationInfo.setTotalRecordCount(EbookList.get(0).getTotalCount());
 			
 			for (EbookDTO list : EbookList) {
-				if (list.getTitle_url().equals("")) {
+				System.out.println(list.getTitle_url());
+				if (list.getTitle_url()==null) {
 					List<Map<String, Object>> kakao = ebookAPIService.ebookSearchKakao(list.getIsbn());
 					// 도서 썸네일 없을시 카카오에서 가져오기
 					if (kakao != null) {
