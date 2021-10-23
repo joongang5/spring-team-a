@@ -160,7 +160,7 @@ public class ListEbookController {
 			//Elements content = elem.select("p.desc");
 			//크롤링시 줄바꿈 문제 해결
 			//System.out.println("content -----------" + content);
-//		System.out.println(elem.size());
+			//		System.out.println(elem.size());
 			Map<String, Object> detail = new HashMap<String, Object>();
 			for (int i = 0; i < content.size(); i++) {
 				detail.put("detail" + i, content.get(i).html());
@@ -184,9 +184,9 @@ public class ListEbookController {
 	public String ebookReview(EbookReviewDTO dto, HttpServletRequest request) {
 		dto.setId((String) request.getSession().getAttribute("id"));
 		int result = ebookService.ebookInsertReview(dto);
-		System.out.println(result);
-		System.out.println(request.getParameter("isbn"));
-		System.out.println(request.getSession().getAttribute("id"));
+		//System.out.println(result);
+		//System.out.println(request.getParameter("isbn"));
+		//System.out.println(request.getSession().getAttribute("id"));
 		return "redirect:ebookDetail.do?isbn="+request.getParameter("isbn");
 	}
 

@@ -69,10 +69,12 @@ public class EbookAPIServiceImpl implements EbookAPIService {
 					docs.setBook_size((String) docsMap.get(i).get("BOOK_SIZE"));
 					info.add(docs);
 			}
-			info.get(0).setTotalCount(Integer.valueOf((String)jsonObject.get("TOTAL_COUNT")));
+			if(jsonObject.get("TOTAL_COUNT").equals(0)) {
+				info.get(0).setTotalCount(Integer.valueOf((String)jsonObject.get("TOTAL_COUNT")));
+				return info;
+			}
 			//jsonObject.remove("docs");
 			//jsonObject.put("docs", info);
-			return info;
 		}
 		return null;
 	}

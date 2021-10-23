@@ -95,8 +95,16 @@
 	</insert>
 	<select id="reviewList" resultType="EbookReviewDTO"
 		parameterType="Integer">
-		SELECT (SELECT count(1) FROM book_review WHERE book_no=#{bookno}) AS reviewCount, ratingSum, review_no, book_no,
-		rating, reviewCmt, date, id, name FROM book_reviewview WHERE
+		SELECT (SELECT count(1) FROM book_review WHERE book_no=#{bookno}) AS reviewCount,
+		ROUND((SELECT AVG(rating) FROM book_review WHERE book_no = #{bookno}),0) AS ratingSum, 
+		review_no, 
+		book_no,
+		rating, 
+		reviewCmt, 
+		date, 
+		id, 
+		name 
+		FROM book_reviewview WHERE
 		book_no=#{bookno}
 	</select>
 
@@ -119,7 +127,6 @@
 	<select id="getReviewListByMemberNo" resultType="EbookReviewDTO"
 		parameterType="Integer">
 		SELECT (SELECT count(1) FROM book_reviewview WHERE id=(SELECT id FROM member WHERE no=#{memberNo})) AS reviewCount, 
-		ratingSum, 
 		review_no, 
 		book_no,
 		title_url,
