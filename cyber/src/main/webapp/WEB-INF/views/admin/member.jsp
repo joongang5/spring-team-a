@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib uri="http://egovframework.gov/ctl/ui" prefix="ui" %>
 
 <!DOCTYPE html>
 <html>
@@ -11,7 +12,7 @@
 	<script src="<c:url value="/resources/js/admin/member.js"/>"></script>
 	<link rel="stylesheet" href="<c:url value="/resources/css/reset.css"/>">
 	<link rel="stylesheet" href="<c:url value="/resources/css/admin/base.css"/>">
-	<link rel="stylesheet" href="<c:url value="/resources/css/admin/member.css?1"/>">
+	<link rel="stylesheet" href="<c:url value="/resources/css/admin/member.css"/>">
 </head>
 <body>
 	<div id="wrap">
@@ -91,6 +92,9 @@
 					<c:if test="${fn:length(memberDTOList) le 0 }">
 						<div class="nomember">등록된 회원이 없습니다.</div>
 					</c:if>	
+					<div id="pagination">
+						<ui:pagination paginationInfo="${paginationInfo }" type="text" jsFunction="linkPage"/>
+					</div>
 				</div>
 			</div>
 		</main>

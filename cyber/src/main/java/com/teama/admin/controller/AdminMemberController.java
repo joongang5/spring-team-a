@@ -15,6 +15,9 @@ import com.teama.loan.dto.LoanViewDTO;
 import com.teama.loan.service.LoanService;
 import com.teama.member.dto.MemberDTO;
 import com.teama.member.service.MemberService;
+import com.teama.util.Util;
+
+import egovframework.rte.ptl.mvc.tags.ui.pagination.PaginationInfo;
 
 @Controller
 @RequestMapping("/admin/member")
@@ -28,9 +31,18 @@ public class AdminMemberController {
 	@GetMapping("home.do")
 	public ModelAndView home(CommandMap commandMap) {
 		ModelAndView mv = new ModelAndView("admin/member");
+
+		int currentPageNo = commandMap.getIntValue("pageNo", 1);
+		int totalRecordCount = memberService.getTotalCount();
 		
-		List<MemberDTO> memberDTOList = memberService.getMemberList();
+		PaginationInfo paginationInfo = Util.newPaginationInfo(currentPageNo, totalRecordCount);
+
+		int firstRecordIndex = paginationInfo.getFirstRecordIndex();
+		int recordCountPerPage = paginationInfo.getRecordCountPerPage();
+		
+		List<MemberDTO> memberDTOList = memberService.getMemberList(firstRecordIndex, recordCountPerPage);
 		mv.addObject("memberDTOList", memberDTOList);
+		mv.addObject("paginationInfo", paginationInfo);
 		
 		return mv;
 	}

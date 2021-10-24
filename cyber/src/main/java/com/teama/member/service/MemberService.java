@@ -16,6 +16,8 @@ public interface MemberService {
 
 	public String isUsableEmail(String email);
 	
+	public int getTotalCount();
+	
 	public int todayJoinCount();
 
 	public String findId(String email);
@@ -28,6 +30,8 @@ public interface MemberService {
 
 	public List<MemberDTO> getMemberList();
 
+	public List<MemberDTO> getMemberList(int firstIndex, int recordCountPerPage);
+	
 	public List<MemberDTO> getRecentlyMemberList(int limitCount);
 
 	public List<MemberDTO> getMemberList(String searchType, String searchValue);

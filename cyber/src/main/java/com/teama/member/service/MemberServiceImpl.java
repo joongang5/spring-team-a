@@ -32,6 +32,11 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
+	public int getTotalCount() {
+		return memberDAO.getTotalCount();
+	}
+	
+	@Override
 	public int todayJoinCount() {
 		return memberDAO.todayJoinCount();
 	}
@@ -61,6 +66,11 @@ public class MemberServiceImpl implements MemberService {
 		return memberDAO.getMemberList();
 	}
 
+	@Override
+	public List<MemberDTO> getMemberList(int firstIndex, int recordCountPerPage) {
+		return memberDAO.getMemberList(firstIndex, recordCountPerPage);
+	}
+	
 	@Override
 	public List<MemberDTO> getRecentlyMemberList(int limitCount) {
 		return memberDAO.getRecentlyMemberList(limitCount);

@@ -27,6 +27,10 @@ public class MemberDAO extends AbstractDAO {
 		return sqlSession.selectOne("emailCheck", email);
 	}
 
+	public int getTotalCount() {
+		return sqlSession.selectOne("member.getTotalCount");
+	}
+	
 	public int todayJoinCount() {
 		return sqlSession.selectOne("member.todayJoinCount");
 	}
@@ -50,7 +54,15 @@ public class MemberDAO extends AbstractDAO {
 	public List<MemberDTO> getMemberList() {
 		return sqlSession.selectList("member.getMemberList");
 	}
-
+	
+	public List<MemberDTO> getMemberList(int firstIndex, int recordCountPerPage) {
+		Map<String, Object> map = Map.of(
+				"firstIndex", firstIndex,
+				"recordCountPerPage", recordCountPerPage);
+				
+		return sqlSession.selectList("member.getPagingMemberList", map);
+	}
+	
 	public List<MemberDTO> getRecentlyMemberList(int limitCount) {
 		return sqlSession.selectList("member.getRecentlyMemberList", limitCount);
 	}

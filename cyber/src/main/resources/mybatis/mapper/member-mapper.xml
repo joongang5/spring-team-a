@@ -32,6 +32,10 @@
 		email=#{email}
 	</select>
 
+	<select id="getTotalCount" resultType="int">
+		SELECT COUNT(*) FROM member;
+	</select>
+	
 	<select id="todayJoinCount" resultType="int">
 		SELECT COUNT(*) FROM member WHERE join_date >= CURDATE();
 	</select>
@@ -54,6 +58,10 @@
 		SELECT * FROM member
 	</select>
 
+	<select id="getPagingMemberList" resultType="memberDTO" parameterType="hashmap">
+		SELECT * FROM member LIMIT #{firstIndex}, #{recordCountPerPage}
+	</select>
+	
 	<select id="getRecentlyMemberList" parameterType="int" resultType="memberDTO">
 		SELECT * FROM member ORDER BY join_date DESC LIMIT #{limitCount}
 	</select>	
