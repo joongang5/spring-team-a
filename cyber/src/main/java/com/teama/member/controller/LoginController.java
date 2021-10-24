@@ -118,9 +118,26 @@ public class LoginController {
 		if (state.equals(storedState)) {
 			String accessToken = naverAPIService.requestToken(code, state);
 			
-			Map<String, Object> memberDTOMap = naverAPIService.requestProfile(accessToken);
+			Map<String, Object> profileMap = naverAPIService.requestProfile(accessToken);
 			
-			memberService.join(memberDTOMap);
+			String id = String.valueOf(profileMap.get("id"));
+			MemberDTO memberDTO = memberService.getMemberById(id);
+
+			if (memberDTO == null) {
+				// 회원 정보가 없으면
+				memberService.join(profileMap);
+				
+				memberDTO = memberService.getMemberById(id);
+			}
+			
+			if (memberDTO != null) {
+				HttpSession session = request.getSession();
+				session.setAttribute("name", memberDTO.getName());
+				session.setAttribute("id", memberDTO.getId());
+				session.setAttribute("memberNo", memberDTO.getNo());
+				session.setAttribute("grade", memberDTO.getGrade());
+				session.setAttribute("platform", memberDTO.getPlatform());
+			}
 		}
 
 		return "redirect:/index.do";
