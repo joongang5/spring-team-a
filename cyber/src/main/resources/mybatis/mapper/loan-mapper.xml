@@ -38,6 +38,7 @@
 		<if test="state != null">
 			AND state=#{state} 
 		</if>
+		ORDER BY loan_date DESC
 		LIMIT #{startPage}, #{lastPage}
 	</select>
 	

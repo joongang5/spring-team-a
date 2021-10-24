@@ -211,6 +211,8 @@ td img {
 						data.bookStorageDTO.reserve_count + "/" + data.bookStorageDTO.max_count + ")");
 
 				alert("대출에 성공했습니다.");
+				
+				location.href = "/cyber/myPage/ebookLoanList.do";
 			},
 			error : function(request, status, error) {
 				alert("error : " + error);
@@ -242,10 +244,15 @@ td img {
 						예약(${bookStorageDTO.reserve_count }/${bookStorageDTO.max_count })</div>
 		
 					<div class="btnGroup">
-						<button class="btn list" id="listBtn"
-							onclick="location.href='/cyber/ebook/ebookMain.do';">목록</button>
-						<button class="btn themeBtn"
-							onclick="onclickLoanBtn(${ebookDetail.no})">대여</button>
+						<button class="btn list" id="listBtn" onclick="location.href='/cyber/ebook/ebookMain.do';">목록</button>
+						<c:choose>
+							<c:when test="${bookStorageDTO.loan_count lt bookStorageDTO.max_count }">
+								<button class="btn themeBtn" onclick="onclickLoanBtn(${ebookDetail.no})">대여</button>
+							</c:when>
+							<c:otherwise>
+								<button class="btn themeBtn" onclick="onclickLoanBtn(${ebookDetail.no})">예약</button>
+							</c:otherwise>
+						</c:choose>
 						<button class="btn themeBtn2" onclick="">관심목록 담기</button>
 					</div>
 					<input type="button" onclick="content1()" value="책소개" /> <input

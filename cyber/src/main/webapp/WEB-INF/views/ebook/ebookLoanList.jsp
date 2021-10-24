@@ -89,6 +89,9 @@ button {
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script>
 	function retfunction(no) {
+		if (confirm("정말 반납하시겠습니까?") == false)
+			return;
+		
 		$.ajax({
 			url : "doReturn.do",
 			type : "POST",
@@ -114,6 +117,9 @@ button {
 	}
 	
 	function extfunction(no) {
+		if (confirm("정말 연장하시겠습니까?") == false)
+			return;
+		
 		$.ajax({
 			url : "doExtend.do",
 			type : "POST",
