@@ -35,7 +35,7 @@ public class LoanDAO extends AbstractDAO {
 		return sqlSession.selectList("loan.getViewListByMemberNo", map);
 	}
 
-	public List<LoanViewDTO> getRecentlyViewList(int limitCount) {
+	public List<Map<String, Object>> getRecentlyViewList(int limitCount) {
 		return sqlSession.selectList("loan.getRecentlyViewList", limitCount);
 	}
 	
@@ -69,6 +69,15 @@ public class LoanDAO extends AbstractDAO {
 				"memberNo", memberNo);
 				
 		return insert("loan.insertLoan", map);
+	}
+	
+	public int insertLoanHistory(int bookNo, int memberNo, int state) {
+		Map<String, Object> map = Map.of(
+				"bookNo", bookNo,
+				"memberNo", memberNo,
+				"state", state);
+				
+		return insert("loan.insertLoanHistory", map);
 	}
 	
 	public int extendLoan(LoanDTO dto) {

@@ -3,7 +3,8 @@ package com.teama.loan.service;
 public enum LoanState {
 	loan(0),
 	reserve(1),
-	returned(2);
+	returned(2),
+	extend(3);
 	
 	private final int value;
 	

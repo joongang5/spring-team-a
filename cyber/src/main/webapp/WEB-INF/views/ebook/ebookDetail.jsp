@@ -191,7 +191,7 @@ td img {
 	}
 
 	function onclickLoanBtn(bookNo) {
-		var result = confirm("대출한 전자책은 대출일로부터 5일 후 자정까지 가능하합니다.\n계속하시겠습니까?");
+		var result = confirm("대출한 전자책은 대출일로부터 5일 후 자정까지 가능합니다.\n계속하시겠습니까?");
 		if (result == false)
 			return;
 
@@ -211,6 +211,36 @@ td img {
 						data.bookStorageDTO.reserve_count + "/" + data.bookStorageDTO.max_count + ")");
 
 				alert("대출에 성공했습니다.");
+				
+				location.href = "/cyber/myPage/ebookLoanList.do";
+			},
+			error : function(request, status, error) {
+				alert("error : " + error);
+			}
+		});
+	}
+
+	function onclickReserveBtn(bookNo) {
+		var result = confirm("예약하시겠습니까?");
+		if (result == false)
+			return;
+
+		$.ajax({
+			url : "reserveAJAX.do",
+			type : "POST",
+			dataType : "json",
+			data : { "bookNo" : bookNo },
+			success : function(data) {
+				if (data.errorMessage != "") {
+					alert(data.errorMessage);
+					return;
+				}
+
+				$("#bookStorage").text("도서현황 : 대출(" +
+						data.bookStorageDTO.loan_count + "/" + data.bookStorageDTO.max_count + "), 예약(" +
+						data.bookStorageDTO.reserve_count + "/" + data.bookStorageDTO.max_count + ")");
+
+				alert("예약에 성공했습니다.");
 				
 				location.href = "/cyber/myPage/ebookLoanList.do";
 			},
@@ -250,7 +280,7 @@ td img {
 								<button class="btn themeBtn" onclick="onclickLoanBtn(${ebookDetail.no})">대여</button>
 							</c:when>
 							<c:otherwise>
-								<button class="btn themeBtn" onclick="onclickLoanBtn(${ebookDetail.no})">예약</button>
+								<button class="btn themeBtn" onclick="onclickReserveBtn(${ebookDetail.no})">예약</button>
 							</c:otherwise>
 						</c:choose>
 						<button class="btn themeBtn2" onclick="">관심목록 담기</button>

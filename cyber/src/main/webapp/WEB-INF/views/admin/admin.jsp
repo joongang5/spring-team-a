@@ -65,7 +65,7 @@
 								<td>${l.book_no }</td>
 								<td>${l.title }</td>
 								<td>${l.author }</td>
-								<td>${l.loan_date }</td>
+								<td>${l.date }</td>
 								<td>
 									<c:if test="${l.state eq 0 }">
 										대출
@@ -75,6 +75,9 @@
 									</c:if>
 									<c:if test="${l.state eq 2 }">
 										반납
+									</c:if>
+									<c:if test="${l.state eq 3 }">
+										연장
 									</c:if>
 								</td>
 							</tr>

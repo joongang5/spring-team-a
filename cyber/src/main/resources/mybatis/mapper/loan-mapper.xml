@@ -8,6 +8,11 @@
 		VALUES (#{bookNo}, #{memberNo}, 0, DATE_ADD(NOW(), INTERVAL 5 DAY))
 	</insert>
 	
+	<insert id="insertLoanHistory" parameterType="hashmap">
+		INSERT INTO book_loan_history (book_no, member_no, state)
+		VALUES (#{bookNo}, #{memberNo}, #{state})
+	</insert>
+	
 	<update id="extendLoan" parameterType="hashmap">
 		INSERT INTO book_loan (book_no, member_no, state, return_date)
 		VALUES (#{bookNo}, #{memberNo}, 0, DATE_ADD(return_date, INTERVAL 1 DAY))
@@ -46,8 +51,8 @@
 		SELECT * FROM book_loan_view WHERE member_no=#{memberNo}
 	</select>
 	
-	<select id="getRecentlyViewList" resultType="loanViewDTO" parameterType="int">
-		SELECT * FROM book_loan_view WHERE state!=1 ORDER BY loan_date DESC LIMIT #{limitCount}
+	<select id="getRecentlyViewList" resultType="hashmap" parameterType="int">
+		SELECT h.book_no, b.title, b.author, h.date, h.state FROM (book_loan_history h JOIN book b ON h.book_no = b.`no`) ORDER BY h.date DESC LIMIT #{limitCount}
 	</select>
 	
 	<select id="getLoanListByBookNo" resultType="loanDTO" parameterType="hashmap">
@@ -86,20 +91,6 @@
 	</select>
 	
 	<select id="todayLoanCount" parameterType="int" resultType="int">
-		SELECT COUNT(*) FROM book_loan WHERE state=#{state} AND
-		<choose>
-			<when test="state == 0">
-				loan_date >= CURDATE()
-			</when>
-			<when test="state == 1">
-				reserve_date >= CURDATE()
-			</when>
-			<when test="state == 2">
-				return_date >= CURDATE()
-			</when>
-			<otherwise>
-				loan_date >= CURDATE()
-			</otherwise>
-		</choose>
+		SELECT COUNT(*) FROM book_loan_history WHERE state=#{state} AND date >= CURDATE()
 	</select>
 </mapper>

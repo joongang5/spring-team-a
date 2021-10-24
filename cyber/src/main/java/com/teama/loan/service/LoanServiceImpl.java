@@ -63,7 +63,7 @@ public class LoanServiceImpl implements LoanService {
 	}
 	
 	@Override
-	public List<LoanViewDTO> getRecentlyViewList(int limitCount) {
+	public List<Map<String, Object>> getRecentlyViewList(int limitCount) {
 		return loanDAO.getRecentlyViewList(limitCount);
 	}
 
@@ -111,6 +111,11 @@ public class LoanServiceImpl implements LoanService {
 		result = bookStorageDAO.increaseLoanCountByBookNo(bookNo);
 		if (result <= 0)
 			return "대출에 실패했습니다.";
+
+		// 히스토리 테이블에도 기록합니다.
+		result = loanDAO.insertLoanHistory(bookNo, memberNo, LoanState.loan.getValue());
+		if (result <= 0)
+			return "대출에 실패했습니다.";
 		
 		return "";
 	}
@@ -156,6 +161,11 @@ public class LoanServiceImpl implements LoanService {
 		result = bookStorageDAO.increaseReserveCountByBookNo(bookNo);
 		if (result <= 0)
 			return "예약에 실패했습니다.";
+
+		// 히스토리 테이블에도 기록합니다.
+		result = loanDAO.insertLoanHistory(bookNo, memberNo, LoanState.reserve.getValue());
+		if (result <= 0)
+			return "예약에 실패했습니다.";
 		
 		return "";
 	}
@@ -193,6 +203,11 @@ public class LoanServiceImpl implements LoanService {
 		if (result <= 0)
 			return "반납 처리에 실패했습니다.";
 		
+		// 히스토리 테이블에도 기록합니다.
+		result = loanDAO.insertLoanHistory(loanDTO.getBook_no(), loanDTO.getMember_no(), LoanState.returned.getValue());
+		if (result <= 0)
+			return "반납 처리에 실패했습니다.";
+		
 		return "";
 	}
 	
@@ -220,7 +235,12 @@ public class LoanServiceImpl implements LoanService {
 		result = loanDAO.updateLoanByNo(loanDTO);
 		if (result <= 0)
 			return "연장 처리에 실패했습니다.";
-
+		
+		// 히스토리 테이블에도 기록합니다.
+		result = loanDAO.insertLoanHistory(loanDTO.getBook_no(), loanDTO.getMember_no(), LoanState.extend.getValue());
+		if (result <= 0)
+			return "연장 처리에 실패했습니다.";
+		
 		return "";
 	}
 	
@@ -248,6 +268,11 @@ public class LoanServiceImpl implements LoanService {
 				result = bookStorageDAO.reserveToLoanByBookNo(reservedLoanDTO.getBook_no());
 				if (result <= 0)
 					return "자동 대출 처리에 실패했습니다.";
+				
+				// 히스토리 테이블에도 기록합니다.
+				result = loanDAO.insertLoanHistory(reservedLoanDTO.getBook_no(), reservedLoanDTO.getMember_no(), LoanState.loan.getValue());
+				if (result <= 0)
+					return "자동 대출 처리에 실패했습니다.";
 			}	
 		}
 		
@@ -267,6 +292,11 @@ public class LoanServiceImpl implements LoanService {
 				return "자동 반납 처리에 실패했습니다.";
 			
 			result = bookStorageDAO.decreaseReserveCountByBookNo(loanDTO.getBook_no());
+			if (result <= 0)
+				return "자동 반납 처리에 실패했습니다.";
+
+			// 히스토리 테이블에도 기록합니다.
+			result = loanDAO.insertLoanHistory(loanDTO.getBook_no(), loanDTO.getMember_no(), LoanState.returned.getValue());
 			if (result <= 0)
 				return "자동 반납 처리에 실패했습니다.";
 		}

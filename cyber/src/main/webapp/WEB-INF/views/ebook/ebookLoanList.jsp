@@ -190,7 +190,16 @@ button {
 												<td>${l.author }</td>
 												<td>${l.publisher }</td>
 												<td>${l.loan_date }</td>
-												<td id="redate${l.no }">${l.return_date }</td>
+												<td id="redate${l.no }">
+													<c:choose>
+														<c:when test="${empty l.return_date }">			
+															예약상태입니다.
+														</c:when>
+														<c:otherwise>
+															${l.return_date }
+														</c:otherwise>
+													</c:choose>
+												</td>
 												<td>
 													<button class="lobtn"
 														onclick="location.href='/cyber/ebook/ebookDetail.do?isbn=${l.isbn}'">보기</button>

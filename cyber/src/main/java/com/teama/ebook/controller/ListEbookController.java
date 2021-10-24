@@ -219,4 +219,32 @@ public class ListEbookController {
 		
 		return jsonObj.toString();
 	}
+
+	@SuppressWarnings("unchecked")
+	@PostMapping(value="reserveAJAX.do", produces="text/plain;charset=utf-8")
+	@ResponseBody
+	public String reserveAJAX(CommandMap commandMap, HttpServletRequest request) {
+		JSONObject jsonObj = new JSONObject();
+		String errorMessage = ""; 
+				
+		HttpSession session = request.getSession();
+		Object memberNoObj = session.getAttribute("memberNo");
+		if (memberNoObj == null) {
+			errorMessage = "로그인 후 이용 가능합니다.";
+		} else {
+			int memberNo = Util.parseInt(memberNoObj);
+			int bookNo = commandMap.getIntValue("bookNo");
+			
+			errorMessage = loanService.reserve(bookNo, memberNo);
+			if (errorMessage.isEmpty()) {
+				Map<String, Object> bookStorageDTO = bookStorageService.getBookMap(bookNo);
+		
+				jsonObj.put("bookStorageDTO", bookStorageDTO);
+			}
+		}
+		
+		jsonObj.put("errorMessage", errorMessage);
+		
+		return jsonObj.toString();
+	}
 }

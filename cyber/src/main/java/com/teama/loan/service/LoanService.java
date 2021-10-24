@@ -12,7 +12,7 @@ public interface LoanService {
 	public List<LoanViewDTO> getViewListByMemberNo(Map<String, Object> map);
 	public List<LoanViewDTO> getViewListByMemberNo(int memberNo);
 	public List<LoanViewDTO> getViewListByMemberNo(int memberNo, int state);
-	public List<LoanViewDTO> getRecentlyViewList(int limitCount);
+	public List<Map<String, Object>> getRecentlyViewList(int limitCount);
 	public List<LoanViewDTO> getViewPagingListByMemberNo(Map<String, Object> map);
 	public List<Map<String, Object>> getViewMapListByMemberNo(int memberNo);
 	public List<Map<String, Object>> getViewMapListByMemberNo(int memberNo, int state);
