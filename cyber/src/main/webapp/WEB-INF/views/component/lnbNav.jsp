@@ -78,9 +78,6 @@ a:visited {
 	function getEbookNaviMap() {
 		var map = {
 			"/cyber/ebook/ebookMain.do" : "&nbsp;일반 전자책",
-			"/cyber/ebook/ebookChild.do" : "&nbsp;어린이 전자책",
-			"/cyber/ebook/ebookSearchDetail.do" : "&nbsp;전자책 상세검색",
-			"/cyber/bbs/listNotice.do" : "&nbsp;공지사항"
 		};
 		return map;
 	}
@@ -89,7 +86,6 @@ a:visited {
 		var map = {
 			"/cyber/myPage/myPage.do" : "&nbsp;서비스 이용현황",
 			"/cyber/myPage/ebookLoanList.do" : "&nbsp;전자책",
-			"/cyber/myPage/myBbsPostList.do" : "&nbsp;문의사항",
 			"/cyber/myPage/memberModify.do" : "&nbsp;회원정보 수정"
 		};
 		return map;
