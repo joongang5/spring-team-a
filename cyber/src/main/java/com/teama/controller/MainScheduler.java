@@ -15,9 +15,9 @@ public class MainScheduler {
 	
 	@Scheduled(cron="0 0/1 * * * *")
 	public void autoLoan() {
-//		System.out.println("scheduled-autoLoan");
+		System.out.println("scheduled-autoLoan");
 		
-		//loanService.autoReturn();
-		//loanService.autoLoan();
+		loanService.autoReturn();
+		loanService.autoLoan();
 	}
 }
