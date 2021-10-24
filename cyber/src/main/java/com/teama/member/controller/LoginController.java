@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.teama.common.CommandMap;
+import com.teama.member.dto.MemberDTO;
 import com.teama.member.service.KakaoAPIServiceImpl;
 import com.teama.member.service.LoginService;
 import com.teama.member.service.MemberService;
@@ -142,21 +143,23 @@ public class LoginController {
 		
 		// 회원 정보가 있으면
 		// 로그인처리 (session에 등록)
-		Map<String, Object> loginViewDTO = loginService.login(profileMap);
-		if (loginViewDTO == null) {
+		String id = String.valueOf(profileMap.get("id"));
+		MemberDTO memberDTO = memberService.getMemberById(id);
+		
+		if (memberDTO == null) {
 			// 회원 정보가 없으면
 			memberService.join(profileMap);
 			
-			loginViewDTO = profileMap;
+			memberDTO = memberService.getMemberById(id);
 		}
 		
-		if (loginViewDTO != null) {
+		if (memberDTO != null) {
 			HttpSession session = request.getSession();
-			session.setAttribute("name", loginViewDTO.get("name"));
-			session.setAttribute("id", loginViewDTO.get("id"));
-			session.setAttribute("memberNo", loginViewDTO.get("no"));
-			session.setAttribute("grade", loginViewDTO.get("grade"));
-			session.setAttribute("platform", loginViewDTO.get("platform"));
+			session.setAttribute("name", memberDTO.getName());
+			session.setAttribute("id", memberDTO.getId());
+			session.setAttribute("memberNo", memberDTO.getNo());
+			session.setAttribute("grade", memberDTO.getGrade());
+			session.setAttribute("platform", memberDTO.getPlatform());
 		}
 		
 		return "redirect:/index.do";

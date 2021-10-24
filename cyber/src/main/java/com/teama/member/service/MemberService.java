@@ -24,7 +24,7 @@ public interface MemberService {
 
 	public MemberDTO getMemberByNo(int memberNo);
 	
-	public MemberDTO getMemberById(int memberId);
+	public MemberDTO getMemberById(String memberId);
 
 	public List<MemberDTO> getMemberList();
 

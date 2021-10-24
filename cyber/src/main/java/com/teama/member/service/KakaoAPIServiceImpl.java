@@ -85,6 +85,7 @@ public class KakaoAPIServiceImpl {
 		return KAKAO_LOGOUT_URL + "?" + strParams;
 	}
 	
+	@SuppressWarnings("unchecked")
 	public String requestLogoutToken(String code) throws JsonMappingException, JsonProcessingException {
 		HashMap<String, String> params = new HashMap<String, String>();
 		params.put("client_id", CLIENT_ID);
