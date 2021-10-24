@@ -139,55 +139,59 @@ button {
 </script>
 </head>
 <body>
-	<div id="wrap">
-		<header>
-			<c:import url="/WEB-INF/views/component/headerInner.jsp" />
-		</header>
-		<aside>
-			<c:import url="/WEB-INF/views/component/lnbNav.jsp" />
-		</aside>
-		<main>
-			<div id="loginbox">
-				<img alt="book" src="../resources/img/book.png"
-					style="margin-left: 170px; margin-top: 10px; margin-bottom: 20px;">
-				<div id="inputbox">
-					<div>
-						<input type="text" name="id" placeholder="아이디"
-							style="margin-bottom: 10px;" value="${rememberId.getValue() }">
-						<br> <input type="password" name="pw" placeholder="비밀번호">
+	<header>
+		<c:import url="/WEB-INF/views/component/headerInner.jsp" />
+	</header>
+	
+	<div class="container">
+		<div class="row">
+			<aside>
+				<c:import url="/WEB-INF/views/component/lnbNav.jsp" />
+			</aside>
+			<main>
+				<div id="loginbox">
+					<img alt="book" src="../resources/img/book.png"
+						style="margin-left: 170px; margin-top: 10px; margin-bottom: 20px;">
+					<div id="inputbox">
+						<div>
+							<input type="text" name="id" placeholder="아이디"
+								style="margin-bottom: 10px;" value="${rememberId.getValue() }">
+							<br> <input type="password" name="pw" placeholder="비밀번호">
+						</div>
+					</div>
+					<div style="font-family: 'NanumSquare', serif; font-size: 12px;">
+						<input type="checkbox" id="idSaveCheck"> 아이디 기억하기
+					</div>
+					<div id="buttonbox">
+						<button type="button" onclick="onclickLoginBtn()">로그인</button>
+						<br> <a href="/cyber/member/memberJoinRegist.do"><button
+								type="submit">회원 가입</button></a> <br> <a
+							href="/cyber/member/memberFindId.do"><button type="submit"
+								style="width: 100px; margin-right: 1px;">ID찾기</button></a><a
+							href="/cyber/member/memberFindPw.do"><button type="submit"
+								style="width: 100px; margin-left: 1px;">PW 찾기</button></a>
+					</div>
+					<div id="naverLogin"
+						style="text-align: center; padding-bottom: 10px;">
+						<form action="naverAuth.do" method="post">
+							<input type="image" src="../resources/img/naverLogin.png"
+								style="width: 190px; height: 40px;">
+						</form>
+					</div>
+					<div id="kakaoLogin"
+						style="text-align: center; padding-bottom: 10px;">
+						<form action="kakaoAuth.do" method="post">
+							<input type="image" src="../resources/img/kakaoLogin.png"
+								style="width: 190px; height: 40px;">
+						</form>
 					</div>
 				</div>
-				<div style="font-family: 'NanumSquare', serif; font-size: 12px;">
-					<input type="checkbox" id="idSaveCheck"> 아이디 기억하기
-				</div>
-				<div id="buttonbox">
-					<button type="button" onclick="onclickLoginBtn()">로그인</button>
-					<br> <a href="/cyber/member/memberJoinRegist.do"><button
-							type="submit">회원 가입</button></a> <br> <a
-						href="/cyber/member/memberFindId.do"><button type="submit"
-							style="width: 100px; margin-right: 1px;">ID찾기</button></a><a
-						href="/cyber/member/memberFindPw.do"><button type="submit"
-							style="width: 100px; margin-left: 1px;">PW 찾기</button></a>
-				</div>
-				<div id="naverLogin"
-					style="text-align: center; padding-bottom: 10px;">
-					<form action="naverAuth.do" method="post">
-						<input type="image" src="../resources/img/naverLogin.png"
-							style="width: 190px; height: 40px;">
-					</form>
-				</div>
-				<div id="kakaoLogin"
-					style="text-align: center; padding-bottom: 10px;">
-					<form action="kakaoAuth.do" method="post">
-						<input type="image" src="../resources/img/kakaoLogin.png"
-							style="width: 190px; height: 40px;">
-					</form>
-				</div>
-			</div>
-		</main>
-		<footer>
-			<c:import url="/WEB-INF/views/component/footer.jsp" />
-		</footer>
+			</main>
+		</div>
 	</div>
+		
+	<footer>
+		<c:import url="/WEB-INF/views/component/footer.jsp" />
+	</footer>
 </body>
 </html>

@@ -218,157 +218,160 @@ h2 {
 </script>
 </head>
 <body>
-	<div id="wrap">
-		<header>
-			<c:import url="/WEB-INF/views/component/headerInner.jsp" />
-		</header>
-		<aside>
-			<c:import url="/WEB-INF/views/component/lnbNav.jsp" />
-		</aside>
+	<header>
+		<c:import url="/WEB-INF/views/component/headerInner.jsp" />
+	</header>
+	
+	<div class="container">
+		<div class="row">
+			<aside>
+				<c:import url="/WEB-INF/views/component/lnbNav.jsp" />
+			</aside>
+			
+			<main>
+			
+				<div id="naviandtitle">
+					<div id="navi">
+						<a href="../index.do">Home</a>><strong>소통마당</strong>
+					</div> <!-- end of navi -->
+					<h2>소통마당</h2>
+				</div> <!-- end of naviandtitle -->
 		
-		<main>
-
-			<div id="naviandtitle">
-				<div id="navi">
-					<a href="../index.do">Home</a>><strong>소통마당</strong>
-				</div> <!-- end of navi -->
-				<h2>소통마당</h2>
-			</div> <!-- end of naviandtitle -->
-
-			<!-- 소통마당 상세보기 list -->
-			<div id="detailBoard">
-				<table>
-					<tr id="detailNo">
-						<th>번호</th>
-						<td>${detail.no }</td>
-					</tr>
-					<tr>
-						<th>제목</th>
-						<td>${detail.title }</td>
-					</tr>
-					<tr>
-						<th>작성자</th>
-						<td>${detail.id }<small>(${detail.name })</small></td>
-					</tr>
-					<tr>
-						<th>등록일</th>
-						<td>${detail.date }</td>
-					</tr>
-				</table>
-
-				<c:if test="${sessionScope.id eq detail.id }">
-					<button id="writebtn" onclick="boardDelete()">삭제하기</button>
-					<button id="writebtn" onclick="boardUpdate()">수정하기</button>
-				</c:if>
-				
-				<!-- 파일 보이게 -->
-				<div id="detailFile">
-					<c:if test="${detail.file != null }">
-						<img alt="이미지" src="../resources/upfile2/${detail.file }">
-					</c:if>
-					<div id="detailContent">${detail.content }
-					</div> <!-- end of detailContent -->
-				</div> <!-- end of detailFile -->
-
-				<hr>
-				<!-- 댓글 불러오기, 삭제, 수정 -->
-				<c:choose>
-					<c:when test="${fn:length(commentList) > 0 }">
-						<c:forEach items="${commentList }" var="c">
-							<div id="commentInfo">
-								<div id="commentId">
-									${c.comment_no } / ${c.name }(<small>${c.id }</small>) /
-									${c.date }
-								</div> <!-- end of commentId -->
-							</div> <!-- end of commentInfo -->
-							<div class="updateBox">
-								<div class="updateInput">
-									<div class="comment" id="comment">${c.comment }</div>
-									<div class="no" style="display: none;">${c.no }</div>
-									<div class="comment_no" style="display: none;">${c.comment_no }</div>
-
-									<c:choose>
-										<c:when test="${sessionScope.id eq c.id }">
-											<button onclick="commentDelete(${c.no }, ${c.comment_no })"
-												id="commentDeleteBtn">삭제하기</button>
-											<button name="commentUpdate" id="commentUpdateBtn">수정하기</button>
-										</c:when>
-										<c:otherwise>
-										</c:otherwise>
-									</c:choose>
-								</div> <!-- end of updateInput -->
-							</div> <!-- end of updateBox -->
-						</c:forEach>
-					</c:when>
-					<c:otherwise>
-					댓글이 없습니다.
-				</c:otherwise>
-				</c:choose>
-
-				<!-- 댓글 페이징-->
-				<div id="commentPagination"
-					style="position: relative; left: 180px; top: 20px;">
-					<ui:pagination paginationInfo="${commentPaginationInfo }"
-						type="text" jsFunction="commentLinkPage"/>
-				</div> <!-- end of commentPagination -->
-
-				<!-- 댓글쓰기 -->
-				<c:choose>
-					<c:when test="${sessionScope.id ne null }">
-						<form action="commentWrite.do" method="post" onsubmit="return check();">
-							<textarea class="commentTitle" id="commentTitle" name="comment"
-								placeholder="댓글을 입력하세요."
-								style="font-family: 'Nanum Gothic', sans-serif;"></textarea>
-							<input type="hidden" name="no" value="${detail.no}">
-							<button type="submit" class="commetWriteBtn" id="commetWriteBtn">댓글쓰기</button>
-						</form>
-					</c:when>
-					<c:otherwise>
-					로그인 후 이용해주세요.
-				</c:otherwise>
-				</c:choose>
-				<!-- end of 댓글쓰기 -->
-
-				<hr>
-				<!-- 이전글, 다음글 -->
-				<div id="prePage" style="margin-top: 30px;">
-					<c:if test="${preNextPage.preNum != null }">
-						<c:if test="${preNextPage.preTitle != null }">
-						이전글 | <button onclick="preMove()">${preNextPage.preTitle }</button>
-							<br>
-						</c:if>
-					</c:if>
-					<c:if test="${preNextPage.preNum == null }">
-						<c:if test="${preNextPage.preTitle == null }">
-						이전글이 없습니다.<br>
-						</c:if>
-					</c:if>
-				</div>
-				<div id="nextPage">
-					<c:if test="${preNextPage.nextNum != null }">
-						<c:if test="${preNextPage.nextTitle != null }">
-						다음글 | <button onclick="nextMove()">${preNextPage.nextTitle }</button>
-						</c:if>
-					</c:if>
-					<c:if test="${preNextPage.nextNum == null }">
-						<c:if test="${preNextPage.nextTitle == null }">
-						다음글이 없습니다.
-					</c:if>
-					</c:if>
-				</div> <!-- end of 이전글, 다음글 -->
-				
-				<!-- 목록 -->
-				<div id="backListBox">
-					<a href="./listBoard.do" id="backList">목록</a>
-				</div> <!-- end of backListBox -->
-
-			</div> <!-- end of detailBoard -->
-
-		</main>
+				<!-- 소통마당 상세보기 list -->
+				<div id="detailBoard">
+					<table>
+						<tr id="detailNo">
+							<th>번호</th>
+							<td>${detail.no }</td>
+						</tr>
+						<tr>
+							<th>제목</th>
+							<td>${detail.title }</td>
+						</tr>
+						<tr>
+							<th>작성자</th>
+							<td>${detail.id }<small>(${detail.name })</small></td>
+						</tr>
+						<tr>
+							<th>등록일</th>
+							<td>${detail.date }</td>
+						</tr>
+					</table>
 		
-		<footer>
-			<c:import url="/WEB-INF/views/component/footer.jsp" />
-		</footer>
+					<c:if test="${sessionScope.id eq detail.id }">
+						<button id="writebtn" onclick="boardDelete()">삭제하기</button>
+						<button id="writebtn" onclick="boardUpdate()">수정하기</button>
+					</c:if>
+					
+					<!-- 파일 보이게 -->
+					<div id="detailFile">
+						<c:if test="${detail.file != null }">
+							<img alt="이미지" src="../resources/upfile2/${detail.file }">
+						</c:if>
+						<div id="detailContent">${detail.content }
+						</div> <!-- end of detailContent -->
+					</div> <!-- end of detailFile -->
+		
+					<hr>
+					<!-- 댓글 불러오기, 삭제, 수정 -->
+					<c:choose>
+						<c:when test="${fn:length(commentList) > 0 }">
+							<c:forEach items="${commentList }" var="c">
+								<div id="commentInfo">
+									<div id="commentId">
+										${c.comment_no } / ${c.name }(<small>${c.id }</small>) /
+										${c.date }
+									</div> <!-- end of commentId -->
+								</div> <!-- end of commentInfo -->
+								<div class="updateBox">
+									<div class="updateInput">
+										<div class="comment" id="comment">${c.comment }</div>
+										<div class="no" style="display: none;">${c.no }</div>
+										<div class="comment_no" style="display: none;">${c.comment_no }</div>
+		
+										<c:choose>
+											<c:when test="${sessionScope.id eq c.id }">
+												<button onclick="commentDelete(${c.no }, ${c.comment_no })"
+													id="commentDeleteBtn">삭제하기</button>
+												<button name="commentUpdate" id="commentUpdateBtn">수정하기</button>
+											</c:when>
+											<c:otherwise>
+											</c:otherwise>
+										</c:choose>
+									</div> <!-- end of updateInput -->
+								</div> <!-- end of updateBox -->
+							</c:forEach>
+						</c:when>
+						<c:otherwise>
+						댓글이 없습니다.
+					</c:otherwise>
+					</c:choose>
+		
+					<!-- 댓글 페이징-->
+					<div id="commentPagination"
+						style="position: relative; left: 180px; top: 20px;">
+						<ui:pagination paginationInfo="${commentPaginationInfo }"
+							type="text" jsFunction="commentLinkPage"/>
+					</div> <!-- end of commentPagination -->
+		
+					<!-- 댓글쓰기 -->
+					<c:choose>
+						<c:when test="${sessionScope.id ne null }">
+							<form action="commentWrite.do" method="post" onsubmit="return check();">
+								<textarea class="commentTitle" id="commentTitle" name="comment"
+									placeholder="댓글을 입력하세요."
+									style="font-family: 'Nanum Gothic', sans-serif;"></textarea>
+								<input type="hidden" name="no" value="${detail.no}">
+								<button type="submit" class="commetWriteBtn" id="commetWriteBtn">댓글쓰기</button>
+							</form>
+						</c:when>
+						<c:otherwise>
+						로그인 후 이용해주세요.
+					</c:otherwise>
+					</c:choose>
+					<!-- end of 댓글쓰기 -->
+		
+					<hr>
+					<!-- 이전글, 다음글 -->
+					<div id="prePage" style="margin-top: 30px;">
+						<c:if test="${preNextPage.preNum != null }">
+							<c:if test="${preNextPage.preTitle != null }">
+							이전글 | <button onclick="preMove()">${preNextPage.preTitle }</button>
+								<br>
+							</c:if>
+						</c:if>
+						<c:if test="${preNextPage.preNum == null }">
+							<c:if test="${preNextPage.preTitle == null }">
+							이전글이 없습니다.<br>
+							</c:if>
+						</c:if>
+					</div>
+					<div id="nextPage">
+						<c:if test="${preNextPage.nextNum != null }">
+							<c:if test="${preNextPage.nextTitle != null }">
+							다음글 | <button onclick="nextMove()">${preNextPage.nextTitle }</button>
+							</c:if>
+						</c:if>
+						<c:if test="${preNextPage.nextNum == null }">
+							<c:if test="${preNextPage.nextTitle == null }">
+							다음글이 없습니다.
+						</c:if>
+						</c:if>
+					</div> <!-- end of 이전글, 다음글 -->
+					
+					<!-- 목록 -->
+					<div id="backListBox">
+						<a href="./listBoard.do" id="backList">목록</a>
+					</div> <!-- end of backListBox -->
+		
+				</div> <!-- end of detailBoard -->
+				
+			</main>
+		</div>
 	</div>
+	
+	<footer>
+		<c:import url="/WEB-INF/views/component/footer.jsp" />
+	</footer>
 </body>
 </html>

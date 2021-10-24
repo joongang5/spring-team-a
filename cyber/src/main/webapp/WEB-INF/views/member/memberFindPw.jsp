@@ -87,37 +87,41 @@ button {
 </script>
 </head>
 <body>
-	<div id="wrap">
-		<header>
-			<c:import url="/WEB-INF/views/component/headerInner.jsp" />
-		</header>
-		<aside>
-			<c:import url="/WEB-INF/views/component/lnbNav.jsp" />
-		</aside>
-		<main>
-			<div id="findbox">
-				<h4 style="text-align: center; position: relative; top: 10px;">
-					비밀번호를 찾기 위해 <br> 가입한 ID와 이름, 이메일을 입력해주세요.
-				</h4>
-				<div id="inputbox">
-					<div>
-						<input type="text" id="id" name="id" required="required"
-							placeholder="아이디" style="margin-bottom: 10px;"> <input
-							type="text" id="name" name="name" required="required"
-							placeholder="이름" style="margin-bottom: 10px;"> <br>
-						<input type="text" id="email" name="email" required="required"
-							placeholder="Email">
-					</div>
-					<div id="buttonbox">
-						<button type="submit" onclick="findPw()">비밀번호 찾기</button>
-						<button type="submit">임시 비밀번호 발급</button>
+	<header>
+		<c:import url="/WEB-INF/views/component/headerInner.jsp" />
+	</header>
+	
+	<div class="container">
+		<div class="row">	
+			<aside>
+				<c:import url="/WEB-INF/views/component/lnbNav.jsp" />
+			</aside>
+			<main>
+				<div id="findbox">
+					<h4 style="text-align: center; position: relative; top: 10px;">
+						비밀번호를 찾기 위해 <br> 가입한 ID와 이름, 이메일을 입력해주세요.
+					</h4>
+					<div id="inputbox">
+						<div>
+							<input type="text" id="id" name="id" required="required"
+								placeholder="아이디" style="margin-bottom: 10px;"> <input
+								type="text" id="name" name="name" required="required"
+								placeholder="이름" style="margin-bottom: 10px;"> <br>
+							<input type="text" id="email" name="email" required="required"
+								placeholder="Email">
+						</div>
+						<div id="buttonbox">
+							<button type="submit" onclick="findPw()">비밀번호 찾기</button>
+							<button type="submit">임시 비밀번호 발급</button>
+						</div>
 					</div>
 				</div>
-			</div>
-		</main>
-		<footer>
-			<c:import url="/WEB-INF/views/component/footer.jsp" />
-		</footer>
+			</main>
+		</div>
 	</div>
+	
+	<footer>
+		<c:import url="/WEB-INF/views/component/footer.jsp" />
+	</footer>
 </body>
 </html>

@@ -147,50 +147,54 @@ button {
 </script>
 </head>
 <body>
-	<div id="wrap">
-		<header>
-			<c:import url="/WEB-INF/views/component/headerInner.jsp" />
-		</header>
-		<aside>
-			<c:import url="/WEB-INF/views/component/lnbNav.jsp" />
-		</aside>
-		<main>
-			<div id="joinbox">
-				<img alt="registration" src="../resources/img/registration.png"
-					style="margin-left: 170px; margin-top: 10px; margin-bottom: 20px;">
-				<div id="inputbox">
-					<form action="memberJoinRegist.do" method="post">
-						<div>
-							<input type="text" id="name" name="name" required="required"
-								placeholder="이름" style="margin-bottom: 10px;"> <br>
-							<input type="text" id="id" name="id" required="required"
-								placeholder="아이디" style="margin-bottom: 10px;"
-								onchange="idCheck()"> <br> <input type="password"
-								id="pw" name="pw" class="form-control" required="required"
-								placeholder="비밀번호" style="margin-bottom: 10px;"><br>
-							<input type="password" id="pw2" name="pw2" class="form-control"
-								required="required" placeholder="비밀번호 확인"
-								style="margin-bottom: 10px;">
-							<div class="alert alert-success" id="alert-success"
-								style="font-family: 'Nanum Gothic', sans-serif; margin-bottom: 10px;">비밀번호가
-								일치합니다.</div>
-							<div class="alert alert-danger" id="alert-danger"
-								style="font-family: 'Nanum Gothic', sans-serif; margin-bottom: 10px;">비밀번호가
-								일치하지 않습니다.</div>
-							<input type="text" id="email" name="email" required="required"
-								placeholder="Email" onchange="emailCheck()"> <input
-								type="hidden" name="platform" value="0">
-						</div>
-						<div id="buttonbox">
-							<button type="submit">가입하기</button>
-						</div>
-					</form>
+	<header>
+		<c:import url="/WEB-INF/views/component/headerInner.jsp" />
+	</header>
+	
+	<div class="container">
+		<div class="row">
+			<aside>
+				<c:import url="/WEB-INF/views/component/lnbNav.jsp" />
+			</aside>
+			<main>
+				<div id="joinbox">
+					<img alt="registration" src="../resources/img/registration.png"
+						style="margin-left: 170px; margin-top: 10px; margin-bottom: 20px;">
+					<div id="inputbox">
+						<form action="memberJoinRegist.do" method="post">
+							<div>
+								<input type="text" id="name" name="name" required="required"
+									placeholder="이름" style="margin-bottom: 10px;"> <br>
+								<input type="text" id="id" name="id" required="required"
+									placeholder="아이디" style="margin-bottom: 10px;"
+									onchange="idCheck()"> <br> <input type="password"
+									id="pw" name="pw" class="form-control" required="required"
+									placeholder="비밀번호" style="margin-bottom: 10px;"><br>
+								<input type="password" id="pw2" name="pw2" class="form-control"
+									required="required" placeholder="비밀번호 확인"
+									style="margin-bottom: 10px;">
+								<div class="alert alert-success" id="alert-success"
+									style="font-family: 'Nanum Gothic', sans-serif; margin-bottom: 10px;">비밀번호가
+									일치합니다.</div>
+								<div class="alert alert-danger" id="alert-danger"
+									style="font-family: 'Nanum Gothic', sans-serif; margin-bottom: 10px;">비밀번호가
+									일치하지 않습니다.</div>
+								<input type="text" id="email" name="email" required="required"
+									placeholder="Email" onchange="emailCheck()"> <input
+									type="hidden" name="platform" value="0">
+							</div>
+							<div id="buttonbox">
+								<button type="submit">가입하기</button>
+							</div>
+						</form>
+					</div>
 				</div>
-			</div>
-		</main>
-		<footer>
-			<c:import url="/WEB-INF/views/component/footer.jsp" />
-		</footer>
+			</main>
+		</div>
 	</div>
+		
+	<footer>
+		<c:import url="/WEB-INF/views/component/footer.jsp" />
+	</footer>
 </body>
 </html>

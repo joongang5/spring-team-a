@@ -94,71 +94,75 @@ button {
 </script>
 </head>
 <body>
-	<div id="wrap">
-		<header>
-			<c:import url="/WEB-INF/views/component/headerInner.jsp" />
-		</header>
-		<aside>
-			<c:import url="/WEB-INF/views/component/lnbNav.jsp" />
-		</aside>
-		<main>
-			<div>
-				<c:choose>
-					<c:when test="${sessionScope.id ne null}">
-						<a class="libtn" href="ebookLoanList.do">내 서재</a>
-						<a class="libtn">나의별점/리뷰</a>
-						<a class="libtn" href="">관심 목록</a>
-						<div class="infoBox">
-							- 올바른 리뷰 문화를 지켜주세요.<br>
-						</div>
-						<hr>
-						<table>
-							<tr>
-								<th>표지</th>
-								<th>제목</th>
-								<th>별점</th>
-								<th>리뷰</th>
-								<th>작성일</th>
-							</tr>
-						</table>
-						<table>
-							<c:choose>
-								<c:when test="${fn:length(reviewDTOList) gt 0 }">
-									<c:forEach items="${reviewDTOList }" var="r">
-										<tr>
-											<td><img alt="book" src="${r.title_url }"
-												style="width: 50px; height: 70px; vertical-align: middle;"></td>
-											<td>${r.title }</td>
-											<td>${r.author }</td>
-											<td><img alt="star"
-							src="/cyber/resources/img/star${r.rating }.png"></td>
-											<td>${r.reviewCmt }</td>
-											<td>${r.date }</td>
-										</tr>
-									</c:forEach>
-								</c:when>
-								<c:otherwise>
-								작성한 리뷰가 없습니다.
-							</c:otherwise>
-							</c:choose>
-						</table>
-					</c:when>
-					<c:otherwise>
-						<a class="noLogin" href="/cyber/member/memberLogin.do">로그인
-							해주세요.</a>
-					</c:otherwise>
-				</c:choose>
-			</div>
-			<div>
-				<ul id="paging">
-					<ui:pagination paginationInfo="${paginationInfo }" type="text"
-						jsFunction="linkPage" />
-				</ul>
-			</div>
-		</main>
-		<footer>
-			<c:import url="/WEB-INF/views/component/footer.jsp" />
-		</footer>
+	<header>
+		<c:import url="/WEB-INF/views/component/headerInner.jsp" />
+	</header>
+		
+	<div class="container">
+		<div class="row">
+			<aside>
+				<c:import url="/WEB-INF/views/component/lnbNav.jsp" />
+			</aside>
+			<main>
+				<div>
+					<c:choose>
+						<c:when test="${sessionScope.id ne null}">
+							<a class="libtn" href="ebookLoanList.do">내 서재</a>
+							<a class="libtn">나의별점/리뷰</a>
+							<a class="libtn" href="">관심 목록</a>
+							<div class="infoBox">
+								- 올바른 리뷰 문화를 지켜주세요.<br>
+							</div>
+							<hr>
+							<table>
+								<tr>
+									<th>표지</th>
+									<th>제목</th>
+									<th>별점</th>
+									<th>리뷰</th>
+									<th>작성일</th>
+								</tr>
+							</table>
+							<table>
+								<c:choose>
+									<c:when test="${fn:length(reviewDTOList) gt 0 }">
+										<c:forEach items="${reviewDTOList }" var="r">
+											<tr>
+												<td><img alt="book" src="${r.title_url }"
+													style="width: 50px; height: 70px; vertical-align: middle;"></td>
+												<td>${r.title }</td>
+												<td>${r.author }</td>
+												<td><img alt="star"
+								src="/cyber/resources/img/star${r.rating }.png"></td>
+												<td>${r.reviewCmt }</td>
+												<td>${r.date }</td>
+											</tr>
+										</c:forEach>
+									</c:when>
+									<c:otherwise>
+									작성한 리뷰가 없습니다.
+								</c:otherwise>
+								</c:choose>
+							</table>
+						</c:when>
+						<c:otherwise>
+							<a class="noLogin" href="/cyber/member/memberLogin.do">로그인
+								해주세요.</a>
+						</c:otherwise>
+					</c:choose>
+				</div>
+				<div>
+					<ul id="paging">
+						<ui:pagination paginationInfo="${paginationInfo }" type="text"
+							jsFunction="linkPage" />
+					</ul>
+				</div>
+			</main>
+		</div>
 	</div>
+	
+	<footer>
+		<c:import url="/WEB-INF/views/component/footer.jsp" />
+	</footer>
 </body>
 </html>

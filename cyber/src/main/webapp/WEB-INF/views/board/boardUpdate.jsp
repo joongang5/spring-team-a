@@ -72,47 +72,51 @@ h2 {
 </script>
 </head>
 <body>
-	<div id="wrap">
-		<header>
-			<c:import url="/WEB-INF/views/component/headerInner.jsp" />
-		</header>
-		<aside>
-			<c:import url="/WEB-INF/views/component/lnbNav.jsp" />
-		</aside>
-		
-		<main>
-
-			<div id="naviandtitle">
-				<div id="navi">
-					<a href="../index.do">Home</a>><strong>소통마당</strong>
-				</div> <!-- end of navi -->
-				<h2>수정하기</h2>
-			</div> <!-- end of naviandtitle -->
-
-			<form action="boardUpdate.do" method="post" onsubmit="return check();">
-				<table>
-					<tr>
-						<th>제목</th>
-						<td><input class="boardTitle" id="boardTitle" name="title"
-							value="${detail.title}"></td>
-					</tr>
-					<tr>
-						<th>내용</th>
-						<td><textarea class="boardContent" id="boardContent"
-								name="content" rows="10">${detail.content}</textarea></td>
-					</tr>
-				</table>
-				<input type="hidden" name="no" value="${detail.no}">
-				<div id="writeBtnBox">
-					<button type="submit" class="writeBtn">수정하기</button>
-				</div> <!-- end of writeBtnBox -->
-			</form>
+	<header>
+		<c:import url="/WEB-INF/views/component/headerInner.jsp" />
+	</header>
+	
+	<div class="container">
+		<div class="row">
+			<aside>
+				<c:import url="/WEB-INF/views/component/lnbNav.jsp" />
+			</aside>
 			
-		</main>
+			<main>
 		
-		<footer>
-			<c:import url="/WEB-INF/views/component/footer.jsp" />
-		</footer>
+				<div id="naviandtitle">
+					<div id="navi">
+						<a href="../index.do">Home</a>><strong>소통마당</strong>
+					</div> <!-- end of navi -->
+					<h2>수정하기</h2>
+				</div> <!-- end of naviandtitle -->
+		
+				<form action="boardUpdate.do" method="post" onsubmit="return check();">
+					<table>
+						<tr>
+							<th>제목</th>
+							<td><input class="boardTitle" id="boardTitle" name="title"
+								value="${detail.title}"></td>
+						</tr>
+						<tr>
+							<th>내용</th>
+							<td><textarea class="boardContent" id="boardContent"
+									name="content" rows="10">${detail.content}</textarea></td>
+						</tr>
+					</table>
+					<input type="hidden" name="no" value="${detail.no}">
+					<div id="writeBtnBox">
+						<button type="submit" class="writeBtn">수정하기</button>
+					</div> <!-- end of writeBtnBox -->
+				</form>
+				
+			</main>
+		</div>
 	</div>
+	
+	
+	<footer>
+		<c:import url="/WEB-INF/views/component/footer.jsp" />
+	</footer>
 </body>
 </html>

@@ -72,45 +72,48 @@ h2 {
 </script>
 </head>
 <body>
-	<div id="wrap">
-		<header>
-			<c:import url="/WEB-INF/views/component/headerInner.jsp" />
-		</header>
-		<aside>
-			<c:import url="/WEB-INF/views/component/lnbNav.jsp" />
-		</aside>
-		
-		<main>
-
-			<div id="naviandtitle">
-				<div id="navi">
-					<a href="../index.do">Home</a>><strong>소통마당</strong>
-				</div> <!-- end of navi -->
-				<h2>글쓰기</h2>
-			</div> <!-- end of naviandtitle -->
-
-			<form action="boardWrite.do" method="post" enctype="multipart/form-data" onsubmit="return check();">
-				<table>
-					<tr>
-						<th>제목</th>
-						<td><textarea class="boardTitle" id="boardTitle" name="title"
-								placeholder="제목을 입력하세요."></textarea></td>
-					</tr>
-					<tr>
-						<th>내용</th>
-						<td><textarea class="boardContent" id="boardContent"
-								name="content" rows="10" placeholder="내용을 입력하세요."></textarea></td>
-					</tr>
-				</table>
-				<input type="file" name="file" id="fileSelect" accept=".gif, .png, .jpg">
-				<button type="submit" class="writeBtn">글쓰기</button>
-			</form>
+	<header>
+		<c:import url="/WEB-INF/views/component/headerInner.jsp" />
+	</header>
+	
+	<div class="container">
+		<div class="row">
+			<aside>
+				<c:import url="/WEB-INF/views/component/lnbNav.jsp" />
+			</aside>
 			
-		</main>
+			<main>
 		
-		<footer>
-			<c:import url="/WEB-INF/views/component/footer.jsp" />
-		</footer>
+				<div id="naviandtitle">
+					<div id="navi">
+						<a href="../index.do">Home</a>><strong>소통마당</strong>
+					</div> <!-- end of navi -->
+					<h2>글쓰기</h2>
+				</div> <!-- end of naviandtitle -->
+		
+				<form action="boardWrite.do" method="post" enctype="multipart/form-data" onsubmit="return check();">
+					<table>
+						<tr>
+							<th>제목</th>
+							<td><textarea class="boardTitle" id="boardTitle" name="title"
+									placeholder="제목을 입력하세요."></textarea></td>
+						</tr>
+						<tr>
+							<th>내용</th>
+							<td><textarea class="boardContent" id="boardContent"
+									name="content" rows="10" placeholder="내용을 입력하세요."></textarea></td>
+						</tr>
+					</table>
+					<input type="file" name="file" id="fileSelect" accept=".gif, .png, .jpg">
+					<button type="submit" class="writeBtn">글쓰기</button>
+				</form>
+				
+			</main>
+		</div>
 	</div>
+	
+	<footer>
+		<c:import url="/WEB-INF/views/component/footer.jsp" />
+	</footer>
 </body>
 </html>

@@ -55,30 +55,34 @@ button {
 </style>
 </head>
 <body>
-	<div id="wrap">
-		<header>
-			<c:import url="/WEB-INF/views/component/headerInner.jsp" />
-		</header>
-		<aside>
-			<c:import url="/WEB-INF/views/component/lnbNav.jsp" />
-		</aside>
-		<main>
-			<div class="loginWrap">
-				<form action="memberModify.do" method="post">
-					<h3 style="text-align: center;">비밀번호를 입력하세요.</h3>
-					<div class="inputWrap">
-						<label>비밀번호</label> <input type="password" name="pw"
-							style="border-color: white; text-align: center;">
-					</div>
-					<p>
-						<button type="submit">확인</button>
-					</p>
-				</form>
-			</div>
-		</main>
-		<footer>
-			<c:import url="/WEB-INF/views/component/footer.jsp" />
-		</footer>
+	<header>
+		<c:import url="/WEB-INF/views/component/headerInner.jsp" />
+	</header>
+	
+	<div class="container">
+		<div class="row">	
+			<aside>
+				<c:import url="/WEB-INF/views/component/lnbNav.jsp" />
+			</aside>
+			<main>
+				<div class="loginWrap">
+					<form action="memberModify.do" method="post">
+						<h3 style="text-align: center;">비밀번호를 입력하세요.</h3>
+						<div class="inputWrap">
+							<label>비밀번호</label> <input type="password" name="pw"
+								style="border-color: white; text-align: center;">
+						</div>
+						<p>
+							<button type="submit">확인</button>
+						</p>
+					</form>
+				</div>
+			</main>
+		</div>
 	</div>
+	
+	<footer>
+		<c:import url="/WEB-INF/views/component/footer.jsp" />
+	</footer>
 </body>
 </html>

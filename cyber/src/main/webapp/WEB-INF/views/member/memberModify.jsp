@@ -25,40 +25,44 @@
 </script>
 </head>
 <body>
-	<div id="wrap">
-		<header>
-			<c:import url="/WEB-INF/views/component/headerInner.jsp" />
-		</header>
-		<aside>
-			<c:import url="/WEB-INF/views/component/lnbNav.jsp" />
-		</aside>
-		<main>
-			<form action="memberUpdate.do" method="post">
-				<div style="margin: 0 auto; width: 300px; text-align: center;">
-					<h2>회원정보수정</h2>
-					<hr>
-				</div>
-				<div
-					style="margin: 5px; width: 300px; position: relative; left: 250px;">
-					<div style="margin-bottom: 2px;">아이디 : ${memberDTO.id }</div>
-					<div style="margin-bottom: 2px;">이름 : ${memberDTO.name }</div>
-					<div style="margin-bottom: 2px;">
-						비밀번호 : <input type="text" name="pw">
+	<header>
+		<c:import url="/WEB-INF/views/component/headerInner.jsp" />
+	</header>
+	
+	<div class="container">
+		<div class="row">
+			<aside>
+				<c:import url="/WEB-INF/views/component/lnbNav.jsp" />
+			</aside>
+			<main>
+				<form action="memberUpdate.do" method="post">
+					<div style="margin: 0 auto; width: 300px; text-align: center;">
+						<h2>회원정보수정</h2>
+						<hr>
 					</div>
-					<div>
-						이메일 : <input type="text" name="email" value="${memberDTO.email }">
+					<div
+						style="margin: 5px; width: 300px; position: relative; left: 250px;">
+						<div style="margin-bottom: 2px;">아이디 : ${memberDTO.id }</div>
+						<div style="margin-bottom: 2px;">이름 : ${memberDTO.name }</div>
+						<div style="margin-bottom: 2px;">
+							비밀번호 : <input type="text" name="pw">
+						</div>
+						<div>
+							이메일 : <input type="text" name="email" value="${memberDTO.email }">
+						</div>
 					</div>
-				</div>
-				<div
-					style="margin-top: 10px; width: 300px; position: relative; left: 330px;">
-					<input type="submit" value="회원정보 수정" id="updateBtn"
-						style="width: 100px; height: 40px;">
-				</div>
-			</form>
-		</main>
-		<footer>
-			<c:import url="/WEB-INF/views/component/footer.jsp" />
-		</footer>
+					<div
+						style="margin-top: 10px; width: 300px; position: relative; left: 330px;">
+						<input type="submit" value="회원정보 수정" id="updateBtn"
+							style="width: 100px; height: 40px;">
+					</div>
+				</form>
+			</main>
+		</div>
 	</div>
+		
+	<footer>
+		<c:import url="/WEB-INF/views/component/footer.jsp" />
+	</footer>
 </body>
 </html>

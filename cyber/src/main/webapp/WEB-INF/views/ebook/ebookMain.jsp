@@ -50,83 +50,87 @@ td img {
 	}
 </script>
 <body>
-	<div id="wrap">
-		<header>
-			<c:import url="/WEB-INF/views/component/headerInner.jsp" />
-		</header>
-		<aside>
-			<c:import url="/WEB-INF/views/component/lnbNav.jsp" />
-		</aside>
-		<main>
-			<div id="SearchTarget">
-				<form action="./ebookMain.do" method="GET">
-					<select name="searchTarget">
-						<option value='title'
-							<c:if test="${searchTarget eq 'title'}">selected="selected"</c:if>>서명</option>
-						<option value='author'
-							<c:if test="${searchTarget eq 'author'}">selected="selected"</c:if>>저자</option>
-						<option value='publisher'
-							<c:if test="${searchTarget eq 'publisher'}">selected="selected"</c:if>>출판사</option>
-						<option value='isbn'
-							<c:if test="${searchTarget eq 'isbn'}">selected="selected"</c:if>>ISBN</option>
-					</select> <input name="searchValue" value="${searchValue}" />
-					<button id="search" type="submit">검색</button>
-				</form>
-			</div>
-			<c:choose>
-				<c:when test="${fn:length(EbookList) gt 0 }">
-					<div id="mainTable">
-						<c:if test="${searchValue ne null }">
-							<h2>도서 수 : ${EbookList.get(0).totalCount }</h2>
-							<h3>페이지 번호 : ${pageNo}</h3>
-							<h3>검색어 : ${searchValue }</h3>
-						</c:if>
-
-						<table>
-							<tr>
-								<td>서명</td>
-								<td>표지</td>
-								<td>출판사</td>
-								<td>저자</td>
-								<td>ISBN</td>
-
-							</tr>
-							<c:forEach items="${EbookList }" var="l">
-								<tr onclick="location.href='/cyber/ebook/ebookDetail.do?isbn=${l.isbn }'" style="cursor:pointer;">
-									<td>${l.title}
-											<c:if test="${l.title eq null }">
-						제목없음
-						</c:if>
-									</td>
-									<td><img src="${l.title_url}"> <c:if
-											test="${l.title_url eq null }">
-											<img src="/cyber/resources/img/thumbnail.gif">
-										</c:if></td>
-									<td>${l.publisher}
-									<td>${l.author}</td>
-									<td>${l.isbn}</td>
+	<header>
+		<c:import url="/WEB-INF/views/component/headerInner.jsp" />
+	</header>
+	
+	<div class="container">
+		<div class="row">
+			<aside>
+				<c:import url="/WEB-INF/views/component/lnbNav.jsp" />
+			</aside>
+			<main>
+				<div id="SearchTarget">
+					<form action="./ebookMain.do" method="GET">
+						<select name="searchTarget">
+							<option value='title'
+								<c:if test="${searchTarget eq 'title'}">selected="selected"</c:if>>서명</option>
+							<option value='author'
+								<c:if test="${searchTarget eq 'author'}">selected="selected"</c:if>>저자</option>
+							<option value='publisher'
+								<c:if test="${searchTarget eq 'publisher'}">selected="selected"</c:if>>출판사</option>
+							<option value='isbn'
+								<c:if test="${searchTarget eq 'isbn'}">selected="selected"</c:if>>ISBN</option>
+						</select> <input name="searchValue" value="${searchValue}" />
+						<button id="search" type="submit">검색</button>
+					</form>
+				</div>
+				<c:choose>
+					<c:when test="${fn:length(EbookList) gt 0 }">
+						<div id="mainTable">
+							<c:if test="${searchValue ne null }">
+								<h2>도서 수 : ${EbookList.get(0).totalCount }</h2>
+								<h3>페이지 번호 : ${pageNo}</h3>
+								<h3>검색어 : ${searchValue }</h3>
+							</c:if>
+		
+							<table>
+								<tr>
+									<td>서명</td>
+									<td>표지</td>
+									<td>출판사</td>
+									<td>저자</td>
+									<td>ISBN</td>
+		
 								</tr>
-							</c:forEach>
-						</table>
-					</div>
-					<div>
-						<ul id="pagination">
-							<ui:pagination paginationInfo="${paginationInfo }" type="text"
-								jsFunction="linkPage" />
-						</ul>
-					</div>
-				</c:when>
-				<c:otherwise>
-			검색된 도서가 없습니다.<br>
-			잠시후 전자책 페이지로 이동합니다.
-			<meta http-equiv="refresh"
-						content="3; url='/cyber/ebook/ebookMain.do'">
-				</c:otherwise>
-			</c:choose>
-		</main>
-		<footer>
-			<c:import url="/WEB-INF/views/component/footer.jsp" />
-		</footer>
+								<c:forEach items="${EbookList }" var="l">
+									<tr onclick="location.href='/cyber/ebook/ebookDetail.do?isbn=${l.isbn }'" style="cursor:pointer;">
+										<td>${l.title}
+												<c:if test="${l.title eq null }">
+							제목없음
+							</c:if>
+										</td>
+										<td><img src="${l.title_url}"> <c:if
+												test="${l.title_url eq null }">
+												<img src="/cyber/resources/img/thumbnail.gif">
+											</c:if></td>
+										<td>${l.publisher}
+										<td>${l.author}</td>
+										<td>${l.isbn}</td>
+									</tr>
+								</c:forEach>
+							</table>
+						</div>
+						<div>
+							<ul id="pagination">
+								<ui:pagination paginationInfo="${paginationInfo }" type="text"
+									jsFunction="linkPage" />
+							</ul>
+						</div>
+					</c:when>
+					<c:otherwise>
+				검색된 도서가 없습니다.<br>
+				잠시후 전자책 페이지로 이동합니다.
+				<meta http-equiv="refresh"
+							content="3; url='/cyber/ebook/ebookMain.do'">
+					</c:otherwise>
+				</c:choose>
+			</main>
+		</div>
 	</div>
+	
+	<footer>
+		<c:import url="/WEB-INF/views/component/footer.jsp" />
+	</footer>
 </body>
 </html>

@@ -6,7 +6,7 @@
 
 html {
 	font-family: 'Nanum Gothic', sans-serif;
-	color: #black;
+	color: black;
 	width: 100%;
 }
 
@@ -16,13 +16,13 @@ body {
 	width: 100%;
 }
 
-#wrap {
+.container {
 	width: 1000px;
 	margin: 0 auto;
 }
 
 header {
-	width: 1000px;
+	margin: 0 auto;
 	height: 130px;
 	background: white;
 }
@@ -44,7 +44,7 @@ main {
 
 footer {
 	clear: both;
-	width: 1000px;
+	margin: 0 auto;
 	height: 100px;
 	background: #cee5fe;
 }
@@ -52,4 +52,15 @@ footer {
 #pagination {
 	text-align: center;
 	margin-top: 20px;
+}
+
+/* 화면 너비 0 ~ 960px */
+@media (max-width: 960px) {
+	.container {
+		width: 100%;
+	}
+	
+	.row {
+		padding: 0 15px; 
+	}
 }

@@ -108,81 +108,84 @@ a {
 <script src='<c:url value="/resources/js/notice/listNotice.js"/>'></script>
 </head>
 <body>
-	<div id="wrap">
-		<header>
-			<c:import url="/WEB-INF/views/component/headerInner.jsp" />
-		</header>
-		<aside>
-			<c:import url="/WEB-INF/views/component/lnbNav.jsp" />
-		</aside>
+	<header>
+		<c:import url="/WEB-INF/views/component/headerInner.jsp" />
+	</header>
+	
+	<div class="container">
+		<div class="row">
+			<aside>
+				<c:import url="/WEB-INF/views/component/lnbNav.jsp" />
+			</aside>
+			
+			<main>
+			
+				<div id="naviandtitle">
+					<div id="navi">
+						<a href="../index.do">Home</a>><strong>소통마당</strong>
+					</div> <!-- end of navi -->
+					<h1>소통마당</h1>
+				</div> <!-- end of naviandtitle -->
 		
-		<main>
+				<!-- 검색 기능 -->
+				<div id="searchBox">
+					<form action="./listBoard.do" id="pageSearch" method="get">
+						<select name="searchCondition" id="searchCondition" title="검색방법 선택">
+							<option value="title"
+								<c:if test="${searchCondition eq 'title' }">selected="selected"</c:if>>
+								제목</option>
+							<option value="content"
+								<c:if test="${searchCondition eq 'content' }">selected="selected"</c:if>>
+								내용</option>
+						</select> <input type="text" name="searchKeyword" value="${searchKeyword}"
+							id="searchKeyword" title="검색어 입력" placeholder="검색어를 입력해주세요.">
+						<button type="submit" id="searchBtn">검색</button>
+					</form>
+				</div> <!-- end of searchBox -->
 		
-			<div id="naviandtitle">
-				<div id="navi">
-					<a href="../index.do">Home</a>><strong>소통마당</strong>
-				</div> <!-- end of navi -->
-				<h1>소통마당</h1>
-			</div> <!-- end of naviandtitle -->
-
-			<!-- 검색 기능 -->
-			<div id="searchBox">
-				<form action="./listBoard.do" id="pageSearch" method="get">
-					<select name="searchCondition" id="searchCondition" title="검색방법 선택">
-						<option value="title"
-							<c:if test="${searchCondition eq 'title' }">selected="selected"</c:if>>
-							제목</option>
-						<option value="content"
-							<c:if test="${searchCondition eq 'content' }">selected="selected"</c:if>>
-							내용</option>
-					</select> <input type="text" name="searchKeyword" value="${searchKeyword}"
-						id="searchKeyword" title="검색어 입력" placeholder="검색어를 입력해주세요.">
-					<button type="submit" id="searchBtn">검색</button>
-				</form>
-			</div> <!-- end of searchBox -->
-
-			<!-- 소통마당 list -->
-			<div id="board">
-				<table>
-					<thead>
-						<tr>
-							<th>번호</th>
-							<th>제목</th>
-							<th>등록일</th>
-							<th>조회수</th>
-							<th>작성자</th>
-						</tr>
-					</thead>
-					<tbody id="bbody">
-						<c:forEach items="${list }" var="l">
+				<!-- 소통마당 list -->
+				<div id="board">
+					<table>
+						<thead>
 							<tr>
-								<td>${l.no }</td>
-								<td id="title"><a href="./boardDetail.do?no=${l.no }">${l.title }</a></td>
-								<td>${l.date }</td>
-								<td>${l.count }</td>
-								<td>${l.id }(${l.name })</td>
+								<th>번호</th>
+								<th>제목</th>
+								<th>등록일</th>
+								<th>조회수</th>
+								<th>작성자</th>
 							</tr>
-						</c:forEach>
-					</tbody>
-				</table>
-
-				<!-- 페이징-->
-				<div id="pagination">
-					<ui:pagination paginationInfo="${paginationInfo }" type="text" jsFunction="linkPage"/>
-				</div> <!-- end of paging -->
-
-				<!-- 글쓰기 버튼 로그인한 사람만 보이게 -->
-				<c:if test="${sessionScope.id ne null }">
-					<a href="./boardWrite.do"><button id="writebutton">글쓰기</button></a>
-				</c:if>
-
-			</div> <!-- end of board -->
-
-		</main>
+						</thead>
+						<tbody id="bbody">
+							<c:forEach items="${list }" var="l">
+								<tr>
+									<td>${l.no }</td>
+									<td id="title"><a href="./boardDetail.do?no=${l.no }">${l.title }</a></td>
+									<td>${l.date }</td>
+									<td>${l.count }</td>
+									<td>${l.id }(${l.name })</td>
+								</tr>
+							</c:forEach>
+						</tbody>
+					</table>
 		
-		<footer>
-			<c:import url="/WEB-INF/views/component/footer.jsp" />
-		</footer>
-	</div> <!-- end of wrap -->
+					<!-- 페이징-->
+					<div id="pagination">
+						<ui:pagination paginationInfo="${paginationInfo }" type="text" jsFunction="linkPage"/>
+					</div> <!-- end of paging -->
+		
+					<!-- 글쓰기 버튼 로그인한 사람만 보이게 -->
+					<c:if test="${sessionScope.id ne null }">
+						<a href="./boardWrite.do"><button id="writebutton">글쓰기</button></a>
+					</c:if>
+		
+				</div> <!-- end of board -->
+		
+			</main>
+		</div>
+	</div>
+	
+	<footer>
+		<c:import url="/WEB-INF/views/component/footer.jsp" />
+	</footer>
 </body>
 </html>
