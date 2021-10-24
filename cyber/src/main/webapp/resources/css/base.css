@@ -7,11 +7,13 @@
 html {
 	font-family: 'Nanum Gothic', sans-serif;
 	color: #black;
+	width: 100%;
 }
 
 body {
 	margin: 0;
 	padding: 0;
+	width: 100%;
 }
 
 #wrap {
@@ -22,7 +24,7 @@ body {
 header {
 	width: 1000px;
 	height: 130px;
-	background: #white;
+	background: white;
 }
 
 aside {
@@ -34,9 +36,10 @@ aside {
 
 main {
 	float: left;
-	width: 760px;
-	height: 600px;
-	background: #white;
+	margin: 10px 0 50px 10px;
+	width: 750px;
+	height: auto; /* 수정 */
+	background: white;
 }
 
 footer {
@@ -44,4 +47,9 @@ footer {
 	width: 1000px;
 	height: 100px;
 	background: #cee5fe;
+}
+
+#pagination {
+	text-align: center;
+	margin-top: 20px;
 }

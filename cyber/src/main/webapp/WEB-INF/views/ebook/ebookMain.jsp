@@ -8,53 +8,8 @@
 <head>
 <meta charset="UTF-8">
 <title>일반 전자책</title>
+<link rel="stylesheet" href="<c:url value="/resources/css/base.css"/>">
 <style>
-@import
-	url('https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap')
-	;
-
-html {
-	font-family: 'Nanum Gothic', sans-serif;
-	color: #black;
-}
-
-body {
-	margin: 0;
-	padding: 0;
-}
-
-#wrap {
-	width: 1000px;
-	margin: 0 auto;
-}
-
-header {
-	width: 1000px;
-	height: 130px;
-	background: #white;
-}
-
-aside {
-	float: left;
-	width: 240px;
-	height: 600px;
-	background: #e3f0ff;
-}
-
-main {
-	float: left;
-	width: 760px;
-	height: auto;
-	background: #white;
-}
-
-footer {
-	clear: both;
-	width: 1000px;
-	height: 100px;
-	background: #cee5fe;
-}
-
 table {
 	width: 100%;
 	border: 1px solid #444444;
@@ -65,21 +20,11 @@ th, td {
 }
 
 td img {
-	width: 100px
-}
-
-#paging {
-	text-align: center;
-	margin-top: 10px;
+	width: 100px;
 }
 
 #SearchTarget {
-	margin-left: 12px;
 	margin-bottom: 10px;
-}
-
-#mainTable {
-	margin-left: 12px;
 }
 </style>
 </head>
@@ -165,7 +110,7 @@ td img {
 						</table>
 					</div>
 					<div>
-						<ul id="paging">
+						<ul id="pagination">
 							<ui:pagination paginationInfo="${paginationInfo }" type="text"
 								jsFunction="linkPage" />
 						</ul>

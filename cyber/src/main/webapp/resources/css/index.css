@@ -1,44 +1,12 @@
-@import
-	url('https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap')
-	;
-
-html {
-	font-family: 'Nanum Gothic', sans-serif;
-	color: #black;
-	width: 100%;
-}
-
-body {
-	margin: 0;
-	padding: 0;
-	width: 100%;
-}
-
-#wrap {
-	width: 1000px;
-	margin: 0 auto;
-}
-
-header {
-	width: 1000px;
-	height: 130px;
-	background: white;
-}
-
 main {
+	float: none;
+	margin: 0 0 100px 0;
 	width: 1000px;
 	height: 1100px;
 	background: #white;
-	padding-bottom: 100px;
-}
-
-footer {
-	clear: both;
-	width: 1000px;
-	height: 100px;
-	background: #cee5fe;
-	position: relative;
-	bottom: 0px;
+	position: static;
+	left: auto;
+	top: auto;
 }
 
 @media ( max-width : 760px) {
@@ -158,7 +126,6 @@ ul.imgs li {
 ul.newImgs {
 	padding: 0;
 	margin: 0;
-	position: absolute;
 }
 
 ul.newImgs li {

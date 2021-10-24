@@ -8,59 +8,8 @@
 <head>
 <meta charset="UTF-8">
 <title>소통마당 상세보기</title>
+<link rel="stylesheet" href="<c:url value="/resources/css/base.css"/>">
 <style type="text/css">
-@import
-	url('https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap')
-	;
-
-html {
-	font-family: 'Nanum Gothic', sans-serif;
-	color: #black;
-}
-
-body {
-	margin: 0;
-	padding: 0;
-}
-
-#wrap {
-	width: 1000px;
-	margin: 0 auto;
-}
-
-header {
-	width: 1000px;
-	height: 130px;
-	background: #white;
-}
-
-aside {
-	float: left;
-	width: 240px;
-	height: 600px;
-	background: #e3f0ff;
-}
-
-main {
-	float: left;
-	width: 760px;
-	height: auto; /* 수정 */
-	background: #white;
-	position: relative;
-	left: 10px;
-	top: 10px;
-	padding-bottom: 100px;
-}
-
-footer {
-	clear: both;
-	width: 1000px;
-	height: 100px;
-	background: #cee5fe;
-	position: relative;
-	margin-top: -100px;
-}
-
 #writebtn {
 	width: 100px;
 	height: 30px;

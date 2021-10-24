@@ -19,59 +19,8 @@ function linkPage(pageNo) {
 	</c:if>
 }
 </script>
+<link rel="stylesheet" href="<c:url value="/resources/css/base.css"/>">
 <style>
-@import
-	url('https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap')
-	;
-
-html {
-	font-family: 'Nanum Gothic', sans-serif;
-	color: #black;
-}
-
-body {
-	margin: 0;
-	padding: 0;
-}
-
-#wrap {
-	width: 1000px;
-	margin: 0 auto;
-}
-
-header {
-	width: 1000px;
-	height: 130px;
-	background: #white;
-}
-
-aside {
-	float: left;
-	width: 240px;
-	height: 600px;
-	background: #e3f0ff;
-}
-
-main {
-	float: left;
-	width: 760px;
-	height: auto; /* 수정 */
-	background: #white;
-	position: relative;
-	left: 10px;
-	top: 10px;
-	padding-bottom: 100px;
-}
-
-footer {
-	clear: both;
-	width: 1000px;
-	height: 100px;
-	background: #cee5fe;
-	position: relative;
-	margin-top: -100px;
-}
-
 #writebutton {
 	width: 100px;
 	height: 35px;
@@ -218,7 +167,7 @@ a {
 				</table>
 
 				<!-- 페이징-->
-				<div id="pagination" style="position: relative; left: 180px; top: 20px;">
+				<div id="pagination">
 					<ui:pagination paginationInfo="${paginationInfo }" type="text" jsFunction="linkPage"/>
 				</div> <!-- end of pagination -->
 

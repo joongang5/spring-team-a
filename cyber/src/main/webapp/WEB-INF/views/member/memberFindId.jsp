@@ -8,53 +8,8 @@
 <title>ID 찾기</title>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<link rel="stylesheet" href="<c:url value="/resources/css/base.css"/>">
 <style>
-@import
-	url('https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap')
-	;
-
-html {
-	font-family: 'Nanum Gothic', sans-serif;
-	color: #black;
-}
-
-body {
-	margin: 0;
-	padding: 0;
-}
-
-#wrap {
-	width: 1000px;
-	margin: 0 auto;
-}
-
-header {
-	width: 1000px;
-	height: 130px;
-	background: #white;
-}
-
-aside {
-	float: left;
-	width: 240px;
-	height: 600px;
-	background: #e3f0ff;
-}
-
-main {
-	float: left;
-	width: 760px;
-	height: 600px;
-	background: #white;
-}
-
-footer {
-	clear: both;
-	width: 1000px;
-	height: 100px;
-	background: #cee5fe;
-}
-
 #findbox {
 	background-color: #e3f0ff;
 	height: auto;
