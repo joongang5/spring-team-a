@@ -19,16 +19,21 @@ public class KakaoAPIServiceImpl {
 	
 	private final String CLIENT_ID = "c782430ad89e54421f7ab9c95375c500"; 
 	private final String REDIRECT_URI = "http://localhost:8080/cyber/member/onKakaoLoginCallback.do";
+	private final String BASE_URL_AUTH = "https://kauth.kakao.com/oauth/authorize";
 	private final String BASE_URL_TOKEN = "https://kauth.kakao.com/oauth/token";
 	private final String BASE_URL_PROFILE = "https://kapi.kakao.com/v2/user/me";
 	private final String KAKAO_LOGOUT_URL = "https://kauth.kakao.com/oauth/logout";
 	private final String LOGOUT_REDIRECT_URI = "http://localhost:8080/cyber/member/onKakaoLogout.do";
 	
 	public String requestAuth(HttpServletRequest request) throws UnsupportedEncodingException {
-		String kakaoUrl = "https://kauth.kakao.com/oauth/authorize?"
-			+ "client_id=" + CLIENT_ID + "&redirect_uri="
-			+ REDIRECT_URI + "&response_type=code";
-		return kakaoUrl;
+		HashMap<String, String> params = new HashMap<String, String>();
+		params.put("client_id", CLIENT_ID);
+		params.put("redirect_uri", REDIRECT_URI);
+		params.put("response_type", "code");
+		
+		String strParams = HttpURLConnUtil.parseParams(params);
+
+		return BASE_URL_AUTH + "?" + strParams;
 	}
 
 	@SuppressWarnings("unchecked")
