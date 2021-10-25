@@ -26,7 +26,9 @@ public class NaverAPIServiceImpl{
 	private final String BASE_URL_TOKEN = "https://nid.naver.com/oauth2.0/token";
 	private final String BASE_URL_PROFILE = "https://openapi.naver.com/v1/nid/me";
 	private final String REDIRECT_URI_AUTH = "http://localhost:8080/cyber/member/onNaverLoginCallback.do";
-
+//	private final String REDIRECT_URI_AUTH = "http://15.164.94.26:8080/cyber/member/onNaverLoginCallback.do";
+	
+		
 	public String requestAuth(HttpServletRequest request) throws UnsupportedEncodingException {
 		String redirectUri = URLEncoder.encode(REDIRECT_URI_AUTH, "UTF-8");
 		String state = new BigInteger(130, new SecureRandom()).toString();

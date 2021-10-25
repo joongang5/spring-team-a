@@ -18,12 +18,14 @@ import com.teama.api.util.HttpURLConnUtil;
 public class KakaoAPIServiceImpl {
 	
 	private final String CLIENT_ID = "c782430ad89e54421f7ab9c95375c500"; 
-	private final String REDIRECT_URI = "http://localhost:8080/cyber/member/onKakaoLoginCallback.do";
 	private final String BASE_URL_AUTH = "https://kauth.kakao.com/oauth/authorize";
 	private final String BASE_URL_TOKEN = "https://kauth.kakao.com/oauth/token";
 	private final String BASE_URL_PROFILE = "https://kapi.kakao.com/v2/user/me";
 	private final String KAKAO_LOGOUT_URL = "https://kauth.kakao.com/oauth/logout";
+	private final String REDIRECT_URI = "http://localhost:8080/cyber/member/onKakaoLoginCallback.do";
 	private final String LOGOUT_REDIRECT_URI = "http://localhost:8080/cyber/member/onKakaoLogout.do";
+//	private final String REDIRECT_URI = "http://15.164.94.26:8080/cyber/member/onKakaoLoginCallback.do";
+//	private final String LOGOUT_REDIRECT_URI = "http://15.164.94.26:8080/cyber/member/onKakaoLogout.do";
 	
 	public String requestAuth(HttpServletRequest request) throws UnsupportedEncodingException {
 		HashMap<String, String> params = new HashMap<String, String>();
