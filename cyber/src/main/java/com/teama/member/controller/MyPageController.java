@@ -71,6 +71,11 @@ public class MyPageController {
 	private ModelAndView ebookLoanList(HttpServletRequest request, CommandMap map) {
 		ModelAndView mv = new ModelAndView("ebook/ebookLoanList");
 		
+		if(request.getSession().getAttribute("id")==null) {
+			mv.setViewName("redirect:/member/memberLogin.do");
+			return mv;
+		}else {			
+	
 		int pageNo = 1;
 		
 		if (map.containsKey("pageNo")) {
@@ -113,6 +118,7 @@ public class MyPageController {
 		}
 		//System.out.println("last Map : "+map.getMap());
 		return mv;
+		}
 	}
 
 	@PostMapping(value="doReturn.do", produces="text/plain;charset=utf-8")
