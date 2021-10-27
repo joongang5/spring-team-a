@@ -173,17 +173,24 @@ th, td {
 		document.getElementById("content1").style.display = "none";
 		document.getElementById("content2").style.display = "none";
 	}
-	function checkReview() {
-	    var rating = document.review.rating;
-	    if(rating.value == '' ) {
-	        alert("별점을 클릭하세요.");
-	       	return false;
-	    }
-	    var review = document.getElementById('reviewCmt');
-	    if(document.review.reviewCmt.value == ''){
-	        alert('내용을 입력하세요.');
-	        return false;
-	    }
+	function checkReview(id) {
+		if(!id){
+	 		if(confirm("로그인이 필요한 기능입니다.\n로그인 페이지로 이동하시겠습니까?")){
+				location.href="/cyber/member/memberLogin.do";
+			}
+	 		return false;
+		}else{
+	   	 var rating = document.review.rating;
+	   	 if(rating.value == '' ) {
+	   	     alert("별점을 클릭하세요.");
+	   	    	return false;
+	   	 }
+	   	 var review = document.getElementById('reviewCmt');
+	   	 if(document.review.reviewCmt.value == ''){
+	       	 alert('내용을 입력하세요.');
+	       	 return false;
+	    	}
+		}
 	}
 
 	function onclickLoanBtn(bookNo) {
@@ -258,31 +265,38 @@ th, td {
 			<main>
 				<div id="mainTable">
 					<div style="border: 2px solid #464646;">
-					<h4 style="margin: 0px; padding: 10px 15px;background-color: #f4f4f4;">${ebookDetail.title}</h4><br>
-					<div style="position: absolute; padding: 6px 17px 10px;">
-					<img src="${ebookDetail.title_url}" style="height: 230px;border:1px solid #c5c5c5; "><br>
-					</div>
-					<div style="margin-left: 230px;line-height:1.8;">
-					저자 : ${ebookDetail.author}<br>
-					출판사 : ${ebookDetail.publisher}<br> ISBN : ${ebookDetail.isbn}<br>
-					출판일 : ${ebookDetail.datetime}<br> 가격 : ${ebookDetail.price}<br>
-					별점 : <img alt="star"
-						src="/cyber/resources/img/star${ebookReview.get(0).ratingSum }.png">
-					리뷰(
-					<c:if test="${ebookReview.get(0).reviewCount eq null }">0</c:if>${ebookReview.get(0).reviewCount })<br>
-					페이지 : ${ebookDetail.page}<br> 책 크기 : ${ebookDetail.book_size }<br>
-					<div id="bookStorage">도서현황 : 대출(${bookStorageDTO.loan_count }/${bookStorageDTO.max_count }),
-						예약(${bookStorageDTO.reserve_count }/${bookStorageDTO.max_count })</div>
-					</div>
+						<h4
+							style="margin: 0px; padding: 10px 15px; background-color: #f4f4f4;">${ebookDetail.title}</h4>
+						<br>
+						<div style="position: absolute; padding: 6px 17px 10px;">
+							<img src="${ebookDetail.title_url}"
+								style="height: 230px; border: 1px solid #c5c5c5;"><br>
+						</div>
+						<div style="margin-left: 230px; line-height: 1.8;">
+							저자 : ${ebookDetail.author}<br> 출판사 :
+							${ebookDetail.publisher}<br> ISBN : ${ebookDetail.isbn}<br>
+							출판일 : ${ebookDetail.datetime}<br> 가격 : ${ebookDetail.price}<br>
+							별점 : <img alt="star"
+								src="/cyber/resources/img/star${ebookReview.get(0).ratingSum }.png">
+							리뷰(
+							<c:if test="${ebookReview.get(0).reviewCount eq null }">0</c:if>${ebookReview.get(0).reviewCount })<br>
+							페이지 : ${ebookDetail.page}<br> 책 크기 : ${ebookDetail.book_size }<br>
+							<div id="bookStorage">도서현황 : 대출(${bookStorageDTO.loan_count }/${bookStorageDTO.max_count }),
+								예약(${bookStorageDTO.reserve_count }/${bookStorageDTO.max_count })</div>
+						</div>
 					</div>
 					<div class="btnGroup">
-						<button class="btn list" id="listBtn" onclick="location.href='/cyber/ebook/ebookMain.do';">목록</button>
+						<button class="btn list" id="listBtn"
+							onclick="location.href='/cyber/ebook/ebookMain.do';">목록</button>
 						<c:choose>
-							<c:when test="${bookStorageDTO.loan_count lt bookStorageDTO.max_count }">
-								<button class="btn themeBtn" onclick="onclickLoanBtn(${ebookDetail.no})">대여</button>
+							<c:when
+								test="${bookStorageDTO.loan_count lt bookStorageDTO.max_count }">
+								<button class="btn themeBtn"
+									onclick="onclickLoanBtn(${ebookDetail.no})">대여</button>
 							</c:when>
 							<c:otherwise>
-								<button class="btn themeBtn" onclick="onclickReserveBtn(${ebookDetail.no})">예약</button>
+								<button class="btn themeBtn"
+									onclick="onclickReserveBtn(${ebookDetail.no})">예약</button>
 							</c:otherwise>
 						</c:choose>
 						<button class="btn themeBtn2" onclick="">관심목록 담기</button>
@@ -303,8 +317,9 @@ th, td {
 					</div>
 					<div id="reviewArea">
 						<form name="review" id="review" method="post"
-							action="./ebookReview.do" onsubmit="return checkReview()">
-		
+							action="./ebookReview.do"
+							onsubmit="return checkReview(${sessionScope.id })">
+
 							<fieldset>
 								<legend>별점/리뷰</legend>
 								<div>
@@ -341,7 +356,7 @@ th, td {
 						<hr>
 						</c:forEach>
 					</div>
-		
+
 				</div>
 			</main>
 		</div>
