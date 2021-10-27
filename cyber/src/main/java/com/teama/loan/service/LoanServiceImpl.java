@@ -146,7 +146,7 @@ public class LoanServiceImpl implements LoanService {
 			reservedLoanDate = Util.getStrCurrentTime();
 		} else {
 			List<LoanDTO> loanDTOList = loanDAO.getLoanByBookNo(bookNo, LoanState.loan.getValue());
-			LoanDTO reservableLoanDTO = loanDTOList.get(bookStorageViewDTO.getReserve_count());
+			LoanDTO reservableLoanDTO = loanDTOList.get(0);
 			reservedLoanDate = reservableLoanDTO.getReturn_date();	
 		}
 		
