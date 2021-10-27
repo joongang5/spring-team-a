@@ -23,7 +23,28 @@ td img {
 }
 
 #SearchTarget {
-	margin-bottom: 25px;
+	background-color: #f2f4f7;
+	padding: 10px;
+	text-align: center;
+}
+
+#searchTarget {
+	width: 50px;
+	height: 30px;
+}
+
+#searchValue {
+	width: 300px;
+	height: 25px;
+}
+
+#search {
+	width: 50px;
+	height: 30px;
+	background-color: #534f4f;
+	color: white;
+	border: 0;
+	outline: 0;
 }
 </style>
 </head>
@@ -61,7 +82,7 @@ td img {
 			<main>
 				<div id="SearchTarget">
 					<form action="./ebookMain.do" method="GET">
-						<select name="searchTarget">
+						<select name="searchTarget" id="searchTarget">
 							<option value='title'
 								<c:if test="${searchTarget eq 'title'}">selected="selected"</c:if>>서명</option>
 							<option value='author'
@@ -70,7 +91,7 @@ td img {
 								<c:if test="${searchTarget eq 'publisher'}">selected="selected"</c:if>>출판사</option>
 							<option value='isbn'
 								<c:if test="${searchTarget eq 'isbn'}">selected="selected"</c:if>>ISBN</option>
-						</select> <input name="searchValue" value="${searchValue}" />
+						</select> <input name="searchValue" id ="searchValue" value="${searchValue}" />
 						<button id="search" type="submit">검색</button>
 					</form>
 				</div>
