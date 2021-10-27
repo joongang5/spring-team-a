@@ -20,10 +20,6 @@ th, td {
 	border: 1px solid #444444;
 }
 
-td img {
-	width: 100px
-}
-
 .btnGroup {
 	overflow: hidden;
 	position: relative;
@@ -261,8 +257,13 @@ td img {
 			</aside>
 			<main>
 				<div id="mainTable">
-					<img src="${ebookDetail.title_url}" style="width: 100px"><br>
-					제목 : ${ebookDetail.title}<br> 저자 : ${ebookDetail.author}<br>
+					<div style="border: 2px solid #464646;">
+					<h4 style="margin: 0px; padding: 10px 15px;background-color: #f4f4f4;">${ebookDetail.title}</h4><br>
+					<div style="position: absolute; padding: 6px 17px 10px;">
+					<img src="${ebookDetail.title_url}" style="height: 230px;border:1px solid #c5c5c5; "><br>
+					</div>
+					<div style="margin-left: 230px;line-height:1.8;">
+					저자 : ${ebookDetail.author}<br>
 					출판사 : ${ebookDetail.publisher}<br> ISBN : ${ebookDetail.isbn}<br>
 					출판일 : ${ebookDetail.datetime}<br> 가격 : ${ebookDetail.price}<br>
 					별점 : <img alt="star"
@@ -272,7 +273,8 @@ td img {
 					페이지 : ${ebookDetail.page}<br> 책 크기 : ${ebookDetail.book_size }<br>
 					<div id="bookStorage">도서현황 : 대출(${bookStorageDTO.loan_count }/${bookStorageDTO.max_count }),
 						예약(${bookStorageDTO.reserve_count }/${bookStorageDTO.max_count })</div>
-		
+					</div>
+					</div>
 					<div class="btnGroup">
 						<button class="btn list" id="listBtn" onclick="location.href='/cyber/ebook/ebookMain.do';">목록</button>
 						<c:choose>

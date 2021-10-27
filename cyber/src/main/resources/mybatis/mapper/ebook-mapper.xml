@@ -14,6 +14,7 @@
 		title,
 		title_url,
 		author,
+		datetime,
 		publisher,
 		isbn
 		FROM book

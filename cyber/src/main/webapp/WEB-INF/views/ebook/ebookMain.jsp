@@ -12,11 +12,10 @@
 <style>
 table {
 	width: 100%;
-	border: 1px solid #444444;
 }
 
 th, td {
-	border: 1px solid #444444;
+	border-bottom: 1px solid #c5c5c5;
 }
 
 td img {
@@ -24,7 +23,7 @@ td img {
 }
 
 #SearchTarget {
-	margin-bottom: 10px;
+	margin-bottom: 25px;
 }
 </style>
 </head>
@@ -85,28 +84,34 @@ td img {
 							</c:if>
 		
 							<table>
-								<tr>
-									<td>서명</td>
-									<td>표지</td>
-									<td>출판사</td>
-									<td>저자</td>
-									<td>ISBN</td>
-		
-								</tr>
 								<c:forEach items="${EbookList }" var="l">
-									<tr onclick="location.href='/cyber/ebook/ebookDetail.do?isbn=${l.isbn }'" style="cursor:pointer;">
-										<td>${l.title}
+								
+									<td>
+									<div style="position: absolute; border:1px solid #c5c5c5; ">
+									<a href="/cyber/ebook/ebookDetail.do?isbn=${l.isbn }">
+									<img src="${l.title_url}"> <c:if
+												test="${l.title_url eq null }">
+												<img src="/cyber/resources/img/thumbnail.gif">
+									</c:if>
+									</a>
+									</div>
+									<div style="margin-left: 125px;line-height:2;">
+									<strong><a href="/cyber/ebook/ebookDetail.do?isbn=${l.isbn }"> ${l.title}
 												<c:if test="${l.title eq null }">
 							제목없음
 							</c:if>
-										</td>
-										<td><img src="${l.title_url}"> <c:if
-												test="${l.title_url eq null }">
-												<img src="/cyber/resources/img/thumbnail.gif">
-											</c:if></td>
-										<td>${l.publisher}
-										<td>${l.author}</td>
-										<td>${l.isbn}</td>
+							</a>
+							</strong>
+							<br>
+										${l.author}<br>
+										출판사 : ${l.publisher}<br>
+										발행일 : ${l.datetime}<br>
+										ISBN : ${l.isbn}<br>
+									</div>
+									</td>
+								
+									<tr onclick="location.href='/cyber/ebook/ebookDetail.do?isbn=${l.isbn }'" style="cursor:pointer;">
+										
 									</tr>
 								</c:forEach>
 							</table>
