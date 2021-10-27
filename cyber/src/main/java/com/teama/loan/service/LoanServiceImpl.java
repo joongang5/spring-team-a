@@ -123,7 +123,7 @@ public class LoanServiceImpl implements LoanService {
 	// 예약 기본 로직
 	@Override
 	public String reserve(int bookNo, int memberNo) {
-		// 이미 예약한 책인 경우 예약이 불가합니다.
+		// 이미 대출한 책인 경우 예약이 불가합니다.
 		LoanDTO loanDTO = loanDAO.getLoanByMemberNoAndBookNo(bookNo, memberNo, LoanState.loan.getValue());
 		if (loanDTO != null)
 			return "이미 대출한 책입니다.";	
@@ -141,12 +141,16 @@ public class LoanServiceImpl implements LoanService {
 		// 대출 예정일을 계산합니다.
 		// 대출된 목록 중 예약 대기 순서와 일치하는 것의 반납 날짜를 기준으로 결정됩니다.
 		String reservedLoanDate;
-		// 예약은 모든 대출이 나간 이후에 가능하지만 테스트를 위해 체크합니다.
-		if (bookStorageViewDTO.getLoan_count() <= bookStorageViewDTO.getReserve_count()) {
+		// 사용자의 예약 버튼은 모든 대출이 나간 이후에 활성화 되지만 안전을 위해 체크합니다.
+		if (bookStorageViewDTO.isLoanable()) {
+			// 대출이 가능한 상태였다면 현재 시간으로 예약시킵니다.
 			reservedLoanDate = Util.getStrCurrentTime();
 		} else {
+			// 반납 시간이 빠른 순서대로 리스트를 얻어옵니다.
 			List<LoanDTO> loanDTOList = loanDAO.getLoanByBookNo(bookNo, LoanState.loan.getValue());
-			LoanDTO reservableLoanDTO = loanDTOList.get(0);
+			// 현재 대출이 모두 나간 상태, 예약이 다 차지 않은 상태입니다.
+			// 인덱스 접근이기 때문에 -1 계산합니다.
+            LoanDTO reservableLoanDTO = loanDTOList.get(bookStorageViewDTO.getReserve_count() - 1);
 			reservedLoanDate = reservableLoanDTO.getReturn_date();	
 		}
 		
@@ -170,20 +174,10 @@ public class LoanServiceImpl implements LoanService {
 		return "";
 	}
 
+	// 반납 기본 로직
 	@Override
 	public String doReturn(int no) {
 		LoanDTO loanDTO = loanDAO.getLoan(no);
-		return doReturnProc(loanDTO);
-	}
-	
-	@Override
-	public String doReturn(int bookNo, int memberNo) {
-		LoanDTO loanDTO = loanDAO.getLoanByMemberNoAndBookNo(bookNo, memberNo, LoanState.loan.getValue());
-		return doReturnProc(loanDTO);
-	}
-
-	// 반납 기본 로직
-	private String doReturnProc(LoanDTO loanDTO) {
 		if (loanDTO == null)
 			return "대출 정보를 찾을 수 없습니다.";
 		
@@ -210,24 +204,19 @@ public class LoanServiceImpl implements LoanService {
 		
 		return "";
 	}
-	
+
+	// 연장 기본 로직
 	@Override
 	public String doExtend(int no) {
 		LoanDTO loanDTO = loanDAO.getLoan(no);
-		return doExtendProc(loanDTO);
-	}
-	
-	@Override
-	public String doExtend(int bookNo, int memberNo) {
-		LoanDTO loanDTO = loanDAO.getLoanByMemberNoAndBookNo(bookNo, memberNo, LoanState.loan.getValue());
-		return doExtendProc(loanDTO);
-	}
-
-	// 연장 기본 로직
-	private String doExtendProc(LoanDTO loanDTO) {
 		if (loanDTO == null)
 			return "대출 정보를 찾을 수 없습니다.";
-		  
+		 
+		// 예약이 하나라도 걸려있다면 연장할 수 없습니다.
+		BookStorageDTO bookStorageDTO = bookStorageDAO.getBook(loanDTO.getBook_no());
+		if (bookStorageDTO.getReserve_count() > 0)
+			return "예약이 걸려있어 연장할 수 없습니다.";
+		
 		int additiveDay = 1;
 		loanDTO.setReturn_date(Util.getStrAdditiveTime(loanDTO.getReturn_date(), additiveDay));
 

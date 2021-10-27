@@ -126,12 +126,13 @@ public class AdminLoanController {
 	@PostMapping(value="returnAJAX.do", produces="text/plain;charset=utf-8")
 	@ResponseBody
 	public String returnAJAX(CommandMap commandMap) {
+		int no = commandMap.getIntValue("no");
 		int bookNo = commandMap.getIntValue("bookNo");
 		int memberNo = commandMap.getIntValue("memberNo");
 
 		JSONObject jsonObj = new JSONObject();
 		
-		String errorMessage = loanService.doReturn(bookNo, memberNo);
+		String errorMessage = loanService.doReturn(no);
 		jsonObj.put("errorMessage", errorMessage);
 		
 		List<Map<String, Object>> loanViewDTOList = loanService.getViewMapListByMemberNo(memberNo);

@@ -103,14 +103,14 @@ function onclickReserveBtn() {
 	});	
 }
 
-function onclickReturnBtn(bookNo) {
+function onclickReturnBtn(no, bookNo) {
 	var memberNo = $("input[name=memberNo]").val();
 	
 	$.ajax({
 		url : "/cyber/admin/loan/returnAJAX.do",
 		type : "POST",
 		dataType : "json",
-		data : { "bookNo" : bookNo, "memberNo" : memberNo },
+		data : { "no" : no, "bookNo" : bookNo, "memberNo" : memberNo },
 		success : function(data) {
 			if (data.errorMessage != "") {
 				alert(data.errorMessage);

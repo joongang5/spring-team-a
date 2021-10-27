@@ -78,7 +78,7 @@
 						<td>${l.state }</td>
 						<td>
 							<c:if test="${l.state == 0 }">
-								<button type="button" onclick="onclickReturnBtn(${l.book_no})">반납</button>
+								<button type="button" onclick="onclickReturnBtn(${l.no}, ${l.book_no })">반납</button>
 							</c:if>
 						</td>
 					</tr>

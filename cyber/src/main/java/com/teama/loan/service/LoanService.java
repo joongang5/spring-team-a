@@ -19,9 +19,7 @@ public interface LoanService {
 	public String loan(int bookNo, int memberNo);
 	public String reserve(int bookNo, int memberNo);
 	public String doReturn(int no);
-	public String doReturn(int bookNo, int memberNo);
 	public String doExtend(int no);
-	public String doExtend(int bookNo, int memberNo);
 	public String autoLoan();
 	public String autoReturn();
 	public int totalCount(Map<String, Object> map);
