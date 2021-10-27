@@ -149,8 +149,7 @@ public class LoanServiceImpl implements LoanService {
 			// 반납 시간이 빠른 순서대로 리스트를 얻어옵니다.
 			List<LoanDTO> loanDTOList = loanDAO.getLoanByBookNo(bookNo, LoanState.loan.getValue());
 			// 현재 대출이 모두 나간 상태, 예약이 다 차지 않은 상태입니다.
-			// 인덱스 접근이기 때문에 -1 계산합니다.
-            LoanDTO reservableLoanDTO = loanDTOList.get(bookStorageViewDTO.getReserve_count() - 1);
+            LoanDTO reservableLoanDTO = loanDTOList.get(bookStorageViewDTO.getReserve_count());
 			reservedLoanDate = reservableLoanDTO.getReturn_date();	
 		}
 		
