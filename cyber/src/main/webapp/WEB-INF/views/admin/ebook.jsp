@@ -82,6 +82,7 @@ function bookAdd(){
 		});
 	}
 }
+
 </script>
 </head>
 <body>
@@ -106,15 +107,11 @@ function bookAdd(){
 					</table>
 					<div class="search_btns">
 						<button type="submit">검색</button>
-						<button type="button" onclick="bookAdd()">도서 등록</button>
+						<button type="button" onclick="bookAdd()">선택한 도서 등록</button>
 						<button type="reset">초기화</button>
 					</div>
 				</form>
-				<div class="util_btns">
-					<button type="button" onclick="registBestBook()">인기도서일괄등록</button>
-					<button type="button" onclick="registRecommendBook()">사서추천일괄등록</button>
-				</div>
-				<hr>	
+				<br>	
 			
 				<table class="table_list">
 					<thead>
@@ -133,7 +130,9 @@ function bookAdd(){
 					<tbody id="tbody">
 						<c:forEach items="${ebookDTOList }" var="l">
 						<tr>
-						<td><input name="RowCheck" type="checkbox" value="${l.isbn}"/></td>
+							<td>
+								<input name="RowCheck" type="checkbox" value="${l.isbn}"/>
+							</td>
 							<td>${l.title}</td>
 							<td>${l.author}</td>
 							<td>${l.publisher}</td>

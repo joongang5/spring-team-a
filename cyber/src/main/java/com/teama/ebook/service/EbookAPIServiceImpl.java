@@ -44,6 +44,8 @@ public class EbookAPIServiceImpl implements EbookAPIService {
 		params.put("result_style", "json");
 		params.put("page_size", "10");
 		params.put("page_no", String.valueOf(map.get("pageNo")));
+		params.put("sort", "INPUT_DATE");
+		params.put("order_by", "DESC");
 		//System.out.println(String.valueOf(map.get("pageNo")));
 		if (map.get("searchValue") != null) {
 			params.put((String) map.get("searchType"), (String) map.get("searchValue"));
@@ -58,23 +60,25 @@ public class EbookAPIServiceImpl implements EbookAPIService {
 			List<EbookDTO> info = new ArrayList<EbookDTO>();
 			for (int i = 0; i < docsMap.size(); i++) {
 				EbookDTO docs = new EbookDTO();
-					docs.setIsbn((String) docsMap.get(i).get("EA_ISBN"));
-					docs.setTitle((String) docsMap.get(i).get("TITLE"));
-					docs.setTitle_url((String) docsMap.get(i).get("TITLE_URL"));
-					docs.setAuthor((String) docsMap.get(i).get("AUTHOR"));
-					docs.setPublisher((String) docsMap.get(i).get("PUBLISHER"));
-					docs.setDatetime((String) docsMap.get(i).get("INPUT_DATE"));
-					docs.setPrice((String) docsMap.get(i).get("PRE_PRICE"));
-					docs.setPage((String) docsMap.get(i).get("PAGE"));
-					docs.setBook_size((String) docsMap.get(i).get("BOOK_SIZE"));
-					info.add(docs);
+				docs.setIsbn((String) docsMap.get(i).get("EA_ISBN"));
+				docs.setTitle((String) docsMap.get(i).get("TITLE"));
+				docs.setTitle_url((String) docsMap.get(i).get("TITLE_URL"));
+				docs.setAuthor((String) docsMap.get(i).get("AUTHOR"));
+				docs.setPublisher((String) docsMap.get(i).get("PUBLISHER"));
+				docs.setDatetime((String) docsMap.get(i).get("INPUT_DATE"));
+				docs.setPrice((String) docsMap.get(i).get("PRE_PRICE"));
+				docs.setPage((String) docsMap.get(i).get("PAGE"));
+				docs.setBook_size((String) docsMap.get(i).get("BOOK_SIZE"));
+				info.add(docs);
 			}
-			if(!jsonObject.get("TOTAL_COUNT").equals("0")) {
-				info.get(0).setTotalCount(Integer.valueOf((String)jsonObject.get("TOTAL_COUNT")));
+			
+			int totalCount = Integer.valueOf((String)jsonObject.get("TOTAL_COUNT"));  
+			if (totalCount > 0) {
+				info.get(0).setTotalCount(totalCount);
 				return info;
-			}else {
-				if(info.size()!=0) {
-					info.get(0).setTotalCount(0);
+			} else {
+				if (info.size() > 0) {
+					info.get(0).setTotalCount(info.size());
 				}
 			}
 			//jsonObject.remove("docs");

@@ -103,27 +103,30 @@ public class AdminEbookController {
 	@PostMapping("registBook.do")
 	@ResponseBody
 	public String registBook(CommandMap commandMap, HttpServletRequest request) throws Exception {
-		
+		int failedCount = 0;
 		String searchType = "isbn";
 		String[] valueArr = request.getParameterValues("valueArr");
 		for (String searchValue : valueArr) {
 			List<EbookDTO> bookInfo = ebookAPIService.searchEbook(searchType, searchValue, 1);
 
-			for (EbookDTO list : bookInfo) {
-				if (list.getTitle_url().equals("")) {
-					List<Map<String, Object>> kakao = ebookAPIService.ebookSearchKakao(list.getIsbn());
+			for (EbookDTO info : bookInfo) {
+				if (info.getTitle_url().equals("")) {
+					List<Map<String, Object>> kakao = ebookAPIService.ebookSearchKakao(info.getIsbn());
 					// 도서 썸네일 없을시 카카오에서 가져와서 저장
 					if (kakao != null) {
-						list.setTitle_url((String) kakao.get(0).get("thumbnail"));
+						info.setTitle_url((String) kakao.get(0).get("thumbnail"));
+						break;
 					} else {
-						list.setTitle_url(null);
+						info.setTitle_url(null);
 					}
 				}
 			}
 			
-			ebookService.insertBook(bookInfo.get(0));
+			int insertResult = ebookService.insertBook(bookInfo.get(0));
+			if (insertResult == 0)
+				failedCount++;
 		}
-		String result = String.valueOf(valueArr.length);
+		String result = String.valueOf(valueArr.length - failedCount);
 		//System.out.println(result);
 		return result;
 	}

@@ -48,7 +48,7 @@
 					<button type="button" onclick="onclickAutoLoanBtn()">자동 대출 실행</button>
 					<button type="button" onclick="onclickAutoReturnBtn()">자동 반납 실행</button>
 				</div>
-				<hr>	
+				<br>	
 			
 				<table class="table_list">
 					<thead>

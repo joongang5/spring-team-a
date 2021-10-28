@@ -28,6 +28,17 @@ public class EbookServiceImpl implements EbookService {
 
 	@Override
 	public int insertBook(EbookDTO map) {
+		String isbn = map.getIsbn();
+		if (isbn.isEmpty())
+			return 0;
+		
+		if (map.getTitle().isEmpty())
+			return 0;
+		
+		EbookDTO ebookDTO = ebookDAO.getEbookByISBN(isbn);
+		if (ebookDTO != null)
+			return 0;
+		
 		return ebookDAO.insertBook(map);
 	}
 
