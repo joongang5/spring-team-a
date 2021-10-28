@@ -7,13 +7,16 @@
 		SELECT * <!-- 1021 성능 신경 안쓰고 모두 반환 -->
 		FROM loginview
 		WHERE
-		id=#{id} AND pw=HEX(AES_ENCRYPT(#{salt},SHA2(#{pw},512)))
+		id=#{id} AND
+		pw=HEX(AES_ENCRYPT(#{salt},SHA2(#{pw},512)))
 	</select>
 
 	<insert id="join" parameterType="HashMap">
 		INSERT INTO member (name, id,
 		pw, email, platform, salt)
-		VALUES(#{name}, #{id}, HEX(AES_ENCRYPT(#{salt},SHA2(#{pw},512))), #{email}, #{platform}, #{salt})
+		VALUES(#{name}, #{id},
+		HEX(AES_ENCRYPT(#{salt},SHA2(#{pw},512))), #{email}, #{platform},
+		#{salt})
 	</insert>
 
 	<select id="idCheck" parameterType="String" resultType="String">
@@ -33,11 +36,13 @@
 	</select>
 
 	<select id="getTotalCount" resultType="int">
-		SELECT COUNT(*) FROM member;
+		SELECT COUNT(*) FROM
+		member;
 	</select>
-	
+
 	<select id="todayJoinCount" resultType="int">
-		SELECT COUNT(*) FROM member WHERE join_date >= CURDATE();
+		SELECT COUNT(*) FROM
+		member WHERE join_date >= CURDATE();
 	</select>
 
 	<select id="findId" parameterType="String" resultType="String">
@@ -48,23 +53,34 @@
 	</select>
 
 	<select id="findPw" parameterType="String" resultType="String">
-		SELECT pw
+		SELECT
+		pw=HEX(AES_ENCRYPT(#{salt},SHA2(#{pw},512)))
 		FROM member
 		WHERE
 		id=#{id}
 	</select>
 
+	<update id="updatePw" parameterType="HashMap">
+		UPDATE member SET
+		pw=HEX(AES_ENCRYPT(#{salt},SHA2(#{pw},512)))
+		WHERE id=#{id}
+	</update>
+
 	<select id="getMemberList" resultType="memberDTO">
 		SELECT * FROM member
 	</select>
 
-	<select id="getPagingMemberList" resultType="memberDTO" parameterType="hashmap">
-		SELECT * FROM member LIMIT #{firstIndex}, #{recordCountPerPage}
+	<select id="getPagingMemberList" resultType="memberDTO"
+		parameterType="hashmap">
+		SELECT * FROM member LIMIT #{firstIndex},
+		#{recordCountPerPage}
 	</select>
-	
-	<select id="getRecentlyMemberList" parameterType="int" resultType="memberDTO">
-		SELECT * FROM member ORDER BY join_date DESC LIMIT #{limitCount}
-	</select>	
+
+	<select id="getRecentlyMemberList" parameterType="int"
+		resultType="memberDTO">
+		SELECT * FROM member ORDER BY join_date DESC LIMIT
+		#{limitCount}
+	</select>
 
 	<select id="getMemberByNo" parameterType="Integer"
 		resultType="memberDTO">
@@ -90,16 +106,20 @@
 		resultType="memberDTO">
 		SELECT * FROM member WHERE join_date=#{joinDate}
 	</select>
-	
+
 	<update id="memberUpdate" parameterType="memberDTO">
-		UPDATE member SET pw=HEX(AES_ENCRYPT(#{salt},SHA2(#{pw},512))), email=#{email} WHERE no=#{no}
+		UPDATE member SET
+		pw=HEX(AES_ENCRYPT(#{salt},SHA2(#{pw},512))), email=#{email} WHERE
+		no=#{no}
 	</update>
-	
+
 	<select id="getSalt" parameterType="String" resultType="String">
-		SELECT salt FROM member WHERE id=#{id}
+		SELECT
+		salt FROM member WHERE id=#{id}
 	</select>
-	
-	<select id="encryptPw" parameterType="HashMap" resultType="String">
+
+	<select id="encryptPw" parameterType="HashMap"
+		resultType="String">
 		SELECT HEX(AES_ENCRYPT(#{salt},SHA2(#{pw},512))) FROM dual
 	</select>
 </mapper>

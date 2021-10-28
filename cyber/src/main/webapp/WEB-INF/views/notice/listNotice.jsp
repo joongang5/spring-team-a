@@ -36,7 +36,6 @@ function linkPage(pageNo) {
 }
 
 /* 본문 */
-
 h1 {
 	color: #4c85d6;
 }
@@ -116,19 +115,22 @@ a {
 			<aside>
 				<c:import url="/WEB-INF/views/component/lnbNav.jsp" />
 			</aside>
-			
+
 			<main>
 				<div id="naviandtitle">
 					<div id="navi">
-						<a href="../index.do">Home</a>><strong>공지사항</strong>
-					</div> <!-- end of navi -->
+						<a href="../index.do">Home</a>&nbsp;>&nbsp;<strong>공지사항</strong>
+					</div>
+					<!-- end of navi -->
 					<h1>공지사항</h1>
-				</div> <!-- end of naviandtitle -->
-		
+				</div>
+				<!-- end of naviandtitle -->
+
 				<!-- 검색 기능 -->
 				<div id="searchBox">
 					<form action="./listNotice.do" id="pageSearch" method="get">
-						<select name="searchCondition" id="searchCondition" title="검색방법 선택">
+						<select name="searchCondition" id="searchCondition"
+							title="검색방법 선택">
 							<option value="title"
 								<c:if test="${searchCondition eq 'title' }">selected="selected"</c:if>>
 								제목</option>
@@ -139,8 +141,9 @@ a {
 							id="searchKeyword" title="검색어 입력" placeholder="검색어를 입력해주세요.">
 						<button type="submit" id="searchBtn">검색</button>
 					</form>
-				</div> <!-- end of searchBox -->
-		
+				</div>
+				<!-- end of searchBox -->
+
 				<!-- 공지사항 list -->
 				<div id="noticeBoard">
 					<table>
@@ -165,22 +168,25 @@ a {
 							</c:forEach>
 						</tbody>
 					</table>
-		
+
 					<!-- 페이징-->
 					<div id="pagination">
-						<ui:pagination paginationInfo="${paginationInfo }" type="text" jsFunction="linkPage"/>
-					</div> <!-- end of pagination -->
-		
+						<ui:pagination paginationInfo="${paginationInfo }" type="text"
+							jsFunction="linkPage" />
+					</div>
+					<!-- end of pagination -->
+
 					<!-- 글쓰기 버튼 관리자(9등급)만 보이게 -->
 					<c:if test="${sessionScope.grade eq 9 }">
 						<a href="./noticeWrite.do"><button id="writebutton">글쓰기</button></a>
 					</c:if>
-		
-				</div> <!-- end of noticeBoard -->
+
+				</div>
+				<!-- end of noticeBoard -->
 			</main>
 		</div>
 	</div>
-	
+
 	<footer>
 		<c:import url="/WEB-INF/views/component/footer.jsp" />
 	</footer>

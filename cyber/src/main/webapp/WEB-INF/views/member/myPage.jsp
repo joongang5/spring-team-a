@@ -11,10 +11,11 @@
 <style>
 .serviceBox {
 	margin: 0 auto;
-	padding: 0;
+	margin-top: -14px; padding : 0;
 	width: 90%;
 	height: 40%;
 	background-color: #ebf7fa;
+	padding: 0;
 }
 
 .b {
@@ -59,9 +60,9 @@
 	<header>
 		<c:import url="/WEB-INF/views/component/headerInner.jsp" />
 	</header>
-	
+
 	<div class="container">
-		<div class="row">	
+		<div class="row">
 			<aside>
 				<c:import url="/WEB-INF/views/component/lnbNav.jsp" />
 			</aside>
@@ -69,9 +70,10 @@
 				<c:choose>
 					<c:when test="${sessionScope.id ne null}">
 						<div class="serviceBox">
-							<h2 style="position: relative; left: 10px; top: 10px;">나의 서비스
-								이용현황</h2>
-							<div style="position: relative; left: 10px;">
+							<h2 style="position: relative; left: 10px; top: 10px;">나의
+								서비스 이용현황</h2>
+							<div
+								style="position: relative; left: 10px; padding-bottom: 20px;">
 								<b>${sessionScope.name }</b>님은 <b>전자책</b> 서비스를 이용하실 수 있습니다.
 							</div>
 						</div>
@@ -79,8 +81,9 @@
 							<div class="ebBox">
 								<a href="ebookLoanList.do"
 									style="text-decoration: none; color: black; position: relative; top: 10px;">
-									<img src="../resources/img/monitor.png"><br> 전자책 대출현황<br>
-									대출권수 ${ltotalCount }권<br> 예약권수 ${reserveCount }권
+									<img src="../resources/img/monitor.png"><br> 전자책
+									대출현황<br> 대출권수 ${ltotalCount }권<br> 예약권수
+									${reserveCount }권
 								</a>
 							</div>
 							<div class="qtBox">
@@ -102,7 +105,7 @@
 			</main>
 		</div>
 	</div>
-	
+
 	<footer>
 		<c:import url="/WEB-INF/views/component/footer.jsp" />
 	</footer>

@@ -3,32 +3,47 @@
 <style type="text/css">
 #lnbNav {
 	text-decoration: none;
-	background-color: #e3f0ff;
+	background-color: white;
+	background: white;
 	width: 200px;
+	margin-top: 15px;
 }
 
 #lnb {
 	list-style: none;
 	margin: 0 auto;
 	padding: 0 auto;
-	background: #e3f0ff;
+	background: white;
 	text-decoration: none;
+	font-size: 18px;
+	text-align: left;
+	vertical-align: bottom;
 }
 
 #lnbWrap {
 	text-decoration: none;
 	background-color: white;
+	position: relative;
+	left: 25px;
 }
 
 #lnbTitle {
 	text-decoration: none;
 	background-color: #e3f0ff;
 	margin: 0;
+	margin-left: 20px;
+	width: 200px;
+	padding-bottom: 1px;
+	padding-top: 1px;
+	text-align: center;
+	border-radius: 20px;
 }
 
 a {
+	height: 40px;
 	text-decoration: none;
 	color: black;
+	padding-top: 9px;
 }
 
 a:link {
@@ -39,6 +54,25 @@ a:link {
 a:visited {
 	color: black;
 	text-decoration: none;
+}
+
+#lnbWrap li a {
+	display: block;
+	border-left: 5px solid;
+	position: relative;
+	z-index: 2;
+	box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	border-left: 10px solid #ffe4f3;
+}
+
+#lnbWrap li a:hover {
+	width: 150px;
+	border-bottom: 0px;
+	color: white;
+	background: #ffe4f3;
+	transition: 0.5s;
 }
 </style>
 <script>
@@ -57,12 +91,12 @@ a:visited {
 
 	function getNaviMap() {
 		var pathname = window.location.pathname;
-		if (pathname.indexOf("/cyber/member/") != -1) {
-			return getMemberNaviMap();
+		if (pathname.indexOf("/cyber/ebook/") != -1) {
+			return getEbookNaviMap();
 		} else if (pathname.indexOf("/cyber/myPage/") != -1) {
 			return getMyPageNaviMap();
 		}
-		return getEbookNaviMap();
+		return getMemberNaviMap();
 	}
 
 	function getMemberNaviMap() {
@@ -96,7 +130,8 @@ a:visited {
 		<h2>&nbsp;Menu</h2>
 	</div>
 	<div id="lnbWrap">
-		<ul id="lnb" style="font-size: 18px; text-align: left;">
+		<ul>
+			<li id="lnb"></li>
 		</ul>
 	</div>
 </div>

@@ -32,6 +32,7 @@ input {
 #buttonbox {
 	margin-top: 35px;
 	text-align: center;
+	padding-bottom: 10px;
 }
 
 button {
@@ -90,7 +91,7 @@ button {
 	<header>
 		<c:import url="/WEB-INF/views/component/headerInner.jsp" />
 	</header>
-	
+
 	<div class="container">
 		<div class="row">
 			<aside>
@@ -98,7 +99,7 @@ button {
 			</aside>
 			<main>
 				<div id="findbox">
-					<h4 style="text-align: center; position: relative; top: 10px;">ID를
+					<h4 style="text-align: center; position: relative; top: 20px;">ID를
 						찾기 위해 가입한 이름과 이메일을 입력해주세요.</h4>
 					<div id="inputbox">
 						<div>
@@ -115,7 +116,7 @@ button {
 			</main>
 		</div>
 	</div>
-	
+
 	<footer>
 		<c:import url="/WEB-INF/views/component/footer.jsp" />
 	</footer>

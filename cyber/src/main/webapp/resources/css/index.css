@@ -16,6 +16,7 @@ main {
 	}
 }
 
+/* best list */
 .slider {
 	width: 640px;
 	height: 400px;
@@ -123,6 +124,7 @@ ul.imgs li {
 	z-index: 1;
 }
 
+/* new list */
 ul.newImgs {
 	padding: 0;
 	margin: 0;
@@ -145,6 +147,7 @@ li {
 	width: 100px;
 }
 
+/* event slide */
 .slideshow-container {
 	width: 600px;
 	position: relative;
@@ -190,6 +193,8 @@ to {
 }
 
 }
+
+/* calendar */
 #calendar {
 	margin-left: auto;
 	margin-right: auto;
