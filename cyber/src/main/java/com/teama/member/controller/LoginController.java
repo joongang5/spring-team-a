@@ -91,17 +91,8 @@ public class LoginController {
 			session.removeAttribute("grade"); //1013 소영 grade 세션 추가
 
 			Object platformObj = session.getAttribute("platform");
-			int platform = Util.parseInt(platformObj);
-			session.removeAttribute("platform");
-			
-			if (platform == 1) {
-				Object accessTokenObj = session.getAttribute("accessToken");
-				String accessToken = String.valueOf(accessTokenObj);
-				naverAPIService.requestLogout(accessToken);
-				session.removeAttribute("accessToken"); 
-			} else if (platform == 2) {
+			if (Util.parseInt(platformObj) == 2)
 				return "redirect:" + kakaoAPIService.requestLogoutAuth();
-			}
 		}
 		
 		return "redirect:/index.do";
@@ -146,7 +137,6 @@ public class LoginController {
 				session.setAttribute("memberNo", memberDTO.getNo());
 				session.setAttribute("grade", memberDTO.getGrade());
 				session.setAttribute("platform", memberDTO.getPlatform());
-				session.setAttribute("accessToken", accessToken);
 			}
 		}
 
