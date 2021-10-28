@@ -100,4 +100,15 @@ public class NaverAPIServiceImpl{
 		
 		return profileMap;
 	}
+	
+	public void requestLogout(String accessToken) {
+		HashMap<String, String> params = new HashMap<String, String>();
+		params.put("grant_type", "delete");
+		params.put("client_id", CLIENT_ID);
+		params.put("client_secret", CLIENT_SECRET);
+		params.put("access_token", accessToken);
+		params.put("service_provider", "NAVER");
+		
+		HttpURLConnUtil.doGetRequest(BASE_URL_TOKEN, null, params);
+	}
 }
