@@ -30,17 +30,21 @@ public class MemberDAO extends AbstractDAO {
 	public int getTotalCount() {
 		return sqlSession.selectOne("member.getTotalCount");
 	}
-	
+
 	public int todayJoinCount() {
 		return sqlSession.selectOne("member.todayJoinCount");
 	}
-	
+
 	public String findId(String email) {
 		return sqlSession.selectOne("member.findId", email);
 	}
 
 	public String findPw(String id) {
 		return sqlSession.selectOne("member.findPw", id);
+	}
+
+	public int updatePw(Map<String, Object> map) {
+		return sqlSession.update("member.updatePw", map);
 	}
 
 	public MemberDTO getMemberByNo(int no) {
@@ -50,23 +54,21 @@ public class MemberDAO extends AbstractDAO {
 	public MemberDTO getMemberById(String id) {
 		return sqlSession.selectOne("member.getMemberById", id);
 	}
-	
+
 	public List<MemberDTO> getMemberList() {
 		return sqlSession.selectList("member.getMemberList");
 	}
-	
+
 	public List<MemberDTO> getMemberList(int firstIndex, int recordCountPerPage) {
-		Map<String, Object> map = Map.of(
-				"firstIndex", firstIndex,
-				"recordCountPerPage", recordCountPerPage);
-				
+		Map<String, Object> map = Map.of("firstIndex", firstIndex, "recordCountPerPage", recordCountPerPage);
+
 		return sqlSession.selectList("member.getPagingMemberList", map);
 	}
-	
+
 	public List<MemberDTO> getRecentlyMemberList(int limitCount) {
 		return sqlSession.selectList("member.getRecentlyMemberList", limitCount);
 	}
-	
+
 	public List<MemberDTO> getMemberListByNo(int no) {
 		return sqlSession.selectList("member.getMemberByNo", no);
 	}

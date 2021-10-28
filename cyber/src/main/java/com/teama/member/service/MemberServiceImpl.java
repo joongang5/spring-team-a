@@ -17,7 +17,7 @@ public class MemberServiceImpl implements MemberService {
 	private MemberDAO memberDAO;
 
 	public int join(Map<String, Object> map) {
-		map.put("salt",Util.generateSalt());
+		map.put("salt", Util.generateSalt());
 		return memberDAO.join(map);
 	}
 
@@ -35,20 +35,25 @@ public class MemberServiceImpl implements MemberService {
 	public int getTotalCount() {
 		return memberDAO.getTotalCount();
 	}
-	
+
 	@Override
 	public int todayJoinCount() {
 		return memberDAO.todayJoinCount();
 	}
-	
+
 	@Override
 	public String findId(String email) {
 		return memberDAO.findId(email);
 	}
-	
+
 	@Override
 	public String findPw(String id) {
 		return memberDAO.findPw(id);
+	}
+
+	@Override
+	public int updatePw(Map<String, Object> map) {
+		return memberDAO.updatePw(map);
 	}
 
 	@Override
@@ -60,7 +65,7 @@ public class MemberServiceImpl implements MemberService {
 	public MemberDTO getMemberById(String id) {
 		return memberDAO.getMemberById(id);
 	}
-	
+
 	@Override
 	public List<MemberDTO> getMemberList() {
 		return memberDAO.getMemberList();
@@ -70,7 +75,7 @@ public class MemberServiceImpl implements MemberService {
 	public List<MemberDTO> getMemberList(int firstIndex, int recordCountPerPage) {
 		return memberDAO.getMemberList(firstIndex, recordCountPerPage);
 	}
-	
+
 	@Override
 	public List<MemberDTO> getRecentlyMemberList(int limitCount) {
 		return memberDAO.getRecentlyMemberList(limitCount);
@@ -97,7 +102,7 @@ public class MemberServiceImpl implements MemberService {
 
 		return result;
 	}
-	
+
 	@Override
 	public int memberUpdate(MemberDTO memberDTO) {
 		return memberDAO.memberUpdate(memberDTO);

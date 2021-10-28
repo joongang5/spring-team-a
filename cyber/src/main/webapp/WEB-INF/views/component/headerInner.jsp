@@ -85,6 +85,7 @@ h1.logo {
 
 a {
 	color: black;
+	text-decoration: none;
 }
 
 img {

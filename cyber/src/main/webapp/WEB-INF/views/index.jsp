@@ -131,45 +131,32 @@
 	}
 </script>
 <script type="text/javascript">
-	$(".prev").on("click", function(e) {
-		e.preventDefault();
-		var imgOn = $(".imgBox").find(".on").index();
-		var imgLen = $(".imgBox .img").length;
-		console.log(imgOn)
+	var slideIndex = 0;
+	var len = $(".slider ul li").length;
 
-		$(".imgBox .img").eq(imgOn).removeClass("on");
-		$(".imgBox .img").eq(imgOn).css("opacity", 0);
-		imgOn = imgOn - 1;
+	function prev() {
+		slideIndex = slideIndex - 1;
 
-		if (imgOn < 0) {
-			$(".imgBox .img").eq(imgLen - 1).css("opacity", 1);
-			$(".imgBox .img").eq(imgLen - 1).addClass("on");
-
-		} else {
-			$(".imgBox .img").eq(imgOn).css("opacity", 1);
-			$(".imgBox .img").eq(imgOn).addClass("on");
+		if (slideIndex < 0) {
+			slideIndex = len - 1;
 		}
-	});
 
-	$(".next").on("click", function(e) {
-		e.preventDefault();
-		var imgOn = $(".imgBox").find(".on").index();
-		var imgLen = $(".imgBox .img").length;
-
-		$(".imgBox .img").eq(imgOn).removeClass("on");
-		$(".imgBox .img").eq(imgOn).css("opacity", 0);
-
-		imgOn = imgOn + 1;
-
-		if (imgOn === imgLen) {
-			$(".imgBox .img").eq(0).css("opacity", 1);
-			$(".imgBox .img").eq(0).addClass("on");
-
-		} else {
-			$(".imgBox .img").eq(imgOn).css("opacity", 1);
-			$(".imgBox .img").eq(imgOn).addClass("on");
+		if (slideIndex >= len) {
+			slideIndex = 0;
 		}
-	});
+	}
+
+	function next() {
+		slideIndex = slideIndex + 1;
+
+		if (slideIndex < 0) {
+			slideIndex = len - 1;
+		}
+
+		if (slideIndex >= len) {
+			slideIndex = 0;
+		}
+	}
 </script>
 </head>
 <body>
@@ -179,6 +166,8 @@
 	<div class="container">
 		<div class="row">
 			<main>
+
+				<!-- event slide -->
 				<div class="slideshow-container">
 					<div class="slideImg">
 						<div class="slideDiv fade active">
@@ -196,7 +185,8 @@
 					</div>
 					<span></span>
 				</div>
-		
+
+				<!-- calendar -->
 				<div style="position: relative; left: 300px; top: -400px;">
 					<table id="calendar">
 						<tr>
@@ -218,7 +208,8 @@
 						buildCalendar();//
 					</script>
 				</div>
-		
+
+				<!-- best list -->
 				<div id="bestList">
 					<div id="title">
 						<h1
@@ -239,7 +230,7 @@
 								<img src="/cyber/resources/img/right.png" height="20px;"
 									width="20px;">
 							</button></span>
-		
+
 						<ul id="imgholder" class="imgs" style="float: left">
 							<li
 								onclick="location.href='/cyber/ebook/ebookDetail.do?isbn=${bookStorageViewDTOList[0].isbn }'"
@@ -251,7 +242,7 @@
 									<br>
 								</c:if> ${bookStorageViewDTOList[0].title }&nbsp;
 								<p>|&nbsp;${bookStorageViewDTOList[0].author }</p></li>
-		
+
 							<li
 								onclick="location.href='/cyber/ebook/ebookDetail.do?isbn=${bookStorageViewDTOList[1].isbn }'"
 								style="cursor: pointer;"><img
@@ -260,9 +251,9 @@
 									test="${bookStorageViewDTOList[1].title_url eq '' }">
 									<img src="/cyber/resources/img/thumbnail.gif">
 									<br>
-								</c:if> ${bookStorageViewDTOList[1].title }&nbsp;
+								</c:if><br> ${bookStorageViewDTOList[1].title }&nbsp;
 								<p>|&nbsp;${bookStorageViewDTOList[1].author }</p></li>
-		
+
 							<li
 								onclick="location.href='/cyber/ebook/ebookDetail.do?isbn=${bookStorageViewDTOList[2].isbn }'"
 								style="cursor: pointer;"><img
@@ -271,9 +262,9 @@
 									test="${bookStorageViewDTOList[2].title_url eq '' }">
 									<img src="/cyber/resources/img/thumbnail.gif">
 									<br>
-								</c:if> ${bookStorageViewDTOList[2].title }&nbsp;
+								</c:if><br> ${bookStorageViewDTOList[2].title }&nbsp;
 								<p>|&nbsp;${bookStorageViewDTOList[2].author }</p></li>
-		
+
 							<li
 								onclick="location.href='/cyber/ebook/ebookDetail.do?isbn=${bookStorageViewDTOList[3].isbn }'"
 								style="cursor: pointer;"><img
@@ -282,9 +273,9 @@
 									test="${bookStorageViewDTOList[3].title_url eq '' }">
 									<img src="/cyber/resources/img/thumbnail.gif">
 									<br>
-								</c:if> ${bookStorageViewDTOList[3].title }&nbsp;
+								</c:if><br> ${bookStorageViewDTOList[3].title }&nbsp;
 								<p>|&nbsp;${bookStorageViewDTOList[3].author }</p></li>
-		
+
 							<li
 								onclick="location.href='/cyber/ebook/ebookDetail.do?isbn=${bookStorageViewDTOList[4].isbn }'"
 								style="cursor: pointer;"><img
@@ -293,39 +284,46 @@
 									test="${bookStorageViewDTOList[4].title_url eq '' }">
 									<img src="/cyber/resources/img/thumbnail.gif">
 									<br>
-								</c:if> ${bookStorageViewDTOList[4].title }&nbsp;
+								</c:if><br> ${bookStorageViewDTOList[4].title }&nbsp;
 								<p>|&nbsp;${bookStorageViewDTOList[4].author }</p></li>
 						</ul>
-		
-						<div class="bullets">
+
+						<div class="bullets" style="padding-top: 15px;">
 							<label for="slide1">&nbsp;</label> <label for="slide2">&nbsp;</label>
 							<label for="slide3">&nbsp;</label> <label for="slide4">&nbsp;&nbsp;</label>
 							<label for="slide5">&nbsp;</label>
 						</div>
 					</div>
 				</div>
+
+				<!-- new slide -->
 				<div id="newList">
 					<div id="title">
-						<h1 style="text-align: center; margin-bottom: -60px; margin-top: 40px;">New</h1>
+						<h1
+							style="text-align: center; margin-bottom: -60px; margin-top: 40px;">New</h1>
 					</div>
 					<div id="newImgList">
 						<ul id="imgholder" class="newImgs">
-							<li	onclick="location.href='/cyber/ebook/ebookDetail.do?isbn=${ebookList[0].isbn }'" style="cursor: pointer;">
-								<img src="${ebookList[0].title_url }"><br>
-								<c:if test="${ebookList[0].title_url eq '' }">
-									<img src="/cyber/resources/img/thumbnail.gif"><br>
-								</c:if> ${ebookList[0].title }&nbsp;
-								<p>|&nbsp;${ebookList[0].author }</p>
-							</li>
-							
-							<li onclick="location.href='/cyber/ebook/ebookDetail.do?isbn=${ebookList[1].isbn }'" style="cursor: pointer;">
-								<img src="${ebookList[1].title_url }"><br> 
-								<c:if test="${ebookList[1].title_url eq '' }">
-									<img src="/cyber/resources/img/thumbnail.gif"><br>
-								</c:if> ${ebookList[1].title }&nbsp;
-								<p>|&nbsp;${ebookList[1].author }</p>
-							</li>
-							
+							<li
+								onclick="location.href='/cyber/ebook/ebookDetail.do?isbn=${ebookList[0].isbn }'"
+								style="cursor: pointer;"><img
+								src="${ebookList[0].title_url }"><br> <c:if
+									test="${ebookList[0].title_url eq '' }">
+									<img src="/cyber/resources/img/thumbnail.gif">
+									<br>
+								</c:if> <br> ${ebookList[0].title }&nbsp;
+								<p>|&nbsp;${ebookList[0].author }</p></li>
+
+							<li
+								onclick="location.href='/cyber/ebook/ebookDetail.do?isbn=${ebookList[1].isbn }'"
+								style="cursor: pointer;"><img
+								src="${ebookList[1].title_url }"><br> <c:if
+									test="${ebookList[1].title_url eq '' }">
+									<img src="/cyber/resources/img/thumbnail.gif">
+									<br>
+								</c:if> <br> ${ebookList[1].title }&nbsp;
+								<p>|&nbsp;${ebookList[1].author }</p></li>
+
 							<li
 								onclick="location.href='/cyber/ebook/ebookDetail.do?isbn=${ebookList[2].isbn }'"
 								style="cursor: pointer;"><img
@@ -333,9 +331,9 @@
 									test="${ebookList[2].title_url eq '' }">
 									<img src="/cyber/resources/img/thumbnail.gif">
 									<br>
-								</c:if> ${ebookList[2].title }&nbsp;
+								</c:if><br> ${ebookList[2].title }&nbsp;
 								<p>|&nbsp;${ebookList[2].author }</p></li>
-		
+
 							<li
 								onclick="location.href='/cyber/ebook/ebookDetail.do?isbn=${ebookList[3].isbn }'"
 								style="cursor: pointer;"><img
@@ -343,9 +341,9 @@
 									test="${ebookList[3].title_url eq '' }">
 									<img src="/cyber/resources/img/thumbnail.gif">
 									<br>
-								</c:if> ${ebookList[3].title }&nbsp;
+								</c:if><br> ${ebookList[3].title }&nbsp;
 								<p>|&nbsp;${ebookList[3].author }</p></li>
-		
+
 							<li
 								onclick="location.href='/cyber/ebook/ebookDetail.do?isbn=${ebookList[4].isbn }'"
 								style="cursor: pointer;"><img
@@ -353,7 +351,7 @@
 									test="${ebookList[4].title_url eq '' }">
 									<img src="/cyber/resources/img/thumbnail.gif">
 									<br>
-								</c:if> ${ebookList[4].title }&nbsp;
+								</c:if><br> ${ebookList[4].title }&nbsp;
 								<p>|&nbsp;${ebookList[4].author }</p></li>
 						</ul>
 					</div>

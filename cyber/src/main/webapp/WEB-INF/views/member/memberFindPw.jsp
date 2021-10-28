@@ -8,7 +8,7 @@
 <title>PW 찾기</title>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<link rel="stylesheet" href="<c:url value="/resources/css/base.css"/>">	
+<link rel="stylesheet" href="<c:url value="/resources/css/base.css"/>">
 <style>
 #findbox {
 	background-color: #e3f0ff;
@@ -32,6 +32,7 @@ input {
 #buttonbox {
 	margin-top: 40px;
 	text-align: center;
+	padding-bottom: 10px;
 }
 
 button {
@@ -67,22 +68,23 @@ button {
 				cache : false,
 				dataType : "html",
 				data : {
-					'id' : id
+					"id" : id
 				},
 				success : function(data) {
 					if (data == "") {
 						alert("잘못된 ID입니다.");
 
 					} else {
-						alert("비밀번호는" + " " + data + "입니다.");
+						alert("임시 비밀번호는" + " " + data + "입니다.");
 					}
 				},
 				error : function(request, status, error) {
-					alert(error);
+					alert("실패");
 				}
 			});
 		}
 		return false;
+
 	}
 </script>
 </head>
@@ -90,16 +92,16 @@ button {
 	<header>
 		<c:import url="/WEB-INF/views/component/headerInner.jsp" />
 	</header>
-	
+
 	<div class="container">
-		<div class="row">	
+		<div class="row">
 			<aside>
 				<c:import url="/WEB-INF/views/component/lnbNav.jsp" />
 			</aside>
 			<main>
 				<div id="findbox">
-					<h4 style="text-align: center; position: relative; top: 10px;">
-						비밀번호를 찾기 위해 <br> 가입한 ID와 이름, 이메일을 입력해주세요.
+					<h4 style="text-align: center; position: relative; top: 20px;">
+						임시 비밀번호 발급을 위해 <br> 가입한 ID와 이름, 이메일을 입력해주세요.
 					</h4>
 					<div id="inputbox">
 						<div>
@@ -111,15 +113,14 @@ button {
 								placeholder="Email">
 						</div>
 						<div id="buttonbox">
-							<button type="submit" onclick="findPw()">비밀번호 찾기</button>
-							<button type="submit">임시 비밀번호 발급</button>
+							<button type="submit" onclick="findPw()">임시 비밀번호 발급</button>
 						</div>
 					</div>
 				</div>
 			</main>
 		</div>
 	</div>
-	
+
 	<footer>
 		<c:import url="/WEB-INF/views/component/footer.jsp" />
 	</footer>
