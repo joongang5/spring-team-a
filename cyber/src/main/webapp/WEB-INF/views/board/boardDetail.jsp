@@ -307,13 +307,6 @@ h2 {
 					</c:otherwise>
 					</c:choose>
 		
-					<!-- 댓글 페이징-->
-					<div id="commentPagination"
-						style="position: relative; left: 180px; top: 20px;">
-						<ui:pagination paginationInfo="${commentPaginationInfo }"
-							type="text" jsFunction="commentLinkPage"/>
-					</div> <!-- end of commentPagination -->
-		
 					<!-- 댓글쓰기 -->
 					<c:choose>
 						<c:when test="${sessionScope.id ne null }">

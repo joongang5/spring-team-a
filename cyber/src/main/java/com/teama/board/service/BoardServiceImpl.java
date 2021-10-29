@@ -66,12 +66,6 @@ public class BoardServiceImpl implements BoardService {
 		return boardDAO.boardCommentList(map);
 	}
 	
-	//페이징 totalCount(댓글)
-	@Override
-	public int commentTotalCount(Map<String, Object> map) {
-		return boardDAO.commentTotalCount(map);
-	}
-	
 	//게시물 댓글쓰기
 	@Override
 	public int commentWrite(Map<String, Object> map) {

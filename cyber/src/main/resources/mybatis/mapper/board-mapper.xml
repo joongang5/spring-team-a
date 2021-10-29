@@ -72,12 +72,7 @@
 	
 	<!-- 게시물 댓글 불러오기 -->
 	<select id="boardCommentList" parameterType="HashMap" resultType="HashMap">
-		SELECT * FROM board_comment_view WHERE no=#{no} LIMIT #{commentStartPage }, #{commentLastPage }
-	</select>
-	
-	<!-- 페이징 totalCount (댓글) -->
-	<select id="commentTotalCount" parameterType="HashMap" resultType="HashMap">
-		SELECT count(*) as commentTotalCount FROM board_comment_view
+		SELECT * FROM board_comment_view WHERE no=#{no}
 	</select>
 	
 	<!-- 게시물 댓글쓰기 -->

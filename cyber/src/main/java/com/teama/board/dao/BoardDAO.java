@@ -55,11 +55,6 @@ public class BoardDAO extends AbstractDAO {
 		return (List<Map<String, Object>>) selectList("board.boardCommentList", map);
 	}
 	
-	//페이징 totalCount(댓글)
-	public int commentTotalCount(Map<String, Object> map) {
-		return Integer.parseInt( String.valueOf (selectOne("board.commentTotalCount", map).get("commentTotalCount")) );
-	}
-	
 	//게시물 댓글쓰기
 	public int commentWrite(Map<String, Object> map) {
 		return insert("board.commentWrite", map);
