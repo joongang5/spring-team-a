@@ -109,12 +109,8 @@
 		book_no=#{bookno}
 	</select>
 
-	<select id="getNewList" resultType="EbookDTO"
-		parameterType="String">
-		SELECT * FROM book_view GROUP
-		BY datetime ORDER BY
-		COUNT(*) DESC
-		LIMIT 5
+	<select id="getNewList" resultType="EbookDTO" parameterType="String">
+		SELECT * FROM book_view ORDER BY datetime DESC LIMIT 5
 	</select>
 	
 	<update id="setEbookThumbnail" parameterType="ebookDTO">

@@ -100,7 +100,7 @@ public class EbookAPIServiceImpl implements EbookAPIService {
 		JSONParser parser = new JSONParser();
 		JSONObject jsonObject = (JSONObject) parser.parse(HttpURLConnUtil.doGetRequest(url, properties, params));
 		List<Map<String, Object>> kakao = (List<Map<String, Object>>) jsonObject.get("documents");
-		if(kakao.size()!=0) {
+		if(kakao != null && kakao.size()!=0) {
 			return kakao;			
 		}
 		return null;
