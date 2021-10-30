@@ -3,6 +3,7 @@ package com.teama.member.controller;
 import java.io.IOException;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Controller;
@@ -32,13 +33,17 @@ public class MemberController {
 	}
 
 	@PostMapping("memberJoinRegist.do")
-	public void join(CommandMap map, HttpServletResponse response) throws IOException {
+	public void join(CommandMap map, HttpServletRequest request, HttpServletResponse response) throws IOException {
 		int result = memberService.join(map.getMap());
 
-		if (result > 0)
+		if (result > 0) {
+			loginService.login(request.getSession(), map.getMap());
+			
 			ScriptUtil.alertAndMovePage(response, "회원 가입에 성공했습니다.", "/cyber/index.do");
-		else
+		}
+		else {
 			ScriptUtil.alert(response, "회원 가입에 실패했습니다.");
+		}
 	}
 
 	@PostMapping("idCheck.do")

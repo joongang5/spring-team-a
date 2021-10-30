@@ -62,17 +62,9 @@ public class LoginController {
 			//salt 값 가져오기
 			String salt = loginService.getSalt(id);
 			commandMap.put("salt", salt);
-			Map<String, Object> loginViewDTO = loginService.login(commandMap.getMap());
-			if (loginViewDTO != null) {
-				HttpSession session = request.getSession();
-				session.setAttribute("name", loginViewDTO.get("name"));
-				session.setAttribute("id", loginViewDTO.get("id"));
-				session.setAttribute("memberNo", loginViewDTO.get("no"));
-				session.setAttribute("grade", loginViewDTO.get("grade")); //1013 소영 grade 세션 추가
-				session.setAttribute("platform", loginViewDTO.get("platform"));
-			} else {
+			Map<String, Object> loginViewDTO = loginService.login(request.getSession(), commandMap.getMap());
+			if (loginViewDTO == null)
 				errorMessage = "일치하는 회원정보가 없습니다.";
-			}
 		}
 
 		return errorMessage;
