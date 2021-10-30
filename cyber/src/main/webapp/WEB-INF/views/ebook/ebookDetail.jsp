@@ -269,8 +269,12 @@ th, td {
 							style="margin: 0px; padding: 10px 15px; background-color: #f4f4f4;">${ebookDetail.title}</h4>
 						<br>
 						<div style="position: absolute; padding: 6px 17px 10px;">
-							<img src="${ebookDetail.title_url}"
-								style="height: 230px; border: 1px solid #c5c5c5;"><br>
+							<c:if test="${ebookDetail.title_url eq null }">
+								<img src="/cyber/resources/img/thumbnail.gif" style="height: 230px; border: 1px solid #c5c5c5;">
+							</c:if>
+							<c:if test="${ebookDetail.title_url ne null }">
+								<img src="${ebookDetail.title_url}" style="height: 230px; border: 1px solid #c5c5c5;"><br>
+							</c:if>
 						</div>
 						<div style="margin-left: 230px; line-height: 1.8;">
 							저자 : ${ebookDetail.author}<br> 출판사 :

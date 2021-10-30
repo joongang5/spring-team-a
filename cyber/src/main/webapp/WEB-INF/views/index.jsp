@@ -308,7 +308,7 @@
 								onclick="location.href='/cyber/ebook/ebookDetail.do?isbn=${ebookList[0].isbn }'"
 								style="cursor: pointer;"><img
 								src="${ebookList[0].title_url }"><br> <c:if
-									test="${ebookList[0].title_url eq '' }">
+									test="${ebookList[0].title_url eq null }">
 									<img src="/cyber/resources/img/thumbnail.gif">
 									<br>
 								</c:if> <br> ${ebookList[0].title }&nbsp;
@@ -318,7 +318,7 @@
 								onclick="location.href='/cyber/ebook/ebookDetail.do?isbn=${ebookList[1].isbn }'"
 								style="cursor: pointer;"><img
 								src="${ebookList[1].title_url }"><br> <c:if
-									test="${ebookList[1].title_url eq '' }">
+									test="${ebookList[1].title_url eq null }">
 									<img src="/cyber/resources/img/thumbnail.gif">
 									<br>
 								</c:if> <br> ${ebookList[1].title }&nbsp;
@@ -328,7 +328,7 @@
 								onclick="location.href='/cyber/ebook/ebookDetail.do?isbn=${ebookList[2].isbn }'"
 								style="cursor: pointer;"><img
 								src="${ebookList[2].title_url }"><br> <c:if
-									test="${ebookList[2].title_url eq '' }">
+									test="${ebookList[2].title_url eq null }">
 									<img src="/cyber/resources/img/thumbnail.gif">
 									<br>
 								</c:if><br> ${ebookList[2].title }&nbsp;
@@ -338,7 +338,7 @@
 								onclick="location.href='/cyber/ebook/ebookDetail.do?isbn=${ebookList[3].isbn }'"
 								style="cursor: pointer;"><img
 								src="${ebookList[3].title_url }"><br> <c:if
-									test="${ebookList[3].title_url eq '' }">
+									test="${ebookList[3].title_url eq null }">
 									<img src="/cyber/resources/img/thumbnail.gif">
 									<br>
 								</c:if><br> ${ebookList[3].title }&nbsp;
@@ -348,7 +348,7 @@
 								onclick="location.href='/cyber/ebook/ebookDetail.do?isbn=${ebookList[4].isbn }'"
 								style="cursor: pointer;"><img
 								src="${ebookList[4].title_url }"><br> <c:if
-									test="${ebookList[4].title_url eq '' }">
+									test="${ebookList[4].title_url eq null }">
 									<img src="/cyber/resources/img/thumbnail.gif">
 									<br>
 								</c:if><br> ${ebookList[4].title }&nbsp;
