@@ -6,21 +6,25 @@
 	<select id="getEbookList" resultType="ebookDTO"
 		parameterType="HashMap">
 		SELECT
-		(SELECT count(1) FROM book
-		<if test="searchValue != null"> WHERE ${searchTarget} LIKE '%${searchValue}%'
-		</if>
-		) AS totalCount,
-		no,
-		title,
-		title_url,
-		author,
-		datetime,
-		publisher,
-		isbn
+			(SELECT count(1) FROM book
+			<if test="searchValue != null">
+				WHERE ${searchTarget} LIKE '%${searchValue}%'
+			</if>
+			) AS totalCount,
+			no,
+			title,
+			title_url,
+			author,
+			datetime,
+			publisher,
+			isbn
 		FROM book
-		<if test="searchValue != null"> WHERE ${searchTarget} LIKE '%${searchValue}%'
+		<if test="searchValue != null"> 
+			WHERE ${searchTarget} LIKE '%${searchValue}%'
 		</if>
+		ORDER BY no DESC
 		LIMIT #{startPage}, #{lastPage}
+		
 	</select>
 
 	<select id="getEbookListByTitle" resultType="ebookDTO">

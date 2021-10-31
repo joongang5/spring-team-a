@@ -81,13 +81,17 @@ public class NoticeController {
 		
 		HttpSession session = request.getSession();
 		map.put("id", session.getAttribute("id"));
-		map.put("originalfile", file.getOriginalFilename());
 		
-		String realPath = servletContext.getRealPath("resources/upfile/");
-		String upfile = fileSave.save2(realPath, file);
-		map.put("file", upfile);
+        if (file.getSize() > 0) {
+            map.put("originalfile", file.getOriginalFilename());
+            
+            String realPath = servletContext.getRealPath("resources/upfile/");
+            String upfile = fileSave.save2(realPath, file);
+            map.put("file", upfile);
+            
+            System.out.println("파일 위치는? = " + realPath);    
+        }
 		
-		System.out.println("파일 위치는? = " + realPath);
 		int result = noticeService.write(map.getMap());
 		System.out.println("noticeWrite = " + result);
 		
